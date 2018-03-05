@@ -934,7 +934,7 @@ namespace FullFeaturedMdiDemo
         private void userQueriesView1_ValidateItemContextMenu(object sender, MetadataStructureItemMenuEventArgs e)
         {
             e.Menu.InsertItem(2, "Copy SQL", Execute_SqlExpression, false, true, null,
-                ((MetadataObject)e.MetadataItem.MetadataItem).Expression);
+                ((MetadataObject)e.MetadataStructureItem.MetadataItem).Expression);
         }
 
 	    private static void Execute_SqlExpression(object sender, EventArgs eventArgs)
