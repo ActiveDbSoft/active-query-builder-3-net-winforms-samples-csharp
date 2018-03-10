@@ -148,6 +148,34 @@ namespace FullFeaturedMdiDemo
             get { return _syntaxProvider; }
         }
 
+        public void CreateSyntaxByType()
+        {
+            switch (ConnectionType)
+            {
+                case ConnectionTypes.MSSQL:
+                    SyntaxProvider = new MSSQLSyntaxProvider();
+                    break;
+                case ConnectionTypes.MSAccess:
+                    SyntaxProvider = new MSAccessSyntaxProvider();
+                    break;
+                case ConnectionTypes.Oracle:
+                    SyntaxProvider = new OracleSyntaxProvider();
+                    break;
+                case ConnectionTypes.MySQL:
+                    SyntaxProvider = new MySQLSyntaxProvider();
+                    break;
+                case ConnectionTypes.PostgreSQL:
+                    SyntaxProvider = new PostgreSQLSyntaxProvider();
+                    break;
+                case ConnectionTypes.OLEDB:
+                    SyntaxProvider = new SQL92SyntaxProvider();
+                    break;
+                case ConnectionTypes.ODBC:
+                    SyntaxProvider = new SQL92SyntaxProvider();
+                    break;
+            }
+        }
+
         public ConnectionInfo()
         {
             ConnectionType = ConnectionTypes.MSSQL;

@@ -9,125 +9,205 @@
 //*******************************************************************//
 
 using System;
+using System.Collections.Generic;
 using System.Data.OleDb;
+using System.IO;
 using System.Windows.Forms;
-
 
 namespace FullFeaturedMdiDemo.ConnectionFrames
 {
-	public sealed partial class MSAccessConnectionFrame : ConnectionFrameBase
-	{
-		private string _connectionString;
+    public sealed partial class MSAccessConnectionFrame : ConnectionFrameBase
+    {
+        private string _connectionString;
+        private string _serverType;
 
-		public override string ConnectionString
-		{
-			get { return GetConnectionString(); }
-			set { SetConnectionString(value); }
-		}
+        private List<string> _knownAceProviders = new List<string>
+        {
+            "Microsoft.ACE.OLEDB.16.0",
+            "Microsoft.ACE.OLEDB.15.0",
+            "Microsoft.ACE.OLEDB.14.0",
+            "Microsoft.ACE.OLEDB.12.0"
+        };
 
-		public MSAccessConnectionFrame(string connectionString)
-		{
-			InitializeComponent();
+        public override string ConnectionString
+        {
+            get { return GetConnectionString(); }
+            set { SetConnectionString(value); }
+        }
 
-			if (String.IsNullOrEmpty(connectionString))
-			{
-				tbUserID.Text = "Admin";
-			}
-			else
-			{
-				ConnectionString = connectionString;
-			}
-		}
+        public MSAccessConnectionFrame(string connectionString)
+        {
+            InitializeComponent();
 
-		public string GetConnectionString()
-		{
-			try
-			{
-				OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder();
-				builder.ConnectionString = _connectionString;
+            if (String.IsNullOrEmpty(connectionString))
+            {
+                tbUserID.Text = "Admin";
+            }
+            else
+            {
+                ConnectionString = connectionString;
+            }
+        }
 
-				builder.Provider = "Microsoft.Jet.OLEDB.4.0";
-				builder.DataSource = tbDataSource.Text;
-				builder["User ID"] = tbUserID.Text;
-				builder["Password"] = tbPassword.Text;
+        public override void SetServerType(string serverType)
+        {
+            _serverType = serverType;
+        }
 
-				_connectionString = builder.ConnectionString;
-			}
-			catch
-			{
-			}
+        private static List<string> GetProvidersList()
+        {
+            var reader = OleDbEnumerator.GetRootEnumerator();
+            var result = new List<string>();
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    if (reader.GetName(i) == "SOURCES_NAME")
+                        result.Add(reader.GetValue(i).ToString());
+                }
+            }
+            reader.Close();
 
-			return _connectionString;
-		}
+            return result;
+        }
 
-		public void SetConnectionString(string value)
-		{
-			_connectionString = value;
+        private string DetectProvider()
+        {
+            var providersList = GetProvidersList();
+            var provider = string.Empty;
 
-			if (!String.IsNullOrEmpty(_connectionString))
-			{
-				try
+            var ext = Path.GetExtension(tbDataSource.Text);
+            if (ext == ".accdb")
+            {
+                for (int i = 0; i < _knownAceProviders.Count; i++)
+                {
+                    if (providersList.Contains(_knownAceProviders[i]))
+                    {
+                        provider = _knownAceProviders[i];
+                        break;
+                    }
+                }
+				
+				if (provider == string.Empty)
 				{
-					OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder();
-					builder.ConnectionString = _connectionString;
+					provider = "Microsoft.ACE.OLEDB.12.0";
+				}					
+            }
+            else if (_serverType == "Access 97")
+            {
+                provider = "Microsoft.Jet.OLEDB.3.0";
+            }
+            else if (_serverType == "Access 2000 and newer")
+            {
+                for (int i = 0; i < _knownAceProviders.Count; i++)
+                {
+                    if (providersList.Contains(_knownAceProviders[i]))
+                    {
+                        provider = _knownAceProviders[i];
+                        break;
+                    }
+                }
 
-					tbDataSource.Text = builder.DataSource;
-					tbUserID.Text = builder["User ID"].ToString();
-					tbPassword.Text = builder["Password"].ToString();
+                if (provider == string.Empty)
+                {
+                    provider = "Microsoft.Jet.OLEDB.4.0";
+                }
+            }
 
-					_connectionString = builder.ConnectionString;
-				}
-				catch
-				{
-				}
-			}
-		}
+            return provider;
+        }
 
-		private void btnBrowse_Click(object sender, EventArgs e)
-		{
-			if (openFileDialog1.ShowDialog() == DialogResult.OK)
-			{
-				tbDataSource.Text = openFileDialog1.FileName;
-			}
-		}
+        public string GetConnectionString()
+        {
+            try
+            {
+                OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
+                {
+                    ConnectionString = _connectionString,
+                    DataSource = tbDataSource.Text,
+                    Provider = DetectProvider()
+                };
 
-		private void btnEditConnectionString_Click(object sender, EventArgs e)
-		{
-			using (ConnectionStringEditForm csef = new ConnectionStringEditForm())
-			{
-				csef.ConnectionString = this.ConnectionString;
+                builder["User ID"] = tbUserID.Text;
+                builder["Password"] = tbPassword.Text;
 
-				if (csef.ShowDialog() == DialogResult.OK)
-				{
-					if (csef.Modified)
-					{
-						this.ConnectionString = csef.ConnectionString;
-					}
-				}
-			}
-		}
+                _connectionString = builder.ConnectionString;
+            }
+            catch
+            {
+            }
 
-		public override bool TestConnection()
-		{
-			Cursor.Current = Cursors.WaitCursor;
+            return _connectionString;
+        }
 
-			try
-			{
-				OleDbConnection connection = new OleDbConnection(ConnectionString);
-				connection.Open();
-				connection.Close();
-			}
-			catch (System.Exception e)
-			{
-				MessageBox.Show(e.Message, Program.Name);
-				return false;
-			}
-			finally
-			{
-				Cursor.Current = Cursors.Default;
-			}
+        public void SetConnectionString(string value)
+        {
+            _connectionString = value;
 
-			return true;
-		}
-	}
+            if (!String.IsNullOrEmpty(_connectionString))
+            {
+                try
+                {
+                    OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder();
+                    builder.ConnectionString = _connectionString;
+
+                    tbDataSource.Text = builder.DataSource;
+                    tbUserID.Text = builder["User ID"].ToString();
+                    tbPassword.Text = builder["Password"].ToString();
+
+                    _connectionString = builder.ConnectionString;
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                tbDataSource.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void btnEditConnectionString_Click(object sender, EventArgs e)
+        {
+            using (ConnectionStringEditForm csef = new ConnectionStringEditForm())
+            {
+                csef.ConnectionString = this.ConnectionString;
+
+                if (csef.ShowDialog() == DialogResult.OK)
+                {
+                    if (csef.Modified)
+                    {
+                        this.ConnectionString = csef.ConnectionString;
+                    }
+                }
+            }
+        }
+
+        public override bool TestConnection()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                OleDbConnection connection = new OleDbConnection(ConnectionString);
+                connection.Open();
+                connection.Close();
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show(e.Message, Program.Name);
+                return false;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
+            return true;
+        }
+    }
 }

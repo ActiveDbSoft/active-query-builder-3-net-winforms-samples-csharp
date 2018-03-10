@@ -294,6 +294,11 @@ namespace FullFeaturedDemo
                     }
                 }
 
+                if (_selectedConnection.IsXmlFile && _selectedConnection.SyntaxProvider == null)
+                {
+                    _selectedConnection.CreateSyntaxByType();
+                }
+
                 // setup the query builder with metadata and syntax providers
                 queryBuilder1.SQLContext.MetadataContainer.Clear();
                 queryBuilder1.MetadataProvider = metadataProvaider;

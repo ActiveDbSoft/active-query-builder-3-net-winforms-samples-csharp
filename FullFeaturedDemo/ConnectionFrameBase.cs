@@ -8,13 +8,31 @@
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
+using System;
 using System.Windows.Forms;
 
 namespace FullFeaturedDemo
 {
 	public class ConnectionFrameBase : UserControl
 	{
-		public virtual string ConnectionString
+	    public delegate void SyntaxProviderDetected(Type syntaxType);
+
+	    public event SyntaxProviderDetected OnSyntaxProviderDetected;
+
+	    public virtual void SetServerType(string serverType)
+	    {
+
+	    }
+
+	    public void DoSyntaxDetected(Type syntaxType)
+	    {
+	        if (OnSyntaxProviderDetected != null)
+	        {
+	            OnSyntaxProviderDetected(syntaxType);
+	        }
+	    }
+
+        public virtual string ConnectionString
 		{
 			get { return null; }
 			set { }

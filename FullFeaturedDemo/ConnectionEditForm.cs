@@ -44,6 +44,11 @@ namespace FullFeaturedDemo
 					rbPostrgeSQL.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.PostgreSQL);
 					rbOLEDB.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.OLEDB);
 					rbODBC.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.ODBC);
+				    if (connectionInfo.ConnectionType == ConnectionTypes.ODBC ||
+				        connectionInfo.ConnectionType == ConnectionTypes.OLEDB)
+				    {
+				        BoxSyntaxProvider.Enabled = true;
+				    }
 				}
 			}
 
@@ -78,7 +83,8 @@ namespace FullFeaturedDemo
 		{
 			if (_currentConnectionFrame != null)
 			{
-				_currentConnectionFrame.Dispose();
+			    _currentConnectionFrame.OnSyntaxProviderDetected -= CurrentConnectionFrame_SyntaxProviderDetected;
+                _currentConnectionFrame.Dispose();
 				_currentConnectionFrame = null;
 			}
 
@@ -118,14 +124,23 @@ namespace FullFeaturedDemo
 			{
 				_currentConnectionFrame.Dock = DockStyle.Fill;
 				_currentConnectionFrame.Parent = pnlFrames;
+                _currentConnectionFrame.OnSyntaxProviderDetected += CurrentConnectionFrame_SyntaxProviderDetected;
 			}
 		}
+
+	    private void CurrentConnectionFrame_SyntaxProviderDetected(Type syntaxType)
+	    {
+	        var syntaxProvider = Activator.CreateInstance(syntaxType) as BaseSyntaxProvider;
+	        BoxSyntaxProvider.SelectedItem = SyntaxToString(syntaxProvider);
+	        FillVersions();
+        }	    
 
 		private void ConnectionTypeChanged(object sender, EventArgs e)
         {
             if (((RadioButton)sender).Checked != true) return;
 
             var connectionType = ConnectionTypes.MSSQL;
+            BoxSyntaxProvider.Enabled = false;
 
             if (Equals(sender, rbMSSQL))
             {
@@ -150,10 +165,12 @@ namespace FullFeaturedDemo
             else if (Equals(sender, rbOLEDB))
             {
                 connectionType = ConnectionTypes.OLEDB;
+                BoxSyntaxProvider.Enabled = true;
             }
             else if (Equals(sender, rbODBC))
             {
                 connectionType = ConnectionTypes.ODBC;
+                BoxSyntaxProvider.Enabled = true;
             }
 
             if (connectionType != _connectionInfo.ConnectionType)
@@ -217,6 +234,72 @@ namespace FullFeaturedDemo
 			}
 		}
 
+	    private string SyntaxToString(BaseSyntaxProvider syntax)
+	    {            
+            if (syntax is SQL2003SyntaxProvider)
+            {                
+                return "ANSI SQL-2003";                
+            }
+            else if (syntax is SQL92SyntaxProvider)
+            {                
+                return "ANSI SQL-92";
+            }
+            else if (syntax is SQL89SyntaxProvider)
+            {                
+                return "ANSI SQL-89";
+            }
+            else if (syntax is FirebirdSyntaxProvider)
+            {
+                return "Firebird";
+            }
+            else if (syntax is DB2SyntaxProvider)
+            {
+                return "IBM DB2";
+            }
+            else if (syntax is InformixSyntaxProvider)
+            {
+                return "IBM Informix";
+            }
+            else if (syntax is MSAccessSyntaxProvider)
+            {
+                return "Microsoft Access";
+            }
+            else if (syntax is MSSQLSyntaxProvider)
+            {
+                return "Microsoft SQL Server";
+            }
+            else if (syntax is MySQLSyntaxProvider)
+            {
+                return "MySQL";
+            }
+            else if (syntax is OracleSyntaxProvider)
+            {
+                return "Oracle";
+            }
+            else if (syntax is PostgreSQLSyntaxProvider)
+            {
+                return "PostgreSQL";
+            }
+            else if (syntax is SQLiteSyntaxProvider)
+            {
+                return "SQLite";
+            }
+            else if (syntax is SybaseSyntaxProvider)
+            {
+                return "Sybase";
+            }
+            else if (syntax is VistaDBSyntaxProvider)
+            {
+                return "VistaDB";
+            }
+            else if (syntax is GenericSyntaxProvider)
+            {
+                return "Universal";
+            }
+
+	        return string.Empty;
+	    }
+
         private void FillSyntax()
         {
             BoxSyntaxProvider.Items.Clear();
@@ -257,10 +340,30 @@ namespace FullFeaturedDemo
                 }
             }
 
-            if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
+            if (_connectionInfo.ConnectionType == ConnectionTypes.ODBC ||
+                _connectionInfo.ConnectionType == ConnectionTypes.OLEDB)
             {
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
-                BoxSyntaxProvider.SelectedItem = "ANSI SQL-2003";
+                BoxSyntaxProvider.Items.Add("ANSI SQL-92");
+                BoxSyntaxProvider.Items.Add("ANSI SQL-89");
+                BoxSyntaxProvider.Items.Add("Firebird");
+                BoxSyntaxProvider.Items.Add("IBM DB2");
+                BoxSyntaxProvider.Items.Add("IBM Informix");
+                BoxSyntaxProvider.Items.Add("Microsoft Access");
+                BoxSyntaxProvider.Items.Add("Microsoft SQL Server");
+                BoxSyntaxProvider.Items.Add("MySQL");
+                BoxSyntaxProvider.Items.Add("Oracle");
+                BoxSyntaxProvider.Items.Add("PostgreSQL");
+                BoxSyntaxProvider.Items.Add("SQLite");
+                BoxSyntaxProvider.Items.Add("Sybase");
+                BoxSyntaxProvider.Items.Add("VistaDB");
+                BoxSyntaxProvider.Items.Add("Universal");
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+            }
+            else if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-89");
@@ -279,8 +382,8 @@ namespace FullFeaturedDemo
             }
             else if (_connectionInfo.SyntaxProvider is SQL92SyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add("ANSI SQL-92");
-                BoxSyntaxProvider.SelectedItem = "ANSI SQL-92";
+                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
 
@@ -300,8 +403,8 @@ namespace FullFeaturedDemo
             }
             else if (_connectionInfo.SyntaxProvider is SQL89SyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add("ANSI SQL-89");
-                BoxSyntaxProvider.SelectedItem = "ANSI SQL-89";
+                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
@@ -317,67 +420,11 @@ namespace FullFeaturedDemo
                 BoxSyntaxProvider.Items.Add("Sybase");
                 BoxSyntaxProvider.Items.Add("VistaDB");
                 BoxSyntaxProvider.Items.Add("Universal");
-            }
-            else if (_connectionInfo.SyntaxProvider is FirebirdSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("Firebird");
-                BoxSyntaxProvider.SelectedItem = "Firebird";
-            }
-            else if (_connectionInfo.SyntaxProvider is DB2SyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("IBM DB2");
-                BoxSyntaxProvider.SelectedItem = "IBM DB2";
-            }
-            else if (_connectionInfo.SyntaxProvider is InformixSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("IBM Informix");
-                BoxSyntaxProvider.SelectedItem = "IBM Informix";
-            }
-            else if (_connectionInfo.SyntaxProvider is MSAccessSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("Microsoft Access");
-                BoxSyntaxProvider.SelectedItem = "Microsoft Access";
-            }
-            else if (_connectionInfo.SyntaxProvider is MSSQLSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("Microsoft SQL Server");
-                BoxSyntaxProvider.SelectedItem = "Microsoft SQL Server";
-            }
-            else if (_connectionInfo.SyntaxProvider is MySQLSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("MySQL");
-                BoxSyntaxProvider.SelectedItem = "MySQL";
-            }
-            else if (_connectionInfo.SyntaxProvider is OracleSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("Oracle");
-                BoxSyntaxProvider.SelectedItem = "Oracle";
-            }
-            else if (_connectionInfo.SyntaxProvider is PostgreSQLSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("PostgreSQL");
-                BoxSyntaxProvider.SelectedItem = "PostgreSQL";
-            }
-            else if (_connectionInfo.SyntaxProvider is SQLiteSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("SQLite");
-                BoxSyntaxProvider.SelectedItem = "SQLite";
-            }
-            else if (_connectionInfo.SyntaxProvider is SybaseSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("Sybase");
-                BoxSyntaxProvider.SelectedItem = "Sybase";
-            }
-            else if (_connectionInfo.SyntaxProvider is VistaDBSyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add("VistaDB");
-                BoxSyntaxProvider.SelectedItem = "VistaDB";
             }
             else if (_connectionInfo.SyntaxProvider is GenericSyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add("Universal");
-                BoxSyntaxProvider.SelectedItem = "Universal";
-
+                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
@@ -395,7 +442,11 @@ namespace FullFeaturedDemo
                 BoxSyntaxProvider.Items.Add("VistaDB");
                 BoxSyntaxProvider.Items.Add("Universal");
             }
-
+            else
+            {
+                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
+                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+            }
 
             FillVersions();
         }
@@ -476,12 +527,12 @@ namespace FullFeaturedDemo
             else if (_connectionInfo.SyntaxProvider is MSAccessSyntaxProvider)
             {
                 BoxServerVersion.Enabled = true;
-                BoxServerVersion.Items.Add("MS Jet 3");
-                BoxServerVersion.Items.Add("MS Jet 4");
+                BoxServerVersion.Items.Add("Access 97");
+                BoxServerVersion.Items.Add("Access 2000 and newer");
 
                 var accessSyntaxProvider = (MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider;
 
-                BoxServerVersion.SelectedItem = accessSyntaxProvider.ServerVersion == MSAccessServerVersion.MSJET3 ? "MS Jet 3" : "MS Jet 4";
+                BoxServerVersion.SelectedItem = accessSyntaxProvider.ServerVersion == MSAccessServerVersion.MSJET3 ? "Access 97" : "Access 2000 and newer";
             }
             else if (_connectionInfo.SyntaxProvider is MSSQLSyntaxProvider)
             {
@@ -716,7 +767,7 @@ namespace FullFeaturedDemo
             {
                 var accessSyntaxProvider = (MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider;
 
-                accessSyntaxProvider.ServerVersion = selectedItem == "MS Jet 3"
+                accessSyntaxProvider.ServerVersion = selectedItem == "Access 97"
                     ? MSAccessServerVersion.MSJET3
                     : MSAccessServerVersion.MSJET4;
             }
@@ -806,6 +857,8 @@ namespace FullFeaturedDemo
                         break;
                 }
             }
+
+            _currentConnectionFrame.SetServerType(selectedItem);
         }
 
 	}

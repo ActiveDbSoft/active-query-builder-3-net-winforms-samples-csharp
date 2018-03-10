@@ -314,9 +314,13 @@ namespace FullFeaturedMdiDemo
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-               
 
-				// setup the query builder with metadata and syntax providers
+                if (_selectedConnection.IsXmlFile && _selectedConnection.SyntaxProvider == null)
+                {
+                    _selectedConnection.CreateSyntaxByType();
+                }
+
+                // setup the query builder with metadata and syntax providers
                 _sqlContext = new SQLContext
                 {
                     MetadataProvider = metadataProvaider,

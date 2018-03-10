@@ -11,6 +11,7 @@
 using System;
 using System.Data.OleDb;
 using System.Windows.Forms;
+using ActiveQueryBuilder.Core;
 
 namespace FullFeaturedDemo.ConnectionFrames
 {
@@ -117,6 +118,28 @@ namespace FullFeaturedDemo.ConnectionFrames
 				                "Try to rebuild this demo from the source code.\n\n" +
 				                exception.Message);
 			}
-		}
-	}
+		}	    
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            var metadataProvider = new OLEDBMetadataProvider {Connection = new OleDbConnection(ConnectionString)};
+            Type syntaxProviderType = null;
+
+            try
+            {
+                syntaxProviderType = Helpers.AutodetectSyntaxProvider(metadataProvider);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, Program.Name);                
+            }
+
+            DoSyntaxDetected(syntaxProviderType);
+        }
+
+        private void tbConnectionString_TextChanged(object sender, EventArgs e)
+        {
+            btnTest.Enabled = tbConnectionString.Text != string.Empty;
+        }
+    }
 }
