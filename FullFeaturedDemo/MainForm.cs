@@ -1273,11 +1273,14 @@ namespace FullFeaturedDemo
         {
             if (tabControl2.SelectedTab != tabPageFastResult) return;
 
-            _queryTransformerTop10.Query =
-                new SQLQuery(queryBuilder1.ActiveUnionSubQuery.SQLContext) {SQL = TextBoxCurrentSubQuerySql.Text};
+            var sql = queryBuilder1.ActiveUnionSubQuery.ParentSubQuery.GetSqlForDataPreview();
+
+            _queryTransformerTop10.Query = new SQLQuery(queryBuilder1.ActiveUnionSubQuery.SQLContext)
+            {
+                SQL = sql
+            };
 
             _timerForFastReuslt.Change(400, Timeout.Infinite);
-
         }
 
         private void tabControl2_Selected(object sender, TabControlEventArgs e)
