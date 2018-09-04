@@ -44,11 +44,6 @@ namespace FullFeaturedDemo
 					rbPostrgeSQL.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.PostgreSQL);
 					rbOLEDB.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.OLEDB);
 					rbODBC.Enabled = (connectionInfo.ConnectionType == ConnectionTypes.ODBC);
-				    if (connectionInfo.ConnectionType == ConnectionTypes.ODBC ||
-				        connectionInfo.ConnectionType == ConnectionTypes.OLEDB)
-				    {
-				        BoxSyntaxProvider.Enabled = true;
-				    }
 				}
 			}
 
@@ -83,8 +78,7 @@ namespace FullFeaturedDemo
 		{
 			if (_currentConnectionFrame != null)
 			{
-			    _currentConnectionFrame.OnSyntaxProviderDetected -= CurrentConnectionFrame_SyntaxProviderDetected;
-                _currentConnectionFrame.Dispose();
+				_currentConnectionFrame.Dispose();
 				_currentConnectionFrame = null;
 			}
 
@@ -124,23 +118,14 @@ namespace FullFeaturedDemo
 			{
 				_currentConnectionFrame.Dock = DockStyle.Fill;
 				_currentConnectionFrame.Parent = pnlFrames;
-                _currentConnectionFrame.OnSyntaxProviderDetected += CurrentConnectionFrame_SyntaxProviderDetected;
 			}
 		}
-
-	    private void CurrentConnectionFrame_SyntaxProviderDetected(Type syntaxType)
-	    {
-	        var syntaxProvider = Activator.CreateInstance(syntaxType) as BaseSyntaxProvider;
-	        BoxSyntaxProvider.SelectedItem = SyntaxToString(syntaxProvider);
-	        FillVersions();
-        }	    
 
 		private void ConnectionTypeChanged(object sender, EventArgs e)
         {
             if (((RadioButton)sender).Checked != true) return;
 
             var connectionType = ConnectionTypes.MSSQL;
-            BoxSyntaxProvider.Enabled = false;
 
             if (Equals(sender, rbMSSQL))
             {
@@ -165,12 +150,10 @@ namespace FullFeaturedDemo
             else if (Equals(sender, rbOLEDB))
             {
                 connectionType = ConnectionTypes.OLEDB;
-                BoxSyntaxProvider.Enabled = true;
             }
             else if (Equals(sender, rbODBC))
             {
                 connectionType = ConnectionTypes.ODBC;
-                BoxSyntaxProvider.Enabled = true;
             }
 
             if (connectionType != _connectionInfo.ConnectionType)
@@ -234,72 +217,6 @@ namespace FullFeaturedDemo
 			}
 		}
 
-	    private string SyntaxToString(BaseSyntaxProvider syntax)
-	    {            
-            if (syntax is SQL2003SyntaxProvider)
-            {                
-                return "ANSI SQL-2003";                
-            }
-            else if (syntax is SQL92SyntaxProvider)
-            {                
-                return "ANSI SQL-92";
-            }
-            else if (syntax is SQL89SyntaxProvider)
-            {                
-                return "ANSI SQL-89";
-            }
-            else if (syntax is FirebirdSyntaxProvider)
-            {
-                return "Firebird";
-            }
-            else if (syntax is DB2SyntaxProvider)
-            {
-                return "IBM DB2";
-            }
-            else if (syntax is InformixSyntaxProvider)
-            {
-                return "IBM Informix";
-            }
-            else if (syntax is MSAccessSyntaxProvider)
-            {
-                return "Microsoft Access";
-            }
-            else if (syntax is MSSQLSyntaxProvider)
-            {
-                return "Microsoft SQL Server";
-            }
-            else if (syntax is MySQLSyntaxProvider)
-            {
-                return "MySQL";
-            }
-            else if (syntax is OracleSyntaxProvider)
-            {
-                return "Oracle";
-            }
-            else if (syntax is PostgreSQLSyntaxProvider)
-            {
-                return "PostgreSQL";
-            }
-            else if (syntax is SQLiteSyntaxProvider)
-            {
-                return "SQLite";
-            }
-            else if (syntax is SybaseSyntaxProvider)
-            {
-                return "Sybase";
-            }
-            else if (syntax is VistaDBSyntaxProvider)
-            {
-                return "VistaDB";
-            }
-            else if (syntax is GenericSyntaxProvider)
-            {
-                return "Universal";
-            }
-
-	        return string.Empty;
-	    }
-
         private void FillSyntax()
         {
             BoxSyntaxProvider.Items.Clear();
@@ -340,30 +257,10 @@ namespace FullFeaturedDemo
                 }
             }
 
-            if (_connectionInfo.ConnectionType == ConnectionTypes.ODBC ||
-                _connectionInfo.ConnectionType == ConnectionTypes.OLEDB)
+            if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
             {
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
-                BoxSyntaxProvider.Items.Add("ANSI SQL-92");
-                BoxSyntaxProvider.Items.Add("ANSI SQL-89");
-                BoxSyntaxProvider.Items.Add("Firebird");
-                BoxSyntaxProvider.Items.Add("IBM DB2");
-                BoxSyntaxProvider.Items.Add("IBM Informix");
-                BoxSyntaxProvider.Items.Add("Microsoft Access");
-                BoxSyntaxProvider.Items.Add("Microsoft SQL Server");
-                BoxSyntaxProvider.Items.Add("MySQL");
-                BoxSyntaxProvider.Items.Add("Oracle");
-                BoxSyntaxProvider.Items.Add("PostgreSQL");
-                BoxSyntaxProvider.Items.Add("SQLite");
-                BoxSyntaxProvider.Items.Add("Sybase");
-                BoxSyntaxProvider.Items.Add("VistaDB");
-                BoxSyntaxProvider.Items.Add("Universal");
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
-            }
-            else if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
-            {
-                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+                BoxSyntaxProvider.SelectedItem = "ANSI SQL-2003";
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-89");
@@ -382,8 +279,8 @@ namespace FullFeaturedDemo
             }
             else if (_connectionInfo.SyntaxProvider is SQL92SyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+                BoxSyntaxProvider.Items.Add("ANSI SQL-92");
+                BoxSyntaxProvider.SelectedItem = "ANSI SQL-92";
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
 
@@ -403,8 +300,8 @@ namespace FullFeaturedDemo
             }
             else if (_connectionInfo.SyntaxProvider is SQL89SyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+                BoxSyntaxProvider.Items.Add("ANSI SQL-89");
+                BoxSyntaxProvider.SelectedItem = "ANSI SQL-89";
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
@@ -421,10 +318,66 @@ namespace FullFeaturedDemo
                 BoxSyntaxProvider.Items.Add("VistaDB");
                 BoxSyntaxProvider.Items.Add("Universal");
             }
+            else if (_connectionInfo.SyntaxProvider is FirebirdSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("Firebird");
+                BoxSyntaxProvider.SelectedItem = "Firebird";
+            }
+            else if (_connectionInfo.SyntaxProvider is DB2SyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("IBM DB2");
+                BoxSyntaxProvider.SelectedItem = "IBM DB2";
+            }
+            else if (_connectionInfo.SyntaxProvider is InformixSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("IBM Informix");
+                BoxSyntaxProvider.SelectedItem = "IBM Informix";
+            }
+            else if (_connectionInfo.SyntaxProvider is MSAccessSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("Microsoft Access");
+                BoxSyntaxProvider.SelectedItem = "Microsoft Access";
+            }
+            else if (_connectionInfo.SyntaxProvider is MSSQLSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("Microsoft SQL Server");
+                BoxSyntaxProvider.SelectedItem = "Microsoft SQL Server";
+            }
+            else if (_connectionInfo.SyntaxProvider is MySQLSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("MySQL");
+                BoxSyntaxProvider.SelectedItem = "MySQL";
+            }
+            else if (_connectionInfo.SyntaxProvider is OracleSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("Oracle");
+                BoxSyntaxProvider.SelectedItem = "Oracle";
+            }
+            else if (_connectionInfo.SyntaxProvider is PostgreSQLSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("PostgreSQL");
+                BoxSyntaxProvider.SelectedItem = "PostgreSQL";
+            }
+            else if (_connectionInfo.SyntaxProvider is SQLiteSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("SQLite");
+                BoxSyntaxProvider.SelectedItem = "SQLite";
+            }
+            else if (_connectionInfo.SyntaxProvider is SybaseSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("Sybase");
+                BoxSyntaxProvider.SelectedItem = "Sybase";
+            }
+            else if (_connectionInfo.SyntaxProvider is VistaDBSyntaxProvider)
+            {
+                BoxSyntaxProvider.Items.Add("VistaDB");
+                BoxSyntaxProvider.SelectedItem = "VistaDB";
+            }
             else if (_connectionInfo.SyntaxProvider is GenericSyntaxProvider)
             {
-                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
+                BoxSyntaxProvider.Items.Add("Universal");
+                BoxSyntaxProvider.SelectedItem = "Universal";
+
 
                 BoxSyntaxProvider.Items.Add("ANSI SQL-2003");
                 BoxSyntaxProvider.Items.Add("ANSI SQL-92");
@@ -442,11 +395,7 @@ namespace FullFeaturedDemo
                 BoxSyntaxProvider.Items.Add("VistaDB");
                 BoxSyntaxProvider.Items.Add("Universal");
             }
-            else
-            {
-                BoxSyntaxProvider.Items.Add(SyntaxToString(_connectionInfo.SyntaxProvider));
-                BoxSyntaxProvider.SelectedItem = SyntaxToString(_connectionInfo.SyntaxProvider);
-            }
+
 
             FillVersions();
         }
@@ -454,7 +403,6 @@ namespace FullFeaturedDemo
         private void FillVersions()
         {
             BoxServerVersion.Items.Clear();
-            BoxServerVersion.Text = string.Empty;
 
             if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
             {
@@ -476,22 +424,21 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Items.Add("Firebird 2.0");
                 BoxServerVersion.Items.Add("Firebird 2.5");
 
-                var firebirdSyntaxProvider = (FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (firebirdSyntaxProvider.ServerVersion)
+                if (((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == FirebirdVersion.Firebird10)
                 {
-                    case FirebirdVersion.Firebird10:
-                        BoxServerVersion.SelectedItem = "Firebird 1.0";
-                        break;
-                    case FirebirdVersion.Firebird15:
-                        BoxServerVersion.SelectedItem = "Firebird 1.5";
-                        break;
-                    case FirebirdVersion.Firebird20:
-                        BoxServerVersion.SelectedItem = "Firebird 2.0";
-                        break;
-                    case FirebirdVersion.Firebird25:
-                        BoxServerVersion.SelectedItem = "Firebird 2.5";
-                        break;
+                    BoxServerVersion.SelectedItem = "Firebird 1.0";
+                }
+                else if (((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == FirebirdVersion.Firebird15)
+                {
+                    BoxServerVersion.SelectedItem = "Firebird 1.5";
+                }
+                if (((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == FirebirdVersion.Firebird20)
+                {
+                    BoxServerVersion.SelectedItem = "Firebird 2.0";
+                }
+                if (((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == FirebirdVersion.Firebird25)
+                {
+                    BoxServerVersion.SelectedItem = "Firebird 2.5";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is DB2SyntaxProvider)
@@ -504,35 +451,34 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Items.Add("Informix 8");
                 BoxServerVersion.Items.Add("Informix 9");
                 BoxServerVersion.Items.Add("Informix 10");
-                BoxServerVersion.Items.Add("Informix 11");
 
-                var informixSyntaxProvider = (InformixSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (informixSyntaxProvider.ServerVersion)
+                if (((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == InformixVersion.DS8)
                 {
-                    case InformixVersion.DS8:
-                        BoxServerVersion.SelectedItem = "Informix 8";
-                        break;
-                    case InformixVersion.DS9:
-                        BoxServerVersion.SelectedItem = "Informix 9";
-                        break;
-                    case InformixVersion.DS10:
-                        BoxServerVersion.SelectedItem = "Informix 10";
-                        break;
-                    default:
-                        BoxServerVersion.SelectedItem = "Informix 11";
-                        break;
+                    BoxServerVersion.SelectedItem = "Informix 8";
+                }
+                else if (((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == InformixVersion.DS9)
+                {
+                    BoxServerVersion.SelectedItem = "Informix 9";
+                }
+                if (((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == InformixVersion.DS10)
+                {
+                    BoxServerVersion.SelectedItem = "Informix 10";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is MSAccessSyntaxProvider)
             {
                 BoxServerVersion.Enabled = true;
-                BoxServerVersion.Items.Add("Access 97");
-                BoxServerVersion.Items.Add("Access 2000 and newer");
+                BoxServerVersion.Items.Add("MS Jet 3");
+                BoxServerVersion.Items.Add("MS Jet 4");
 
-                var accessSyntaxProvider = (MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                BoxServerVersion.SelectedItem = accessSyntaxProvider.ServerVersion == MSAccessServerVersion.MSJET3 ? "Access 97" : "Access 2000 and newer";
+                if (((MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == MSAccessServerVersion.MSJET3)
+                {
+                    BoxServerVersion.SelectedItem = "MS Jet 3";
+                }
+                else if (((MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == MSAccessServerVersion.MSJET4)
+                {
+                    BoxServerVersion.SelectedItem = "MS Jet 4";
+                }
             }
             else if (_connectionInfo.SyntaxProvider is MSSQLSyntaxProvider)
             {
@@ -541,31 +487,22 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Items.Add("SQL Server 7");
                 BoxServerVersion.Items.Add("SQL Server 2000");
                 BoxServerVersion.Items.Add("SQL Server 2005");
-                BoxServerVersion.Items.Add("SQL Server 2012");
-                BoxServerVersion.Items.Add("SQL Server 2014");
 
-                var mssqlSyntaxProvider = (MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (mssqlSyntaxProvider.ServerVersion)
+                if (((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == MSSQLServerVersion.MSSQL7)
                 {
-                    case MSSQLServerVersion.MSSQL7:
-                        BoxServerVersion.SelectedItem = "SQL Server 7";
-                        break;
-                    case MSSQLServerVersion.MSSQL2000:
-                        BoxServerVersion.SelectedItem = "SQL Server 2000";
-                        break;
-                    case MSSQLServerVersion.MSSQL2005:
-                        BoxServerVersion.SelectedItem = "SQL Server 2005";
-                        break;
-                    case MSSQLServerVersion.MSSQL2012:
-                        BoxServerVersion.SelectedItem = "SQL Server 2012";
-                        break;
-                    case MSSQLServerVersion.MSSQL2014:
-                        BoxServerVersion.SelectedItem = "SQL Server 2014";
-                        break;
-                    default:
-                        BoxServerVersion.SelectedItem = "Auto";
-                        break;
+                    BoxServerVersion.SelectedItem = "SQL Server 7";
+                }
+                else if (((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == MSSQLServerVersion.MSSQL2000)
+                {
+                    BoxServerVersion.SelectedItem = "SQL Server 2000";
+                }
+                else if (((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == MSSQLServerVersion.MSSQL2005)
+                {
+                    BoxServerVersion.SelectedItem = "SQL Server 2005";
+                }
+                else
+                {
+                    BoxServerVersion.SelectedItem = "Auto";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is MySQLSyntaxProvider)
@@ -573,21 +510,19 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Enabled = true;
                 BoxServerVersion.Items.Add("3.0");
                 BoxServerVersion.Items.Add("4.0");
-                BoxServerVersion.Items.Add("5.0+");
+                BoxServerVersion.Items.Add("5.0");
 
-                var mySqlSyntaxProvider = (MySQLSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                if (mySqlSyntaxProvider.ServerVersionInt < 40000)
+                if (((MySQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersionInt < 40000)
                 {
                     BoxServerVersion.SelectedItem = "3.0";
                 }
-                else if (mySqlSyntaxProvider.ServerVersionInt < 50000)
+                else if (((MySQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersionInt < 50000)
                 {
                     BoxServerVersion.SelectedItem = "4.0";
                 }
                 else
                 {
-                    BoxServerVersion.SelectedItem = "5.0+";
+                    BoxServerVersion.SelectedItem = "5.0";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is OracleSyntaxProvider)
@@ -598,36 +533,31 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Items.Add("Oracle 9");
                 BoxServerVersion.Items.Add("Oracle 10");
                 BoxServerVersion.Items.Add("Oracle 11");
-                BoxServerVersion.Items.Add("Oracle 12");
 
-                var oracleSyntaxProvider = (OracleSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (oracleSyntaxProvider.ServerVersion)
+                if (((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == OracleServerVersion.Oracle7)
                 {
-                    case OracleServerVersion.Oracle7:
-                        BoxServerVersion.SelectedItem = "Oracle 7";
-                        break;
-                    case OracleServerVersion.Oracle8:
-                        BoxServerVersion.SelectedItem = "Oracle 8";
-                        break;
-                    case OracleServerVersion.Oracle9:
-                        BoxServerVersion.SelectedItem = "Oracle 9";
-                        break;
-                    case OracleServerVersion.Oracle10:
-                        BoxServerVersion.SelectedItem = "Oracle 10";
-                        break;
-                    case OracleServerVersion.Oracle11:
-                        BoxServerVersion.SelectedItem = "Oracle 11";
-                        break;
-                    default:
-                        BoxServerVersion.SelectedItem = "Oracle 12";
-                        break;
+                    BoxServerVersion.SelectedItem = "Oracle 7";
+                }
+                else if (((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == OracleServerVersion.Oracle8)
+                {
+                    BoxServerVersion.SelectedItem = "Oracle 8";
+                }
+                else if (((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == OracleServerVersion.Oracle9)
+                {
+                    BoxServerVersion.SelectedItem = "Oracle 9";
+                }
+                else if (((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == OracleServerVersion.Oracle10)
+                {
+                    BoxServerVersion.SelectedItem = "Oracle 10";
+                }
+                else if (((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == OracleServerVersion.Oracle11)
+                {
+                    BoxServerVersion.SelectedItem = "Oracle 11";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is PostgreSQLSyntaxProvider)
             {
                 BoxServerVersion.Enabled = false;
-                BoxServerVersion.Text = "Auto";
             }
             else if (_connectionInfo.SyntaxProvider is SQLiteSyntaxProvider)
             {
@@ -638,21 +568,14 @@ namespace FullFeaturedDemo
                 BoxServerVersion.Enabled = true;
                 BoxServerVersion.Items.Add("ASE");
                 BoxServerVersion.Items.Add("SQL Anywhere");
-                BoxServerVersion.Items.Add("SAP IQ");
 
-                var sybaseSyntaxProvider = (SybaseSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (sybaseSyntaxProvider.ServerVersion)
+                if (((SybaseSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == SybaseServerVersion.SybaseASE)
                 {
-                    case SybaseServerVersion.SybaseASE:
-                        BoxServerVersion.SelectedItem = "ASE";
-                        break;
-                    case SybaseServerVersion.SybaseASA:
-                        BoxServerVersion.SelectedItem = "SQL Anywhere";
-                        break;
-                    case SybaseServerVersion.SybaseIQ:
-                        BoxServerVersion.SelectedItem = "SAP IQ";
-                        break;
+                    BoxServerVersion.SelectedItem = "ASE";
+                }
+                else if (((SybaseSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion == SybaseServerVersion.SybaseASA)
+                {
+                    BoxServerVersion.SelectedItem = "SQL Anywhere";
                 }
             }
             else if (_connectionInfo.SyntaxProvider is VistaDBSyntaxProvider)
@@ -667,7 +590,7 @@ namespace FullFeaturedDemo
 
         private void BoxSyntaxProvider_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch ((string)BoxSyntaxProvider.SelectedItem)
+            switch (((string)BoxSyntaxProvider.SelectedItem))
             {
                 case "ANSI SQL-2003":
                     _connectionInfo.SyntaxProvider = new SQL2003SyntaxProvider();
@@ -721,144 +644,115 @@ namespace FullFeaturedDemo
 
         private void BoxServerVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (string)BoxServerVersion.SelectedItem;
-
             if (_connectionInfo.SyntaxProvider is FirebirdSyntaxProvider)
             {
-                var firebirdSyntaxProvider = (FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "Firebird 1.0")
                 {
-                    case "Firebird 1.0":
-                        firebirdSyntaxProvider.ServerVersion = FirebirdVersion.Firebird10;
-                        break;
-                    case "Firebird 1.5":
-                        firebirdSyntaxProvider.ServerVersion = FirebirdVersion.Firebird15;
-                        break;
-                    case "Firebird 2.0":
-                        firebirdSyntaxProvider.ServerVersion = FirebirdVersion.Firebird20;
-                        break;
-                    default:
-                        firebirdSyntaxProvider.ServerVersion = FirebirdVersion.Firebird25;
-                        break;
+                    ((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = FirebirdVersion.Firebird10;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "Firebird 1.5")
+                {
+                    ((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = FirebirdVersion.Firebird15;
+                }
+                if ((string)BoxServerVersion.SelectedItem == "Firebird 2.0")
+                {
+                    ((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = FirebirdVersion.Firebird20;
+                }
+                if ((string)BoxServerVersion.SelectedItem == "Firebird 2.5")
+                {
+                    ((FirebirdSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = FirebirdVersion.Firebird25;
                 }
             }
             else if (_connectionInfo.SyntaxProvider is InformixSyntaxProvider)
             {
-                var informixSyntaxProvider = (InformixSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "Informix 8")
                 {
-                    case "Informix 8":
-                        informixSyntaxProvider.ServerVersion = InformixVersion.DS8;
-                        break;
-                    case "Informix 9":
-                        informixSyntaxProvider.ServerVersion = InformixVersion.DS9;
-                        break;
-                    case "Informix 10":
-                        informixSyntaxProvider.ServerVersion = InformixVersion.DS10;
-                        break;
-                    default:
-                        informixSyntaxProvider.ServerVersion = InformixVersion.DS11;
-                        break;
+                    ((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = InformixVersion.DS8;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "Informix 9")
+                {
+                    ((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = InformixVersion.DS9;
+                }
+                if ((string)BoxServerVersion.SelectedItem == "Informix 10")
+                {
+                    ((InformixSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = InformixVersion.DS10;
                 }
             }
             else if (_connectionInfo.SyntaxProvider is MSAccessSyntaxProvider)
             {
-                var accessSyntaxProvider = (MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                accessSyntaxProvider.ServerVersion = selectedItem == "Access 97"
-                    ? MSAccessServerVersion.MSJET3
-                    : MSAccessServerVersion.MSJET4;
+                if ((string)BoxServerVersion.SelectedItem == "MS Jet 3")
+                {
+                    ((MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSAccessServerVersion.MSJET3;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "MS Jet 4")
+                {
+                    ((MSAccessSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSAccessServerVersion.MSJET4;
+                }
             }
             else if (_connectionInfo.SyntaxProvider is MSSQLSyntaxProvider)
             {
-                var mssqlSyntaxProvider = (MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "Auto")
                 {
-                    case "SQL Server 7":
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.MSSQL7;
-                        break;
-                    case "SQL Server 2000":
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.MSSQL2000;
-                        break;
-                    case "SQL Server 2005":
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.MSSQL2005;
-                        break;
-                    case "SQL Server 2012":
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.MSSQL2012;
-                        break;
-                    case "SQL Server 2014":
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.MSSQL2014;
-                        break;
-                    default:
-                        mssqlSyntaxProvider.ServerVersion = MSSQLServerVersion.Auto;
-                        break;
+                    ((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSSQLServerVersion.Auto;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "SQL Server 7")
+                {
+                    ((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSSQLServerVersion.MSSQL7;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "SQL Server 2000")
+                {
+                    ((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSSQLServerVersion.MSSQL2000;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "SQL Server 2005")
+                {
+                    ((MSSQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = MSSQLServerVersion.MSSQL2005;
                 }
             }
             else if (_connectionInfo.SyntaxProvider is MySQLSyntaxProvider)
             {
-                var mySqlSyntaxProvider = (MySQLSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "3.0")
                 {
-                    case "3.0":
-                        mySqlSyntaxProvider.ServerVersionInt = 39999;
-                        break;
-                    case "4.0":
-                        mySqlSyntaxProvider.ServerVersionInt = 49999;
-                        break;
-                    default:
-                        mySqlSyntaxProvider.ServerVersionInt = 50000;
-                        break;
+                    ((MySQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersionInt = 39999;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "4.0")
+                {
+                    ((MySQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersionInt = 49999;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "5.0")
+                {
+                    ((MySQLSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersionInt = 50000;
                 }
             }
             else if (_connectionInfo.SyntaxProvider is OracleSyntaxProvider)
             {
-                var oracleSyntaxProvider = (OracleSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "Oracle 7")
                 {
-                    case "Oracle 7":
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle7;
-                        break;
-                    case "Oracle 8":
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle8;
-                        break;
-                    case "Oracle 9":
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle9;
-                        break;
-                    case "Oracle 10":
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle10;
-                        break;
-                    case "Oracle 11":
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle11;
-                        break;
-                    default:
-                        oracleSyntaxProvider.ServerVersion = OracleServerVersion.Oracle12;
-                        break;
+                    ((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = OracleServerVersion.Oracle7;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "Oracle 8")
+                {
+                    ((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = OracleServerVersion.Oracle8;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "Oracle 9")
+                {
+                    ((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = OracleServerVersion.Oracle9;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "Oracle 10")
+                {
+                    ((OracleSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = OracleServerVersion.Oracle10;
                 }
             }
             else if (_connectionInfo.SyntaxProvider is SybaseSyntaxProvider)
             {
-                var sybaseSyntaxProvider = (SybaseSyntaxProvider)_connectionInfo.SyntaxProvider;
-
-                switch (selectedItem)
+                if ((string)BoxServerVersion.SelectedItem == "ASE")
                 {
-                    case "ASE":
-                        sybaseSyntaxProvider.ServerVersion = SybaseServerVersion.SybaseASE;
-                        break;
-                    case "SAP IQ":
-                        sybaseSyntaxProvider.ServerVersion = SybaseServerVersion.SybaseIQ;
-                        break;
-                    default:
-                        sybaseSyntaxProvider.ServerVersion = SybaseServerVersion.SybaseASA;
-                        break;
+                    ((SybaseSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = SybaseServerVersion.SybaseASE;
+                }
+                else if ((string)BoxServerVersion.SelectedItem == "SQL Anywhere")
+                {
+                    ((SybaseSyntaxProvider)_connectionInfo.SyntaxProvider).ServerVersion = SybaseServerVersion.SybaseASA;
                 }
             }
-
-            _currentConnectionFrame.SetServerType(selectedItem);
         }
 
 	}

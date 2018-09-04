@@ -39,11 +39,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Name user query:";
+            this.label1.Text = "Query name:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
@@ -86,9 +86,11 @@
             // 
             // QueryNameForm
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.CancelButton = this.button3;
             this.ClientSize = new System.Drawing.Size(320, 80);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
@@ -99,7 +101,7 @@
             this.Name = "QueryNameForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Save";
+            this.Text = "Save as reusable query";
             this.Shown += new System.EventHandler(this.QueryNameForm_Shown);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -12,23 +12,24 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.View.WinForms;
 
 namespace FullFeaturedDemo.PropertiesForm
 {
 	[ToolboxItem(false)]
 	internal partial class SqlSyntaxPage : UserControl
-    {
+	{
+		private QueryBuilder _queryBuilder = null;
 		private BaseSyntaxProvider _syntaxProvider = null;
-        private readonly SQLContext _sqlContext;
+        private bool fModified = false;
+
+		
+		public bool Modified { get { return fModified; } set { fModified = value; } }
 
 
-	    public bool Modified { get; set; }
-
-
-	    public SqlSyntaxPage(SQLContext sqlQuery, BaseSyntaxProvider syntaxProvider)
+		public SqlSyntaxPage(QueryBuilder queryBuilder, BaseSyntaxProvider syntaxProvider)
 		{
-            Modified = false;
-	        _sqlContext = sqlQuery;
+			_queryBuilder = queryBuilder;
 			_syntaxProvider = syntaxProvider;
 
 			InitializeComponent();
@@ -77,25 +78,25 @@ namespace FullFeaturedDemo.PropertiesForm
 			comboSqlDialect.Items.Add("VistaDB");
 			comboSqlDialect.Items.Add("Generic");
 
-			if (_sqlContext.SyntaxProvider is SQL92SyntaxProvider)
+			if (queryBuilder.SyntaxProvider is SQL92SyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "ANSI SQL-92";
 			}
-            else if (_sqlContext.SyntaxProvider is AutoSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is AutoSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "Auto";
 			}
-            else if (_sqlContext.SyntaxProvider is SQL89SyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is SQL89SyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "ANSI SQL-89";
 			}
-            else if (_sqlContext.SyntaxProvider is SQL2003SyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is SQL2003SyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "ANSI SQL-2003";
 			}
-            else if (_sqlContext.SyntaxProvider is FirebirdSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is FirebirdSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as FirebirdSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as FirebirdSyntaxProvider).ServerVersion)
 				{
 					case FirebirdVersion.Firebird10:
 						comboSqlDialect.SelectedItem = "Firebird 1.0";
@@ -111,13 +112,13 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is DB2SyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is DB2SyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "IBM DB2";
 			}
-            else if (_sqlContext.SyntaxProvider is InformixSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is InformixSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as InformixSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as InformixSyntaxProvider).ServerVersion)
 				{
 					case InformixVersion.DS8:
 						comboSqlDialect.SelectedItem = "IBM Informix 8";
@@ -130,9 +131,9 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is MSAccessSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is MSAccessSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as MSAccessSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as MSAccessSyntaxProvider).ServerVersion)
 				{
 					case MSAccessServerVersion.MSJET3:
 						comboSqlDialect.SelectedItem = "MS Access 97 (MS Jet 3.0)";
@@ -145,13 +146,13 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is MSSQLCESyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is MSSQLCESyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "MS SQL Server Compact Edition";
 			}
-            else if (_sqlContext.SyntaxProvider is MSSQLSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is MSSQLSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as MSSQLSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as MSSQLSyntaxProvider).ServerVersion)
 				{
 					case MSSQLServerVersion.MSSQL7:
 						comboSqlDialect.SelectedItem = "MS SQL Server 7";
@@ -176,17 +177,17 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is MySQLSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is MySQLSyntaxProvider)
 			{
-                if ((_sqlContext.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt < 40000)
+				if ((queryBuilder.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt < 40000)
 				{
 					comboSqlDialect.SelectedItem = "MySQL 3.xx";
 				}
-                else if ((_sqlContext.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt <= 40099)
+				else if ((queryBuilder.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt <= 40099)
 				{
 					comboSqlDialect.SelectedItem = "MySQL 4.0";
 				}
-                else if ((_sqlContext.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt < 50000)
+				else if ((queryBuilder.SyntaxProvider as MySQLSyntaxProvider).ServerVersionInt < 50000)
 				{
 					comboSqlDialect.SelectedItem = "MySQL 4.1";
 				}
@@ -195,9 +196,9 @@ namespace FullFeaturedDemo.PropertiesForm
 					comboSqlDialect.SelectedItem = "MySQL 5.0";
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is OracleSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is OracleSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as OracleSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as OracleSyntaxProvider).ServerVersion)
 				{
 					case OracleServerVersion.Oracle7:
 						comboSqlDialect.SelectedItem = "Oracle 7";
@@ -219,17 +220,17 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is PostgreSQLSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is PostgreSQLSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "PostgreSQL";
 			}
-            else if (_sqlContext.SyntaxProvider is SQLiteSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is SQLiteSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "SQLite";
 			}
-            else if (_sqlContext.SyntaxProvider is SybaseSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is SybaseSyntaxProvider)
 			{
-                switch ((_sqlContext.SyntaxProvider as SybaseSyntaxProvider).ServerVersion)
+				switch ((queryBuilder.SyntaxProvider as SybaseSyntaxProvider).ServerVersion)
 				{
 					case SybaseServerVersion.SybaseASE:
 						comboSqlDialect.SelectedItem = "Sybase ASE";
@@ -242,28 +243,28 @@ namespace FullFeaturedDemo.PropertiesForm
 						break;
 				}
 			}
-            else if (_sqlContext.SyntaxProvider is TeradataSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is TeradataSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "Teradata";
 			}
-            else if (_sqlContext.SyntaxProvider is VistaDBSyntaxProvider)
+			else if (queryBuilder.SyntaxProvider is VistaDBSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "VistaDB";
 			}
-
-            if (_sqlContext.SyntaxProvider is GenericSyntaxProvider)
+			
+			if (queryBuilder.SyntaxProvider is GenericSyntaxProvider)
 			{
 				comboSqlDialect.SelectedItem = "Generic";
 			}
 
-            if (_sqlContext.SyntaxProvider != null)
+			if (queryBuilder.SyntaxProvider != null)
 			{
-                comboIdentCaseSens.SelectedIndex = (int)_sqlContext.SyntaxProvider.IdentCaseSens;
-                textBeginQuotationSymbol.Text = _sqlContext.SyntaxProvider.QuoteBegin;
-                textEndQuotationSymbol.Text = _sqlContext.SyntaxProvider.QuoteEnd;
+				comboIdentCaseSens.SelectedIndex = (int) queryBuilder.SyntaxProvider.IdentCaseSens;
+				textBeginQuotationSymbol.Text = queryBuilder.SyntaxProvider.QuoteBegin;
+				textEndQuotationSymbol.Text = queryBuilder.SyntaxProvider.QuoteEnd;
 			}
 
-            cbQuoteAllIdentifiers.Checked = _sqlContext.SQLGenerationOptionsForServer.QuoteIdentifiers == IdentQuotation.All;
+			cbQuoteAllIdentifiers.Checked = queryBuilder.SQLGenerationOptions.QuoteIdentifiers == IdentQuotation.All;
 
 			comboSqlDialect.SelectedIndexChanged += comboSqlDialect_SelectedIndexChanged;
 			comboIdentCaseSens.SelectedIndexChanged += comboIdentCaseSens_SelectedIndexChanged;
@@ -426,7 +427,7 @@ namespace FullFeaturedDemo.PropertiesForm
 					break;
 				case "Generic":
 					_syntaxProvider = new GenericSyntaxProvider();
-                    ((GenericSyntaxProvider)_syntaxProvider).RedetectServer(_sqlContext);
+					((GenericSyntaxProvider) _syntaxProvider).RedetectServer(_queryBuilder.SQLContext);
 					break;
 				default:
 					_syntaxProvider = new GenericSyntaxProvider();
@@ -457,10 +458,11 @@ namespace FullFeaturedDemo.PropertiesForm
 		{
 			if (this.Modified)
 			{
-                BaseSyntaxProvider oldSyntaxProvider = _sqlContext.SyntaxProvider;
-
-                _sqlContext.SyntaxProvider = _syntaxProvider;
-                _sqlContext.SQLGenerationOptionsForServer.QuoteIdentifiers = cbQuoteAllIdentifiers.Checked ? IdentQuotation.All : IdentQuotation.IfNeed;
+				BaseSyntaxProvider oldSyntaxProvider = _queryBuilder.SyntaxProvider;
+				
+				_queryBuilder.SyntaxProvider = _syntaxProvider;
+				_queryBuilder.SQLGenerationOptions.QuoteIdentifiers = cbQuoteAllIdentifiers.Checked ? IdentQuotation.All : IdentQuotation.IfNeed;
+				_queryBuilder.SQLFormattingOptions.QuoteIdentifiers = cbQuoteAllIdentifiers.Checked ? IdentQuotation.All : IdentQuotation.IfNeed;
 
 				if (oldSyntaxProvider != null)
 				{

@@ -22,7 +22,19 @@ namespace ExpressionEditorDemo.Common
 
         public static Point ToNativePoint(CPoint customPoint)
         {
-            return new Point(customPoint.X, customPoint.Y);
+            return new Point((int) customPoint.X, (int) customPoint.Y);
+        }
+        
+        public static CFont ToCFont(object font)
+        {
+            var castedFont = font as Font;
+            if (castedFont == null)
+                return null;
+
+            return new CFont(castedFont.FontFamily.Name, castedFont.Size, castedFont.Bold, castedFont.Italic)
+            {
+                LineSpacing = castedFont.Height / castedFont.Size
+            };
         }
     }
 }

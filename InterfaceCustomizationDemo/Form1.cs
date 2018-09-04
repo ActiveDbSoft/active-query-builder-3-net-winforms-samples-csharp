@@ -76,23 +76,23 @@ namespace InterfaceCustomizationDemo
 
             handled = true;
 
-            context.FillRectangle(Brushes.White, new Rectangle(new Point(rect.X, rect.Y), new Size(rect.Width, rect.Height)));
+            context.FillRectangle(Brushes.White, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
 
             if (((CDrawItemState.Selected & state)) != 0 && (CDrawItemState.Focus & state) != 0)
             {
-                context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point(rect.X, rect.Y), new Size(rect.Width, rect.Height)));
+                context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
                 context.DrawRectangle(new Pen(Color.Black) { DashStyle = DashStyle.Dot },
-                    new Rectangle(new Point(rect.X, rect.Y), new Size(rect.Width, rect.Height - 1)));
+                    new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height - 1)));
             }
             else
             {
                 if ((CDrawItemState.Selected & state) != 0 && (CDrawItemState.Focus & state) == 0)
-                    context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point(rect.X, rect.Y), new Size(rect.Width, rect.Height)));
+                    context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
             }
 
             var imageKey = (Bitmap)QBuilder.DataSourceOptions.MarkColumnOptions.PrimaryKeyIcon;
 
-            context.DrawImage(imageKey, new Point(rect.X + 3, rect.Y));
+            context.DrawImage(imageKey, new Point((int) rect.X + 3, (int) rect.Y));
 
             const TextFormatFlags textFormatFlags = TextFormatFlags.NoClipping | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix;
 
@@ -101,7 +101,7 @@ namespace InterfaceCustomizationDemo
             var text = "(" + field.FieldTypeName + ") " + field.Name;
             var textSize = TextRenderer.MeasureText(text, font);
 
-            TextRenderer.DrawText(context, text, font, new Rectangle(new Point(rect.X + imageKey.Width + 2, rect.Y), new Size(textSize.Width, rect.Height)), colorText, textFormatFlags);
+            TextRenderer.DrawText(context, text, font, new Rectangle(new Point((int) rect.X + imageKey.Width + 2, (int) rect.Y), new Size(textSize.Width, (int) rect.Height)), colorText, textFormatFlags);
         }
 
         private void QBuilder_QueryElementControlDestroying(QueryElement owner, IQueryElementControl control)
@@ -182,39 +182,49 @@ namespace InterfaceCustomizationDemo
             }
         }
 
-        private static void ShowErrorBanner(Control control, string text)
-        {
-			// Display error banner if passed text is not empty
-            // Destory banner if already showing
-            {
-                var banners = control.Controls.Find("ErrorBanner", true);
+        public void ShowErrorBanner(Control control, String text)
+		{
+			// Destory banner if already showing
+			{
+				bool existBanner = false;
+				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
-                if (banners.Length > 0)
-                {
-                    foreach (var banner in banners)
-                        banner.Dispose();
-                }
-            }
+				if (banners.Length > 0)
+				{
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
+				}
 
-            // Show new banner if text is not empty
-            if (!string.IsNullOrEmpty(text))
-            {
-                var label = new Label
-                {
-                    Name = "ErrorBanner",
-                    Text = text,
-                    BorderStyle = BorderStyle.FixedSingle,
-                    BackColor = Color.LightPink,
-                    AutoSize = true,
-                    Visible = true
-                };
+                if(existBanner) return;
+			}
 
-                control.Controls.Add(label);
-                label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-                label.BringToFront();
-                control.Focus();
-            }
-        }
+			// Show new banner if text is not empty
+			if (!String.IsNullOrEmpty(text))
+			{
+				Label label = new Label
+				{
+					Name = "ErrorBanner",
+					Text = text,
+					BorderStyle = BorderStyle.FixedSingle,
+					BackColor = Color.LightPink,
+					AutoSize =  true,
+					Visible = true
+				};
+
+				control.Controls.Add(label);
+				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
+				label.BringToFront();
+                
+				control.Focus();
+			}
+		}
 
         private static void CustomItem1EventHandler(object sender, EventArgs e)
         {

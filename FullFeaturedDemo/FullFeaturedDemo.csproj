@@ -83,36 +83,39 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActiveQueryBuilder.Core">
-		<HintPath>..\packages\ActiveQueryBuilder.Core.3.4.11.1088\lib\net\ActiveQueryBuilder.Core.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.Core.3.5.1.1104\lib\net\ActiveQueryBuilder.Core.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.MSSQLMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.MSSQLMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.MSSQLMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.MSSQLMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.MSSQLMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.MySQLMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.MySQLMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.MySQLMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.MySQLMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.MySQLMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.ODBCMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.ODBCMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.ODBCMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.ODBCMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.ODBCMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.OLEDBMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.OLEDBMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.OLEDBMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.OLEDBMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.OLEDBMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.OracleNativeMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.OracleNativeMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.OracleNativeMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.OracleNativeMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.OracleNativeMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.PostgreSQLMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.PostgreSQLMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.PostgreSQLMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.PostgreSQLMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.PostgreSQLMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.UniversalMetadataProvider">
-		<HintPath>..\packages\ActiveQueryBuilder.UniversalMetadataProvider.3.4.11.1088\lib\net\ActiveQueryBuilder.UniversalMetadataProvider.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.UniversalMetadataProvider.3.5.1.1104\lib\net\ActiveQueryBuilder.UniversalMetadataProvider.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.View">
-		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.4.11.1088\lib\net\ActiveQueryBuilder.View.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.1.1104\lib\net\ActiveQueryBuilder.View.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.View.WinForms">
-		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.4.11.1088\lib\net\ActiveQueryBuilder.View.WinForms.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.1.1104\lib\net\ActiveQueryBuilder.View.WinForms.dll</HintPath>
 	</Reference>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
@@ -120,6 +123,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -130,19 +134,6 @@
     </Compile>
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Helpers.cs" />
-    <Compile Include="Common\InfoPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\InfoPanel.Designer.cs">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\ResultGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ResultGrid.Designer.cs">
-      <DependentUpon>ResultGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="ConnectionEditForm.cs">
       <SubType>Form</SubType>
@@ -239,6 +230,12 @@
       <DependentUpon>PaginationPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="PropertiesForm\DatabaseSchemaViewPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertiesForm\DatabaseSchemaViewPage.designer.cs">
+      <DependentUpon>DatabaseSchemaViewPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="PropertiesForm\GeneralPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,17 +245,29 @@
     <Compile Include="PropertiesForm\GroupLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertiesForm\MiscellaneousPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertiesForm\MiscellaneousPage.designer.cs">
+      <DependentUpon>MiscellaneousPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="PropertiesForm\OfflineModePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PropertiesForm\OfflineModePage.designer.cs">
       <DependentUpon>OfflineModePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertiesForm\QueryPropertiesForm.cs">
+    <Compile Include="PropertiesForm\PanesVisibilityPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertiesForm\PanesVisibilityPage.designer.cs">
+      <DependentUpon>PanesVisibilityPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertiesForm\QueryBuilderPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PropertiesForm\QueryPropertiesForm.designer.cs">
-      <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
+    <Compile Include="PropertiesForm\QueryBuilderPropertiesForm.designer.cs">
+      <DependentUpon>QueryBuilderPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertiesForm\SqlFormattingPage.cs">
       <SubType>UserControl</SubType>
@@ -277,14 +286,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Common\InfoPanel.resx">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\ResultGrid.resx">
-      <DependentUpon>ResultGrid.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ConnectionEditForm.resx">
-      <SubType>Designer</SubType>
       <DependentUpon>ConnectionEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionForm.resx">
@@ -340,14 +342,23 @@
     <EmbeddedResource Include="PaginationPanel.resx">
       <DependentUpon>PaginationPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertiesForm\DatabaseSchemaViewPage.resx">
+      <DependentUpon>DatabaseSchemaViewPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\GeneralPage.resx">
       <DependentUpon>GeneralPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertiesForm\MiscellaneousPage.resx">
+      <DependentUpon>MiscellaneousPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\OfflineModePage.resx">
       <DependentUpon>OfflineModePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\QueryPropertiesForm.resx">
-      <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
+    <EmbeddedResource Include="PropertiesForm\PanesVisibilityPage.resx">
+      <DependentUpon>PanesVisibilityPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertiesForm\QueryBuilderPropertiesForm.resx">
+      <DependentUpon>QueryBuilderPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\SqlFormattingPage.resx">
       <DependentUpon>SqlFormattingPage.cs</DependentUpon>
@@ -368,6 +379,9 @@
       <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -505,6 +519,7 @@
       <Isolated>False</Isolated>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

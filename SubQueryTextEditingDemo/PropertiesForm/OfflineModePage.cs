@@ -22,7 +22,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 	internal partial class OfflineModePage : UserControl
 	{
 		private QueryBuilder _queryBuilder = null;
-		private MetadataContainer _metadataContainerCopy = null;
+	    private SQLContext _sqlContextCopy;
 		private BaseSyntaxProvider _syntaxProvider = null;
         private bool _modified = false;
 
@@ -35,8 +35,8 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 			_queryBuilder = queryBuilder;
 			_syntaxProvider = syntaxProvider;
 
-			_metadataContainerCopy = new MetadataContainer(queryBuilder.SQLContext);
-			_metadataContainerCopy.Assign(_queryBuilder.MetadataContainer);
+		    _sqlContextCopy = new SQLContext();
+            _sqlContextCopy.Assign(queryBuilder.SQLContext);
 
 			InitializeComponent();
 
@@ -53,7 +53,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 
 		protected override void Dispose(bool disposing)
 		{
-			_metadataContainerCopy.Dispose();
+		    _sqlContextCopy.Dispose();
 
 			cbOfflineMode.CheckedChanged -= checkOfflineMode_CheckedChanged;
 			bEditMetadata.Click -= buttonEditMetadata_Click;
@@ -82,7 +82,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 						_queryBuilder.MetadataProvider.Disconnect();
 					}
 
-					_queryBuilder.MetadataContainer.Assign(_metadataContainerCopy);
+					_queryBuilder.MetadataContainer.Assign(_sqlContextCopy.MetadataContainer);
 				}
 				else
 				{
@@ -99,11 +99,11 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 
 		private void buttonLoadMetadata_Click(object sender, EventArgs e)
 		{
-			_metadataContainerCopy.BeginUpdate();
+		    _sqlContextCopy.MetadataContainer.BeginUpdate();
 
 			try
 			{
-				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_metadataContainerCopy, false))
+				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_sqlContextCopy.MetadataContainer))
 				{
 					if (f.ShowDialog() == DialogResult.OK)
 					{
@@ -114,7 +114,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 			}
 			finally
 			{
-				_metadataContainerCopy.EndUpdate();
+			    _sqlContextCopy.MetadataContainer.EndUpdate();
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 
 		private void UpdateMetadataStats()
 		{
-			List<MetadataObject> metadataObjects = _metadataContainerCopy.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
+			List<MetadataObject> metadataObjects = _sqlContextCopy.MetadataContainer.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
             int t = 0, v = 0, p = 0, s = 0;
 
             for (int i = 0; i < metadataObjects.Count; i++)
@@ -163,7 +163,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 		{
 			if (OpenDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ImportFromXML(OpenDialog.FileName);
+			    _sqlContextCopy.MetadataContainer.ImportFromXML(OpenDialog.FileName);
 				Modified = true;
 				UpdateMetadataStats();
 			}
@@ -173,13 +173,13 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 		{
 			if (SaveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ExportToXML(SaveDialog.FileName);
+			    _sqlContextCopy.MetadataContainer.ExportToXML(SaveDialog.FileName);
 			}
 		}
 
 		private void buttonEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (QueryBuilder.EditMetadataContainer(_metadataContainerCopy, _queryBuilder.MetadataStructure, _queryBuilder.MetadataLoadingOptions))
+			if (QueryBuilder.EditMetadataContainer(_sqlContextCopy, _sqlContextCopy.LoadingOptions))
 			{
 				Modified = true;
 			}

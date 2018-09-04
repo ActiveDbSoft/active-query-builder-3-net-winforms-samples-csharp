@@ -12,35 +12,37 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.View.WinForms;
 
 namespace FullFeaturedDemo.PropertiesForm
 {
 	[ToolboxItem(false)]
 	internal partial class GeneralPage : UserControl
 	{
-	    private readonly SQLFormattingOptions _sqlFormattingOptions;
+		private QueryBuilder _queryBuilder = null;
+		bool _modified = false;
 
-		public bool Modified { get; set; }
+
+		public bool Modified { get { return _modified; } set { _modified = value; } }
 
 
-	    public GeneralPage(SQLFormattingOptions sqlFormattingOptions)
-        {
-            Modified = false;
-            _sqlFormattingOptions = sqlFormattingOptions;
+		public GeneralPage(QueryBuilder queryBuilder)
+		{
+			_queryBuilder = queryBuilder;
 
 			InitializeComponent();
 
-			cbWordWrap.Checked = (_sqlFormattingOptions.RightMargin != 0);
+			cbWordWrap.Checked = (_queryBuilder.SQLFormattingOptions.RightMargin != 0);
 			updownRightMargin.Enabled = cbWordWrap.Checked;
 
-			updownRightMargin.Value = _sqlFormattingOptions.RightMargin == 0 ? 
-				80 : _sqlFormattingOptions.RightMargin;
+			updownRightMargin.Value = _queryBuilder.SQLFormattingOptions.RightMargin == 0 ? 
+				80 : _queryBuilder.SQLFormattingOptions.RightMargin;
 
 			comboKeywordsCasing.Items.Add("Capitalized");
 			comboKeywordsCasing.Items.Add("Uppercase");
 			comboKeywordsCasing.Items.Add("Lowercase");
 
-            comboKeywordsCasing.SelectedIndex = (int) _sqlFormattingOptions.KeywordFormat;
+			comboKeywordsCasing.SelectedIndex = (int)queryBuilder.SQLFormattingOptions.KeywordFormat;
 
 			cbWordWrap.CheckedChanged += checkWordWrap_CheckedChanged;
 			updownRightMargin.ValueChanged += updownRightMargin_ValueChanged;
@@ -83,14 +85,14 @@ namespace FullFeaturedDemo.PropertiesForm
 			{
 				if (cbWordWrap.Checked)
 				{
-					_sqlFormattingOptions.RightMargin = (int)updownRightMargin.Value;
+					_queryBuilder.SQLFormattingOptions.RightMargin = (int)updownRightMargin.Value;
 				}
 				else
 				{
-					_sqlFormattingOptions.RightMargin = 0; 
+					_queryBuilder.SQLFormattingOptions.RightMargin = 0; 
 				}
 
-				_sqlFormattingOptions.KeywordFormat = (KeywordFormat) comboKeywordsCasing.SelectedIndex;
+				_queryBuilder.SQLFormattingOptions.KeywordFormat = (KeywordFormat) comboKeywordsCasing.SelectedIndex;
 			}
 		}		
 	}

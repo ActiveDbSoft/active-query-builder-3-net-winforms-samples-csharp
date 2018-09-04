@@ -27,7 +27,7 @@ namespace FullFeaturedDemo
 
 		private void linkHome_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start("https://www.activequerybuilder.com/");
+			Process.Start("http://www.activequerybuilder.com/");
 		}
 
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -43,7 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
-			this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.queryBuilder1.Location = new System.Drawing.Point(12, 12);
 			this.queryBuilder1.Name = "queryBuilder1";
 			this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewVisible = false;

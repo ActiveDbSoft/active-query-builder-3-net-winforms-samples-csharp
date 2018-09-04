@@ -109,11 +109,16 @@ namespace LoadMetadataDemo
 			switch (item.Type)
 			{
 				case MetadataType.Root:
-					if ((types & MetadataType.Schema) > 0) item.AddSchema("dbo");
+					if (types.Contains(MetadataType.Schema))
+					{
+						// only one "dbo" schema should be at the root level
+						if (item.Items.FindItem<MetadataNamespace>("dbo", MetadataType.Schema) == null)
+							item.AddSchema("dbo");
+					}
 					break;
 
 				case MetadataType.Schema:
-					if ((item.Name == "dbo") && (types & MetadataType.Table) > 0)
+					if (item.Name == "dbo" && types.Contains(MetadataType.Table))
 					{
 						item.AddTable("Orders");
 						item.AddTable("Order Details");
@@ -123,7 +128,7 @@ namespace LoadMetadataDemo
 				case MetadataType.Table:
 					if (item.Name == "Orders")
 					{
-						if ((types & MetadataType.Field) > 0)
+						if (types.Contains(MetadataType.Field))
 						{
 							item.AddField("OrderId");
 							item.AddField("CustomerId");
@@ -131,13 +136,13 @@ namespace LoadMetadataDemo
 					}
 					else if (item.Name == "Order Details")
 					{
-						if ((types & MetadataType.Field) > 0)
+						if (types.Contains(MetadataType.Field))
 						{
 							item.AddField("OrderId");
 							item.AddField("ProductId");
 						}
 
-						if ((types & MetadataType.ForeignKey) > 0)
+						if (types.Contains(MetadataType.ForeignKey))
 						{
 							MetadataForeignKey foreignKey = item.AddForeignKey("OrderDetailsToOrder");
 							foreignKey.Fields.Add("OrderId");
@@ -471,13 +476,23 @@ namespace LoadMetadataDemo
 		{
 			// Destory banner if already showing
 			{
+				bool existBanner = false;
 				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
 				}
+
+                if(existBanner) return;
 			}
 
 			// Show new banner if text is not empty
@@ -489,17 +504,16 @@ namespace LoadMetadataDemo
 					Text = text,
 					BorderStyle = BorderStyle.FixedSingle,
 					BackColor = Color.LightPink,
-					AutoSize = true,
+					AutoSize =  true,
 					Visible = true
 				};
 
 				control.Controls.Add(label);
-				control.Controls.SetChildIndex(label, 0);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
+				label.BringToFront();
+                
 				control.Focus();
 			}
 		}
-
-        
 	}
 }

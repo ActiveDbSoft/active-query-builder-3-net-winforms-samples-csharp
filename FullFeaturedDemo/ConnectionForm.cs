@@ -14,281 +14,281 @@ using System.Windows.Forms;
 
 namespace FullFeaturedDemo
 {
-	public partial class ConnectionForm : Form
-	{
-		public ConnectionInfo SelectedConnection
-		{
-			get
-			{
-				if (tabControl1.SelectedIndex == 0)
-				{
-					if (lvConnections.SelectedItems.Count > 0)
-					{
-						return (ConnectionInfo) lvConnections.SelectedItems[0].Tag;
-					}
-					
-					return null;
-				}
-				else
-				{
-					if (lvXmlFiles.SelectedItems.Count > 0)
-					{
-						return (ConnectionInfo) lvXmlFiles.SelectedItems[0].Tag;
-					}
-					
-					return null;
-				}
-			}
-		}
+    public partial class ConnectionForm : Form
+    {
+        public ConnectionInfo SelectedConnection
+        {
+            get
+            {
+                if (tabControl1.SelectedIndex == 0)
+                {
+                    if (lvConnections.SelectedItems.Count > 0)
+                    {
+                        return (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
+                    }
 
-		public ConnectionForm()
-		{
-			InitializeComponent();
+                    return null;
+                }
+                else
+                {
+                    if (lvXmlFiles.SelectedItems.Count > 0)
+                    {
+                        return (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
+                    }
 
-			// fill connection list
-			for (int i = 0; i < Program.Connections.Count; i++)
-			{
-				ListViewItem lvi = lvConnections.Items.Add(Program.Connections[i].ConnectionName);
-				lvi.SubItems.Add(Program.Connections[i].ConnectionType.ToString());
-				lvi.Tag = Program.Connections[i];
-			}
+                    return null;
+                }
+            }
+        }
 
-			if (lvConnections.Items.Count > 0)
-			{
-				lvConnections.Items[0].Selected = true;
-			}
+        public ConnectionForm()
+        {
+            InitializeComponent();
 
-			// add preset
+            // fill connection list
+            for (int i = 0; i < Program.Connections.Count; i++)
+            {
+                ListViewItem lvi = lvConnections.Items.Add(Program.Connections[i].ConnectionName);
+                lvi.SubItems.Add(Program.Connections[i].ConnectionType.ToString());
+                lvi.Tag = Program.Connections[i];
+            }
 
-			bool found = false;
-			ConnectionInfo northwind = new ConnectionInfo(ConnectionTypes.MSSQL, "Northwind.xml", "Northwind.xml", true, null, "");
+            if (lvConnections.Items.Count > 0)
+            {
+                lvConnections.Items[0].Selected = true;
+            }
 
-			for (int i = 0; i < Program.XmlFiles.Count; i++)
-			{
-				if (Program.XmlFiles[i].Equals(northwind))
-				{
-					found = true;
-				}
-			}
+            // add preset
 
-			if (!found)
-			{
-				Program.XmlFiles.Insert(0, northwind);
-			}
+            bool found = false;
+            ConnectionInfo northwind = new ConnectionInfo(ConnectionTypes.MSSQL, "Northwind.xml", "Northwind.xml", true, null, "");
 
-			// fill XML files list
-			for (int i = 0; i < Program.XmlFiles.Count; i++)
-			{
-				ListViewItem lvi = lvXmlFiles.Items.Add(Program.XmlFiles[i].ConnectionName);
-				lvi.SubItems.Add(Program.XmlFiles[i].ConnectionType.ToString());
-				lvi.Tag = Program.XmlFiles[i];
-			}
+            for (int i = 0; i < Program.XmlFiles.Count; i++)
+            {
+                if (Program.XmlFiles[i].Equals(northwind))
+                {
+                    found = true;
+                }
+            }
 
-			if (lvXmlFiles.Items.Count > 0)
-			{
-				lvXmlFiles.Items[0].Selected = true;
-			}
+            if (!found)
+            {
+                Program.XmlFiles.Insert(0, northwind);
+            }
 
-			Application.Idle += Application_Idle;
-		}
+            // fill XML files list
+            for (int i = 0; i < Program.XmlFiles.Count; i++)
+            {
+                ListViewItem lvi = lvXmlFiles.Items.Add(Program.XmlFiles[i].ConnectionName);
+                lvi.SubItems.Add(Program.XmlFiles[i].ConnectionType.ToString());
+                lvi.Tag = Program.XmlFiles[i];
+            }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				Application.Idle -= Application_Idle;
+            if (lvXmlFiles.Items.Count > 0)
+            {
+                lvXmlFiles.Items[0].Selected = true;
+            }
 
-				if (components != null)
-					components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+            Application.Idle += Application_Idle;
+        }
 
-		private string GetNewConnectionEntryName()
-		{
-			int x = 0;
-			bool found;
-			string name;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Application.Idle -= Application_Idle;
 
-			do
-			{
-				x++;
-				found = false;
-				name = String.Format("Connection {0}", x);
+                if (components != null)
+                    components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-				for (int i = 0; i < Program.Connections.Count; i++)
-				{
-					if (Program.Connections[i].ConnectionName == name)
-					{
-						found = true;
-						break;
-					}
-				}
-			} while (found);
+        private string GetNewConnectionEntryName()
+        {
+            int x = 0;
+            bool found;
+            string name;
 
-			return name;
-		}
+            do
+            {
+                x++;
+                found = false;
+                name = String.Format("Connection {0}", x);
 
-		private string GetNewXmlFileEntryName()
-		{
-			int x = 0;
-			bool found;
-			string name;
+                for (int i = 0; i < Program.Connections.Count; i++)
+                {
+                    if (Program.Connections[i].ConnectionName == name)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+            } while (found);
 
-			do
-			{
-				x++;
-				found = false;
-				name = String.Format("XML File {0}", x);
+            return name;
+        }
 
-				for (int i = 0; i < Program.XmlFiles.Count; i++)
-				{
-					if (Program.XmlFiles[i].ConnectionName == name)
-					{
-						found = true;
-						break;
-					}
-				}
-			} while (found);
+        private string GetNewXmlFileEntryName()
+        {
+            int x = 0;
+            bool found;
+            string name;
 
-			return name;
-		}
+            do
+            {
+                x++;
+                found = false;
+                name = String.Format("XML File {0}", x);
 
-		private void btnAdd_Click(object sender, EventArgs e)
-		{
-			ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewConnectionEntryName(), null, false, null, "");
+                for (int i = 0; i < Program.XmlFiles.Count; i++)
+                {
+                    if (Program.XmlFiles[i].ConnectionName == name)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+            } while (found);
 
-			using (ConnectionEditForm cef = new ConnectionEditForm(ci))
-			{
-				if (cef.ShowDialog() == DialogResult.OK)
-				{
-					ListViewItem lvi = lvConnections.Items.Add(ci.ConnectionName);
-					lvi.SubItems.Add(ci.ConnectionType.ToString());
-					lvi.Tag = ci;
-					lvi.Selected = true;
+            return name;
+        }
 
-					Program.Connections.Add(ci);
-				}
-			}
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewConnectionEntryName(), null, false, null, "");
 
-			lvConnections.Focus();
-		}
+            using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+            {
+                if (cef.ShowDialog() == DialogResult.OK)
+                {
+                    ListViewItem lvi = lvConnections.Items.Add(ci.ConnectionName);
+                    lvi.SubItems.Add(ci.ConnectionType.ToString());
+                    lvi.Tag = ci;
+                    lvi.Selected = true;
 
-		private void btnRemove_Click(object sender, EventArgs e)
-		{
-			ConnectionInfo ci = (ConnectionInfo) lvConnections.SelectedItems[0].Tag;
+                    Program.Connections.Add(ci);
+                }
+            }
 
-			lvConnections.Items.Remove(lvConnections.SelectedItems[0]);
-			Program.Connections.Remove(ci);
+            lvConnections.Focus();
+        }
 
-			lvConnections.Focus();
-		}
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
 
-		private void btnConfigure_Click(object sender, EventArgs e)
-		{
-			if (lvConnections.SelectedItems.Count > 0)
-			{
-				ConnectionInfo ci = (ConnectionInfo) lvConnections.SelectedItems[0].Tag;
+            lvConnections.Items.Remove(lvConnections.SelectedItems[0]);
+            Program.Connections.Remove(ci);
 
-				using (ConnectionEditForm cef = new ConnectionEditForm(ci))
-				{
-					if (cef.ShowDialog() == DialogResult.OK)
-					{
-						lvConnections.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
-						lvConnections.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
-					}
-				}
-			}
+            lvConnections.Focus();
+        }
 
-			lvConnections.Focus();
-		}
+        private void btnConfigure_Click(object sender, EventArgs e)
+        {
+            if (lvConnections.SelectedItems.Count > 0)
+            {
+                ConnectionInfo ci = (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
 
-		private void lvConnections_SizeChanged(object sender, EventArgs e)
-		{
-			lvConnections.Columns[0].Width = lvConnections.Width - lvConnections.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
-		}
+                using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+                {
+                    if (cef.ShowDialog() == DialogResult.OK)
+                    {
+                        lvConnections.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
+                        lvConnections.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
+                    }
+                }
+            }
 
-		private void lvXmlFiles_SizeChanged(object sender, EventArgs e)
-		{
-			lvXmlFiles.Columns[0].Width = lvXmlFiles.Width - lvXmlFiles.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
-		}
+            lvConnections.Focus();
+        }
 
-		private void Application_Idle(object sender, EventArgs e)
-		{
-			btnRemove.Enabled = (lvConnections.SelectedItems.Count > 0);
-			btnConfigure.Enabled = (lvConnections.SelectedItems.Count > 0);
-			btnRemoveXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
-			btnConfigureXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+        private void lvConnections_SizeChanged(object sender, EventArgs e)
+        {
+            lvConnections.Columns[0].Width = lvConnections.Width - lvConnections.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
+        }
 
-			if (tabControl1.SelectedIndex == 0)
-			{
-				btnOk.Enabled = (lvConnections.SelectedItems.Count > 0);
-			}
-			else
-			{
-				btnOk.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
-			}
-		}
+        private void lvXmlFiles_SizeChanged(object sender, EventArgs e)
+        {
+            lvXmlFiles.Columns[0].Width = lvXmlFiles.Width - lvXmlFiles.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
+        }
 
-		private void lvConnections_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			DialogResult = DialogResult.OK;
-			Close();
-		}
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            btnRemove.Enabled = (lvConnections.SelectedItems.Count > 0);
+            btnConfigure.Enabled = (lvConnections.SelectedItems.Count > 0);
+            btnRemoveXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+            btnConfigureXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
 
-		private void lvXmlFiles_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			DialogResult = DialogResult.OK;
-			Close();
-		}
+            if (tabControl1.SelectedIndex == 0)
+            {
+                btnOk.Enabled = (lvConnections.SelectedItems.Count > 0);
+            }
+            else
+            {
+                btnOk.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+            }
+        }
 
-		private void btnAddXml_Click(object sender, EventArgs e)
-		{
-			ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewXmlFileEntryName(), null, true, null, "");
+        private void lvConnections_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
 
-			using (ConnectionEditForm cef = new ConnectionEditForm(ci))
-			{
-				if (cef.ShowDialog() == DialogResult.OK)
-				{
-					ListViewItem lvi = lvXmlFiles.Items.Add(ci.ConnectionName);
-					lvi.SubItems.Add(ci.ConnectionType.ToString());
-					lvi.Tag = ci;
-					lvi.Selected = true;
+        private void lvXmlFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
 
-					Program.XmlFiles.Add(ci);
-				}
-			}
+        private void btnAddXml_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewXmlFileEntryName(), null, true, null, "");
 
-			lvXmlFiles.Focus();
-		}
+            using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+            {
+                if (cef.ShowDialog() == DialogResult.OK)
+                {
+                    ListViewItem lvi = lvXmlFiles.Items.Add(ci.ConnectionName);
+                    lvi.SubItems.Add(ci.ConnectionType.ToString());
+                    lvi.Tag = ci;
+                    lvi.Selected = true;
 
-		private void btnRemoveXml_Click(object sender, EventArgs e)
-		{
-			ConnectionInfo ci = (ConnectionInfo) lvXmlFiles.SelectedItems[0].Tag;
+                    Program.XmlFiles.Add(ci);
+                }
+            }
 
-			lvXmlFiles.Items.Remove(lvXmlFiles.SelectedItems[0]);
-			Program.XmlFiles.Remove(ci);
+            lvXmlFiles.Focus();
+        }
 
-			lvXmlFiles.Focus();
-		}
+        private void btnRemoveXml_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
 
-		private void btnConfigureXml_Click(object sender, EventArgs e)
-		{
-			if (lvXmlFiles.SelectedItems.Count > 0)
-			{
-				ConnectionInfo ci = (ConnectionInfo) lvXmlFiles.SelectedItems[0].Tag;
+            lvXmlFiles.Items.Remove(lvXmlFiles.SelectedItems[0]);
+            Program.XmlFiles.Remove(ci);
 
-				using (ConnectionEditForm cef = new ConnectionEditForm(ci))
-				{
-					if (cef.ShowDialog() == DialogResult.OK)
-					{
-						lvXmlFiles.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
-						lvXmlFiles.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
-					}
-				}
-			}
+            lvXmlFiles.Focus();
+        }
 
-			lvXmlFiles.Focus();
-		}
-	}
+        private void btnConfigureXml_Click(object sender, EventArgs e)
+        {
+            if (lvXmlFiles.SelectedItems.Count > 0)
+            {
+                ConnectionInfo ci = (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
+
+                using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+                {
+                    if (cef.ShowDialog() == DialogResult.OK)
+                    {
+                        lvXmlFiles.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
+                        lvXmlFiles.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
+                    }
+                }
+            }
+
+            lvXmlFiles.Focus();
+        }
+    }
 }

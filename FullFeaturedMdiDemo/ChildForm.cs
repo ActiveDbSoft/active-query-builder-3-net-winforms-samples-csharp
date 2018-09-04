@@ -20,10 +20,13 @@ using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.Core.QueryTransformer;
+using ActiveQueryBuilder.View;
+using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
 using FullFeaturedMdiDemo.Common;
 using FullFeaturedMdiDemo.Dailogs;
 using Timer = System.Threading.Timer;
+using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
 {
@@ -42,7 +45,6 @@ namespace FullFeaturedMdiDemo
         private readonly SQLContext _sqlContext;
         private readonly ConnectionInfo _connectionInfo;
         private SQLFormattingOptions _sqlFormattingOptions;
-        private SQLGenerationOptions _sqlGenerationOptions;
         private NoConnectionLabel _noConnectionLabel;
 
         public event CancelEventHandler SaveQueryEvent;
@@ -55,18 +57,32 @@ namespace FullFeaturedMdiDemo
 
         public QueryView QueryView
         {
-            get
-            {
-                return QView;
-            }
+            get { return QView; }
+        }
+
+        public MetadataLoadingOptions MetadataLoadingOptions
+        {
+            get { return _sqlContext.LoadingOptions; }
+            set { _sqlContext.LoadingOptions = value; }
+        }
+
+        public MetadataStructureOptions MetadataStructureOptions
+        {
+            get { return _sqlContext.MetadataStructureOptions; }
+            set { _sqlContext.MetadataStructureOptions = value; }
         }
 
         public SQLFormattingOptions SqlFormattingOptions
         {
             set
             {
+                if (_sqlFormattingOptions != null)
+                    _sqlFormattingOptions.Updated -= _sqlFormattingOptions_Updated;
+
                 _sqlFormattingOptions = value;
-                _sqlFormattingOptions.Updated += _sqlFormattingOptions_Updated;
+
+                if (_sqlFormattingOptions != null)
+                    _sqlFormattingOptions.Updated += _sqlFormattingOptions_Updated;
                 CBuilder.QueryTransformer.SQLGenerationOptions = _sqlFormattingOptions;
             }
             get
@@ -77,11 +93,131 @@ namespace FullFeaturedMdiDemo
 
         public SQLGenerationOptions SqlGenerationOptions
         {
-            get { return _sqlGenerationOptions; }
-            set { _sqlGenerationOptions = value; }
+            get { return QueryView.SQLGenerationOptions; }
+            set { QueryView.SQLGenerationOptions = value; }
+        }
+
+        public BehaviorOptions BehaviorOptions
+        {
+            get { return SqlQuery.BehaviorOptions; }
+            set { SqlQuery.BehaviorOptions = value; }
+        }
+
+        public ExpressionEditorOptions ExpressionEditorOptions
+        {
+            get { return expressionEditor1.Options; }
+            set { expressionEditor1.Options = value; }
+        }
+
+        public TextEditorOptions TextEditorOptions
+        {
+            get { return rtbQueryText.Options; }
+            set
+            {
+                expressionEditor1.TextEditorOptions = value;
+                rtbQueryText.Options = value;
+                TextBoxCurrentSubQuerySql.Options = value;
+            }
+        }
+
+        public SqlTextEditorOptions TextEditorSqlOptions
+        {
+            get { return rtbQueryText.SqlOptions; }
+            set
+            {
+                expressionEditor1.TextEditorSqlOptions = value;
+                rtbQueryText.SqlOptions = value;
+                TextBoxCurrentSubQuerySql.SqlOptions = value;
+            }
+        }
+
+        public DataSourceOptions DataSourceOptions
+        {
+            get { return (DataSourceOptions) designPaneControl1.DataSourceOptions; }
+            set { designPaneControl1.DataSourceOptions = value; }
+        }
+
+        public DesignPaneOptions DesignPaneOptions
+        {
+            get { return designPaneControl1.Options; }
+            set { designPaneControl1.Options = value; }
+        }
+
+        public QueryNavBarOptions QueryNavBarOptions
+        {
+            get { return NavBar.Options; }
+            set { NavBar.Options = value; }
+        }
+
+        public AddObjectDialogOptions AddObjectDialogOptions
+        {
+            get { return addObjectDialog1.Options; }
+            set { addObjectDialog1.Options = value; }
+        }
+
+        public UserInterfaceOptions UserInterfaceOptions
+        {
+            get { return QView.UserInterfaceOptions; }
+            set { QView.UserInterfaceOptions = value; }
+        }
+
+        public VisualOptions VisualOptions
+        {
+            get { return dockManager1.Options; }
+            set { dockManager1.Options = value; }
+        }
+
+        public QueryColumnListOptions QueryColumnListOptions
+        {
+            get { return queryColumnListControl1.Options; }
+            set { queryColumnListControl1.Options = value;}
         }
 
         public SQLQuery SqlQuery { get; private set; }
+
+        public MainForm MainForm
+        {
+            get { return MdiParent as MainForm; }
+        }
+
+        public Options GetOptions()
+        {
+            return new Options
+            {
+                AddObjectDialogOptions = AddObjectDialogOptions,
+                BehaviorOptions = BehaviorOptions,
+                DatabaseSchemaViewOptions = MainForm.DBView.Options,
+                DataSourceOptions = DataSourceOptions,
+                DesignPaneOptions = DesignPaneOptions,
+                ExpressionEditorOptions = ExpressionEditorOptions,
+                QueryColumnListOptions = QueryColumnListOptions,
+                QueryNavBarOptions = QueryNavBarOptions,
+                SqlFormattingOptions = SqlFormattingOptions,
+                SqlGenerationOptions = SqlGenerationOptions,
+                TextEditorOptions = TextEditorOptions,
+                TextEditorSqlOptions = TextEditorSqlOptions,
+                UserInterfaceOptions = UserInterfaceOptions,
+                VisualOptions = VisualOptions
+            };
+        }
+
+        public void SetOptions(Options options)
+        {
+            AddObjectDialogOptions = options.AddObjectDialogOptions;
+            BehaviorOptions = options.BehaviorOptions;
+            MainForm.DBView.Options = options.DatabaseSchemaViewOptions;
+            DataSourceOptions = options.DataSourceOptions;
+            DesignPaneOptions = options.DesignPaneOptions;
+            ExpressionEditorOptions = options.ExpressionEditorOptions;
+            QueryColumnListOptions = options.QueryColumnListOptions;
+            QueryNavBarOptions = options.QueryNavBarOptions;
+            SqlFormattingOptions = options.SqlFormattingOptions;
+            SqlGenerationOptions = options.SqlGenerationOptions;
+            TextEditorOptions = options.TextEditorOptions;
+            TextEditorSqlOptions = options.TextEditorSqlOptions;
+            UserInterfaceOptions = options.UserInterfaceOptions;
+            VisualOptions = options.VisualOptions;
+        }
 
         public string QueryText
         {
@@ -95,6 +231,16 @@ namespace FullFeaturedMdiDemo
             }
         }
 
+        public string SqlEditorText
+        {
+            get { return rtbQueryText.Text; }
+            set
+            {
+                rtbQueryText.Text = value;
+                rtbQueryText_Validating(this, null);
+            }
+        }
+
         public string FormattedQueryText
         {
             get
@@ -105,6 +251,8 @@ namespace FullFeaturedMdiDemo
 
         public ChildForm(SQLContext sqlContext, ConnectionInfo connectionInfo)
         {
+            InitializeComponent();
+
             _queryTransformerTop10 = new QueryTransformer();
             Debug.Assert(sqlContext != null);
             SqlSourceType = SourceType.New;
@@ -113,20 +261,18 @@ namespace FullFeaturedMdiDemo
             _connectionInfo = connectionInfo;
             SqlQuery = new SQLQuery(_sqlContext);
             SqlQuery.QueryRoot.AllowSleepMode = true;
-
-            SqlQuery.SQLUpdated += query_SQLUpdated;
+            
             SqlQuery.SleepModeChanged += SqlQuery_SleepModeChanged;
             SqlQuery.QueryAwake += SqlQuery_QueryAwake;
             _sqlContext.SyntaxProviderChanged += _sqlContext_SyntaxProviderChanged;
-            _timerForFastReuslt = new Timer(TimerForFastResult_Elapsed);
-
-            InitializeComponent();
+            _timerForFastReuslt = new Timer(TimerForFastResult_Elapsed);            
 
             CBuilder.QueryTransformer = new QueryTransformer
             {
-                Query = SqlQuery,
-                SQLGenerationOptions = _sqlGenerationOptions
+                Query = SqlQuery
             };
+            SqlFormattingOptions = new SQLFormattingOptions();
+
             CBuilder.QueryTransformer.SQLUpdated += CBuilder_SQLUpdated;
 
             rtbQueryText.QueryProvider = SqlQuery;
@@ -143,15 +289,21 @@ namespace FullFeaturedMdiDemo
             toolStripStatusLabel1.Text = "Query builder state: " + ((SqlQuery.SleepMode) ? "Inactive" : "Active");
 
             Application.Idle += Application_Idle;
+            
+            SqlQuery.SQLUpdated += query_SQLUpdated;
+            QueryView.ActiveUnionSubQueryChanged += QueryViewOnActiveUnionSubQueryChanged;
 
-            // load localized tooltips for some toolbar buttons
-            tsbQueryProperties.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strEdit", "Properties");
-            tsbAddObject.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddObject", "Add object");
-            tsbAddDerivedTable.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddSubQuery", "Add derived table");
-            tsbAddUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strNewUnionSubQuery", "New union sub-query");
-            tsbCopyUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strCopyToNewUnionSubQuery", "Copy union sub-query");            
+            rtbQueryText.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
+            TextBoxCurrentSubQuerySql.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
+        }
 
-            UpdateLanguage();
+        private void QueryViewOnActiveUnionSubQueryChanged(object sender, EventArgs eventArgs)
+        {
+            if (QueryView.ActiveUnionSubQuery != null && QueryView.ActiveUnionSubQuery.ParentSubQuery != null)
+                TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+
+            rtbQueryText.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
+            TextBoxCurrentSubQuerySql.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
         }
 
         private void TimerForFastResult_Elapsed(object state)
@@ -238,8 +390,8 @@ namespace FullFeaturedMdiDemo
 	    protected override void OnClosed(EventArgs e)
 	    {
 	        base.OnClosed(e);
-
-	        Dispose();
+            
+            Dispose();
 	    }
 
 	    protected override void OnLoad(EventArgs e)
@@ -419,6 +571,9 @@ Do you want to load database structure from cache?";
 
 	    public bool CanAddUnionSubQuery()
 	    {
+	        if (NavBar.ActiveUnionSubQuery == null)
+	            return false;
+
 	        if (NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery)
 	        {
 	            return _sqlContext.SyntaxProvider.IsSupportSubQueryUnions();
@@ -450,7 +605,13 @@ Do you want to load database structure from cache?";
 	    public void UpdateLanguage()
 	    {
 	        QView.Language = Program.Settings.Language;
-	    }
+
+	        tsbQueryProperties.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strEdit", "Properties");
+	        tsbAddObject.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddObject", "Add object");
+	        tsbAddDerivedTable.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddSubQuery", "Add derived table");
+	        tsbAddUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strNewUnionSubQuery", "New union sub-query");
+	        tsbCopyUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strCopyToNewUnionSubQuery", "Copy union sub-query");
+        }
 
 	    public void ParseQuery()
 	    {
@@ -589,12 +750,13 @@ Do you want to load database structure from cache?";
 	        {
 	            // to refresh metadata, just clear already loaded items
 	            _sqlContext.MetadataContainer.Clear();
+                _sqlContext.MetadataContainer.LoadAll(true);
 	        }
 	    }
 
 	    public void EditMetadata()
 	    {
-	        QueryBuilder.EditMetadataContainer(_sqlContext.MetadataContainer, _sqlContext.MetadataStructure, _sqlContext.MetadataContainer.LoadingOptions);
+	        QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.MetadataContainer.LoadingOptions);
 	    }
 
 	    public void ClearMetadata()
@@ -730,6 +892,67 @@ Do you want to load database structure from cache?";
 
 	        if (QueryView.ActiveUnionSubQuery == null || SqlQuery.SleepMode) return;
 	        TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+	        CheckParameters();
+	    }
+
+        private void CheckParameters()
+        {
+            if (Common.Helpers.CheckParameters(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider, SqlQuery.QueryParameters))
+                HideParametersErrorPanel();
+            else
+            {
+                var acceptableFormats =
+                    Common.Helpers.GetAcceptableParametersFormats(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider);
+                ShowParametersErrorPanel(acceptableFormats);
+            }
+        }
+
+        private Control _parametersErrorPanel;
+        private void ShowParametersErrorPanel(List<string> acceptableFormats)
+        {
+            HideParametersErrorPanel();
+            _parametersErrorPanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightPink,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(6, 5, 3, 0),
+            };
+
+            var formats = acceptableFormats.Select(x =>
+            {
+                var s = x.Replace("n", "<number>");
+                return s.Replace("s", "<name>");
+            });
+
+            string formatsString = string.Join(", ", formats);
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Margin = new Padding(0),
+                Text = @"Unsupported parameter notation detected. For this type of connection and database server use " + formatsString,
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            _parametersErrorPanel.Controls.Add(label);
+            _parametersErrorPanel.Visible = true;
+            Controls.Add(_parametersErrorPanel);
+        }
+
+        private void HideParametersErrorPanel()
+        {
+            if (_parametersErrorPanel != null)
+            {
+                _parametersErrorPanel.Visible = false;
+                if (_parametersErrorPanel.Parent != null)
+                    _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
+                _parametersErrorPanel.Dispose();
+                _parametersErrorPanel = null;
+            }
         }
 
         private bool IsRecursionLoopInQueryText(string sql)
@@ -754,7 +977,7 @@ Do you want to load database structure from cache?";
                 if (IsRecursionLoopInQueryText(rtbQueryText.Text))
                 {
                     var message = "Recursion loop in virtual objects definition detected for object:\n" +
-                         UserMetadataStructureItem.MetadataItem.GetQualifiedNameSQL(null, _sqlGenerationOptions);
+                         UserMetadataStructureItem.MetadataItem.GetQualifiedNameSQL(null, SqlGenerationOptions);
 
                     MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
@@ -772,7 +995,8 @@ Do you want to load database structure from cache?";
 
 	            // Show banner with error text
 	            ShowErrorBanner(ex.Message);
-	            e.Cancel = true;
+                if (e != null)
+	                e.Cancel = true;
 	        }
 	    }
 
@@ -781,7 +1005,7 @@ Do you want to load database structure from cache?";
 	        bool supportsDerivedTable = false;
 	        bool supportsUnion = false;
 
-	        if (_sqlContext.SyntaxProvider != null)
+	        if (_sqlContext.SyntaxProvider != null  && NavBar.ActiveUnionSubQuery != null)
 	        {
 	            if (NavBar.ActiveUnionSubQuery.QueryRoot.IsMainQuery)
 	            {
@@ -1074,7 +1298,7 @@ Do you want to load database structure from cache?";
             abort = true;
 
             var message = "Recursion loop in virtual objects definition detected for object:\n" +
-                          UserMetadataStructureItem.MetadataItem.GetQualifiedNameSQL(null, _sqlGenerationOptions);
+                          UserMetadataStructureItem.MetadataItem.GetQualifiedNameSQL(null, SqlGenerationOptions);
 
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
@@ -1101,9 +1325,9 @@ Do you want to load database structure from cache?";
             if (tabControl2.SelectedTab != tabPageFastResult) return;
 
             try
-            {
+            {                
                 _queryTransformerTop10.Query =
-                    new SQLQuery(QueryView.ActiveUnionSubQuery.ParentSubQuery.SQLContext) { SQL = TextBoxCurrentSubQuerySql.Text };
+                    new SQLQuery(QueryView.ActiveUnionSubQuery.ParentSubQuery.SQLContext) { SQL = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetSqlForDataPreview() };
 
                 _timerForFastReuslt.Change(400, Timeout.Infinite);
             }
@@ -1131,7 +1355,17 @@ Do you want to load database structure from cache?";
             try
             {
                 infoPanel.Message = "";
+
+                // save active subquery
+                var parent = QueryView.ActiveUnionSubQuery.ParentSubQuery;
+                var items = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetUnionSubQueryList();
+                var idx = items.IndexOf(QueryView.ActiveUnionSubQuery);
+
                 QueryView.ActiveUnionSubQuery.ParentSubQuery.SQL = TextBoxCurrentSubQuerySql.Text;
+
+                // restore active subquery
+                items = parent.GetUnionSubQueryList();
+                QueryView.ActiveUnionSubQuery = idx != -1 ? items[idx] : items.First();
             }
             catch (Exception ex)
             {

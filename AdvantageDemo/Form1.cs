@@ -12,7 +12,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Linq;
 using Advantage.Data.Provider;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
@@ -31,7 +31,7 @@ namespace AdvantageDemo
 			{
 				AutoSize = true,
 				AutoSizeMode = AutoSizeMode.GrowAndShrink,
-				BackColor = Color.LightPink,
+				BackColor = Color.LightGreen,
 				BorderStyle = BorderStyle.FixedSingle,
 				Dock = DockStyle.Top,
 				Padding = new Padding(6, 5, 3, 0),
@@ -84,7 +84,7 @@ namespace AdvantageDemo
 		{
 			// Open the metadata container editor
 
-			QueryBuilder.EditMetadataContainer(queryBuilder.MetadataContainer, queryBuilder.MetadataStructure, queryBuilder.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext, queryBuilder.MetadataLoadingOptions);
 		}
 
 		private void clearMetadataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,9 +242,14 @@ namespace AdvantageDemo
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) continue;
+				        banner.Dispose();
+				    }
 				}
+
+                if(banners.Any(banner=> !banner.Disposing)) return;
 			}
 
 			// Show new banner if text is not empty
@@ -256,13 +261,14 @@ namespace AdvantageDemo
 					Text = text,
 					BorderStyle = BorderStyle.FixedSingle,
 					BackColor = Color.LightPink,
-					AutoSize = true,
+					AutoSize =  true,
 					Visible = true
 				};
 
 				control.Controls.Add(label);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
 				label.BringToFront();
+                
 				control.Focus();
 			}
 		}

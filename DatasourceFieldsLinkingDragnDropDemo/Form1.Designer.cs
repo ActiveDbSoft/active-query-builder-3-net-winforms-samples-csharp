@@ -148,7 +148,7 @@
             this.QBuilder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.QBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.QBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.QBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.QBuilder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.QBuilder.Location = new System.Drawing.Point(0, 0);
             this.QBuilder.MetadataStructureOptions.ProceduresFolderText = "Procedures";
             this.QBuilder.MetadataStructureOptions.SynonymsFolderText = "Synonyms";

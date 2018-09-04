@@ -391,17 +391,27 @@ namespace QueryModificationDemo
 		    tbSQL.Text = queryBuilder1.FormattedSQL;
 		}
 
-		public void ShowErrorBanner(Control control, string text)
+		public void ShowErrorBanner(Control control, String text)
 		{
 			// Destory banner if already showing
 			{
+				bool existBanner = false;
 				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
 				}
+
+                if(existBanner) return;
 			}
 
 			// Show new banner if text is not empty
@@ -413,17 +423,16 @@ namespace QueryModificationDemo
 					Text = text,
 					BorderStyle = BorderStyle.FixedSingle,
 					BackColor = Color.LightPink,
-					AutoSize = true,
+					AutoSize =  true,
 					Visible = true
 				};
 
 				control.Controls.Add(label);
-				control.Controls.SetChildIndex(label, 0);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
+				label.BringToFront();
+                
 				control.Focus();
 			}
 		}
-
-      
 	}
 }

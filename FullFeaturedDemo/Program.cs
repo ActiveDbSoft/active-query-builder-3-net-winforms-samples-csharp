@@ -39,7 +39,7 @@ namespace FullFeaturedDemo
 				Settings.CallUpgrade = false;
 			}
 
-			if (Program.Settings.Connections != null)
+            if (Program.Settings.Connections != null)
 			{
 				Connections = Program.Settings.Connections;
 			}
@@ -52,7 +52,7 @@ namespace FullFeaturedDemo
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());
-
+            
 			Program.Settings.Connections = Connections;
 			Program.Settings.XmlFiles = XmlFiles;
 			Program.Settings.Save();

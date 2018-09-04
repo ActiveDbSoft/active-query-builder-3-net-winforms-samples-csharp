@@ -129,7 +129,7 @@ namespace PanesVisibilityDemo
             this.queryBuilder.DataSourceOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Bitmap)(resources.GetObject("resource.PrimaryKeyIcon")));
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryBuilder.Location = new System.Drawing.Point(0, 108);
             this.queryBuilder.MetadataStructureOptions.ProceduresFolderText = null;
             this.queryBuilder.MetadataStructureOptions.SynonymsFolderText = null;

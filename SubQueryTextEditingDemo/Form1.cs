@@ -156,7 +156,7 @@ namespace SubQueryTextEditingDemo
 		private void editMetadataMenuItem_Click(object sender, EventArgs e)
 		{
 			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder1.MetadataContainer, queryBuilder1.MetadataStructure, queryBuilder1.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.MetadataLoadingOptions);
 		}
 
 		private void clearMetadataMenuItem_Click(object sender, EventArgs e)
@@ -695,13 +695,23 @@ namespace SubQueryTextEditingDemo
 		{
 			// Destory banner if already showing
 			{
+				bool existBanner = false;
 				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
 				}
+
+                if(existBanner) return;
 			}
 
 			// Show new banner if text is not empty
@@ -720,6 +730,7 @@ namespace SubQueryTextEditingDemo
 				control.Controls.Add(label);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
 				label.BringToFront();
+                
 				control.Focus();
 			}
 		}

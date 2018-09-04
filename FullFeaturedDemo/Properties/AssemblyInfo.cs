@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Active Database Software")]
 [assembly: AssemblyProduct("Active Query Builder. NET")]
-[assembly: AssemblyCopyright("Copyright © 2006-2018 Active Database Software")]
+[assembly: AssemblyCopyright("Copyright © 2006-2014 Active Database Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

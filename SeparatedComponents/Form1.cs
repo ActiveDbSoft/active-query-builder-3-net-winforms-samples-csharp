@@ -63,7 +63,7 @@ namespace SeparatedComponents
 		{
 			// Open the metadata container editor
 
-			QueryBuilder.EditMetadataContainer(sqlContext1.MetadataContainer, sqlContext1.MetadataStructure, sqlContext1.LoadingOptions);
+			QueryBuilder.EditMetadataContainer(sqlContext1, sqlContext1.LoadingOptions);
 		}
 
 		private void clearMetadataMenuItem_Click(object sender, EventArgs e)
@@ -176,13 +176,23 @@ namespace SeparatedComponents
 		{
 			// Destory banner if already showing
 			{
+				bool existBanner = false;
 				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
 				}
+
+                if(existBanner) return;
 			}
 
 			// Show new banner if text is not empty
@@ -201,6 +211,7 @@ namespace SeparatedComponents
 				control.Controls.Add(label);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
 				label.BringToFront();
+                
 				control.Focus();
 			}
 		}

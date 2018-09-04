@@ -10,6 +10,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using ActiveQueryBuilder.Core;
@@ -109,7 +110,7 @@ namespace AlternateNames
 		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder1.MetadataContainer, queryBuilder1.MetadataStructure, queryBuilder1.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.MetadataLoadingOptions);
 		}
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,37 +118,43 @@ namespace AlternateNames
 			QueryBuilder.ShowAboutDialog();
 		}
 
-		public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
+	    public void ShowErrorBanner(Control control, String text)
+	    {
+	        // Destory banner if already showing
+	        {
+	            Control[] banners = control.Controls.Find("ErrorBanner", true);
 
-				if (banners.Length > 0)
-				{
-					foreach (Control banner in banners)
-						banner.Dispose();
-				}
-			}
+	            if (banners.Length > 0)
+	            {
+	                foreach (Control banner in banners)
+	                {
+	                    if (Equals(text, banner.Text)) continue;
+	                    banner.Dispose();
+	                }
+	            }
 
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize = true,
-					Visible = true
-				};
+	            if (banners.Any(banner => !banner.Disposing)) return;
+	        }
 
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-				control.Focus();
-			}
-		}
-	}
+	        // Show new banner if text is not empty
+	        if (!String.IsNullOrEmpty(text))
+	        {
+	            Label label = new Label
+	            {
+	                Name = "ErrorBanner",
+	                Text = text,
+	                BorderStyle = BorderStyle.FixedSingle,
+	                BackColor = Color.LightPink,
+	                AutoSize = true,
+	                Visible = true
+	            };
+
+	            control.Controls.Add(label);
+	            label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
+	            label.BringToFront();
+
+	            control.Focus();
+	        }
+	    }
+    }
 }

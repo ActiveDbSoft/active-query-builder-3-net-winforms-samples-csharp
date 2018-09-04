@@ -855,10 +855,14 @@
             // 
             // DBView
             // 
+            this.DBView.BackColor = System.Drawing.SystemColors.Window;
             this.DBView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DBView.Location = new System.Drawing.Point(3, 29);
             this.DBView.Name = "DBView";
+            this.DBView.Options.DrawTreeLines = false;
+            this.DBView.Options.ImageList = null;
             this.DBView.QueryView = null;
+            this.DBView.SelectedItems = new ActiveQueryBuilder.Core.MetadataStructureItem[0];
             this.DBView.Size = new System.Drawing.Size(194, 271);
             this.DBView.SQLContext = null;
             this.DBView.TabIndex = 8;
@@ -978,7 +982,7 @@
         private System.Windows.Forms.Label CaptionConnection;
         private ActiveQueryBuilder.View.WinForms.UserQueries.UserQueriesView userQueriesView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView DBView;
+        public ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView DBView;
     }
 }
 

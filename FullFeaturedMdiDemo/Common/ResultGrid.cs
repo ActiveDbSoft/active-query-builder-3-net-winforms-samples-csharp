@@ -9,8 +9,10 @@
 //*******************************************************************//
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +24,15 @@ namespace FullFeaturedMdiDemo.Common
 {
     public partial class ResultGrid : UserControl
     {
+        public class ParameterInfo
+        {
+            public string Name { get; set; }
+            public DbType DataType { get; set; }
+            public object Value { get; set; }
+        }
+
+        public readonly List<ParameterInfo> ParamsCache = new List<ParameterInfo>();
+
         public event EventHandler RowsLoaded;
 
         private string _currentTextSql;
@@ -40,18 +51,19 @@ namespace FullFeaturedMdiDemo.Common
         {
             get { return dataGridView1.RowCount; }
         }
+
         public ResultGrid()
         {
             EnabledSortings = true;
             InitializeComponent();
         }
 
-        public void FillDataGrid(string sqlCommand)
+        public void FillDataGrid(string sqlCommand, bool force = false)
         {
             infoPanel1.Message = string.Empty;
             bCancel.Enabled = true;
 
-            if (_currentTextSql == sqlCommand || string.IsNullOrWhiteSpace(sqlCommand))
+            if ((_currentTextSql == sqlCommand || string.IsNullOrWhiteSpace(sqlCommand)) && !force)
             {
                 if (!string.IsNullOrWhiteSpace(sqlCommand)) return;
 
@@ -81,9 +93,82 @@ namespace FullFeaturedMdiDemo.Common
         public void Clear()
         {
             dataGridView1.DataSource = null;
+        }        
+
+        public DbCommand CreateSqlCommand(string sqlCommand, SQLQuery sqlQuery)
+        {
+            DbCommand command = (DbCommand)sqlQuery.SQLContext.MetadataProvider.Connection.CreateCommand();
+            command.CommandText = sqlCommand;
+
+            // handle the query parameters
+            if (sqlQuery.QueryParameters.Count == 0)
+            {
+                ClearParamsCache();
+                return command;
+            }
+
+            var allApllied = ApplyParamsFromCache(command, sqlQuery);
+            if (allApllied)
+                return command;
+            else
+            {
+                var qpf = new QueryParametersForm(command);
+                if (qpf.ShowDialog() == DialogResult.OK)
+                {
+                    SaveParamsToCache(command);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return command;
         }
 
-        private DataTable ExecuteSql(string sqlCommand)
+        public void ClearParamsCache()
+        {
+            ParamsCache.Clear();
+        }
+
+        private void SaveParamsToCache(DbCommand command)
+        {
+            ClearParamsCache();
+            foreach (DbParameter parameter in command.Parameters)
+            {
+                if (parameter.Value != null)
+                    ParamsCache.Add(new ParameterInfo
+                    {
+                        Name = parameter.ParameterName,
+                        DataType = parameter.DbType,
+                        Value = parameter.Value
+                    });
+            }
+        }
+
+        private bool ApplyParamsFromCache(DbCommand command, SQLQuery query)
+        {
+            var result = true;
+            foreach (var parameter in query.QueryParameters)
+            {
+                var cached =
+                    ParamsCache.FirstOrDefault(x => x.Name == parameter.FullName && x.DataType == parameter.DataType);
+
+                var param = command.CreateParameter();
+                param.ParameterName = parameter.FullName;
+                param.DbType = parameter.DataType;
+                if (cached != null)
+                    param.Value = cached.Value;
+                else
+                    result = false;
+
+                command.Parameters.Add(param);
+            }
+
+            return result;
+        }
+
+        public DataTable ExecuteSql(string sqlCommand)
         {
             if (string.IsNullOrEmpty(sqlCommand)) return null;
 
@@ -93,9 +178,18 @@ namespace FullFeaturedMdiDemo.Common
             }
 
             if (!SqlQuery.SQLContext.MetadataProvider.Connected)
+            {
+                SqlQuery.SQLContext.MetadataProvider.Connect();
+            }
+
+            if (string.IsNullOrEmpty(sqlCommand)) return null;
+
+            if (!SqlQuery.SQLContext.MetadataProvider.Connected)
                 SqlQuery.SQLContext.MetadataProvider.Connect();
 
-            var command = Helpers.CreateSqlCommand(sqlCommand, SqlQuery);
+            var command = CreateSqlCommand(sqlCommand, SqlQuery);
+            if (command == null)
+                return null;
 
             DataTable table = new DataTable("result");
 
@@ -119,10 +213,72 @@ namespace FullFeaturedMdiDemo.Common
             }
             catch (Exception ex)
             {
+                ParamsCache.Clear();
                 ShowException(ex);
             }
 
             return null;
+        }
+
+        private Control _usedParamsPanel;
+        private void ShowUsedParams()
+        {
+            HideUsedParams();
+
+            _usedParamsPanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightGoldenrodYellow,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(2, 2, 2, 2)
+            };
+
+            var parameters = ParamsCache.Select(x => string.Format("{0} = {1}", x.Name, x.Value));
+            var paramsString = "Used parameters: " + string.Join(", ", parameters);
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Padding = new Padding(4, 3, 1, 0),
+                Text = paramsString,
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            var button = new Button
+            {
+                Text = "Edit",
+                Dock = DockStyle.Right,
+                BackColor = SystemColors.Control,
+                Margin = new Padding(5)
+            };
+
+            button.Click += EditParamsButtonOnClick;
+
+            _usedParamsPanel.Controls.Add(button);
+            _usedParamsPanel.Controls.Add(label);
+            _usedParamsPanel.Visible = true;
+            Controls.Add(_usedParamsPanel);
+        }
+
+        private void EditParamsButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            ParamsCache.Clear();
+            FillDataGrid(_currentTextSql, true);
+        }
+
+        private void HideUsedParams()
+        {
+            if (_usedParamsPanel != null)
+            {
+                _usedParamsPanel.Visible = false;
+                if (_usedParamsPanel.Parent != null)
+                    _usedParamsPanel.Parent.Controls.Remove(_usedParamsPanel);
+                _usedParamsPanel.Dispose();
+                _usedParamsPanel = null;
+            }
         }
 
         private void TryRunTask()
@@ -167,6 +323,11 @@ namespace FullFeaturedMdiDemo.Common
             Invoke((Action)delegate
             {
                 dataGridView1.DataSource = obj.Result;
+
+                if (ParamsCache.Count != 0 && dataGridView1.DataSource != null)
+                    ShowUsedParams();
+                else
+                    HideUsedParams();
 
                 pLoading.Visible = _currentTask != null;
 

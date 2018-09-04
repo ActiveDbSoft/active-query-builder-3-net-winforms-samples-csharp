@@ -143,6 +143,10 @@ namespace FullFeaturedDemo
         private void btnNextPage_Click(object sender, EventArgs e)
         {
             int currentPage = CurrentPage;
+            if (RowsCount - PageSize * currentPage <= 0)
+            {
+                return;
+            }
             CurrentPage = currentPage + 1;
             if (CurrentPageChanged != null)
             {

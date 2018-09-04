@@ -26,10 +26,9 @@ using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
 using ActiveQueryBuilder.View.WinForms;
+using FullFeaturedMdiDemo.Common;
 using FullFeaturedMdiDemo.Dailogs;
 using FullFeaturedMdiDemo.PropertiesForm;
-using MySql.Data.MySqlClient;
-using Npgsql;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
@@ -40,6 +39,8 @@ namespace FullFeaturedMdiDemo
         private SQLContext _sqlContext;
         private readonly SQLFormattingOptions _sqlFormattingOptions;
         private readonly SQLGenerationOptions _sqlGenerationOptions;
+
+	    private Options _options;
 
         public MainForm()
 		{
@@ -69,12 +70,14 @@ namespace FullFeaturedMdiDemo
 			Application.Idle += Application_Idle;
             DBView.ItemDoubleClick += DBView_ItemDoubleClick;
 
+            TryToLoadOptions();
+
 		    // DEMO WARNING
 		    Panel trialNoticePanel = new Panel
 		    {
 		        AutoSize = true,
 		        AutoSizeMode = AutoSizeMode.GrowAndShrink,
-		        BackColor = Color.LightPink,
+		        BackColor = Color.LightGreen,
 		        BorderStyle = BorderStyle.FixedSingle,
 		        Dock = DockStyle.Top,
 		        Padding = new Padding(6, 5, 3, 0),
@@ -104,6 +107,24 @@ namespace FullFeaturedMdiDemo
 
 		    Controls.SetChildIndex(trialNoticePanel, 2);
         }
+
+	    private void TryToLoadOptions()
+	    {
+	        if (string.IsNullOrEmpty(Program.Settings.Options))
+	            return;
+            
+            _options = new Options();
+            _options.CreateDefaultOptions();
+	        try
+	        {
+	            _options.DeserializeFromString(Program.Settings.Options);
+	        }
+	        catch
+	        {
+	            _options = null;
+	            Program.Settings.Options = string.Empty;
+	        }
+	    }
 
         private void MainForm_MdiChildActivate(object sender, EventArgs e)
 	    {
@@ -199,7 +220,8 @@ namespace FullFeaturedMdiDemo
                 checkedItem.Checked = false;
             }
             Program.Settings.Language = (string)currentItem.Tag;
-            if(ActiveMdiChild != null) {
+            Helpers.Localizer.Language = (string)currentItem.Tag;
+            if (ActiveMdiChild != null) {
                 ((ChildForm)ActiveMdiChild).UpdateLanguage();
             }
             currentItem.Checked = true;
@@ -233,8 +255,10 @@ namespace FullFeaturedMdiDemo
 	        tsmiClearMetadata.Enabled = (ActiveMdiChild != null);
 	        tsmiLoadMetadataFromXML.Enabled = (ActiveMdiChild != null);
 	        tsmiSaveMetadataToXML.Enabled = (ActiveMdiChild != null);
+	        propertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
+	        queryPropertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
 
-	        addDerivedTableToolStripMenuItem.Enabled = (ActiveMdiChild != null &&
+            addDerivedTableToolStripMenuItem.Enabled = (ActiveMdiChild != null &&
 	                                                    ((ChildForm) ActiveMdiChild).CanAddDerivedTable());
 	        addObjectToolStripMenuItem.Enabled = (ActiveMdiChild != null &&
 	                                              ((ChildForm) ActiveMdiChild).CanAddObject());
@@ -251,91 +275,60 @@ namespace FullFeaturedMdiDemo
 			tsmiNew_Click(sender, e);
 		}
 
-	    private void InitializeSqlContext()
+	    private bool InitializeSqlContext()
 	    {
             try
             {
                 Cursor = Cursors.WaitCursor;
 
                 BaseMetadataProvider metadataProvaider = null;
-                
-				// create new SqlConnection object using the connections string from the connection form
-                if (!_selectedConnection.IsXmlFile)
+
+
+                if (_selectedConnection.IsXmlFile)
                 {
-                    switch (_selectedConnection.ConnectionType)
+                    _sqlContext = new SQLContext
                     {
-                        case ConnectionTypes.MSSQL:
-                            metadataProvaider = new MSSQLMetadataProvider
-                            {
-                                Connection = new SqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.MSAccess:
-                            metadataProvaider = new OLEDBMetadataProvider
-                            {
-                                Connection = new OleDbConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.Oracle:
-                            // previous version of this demo uses deprecated System.Data.OracleClient
-                            // current version uses Oracle.ManagedDataAccess.Client which doesn't support "Integrated Security" setting
-                            var updatedConnectionString = Regex.Replace(_selectedConnection.ConnectionString,
-                                "Integrated Security=.*?;", "");
-                            metadataProvaider = new OracleNativeMetadataProvider
-                            {
-                                Connection = new OracleConnection(updatedConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.MySQL:
-                            metadataProvaider = new OracleNativeMetadataProvider
-                            {
-                                Connection = new MySqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.PostgreSQL:
-                            metadataProvaider = new PostgreSQLMetadataProvider
-                            {
-                                Connection = new NpgsqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.OLEDB:
-                            metadataProvaider = new OLEDBMetadataProvider
-                            {
-                                Connection = new OleDbConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.ODBC:
-                            metadataProvaider = new ODBCMetadataProvider
-                            {
-                                Connection = new OdbcConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        SyntaxProvider = _selectedConnection.ConnectionDescriptor.SyntaxProvider,
+                        LoadingOptions = { OfflineMode = true }
+                    };
+
+                    try
+                    {
+                        _sqlContext.MetadataContainer.ImportFromXML(_selectedConnection.XMLPath);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        _sqlContext = _selectedConnection.ConnectionDescriptor.GetSqlContext();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
                     }
                 }
 
-                if (_selectedConnection.IsXmlFile && _selectedConnection.SyntaxProvider == null)
-                {
-                    _selectedConnection.CreateSyntaxByType();
-                }
-
-                // setup the query builder with metadata and syntax providers
-                _sqlContext = new SQLContext
-                {
-                    MetadataProvider = metadataProvaider,
-                    SyntaxProvider = _selectedConnection.SyntaxProvider,
-                    LoadingOptions = { OfflineMode = (metadataProvaider == null) }
-                };
-
-                if(metadataProvaider == null)
-                {
-                    _sqlContext.MetadataContainer.ImportFromXML(_selectedConnection.ConnectionString);
-                }
-                CaptionConnection.Text = _selectedConnection.ConnectionName;
+                _sqlContext.LoadingOptions.Assign(_selectedConnection.ConnectionDescriptor.MetadataLoadingOptions);
+                _sqlContext.MetadataStructure.Options.Assign(_selectedConnection.StructureOptions);
 
                 DBView.SQLContext = _sqlContext;
                 DBView.InitializeDatabaseSchemaTree();
+                
+                if (!string.IsNullOrEmpty(_selectedConnection.MetadataStructure))
+                {
+                    _sqlContext.MetadataStructure.XML = _selectedConnection.MetadataStructure;
+                    _sqlContext.MetadataStructure.Refresh();
+                }
+                _sqlContext.MetadataStructure.FavouritesItem.UpdateEnded += Favourites_Updated;
+
+                CaptionConnection.Text = _selectedConnection.Name;
 
                 userQueriesView1.SQLContext = _sqlContext;
                 userQueriesView1.SQLQuery = new SQLQuery(_sqlContext);
@@ -353,6 +346,19 @@ namespace FullFeaturedMdiDemo
             {
                 Cursor = Cursors.Default;
             }
+
+	        return true;
+	    }
+
+	    private void Favourites_Updated(object sender, EventArgs eventArgs)
+	    {
+	        SaveFavourites();
+	    }
+
+	    private void SaveFavourites()
+	    {
+            if (_sqlContext != null && _selectedConnection != null)
+	            _selectedConnection.MetadataStructure = _sqlContext.MetadataStructure.XML;
 	    }
 
 	    private void tsmiNew_Click(object sender, EventArgs e)
@@ -368,10 +374,6 @@ namespace FullFeaturedMdiDemo
                     try
                     {
                         Cursor = Cursors.WaitCursor;
-                        if(Equals(_selectedConnection, cf.SelectedConnection))
-                        {
-                            return;
-                        }
                         foreach(var mdiChild in MdiChildren)
                         {
                             mdiChild.Close();
@@ -380,8 +382,12 @@ namespace FullFeaturedMdiDemo
                         {
                             return;
                         }
+
                         _selectedConnection = cf.SelectedConnection;
-                        InitializeSqlContext();
+                        var contextInitilized = InitializeSqlContext();
+                        if (!contextInitilized)
+                            return;
+
                         if (!string.IsNullOrEmpty(_selectedConnection.UserQueries))
                         {
                             byte[] bytes = Encoding.UTF8.GetBytes(_selectedConnection.UserQueries);
@@ -421,7 +427,7 @@ namespace FullFeaturedMdiDemo
 			        return;
 			    }
 			    ChildForm f = CreateChildForm(openFileDialog1.FileName);
-                f.QueryText = sb.ToString();
+                f.SqlEditorText = sb.ToString();
                 f.FileSourcePath = openFileDialog1.FileName;
                 f.SqlSourceType = ChildForm.SourceType.File;
                 f.Show();
@@ -464,6 +470,7 @@ namespace FullFeaturedMdiDemo
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+		    SaveFavourites();
 		}
 
 		private void tsbCascade_Click(object sender, EventArgs e)
@@ -664,8 +671,14 @@ namespace FullFeaturedMdiDemo
 		private void tsmiLanguageAuto_Click(object sender, EventArgs e)
 		{
 			Program.Settings.Language = "Auto";
+		    Helpers.Localizer.Language = "Auto";
+		    ToolStripMenuItem checkedItem = languageToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Checked);
+		    if (checkedItem != null)
+		        checkedItem.Checked = false;
 
-			if (ActiveMdiChild != null)
+		    tsmiLanguageAuto.Checked = true;
+
+            if (ActiveMdiChild != null)
 			{
 				((ChildForm) ActiveMdiChild).UpdateLanguage();
 			}
@@ -674,7 +687,15 @@ namespace FullFeaturedMdiDemo
 		private void tsmiLanguageDefault_Click(object sender, EventArgs e)
 		{
 			Program.Settings.Language = "Default";
-			if (ActiveMdiChild != null)
+		    Helpers.Localizer.Language = "Default";
+
+		    ToolStripMenuItem checkedItem = languageToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().FirstOrDefault(item => item.Checked);
+		    if (checkedItem != null)
+		        checkedItem.Checked = false;
+
+		    tsmiLanguageDefault.Checked = true;
+
+            if (ActiveMdiChild != null)
 			{
 				((ChildForm) ActiveMdiChild).UpdateLanguage();
 			}
@@ -697,6 +718,10 @@ namespace FullFeaturedMdiDemo
             childForm.SaveQueryEvent += ChildForm_SaveQueryEvent;
             childForm.SaveAsInFileEvent += ChildForm_SaveAsInFileEvent;
             childForm.SaveAsNewUserQueryEvent += ChildForm_SaveAsNewUserQueryEvent;
+
+            if (_options != null)
+                childForm.SetOptions(_options);
+            
             return childForm;
         }
 
@@ -791,23 +816,37 @@ namespace FullFeaturedMdiDemo
 
 	    private bool SaveNewUserQuery(ChildForm childWindow)
 	    {
-                if (childWindow.SqlQuery.QueryRoot.IsQueryWithCTE && !childWindow.SqlQuery.SQLContext.SyntaxProvider.IsSupportSubQueryCTE())
-                {
-                    var cannotSaveQuery = "Error: Queries with Common Table Expressions can not be saved to the repository.";
-                    MessageBox.Show(cannotSaveQuery, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+            if (childWindow.SqlQuery.QueryRoot.IsQueryWithCTE && !childWindow.SqlQuery.SQLContext.SyntaxProvider.IsSupportSubQueryCTE())
+            {
+                var cannotSaveQuery = "Error: Queries with Common Table Expressions can not be saved to the repository.";
+                MessageBox.Show(cannotSaveQuery, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
-	        MetadataStructureItem node;
+	        if (string.IsNullOrEmpty(childWindow.SqlQuery.SQL))
+	        {
+	            MessageBox.Show("Nothing to save: SQL query is empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	            return false;
+	        }
+
+            MetadataStructureItem node = null;
 	        string title;
 	        do
 	        {
-	            QueryNameForm window = new QueryNameForm();
-	            if(window.ShowDialog() != DialogResult.OK)
+	            using (QueryNameForm window = new QueryNameForm())
 	            {
-	                return false;
+	                window.QueryName = childWindow.SqlQuery.SQLContext.MetadataContainer.GetUniqueItemName(
+	                    MetadataType.UserQuery,
+	                    Helpers.Localizer.GetString("strNewQuery", LocalizableConstantsUI.strNewQuery));
+
+	                if (window.ShowDialog() != DialogResult.OK)
+	                {
+	                    return false;
+	                }
+
+	                title = window.QueryName;
 	            }
-	            title = window.QueryName;
+
 	            if(!UserQueries.IsUserQueryExist(childWindow.SqlQuery.SQLContext.MetadataContainer, title))
 	            {
 	                var atItem = userQueriesView1.SelectedItem ?? userQueriesView1.MetadataStructure;
@@ -815,12 +854,22 @@ namespace FullFeaturedMdiDemo
 	                {
 	                    atItem = atItem.Parent;
 	                }
-	                node = UserQueries.AddUserQuery(childWindow.SqlQuery.SQLContext.MetadataContainer, atItem, title,
-	                    childWindow.SqlQuery.SQL, (int) DefaultImageListImageIndices.VirtualObject, childWindow.QueryView.LayoutSQL);
+
+	                try
+	                {
+	                    node = UserQueries.AddUserQuery(childWindow.SqlQuery.SQLContext.MetadataContainer, atItem, title,
+	                        childWindow.SqlQuery.SQL, (int)DefaultImageListImageIndices.VirtualObject, childWindow.QueryView.LayoutSQL);
+                    }
+	                catch (Exception e)
+	                {
+	                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	                    return false;
+	                }
+	                
 	                break;
 	            }
 
-                var path = userQueriesView1.GetPathAtUserQuery(title);
+	            var path = userQueriesView1.GetPathAtUserQuery(title);
                 var message = string.IsNullOrEmpty(path)
                     ? @"The same-named query already exists in the root folder."
                     : string.Format("The same-named query already exists in the \"{0}\" folder.", path);
@@ -892,13 +941,26 @@ namespace FullFeaturedMdiDemo
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var propWindow = new QueryPropertiesForm(_sqlContext, _sqlFormattingOptions);
+            var childForm = ActiveMdiChild as ChildForm;
+            if (childForm == null) return;
+
+            var propWindow = new QueryPropertiesForm(childForm, DBView);
+            
             propWindow.ShowDialog();
+
+            var options = childForm.GetOptions();            
+            _options = options;
+
+            foreach (var form in MdiChildren)
+            {
+                var child = form as ChildForm;
+                child.SetOptions(options);
+            }
         }
 
         private void tsbEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(_sqlContext.MetadataContainer, _sqlContext.MetadataStructure, _sqlContext.MetadataContainer.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.MetadataContainer.LoadingOptions);
         }
 
         private void userQueriesView1_EditUserQuery(object sender, MetadataStructureItemCancelEventArgs e)
@@ -937,8 +999,15 @@ namespace FullFeaturedMdiDemo
 
         private void userQueriesView1_ValidateItemContextMenu(object sender, MetadataStructureItemMenuEventArgs e)
         {
+            if (e.MetadataStructureItem.MetadataItem == null)
+                return;
+
+            var metadataObject = e.MetadataStructureItem.MetadataItem as MetadataObject;
+            if (metadataObject == null)
+                return;
+            
             e.Menu.InsertItem(2, "Copy SQL", Execute_SqlExpression, false, true, null,
-                ((MetadataObject)e.MetadataStructureItem.MetadataItem).Expression);
+                metadataObject.Expression);
         }
 
 	    private static void Execute_SqlExpression(object sender, EventArgs eventArgs)

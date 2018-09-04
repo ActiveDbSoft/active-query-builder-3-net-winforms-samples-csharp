@@ -22,7 +22,7 @@ namespace BasicDemo
 	internal partial class OfflineModePage : UserControl
 	{
 		private QueryBuilder _queryBuilder = null;
-		private MetadataContainer _metadataContainerCopy = null;
+	    private SQLContext _sqlContext;
 		private BaseSyntaxProvider _syntaxProvider = null;
         private bool _modified = false;
 
@@ -35,8 +35,8 @@ namespace BasicDemo
 			_queryBuilder = queryBuilder;
 			_syntaxProvider = syntaxProvider;
 
-			_metadataContainerCopy = new MetadataContainer(queryBuilder.SQLContext);
-			_metadataContainerCopy.Assign(_queryBuilder.MetadataContainer);
+		    _sqlContext = new SQLContext();
+            _sqlContext.Assign(queryBuilder.SQLContext);
 
 			InitializeComponent();
 
@@ -53,7 +53,7 @@ namespace BasicDemo
 
 		protected override void Dispose(bool disposing)
 		{
-			_metadataContainerCopy.Dispose();
+			_sqlContext.Dispose();
 
 			cbOfflineMode.CheckedChanged -= checkOfflineMode_CheckedChanged;
 			bEditMetadata.Click -= buttonEditMetadata_Click;
@@ -82,7 +82,7 @@ namespace BasicDemo
 						_queryBuilder.MetadataProvider.Disconnect();
 					}
 
-					_queryBuilder.MetadataContainer.Assign(_metadataContainerCopy);
+					_queryBuilder.SQLContext.Assign(_sqlContext);
 				}
 				else
 				{
@@ -99,11 +99,10 @@ namespace BasicDemo
 
 		private void buttonLoadMetadata_Click(object sender, EventArgs e)
 		{
-			_metadataContainerCopy.BeginUpdate();
-
+			_sqlContext.MetadataContainer.BeginUpdate();
 			try
 			{
-				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_metadataContainerCopy, false))
+				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_sqlContext.MetadataContainer))
 				{
 					if (f.ShowDialog() == DialogResult.OK)
 					{
@@ -114,7 +113,7 @@ namespace BasicDemo
 			}
 			finally
 			{
-				_metadataContainerCopy.EndUpdate();
+			    _sqlContext.MetadataContainer.EndUpdate();
 			}
 		}
 
@@ -130,7 +129,7 @@ namespace BasicDemo
 
 		private void UpdateMetadataStats()
 		{
-			List<MetadataObject> metadataObjects = _metadataContainerCopy.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
+			List<MetadataObject> metadataObjects = _sqlContext.MetadataContainer.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
             int t = 0, v = 0, p = 0, s = 0;
 
             for (int i = 0; i < metadataObjects.Count; i++)
@@ -163,7 +162,7 @@ namespace BasicDemo
 		{
 			if (OpenDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ImportFromXML(OpenDialog.FileName);
+			    _sqlContext.MetadataContainer.ImportFromXML(OpenDialog.FileName);
 				Modified = true;
 				UpdateMetadataStats();
 			}
@@ -173,13 +172,13 @@ namespace BasicDemo
 		{
 			if (SaveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ExportToXML(SaveDialog.FileName);
+			    _sqlContext.MetadataContainer.ExportToXML(SaveDialog.FileName);
 			}
 		}
 
 		private void buttonEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (QueryBuilder.EditMetadataContainer(_metadataContainerCopy, _queryBuilder.MetadataStructure, _queryBuilder.MetadataLoadingOptions))
+			if (QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.LoadingOptions))
 			{
 				Modified = true;
 			}

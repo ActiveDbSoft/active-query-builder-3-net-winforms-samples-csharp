@@ -242,38 +242,49 @@ namespace QueryUIEventsDemo
             TextBoxSQL.Text = QBuilder.FormattedSQL;
         }
 
-        private static void ShowErrorBanner(Control control, string text)
-        {
-            // Destory banner if already showing
-            {
-                Control[] banners = control.Controls.Find("ErrorBanner", true);
+        public void ShowErrorBanner(Control control, String text)
+		{
+			// Destory banner if already showing
+			{
+				bool existBanner = false;
+				Control[] banners = control.Controls.Find("ErrorBanner", true);
 
-                if (banners.Length > 0)
-                {
-                    foreach (Control banner in banners)
-                        banner.Dispose();
-                }
-            }
+				if (banners.Length > 0)
+				{
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) 
+						{
+							existBanner = true;
+							continue;
+						}
+				        banner.Dispose();
+				    }
+				}
 
-            // Show new banner if text is not empty
-            if (!String.IsNullOrEmpty(text))
-            {
-                Label label = new Label
-                {
-                    Name = "ErrorBanner",
-                    Text = text,
-                    BorderStyle = BorderStyle.FixedSingle,
-                    BackColor = Color.LightPink,
-                    AutoSize = true,
-                    Visible = true
-                };
+                if(existBanner) return;
+			}
 
-                control.Controls.Add(label);
-                label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-                label.BringToFront();
-                control.Focus();
-            }
-        }
+			// Show new banner if text is not empty
+			if (!String.IsNullOrEmpty(text))
+			{
+				Label label = new Label
+				{
+					Name = "ErrorBanner",
+					Text = text,
+					BorderStyle = BorderStyle.FixedSingle,
+					BackColor = Color.LightPink,
+					AutoSize =  true,
+					Visible = true
+				};
+
+				control.Controls.Add(label);
+				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
+				label.BringToFront();
+                
+				control.Focus();
+			}
+		}
 
         private void AddRowToReport(string value)
         {

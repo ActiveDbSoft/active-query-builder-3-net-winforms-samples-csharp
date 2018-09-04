@@ -12,6 +12,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.View.WinForms;
 
 namespace FullFeaturedDemo.PropertiesForm
 {
@@ -20,27 +21,27 @@ namespace FullFeaturedDemo.PropertiesForm
 	[ToolboxItem(false)]
 	internal partial class SqlFormattingPage : UserControl
 	{
-		private readonly SqlBuilderOptionsPages _page = SqlBuilderOptionsPages.MainQuery;
-		private readonly SQLBuilderSelectFormat _format;
-
-        private readonly SQLFormattingOptions _sqlFormattingOptions;
-
-	    public bool Modified { get; set; }
+		private SqlBuilderOptionsPages _page = SqlBuilderOptionsPages.MainQuery;
+		private QueryBuilder _queryBuilder = null;
+		private SQLBuilderSelectFormat _format;
+		private bool _modified = false;
 
 
-	    public SqlFormattingPage(SqlBuilderOptionsPages page, SQLFormattingOptions sqlFormattingOptions)
+		public bool Modified { get { return _modified; } set { _modified = value; } }
+
+
+		public SqlFormattingPage(SqlBuilderOptionsPages page, QueryBuilder queryBuilder)
 		{
-            Modified = false;
-            _page = page;
-	        _sqlFormattingOptions = sqlFormattingOptions;
+			_page = page;
+			_queryBuilder = queryBuilder;
 			_format = new SQLBuilderSelectFormat(null);
 
 			if (_page == SqlBuilderOptionsPages.MainQuery)
-                _format.Assign(sqlFormattingOptions.MainQueryFormat);
+				_format.Assign(_queryBuilder.SQLFormattingOptions.MainQueryFormat);
 			else if (_page == SqlBuilderOptionsPages.DerievedQueries)
-                _format.Assign(sqlFormattingOptions.DerivedQueryFormat);
+				_format.Assign(_queryBuilder.SQLFormattingOptions.DerivedQueryFormat);
 			else if (_page == SqlBuilderOptionsPages.ExpressionSubqueries)
-                _format.Assign(sqlFormattingOptions.ExpressionSubQueryFormat);
+				_format.Assign(_queryBuilder.SQLFormattingOptions.ExpressionSubQueryFormat);
 
 			InitializeComponent();
 
@@ -227,15 +228,15 @@ namespace FullFeaturedDemo.PropertiesForm
 
 				if (_page == SqlBuilderOptionsPages.MainQuery)
 				{
-                    _sqlFormattingOptions.MainQueryFormat.Assign(_format);
+					_queryBuilder.SQLFormattingOptions.MainQueryFormat.Assign(_format);
 				}
 				else if (_page == SqlBuilderOptionsPages.DerievedQueries)
 				{
-                    _sqlFormattingOptions.DerivedQueryFormat.Assign(_format);
+					_queryBuilder.SQLFormattingOptions.DerivedQueryFormat.Assign(_format);
 				}
 				else if (_page == SqlBuilderOptionsPages.ExpressionSubqueries)
 				{
-                    _sqlFormattingOptions.ExpressionSubQueryFormat.Assign(_format);
+					_queryBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.Assign(_format);
 				}
 			}
 		}		

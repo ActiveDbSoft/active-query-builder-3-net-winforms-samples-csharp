@@ -9,12 +9,9 @@
 //*******************************************************************//
 
 using System;
-using System.Data;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -24,31 +21,50 @@ namespace BasicDemo
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+	    private Control _parametersErrorPanel;
+        public Form1()
 		{
 			InitializeComponent();
-			// DEMO WARNING
-			Panel trialNoticePanel = new Panel
-			{
-				AutoSize = true,
-				AutoSizeMode = AutoSizeMode.GrowAndShrink,
-				BackColor = Color.LightPink,
-				BorderStyle = BorderStyle.FixedSingle,
-				Dock = DockStyle.Top,
-				Padding = new Padding(6, 5, 3, 0),
-			};
 
-			Label label = new Label
-			{
-				AutoSize = true,
-				Margin = new Padding(0),
-				Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-				Dock = DockStyle.Fill,
-				UseCompatibleTextRendering = true
-			};
+		    queryBuilder1.ActiveUnionSubQueryChanged += delegate
+		    {
+		        sqlTextEditor1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery;
+		    };
+            
+		    // DEMO WARNING
+		    Panel trialNoticePanel = new Panel
+		    {
+		        AutoSize = true,
+		        AutoSizeMode = AutoSizeMode.GrowAndShrink,
+		        BackColor = Color.LightGreen,
+		        BorderStyle = BorderStyle.FixedSingle,
+		        Dock = DockStyle.Top,
+		        Padding = new Padding(6, 5, 3, 0),
+		    };
 
-			trialNoticePanel.Controls.Add(label);
-			Controls.Add(trialNoticePanel);
+		    Label label = new Label
+		    {
+		        AutoSize = true,
+		        Margin = new Padding(0),
+		        Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+		        Dock = DockStyle.Fill,
+		        UseCompatibleTextRendering = true
+		    };
+
+		    var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
+		    buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+
+		    trialNoticePanel.Controls.Add(buttonClose);
+
+		    trialNoticePanel.Resize += delegate
+		    {
+		        buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+		    };
+
+		    trialNoticePanel.Controls.Add(label);
+		    Controls.Add(trialNoticePanel);
+
+		    Controls.SetChildIndex(trialNoticePanel, 2);
             Load += Form1_Load;
 		}
 
@@ -56,6 +72,7 @@ namespace BasicDemo
         {
             Load -= Form1_Load;
             queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
+            sqlTextEditor1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery;
         }
 
         private void refreshMetadataMenuItem_Click(object sender, EventArgs e)
@@ -73,13 +90,13 @@ namespace BasicDemo
 		private void editMetadataMenuItem_Click(object sender, EventArgs e)
 		{
 			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder1.MetadataContainer, queryBuilder1.MetadataStructure, queryBuilder1.MetadataLoadingOptions);
+		    QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.SQLContext.LoadingOptions);
 		}
 
 		private void clearMetadataMenuItem_Click(object sender, EventArgs e)
 		{
 			// Clear the metadata
-			if (MessageBox.Show("Clear Metadata Container?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+			if (MessageBox.Show(@"Clear Metadata Container?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
 				queryBuilder1.ClearMetadata();
 			}
@@ -122,9 +139,69 @@ namespace BasicDemo
 
 			// update the text box
 			sqlTextEditor1.Text = queryBuilder1.FormattedSQL;
+		    CheckParameters();
 		}
 
-		public void ResetQueryBuilder()
+	    private void CheckParameters()
+	    {
+	        if (Misc.CheckParameters(queryBuilder1))
+	            HideParametersErrorPanel();
+	        else
+	        {
+	            var acceptableFormats =
+	                Misc.GetAcceptableParametersFormats(queryBuilder1.MetadataProvider, queryBuilder1.SyntaxProvider);
+	            ShowParametersErrorPanel(acceptableFormats);
+	        }
+	    }
+
+	    private void ShowParametersErrorPanel(List<string> acceptableFormats)
+	    {
+	        HideParametersErrorPanel();
+            _parametersErrorPanel = new Panel
+	        {
+	            AutoSize = true,
+	            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+	            BackColor = Color.LightPink,
+	            BorderStyle = BorderStyle.FixedSingle,
+	            Dock = DockStyle.Top,
+	            Padding = new Padding(6, 5, 3, 0),
+	        };
+
+	        var formats = acceptableFormats.Select(x =>
+	        {
+	            var s = x.Replace("n", "<number>");
+	            return s.Replace("s", "<name>");
+	        });
+
+	        string formatsString = string.Join(", ", formats);
+
+	        Label label = new Label
+	        {
+	            AutoSize = true,
+	            Margin = new Padding(0),
+	            Text = @"Unsupported parameter notation detected. For this type of connection and database server use " + formatsString,
+	            Dock = DockStyle.Fill,
+	            UseCompatibleTextRendering = true
+	        };
+
+	        _parametersErrorPanel.Controls.Add(label);
+	        _parametersErrorPanel.Visible = true;
+	        Controls.Add(_parametersErrorPanel);
+	    }
+
+	    private void HideParametersErrorPanel()
+	    {
+	        if (_parametersErrorPanel != null)
+	        {
+	            _parametersErrorPanel.Visible = false;
+                if (_parametersErrorPanel.Parent != null)
+	                _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
+                _parametersErrorPanel.Dispose();
+	            _parametersErrorPanel = null;
+	        }
+	    }
+
+        public void ResetQueryBuilder()
 		{
 			queryBuilder1.ClearMetadata();
 			queryBuilder1.MetadataProvider = null;
@@ -132,132 +209,28 @@ namespace BasicDemo
 			queryBuilder1.MetadataLoadingOptions.OfflineMode = false;
 		}
 
-		private void connectToMSSQLServerMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
+	    private void menuItem5_Click(object sender, EventArgs e)
+	    {
+	        ResetQueryBuilder();
 
-			// Connect to MS SQL Server
+	        using (var connectionForm = new ConnectionForm())
+	        {
+	            if (connectionForm.ShowDialog() == DialogResult.OK)
+	            {
+	                try
+	                {
+	                    var context = connectionForm.Connection.GetSqlContext();
+	                    queryBuilder1.SQLContext.Assign(context);
+                    }
+	                catch (Exception ex)
+	                {
+	                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	                }                    
+	            }
+	        }
+        }
 
-			// show the connection form
-			using (MSSQLConnectionForm f = new MSSQLConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new SqlConnection object using the connections string from the connection form
-					mssqlMetadataProvider1.Connection = new SqlConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = mssqlMetadataProvider1;
-					queryBuilder1.SyntaxProvider = mssqlSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToOracleServerMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-            // Connect to Oracle Server.
-            // Connect using a metadata provider based on the native Oracle Data Provider for .NET (Oracle.DataAccess.Client).
-
-            // show the connection form
-            using (OracleConnectionForm f = new OracleConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new OracleConnection object using the connections string from the connection form
-					oracleMetadataProvider1.Connection = new OracleConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = oracleMetadataProvider1;
-					queryBuilder1.SyntaxProvider = oracleSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToAccessDatabaseMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to MS Access database using OLE DB provider
-
-			// show the connection form
-			using (AccessConnectionForm f = new AccessConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new OleDbConnection object using the connections string from the connection form
-					oledbMetadataProvider1.Connection = new OleDbConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = oledbMetadataProvider1;
-					queryBuilder1.SyntaxProvider = msaccessSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectOleDbMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to a database through the OLE DB provider
-
-			// show the connection form
-			using (OLEDBConnectionForm f = new OLEDBConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new OleDbConnection object using the connections string from the connection form
-					oledbMetadataProvider1.Connection = new OleDbConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = oledbMetadataProvider1;
-					queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-
-					WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
-				}
-			}
-		}
-
-		private void connectODBCMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to a database through the ODBC provider
-
-			// show the connection form
-			using (ODBCConnectionForm f = new ODBCConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new OdbcConnection object using the connections string from the connection form
-					odbcMetadataProvider1.Connection = new OdbcConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = odbcMetadataProvider1;
-					queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-
-					WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
-				}
-			}
-		}
-
-		private void fillProgrammaticallyMenuItem_Click(object sender, EventArgs e)
+        private void fillProgrammaticallyMenuItem_Click(object sender, EventArgs e)
 		{
 			ResetQueryBuilder();
 
@@ -307,8 +280,9 @@ namespace BasicDemo
 		{
 			try
 			{
-				// Update the query builder with manually edited query text:
-				queryBuilder1.SQL = sqlTextEditor1.Text;
+
+                // Update the query builder with manually edited query text:
+                queryBuilder1.SQL = sqlTextEditor1.Text;
 
 				// Hide error banner if any
 				ShowErrorBanner(sqlTextEditor1, "");
@@ -335,173 +309,100 @@ namespace BasicDemo
 
 			if (e.TabPage == tabPageData)
 			{
-				dataGridView1.DataSource = null;
-
-				if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
-				{
-					if (queryBuilder1.MetadataProvider is MSSQLMetadataProvider)
-					{
-						SqlCommand command = (SqlCommand) queryBuilder1.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryBuilder1.SQL;
-
-						// handle the query parameters
-						if (queryBuilder1.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder1.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder1.Parameters[i].FullName))
-								{
-									SqlParameter parameter = new SqlParameter();
-									parameter.ParameterName = queryBuilder1.Parameters[i].FullName;
-									parameter.DbType = queryBuilder1.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						SqlDataAdapter adapter = new SqlDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder1.MetadataProvider is OracleNativeMetadataProvider)
-					{
-						OracleCommand command = (OracleCommand) queryBuilder1.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryBuilder1.SQL;
-
-						// handle the query parameters
-						if (queryBuilder1.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder1.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder1.Parameters[i].FullName))
-								{
-									OracleParameter parameter = new OracleParameter();
-									parameter.ParameterName = queryBuilder1.Parameters[i].FullName;
-									parameter.DbType = queryBuilder1.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						OracleDataAdapter adapter = new OracleDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder1.MetadataProvider is OLEDBMetadataProvider)
-					{
-						OleDbCommand command = (OleDbCommand) queryBuilder1.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryBuilder1.SQL;
-
-						// handle the query parameters
-						if (queryBuilder1.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder1.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder1.Parameters[i].FullName))
-								{
-									OleDbParameter parameter = new OleDbParameter();
-									parameter.ParameterName = queryBuilder1.Parameters[i].FullName;
-									parameter.DbType = queryBuilder1.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						OleDbDataAdapter adapter = new OleDbDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder1.MetadataProvider is ODBCMetadataProvider)
-					{
-						OdbcCommand command = (OdbcCommand) queryBuilder1.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryBuilder1.SQL;
-
-						// handle the query parameters
-						if (queryBuilder1.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder1.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder1.Parameters[i].FullName))
-								{
-									OdbcParameter parameter = new OdbcParameter();
-									parameter.ParameterName = queryBuilder1.Parameters[i].FullName;
-									parameter.DbType = queryBuilder1.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						OdbcDataAdapter adapter = new OdbcDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-
-					// enable sorting
-					foreach (DataGridViewColumn column in dataGridView1.Columns)
-					{
-						column.SortMode = DataGridViewColumnSortMode.Automatic;
-					}
-				}
+			    ExecuteQuery();
 			}
 		}
 
-		private void propertiesMenuItem_Click(object sender, EventArgs e)
+        private void ExecuteQuery()
+        {
+            dataGridView1.DataSource = null;
+
+            if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
+            {
+                try
+                {
+                    dataGridView1.DataSource = Misc.ExecuteSql(queryBuilder1.SQL, queryBuilder1.SQLQuery);
+                    if (Misc.ParamsCache.Count != 0 && dataGridView1.DataSource != null)
+                        ShowUsedParams();
+                    else
+                        HideUsedParams();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "SQL query error");
+                }
+
+                // enable sorting
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Automatic;
+                }
+            }
+        }
+
+        private Control _usedParamsPanel;
+        private void ShowUsedParams()
+        {
+            HideUsedParams();
+
+            _usedParamsPanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightGoldenrodYellow,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(2, 2, 2, 2)
+            };
+
+            var parameters = Misc.ParamsCache.Select(x => string.Format("{0} = {1}", x.Name, x.Value));
+            var paramsString = "Used parameters: " + string.Join(", ", parameters);
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Padding = new Padding(4, 3, 1, 0),
+                Text = paramsString,
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            var button = new Button
+            {
+                Text = "Edit",
+                Dock = DockStyle.Right,
+                BackColor = SystemColors.Control,
+                Margin = new Padding(5)
+            };
+
+            button.Click += EditParamsButtonOnClick;
+
+            _usedParamsPanel.Controls.Add(button);
+            _usedParamsPanel.Controls.Add(label);
+            _usedParamsPanel.Visible = true;
+            tabPageData.Controls.Add(_usedParamsPanel);
+        }
+
+        private void EditParamsButtonOnClick(object sender, EventArgs eventArgs)
+        {
+            Misc.ParamsCache.Clear();
+            if (tabControl1.SelectedTab == tabPageData)
+                ExecuteQuery();
+        }
+
+        private void HideUsedParams()
+        {
+            if (_usedParamsPanel != null)
+            {
+                _usedParamsPanel.Visible = false;
+                if (_usedParamsPanel.Parent != null)
+                    _usedParamsPanel.Parent.Controls.Remove(_usedParamsPanel);
+                _usedParamsPanel.Dispose();
+                _usedParamsPanel = null;
+            }
+        }
+
+        private void propertiesMenuItem_Click(object sender, EventArgs e)
 		{
 			// Show Properties form
 			using (QueryBuilderPropertiesForm f = new QueryBuilderPropertiesForm(queryBuilder1))
@@ -575,9 +476,14 @@ namespace BasicDemo
 
 				if (banners.Length > 0)
 				{
-					foreach (Control banner in banners)
-						banner.Dispose();
+				    foreach (Control banner in banners)
+				    {
+                        if(Equals(text, banner.Text)) continue;
+				        banner.Dispose();
+				    }
 				}
+
+                if(banners.Any(banner=> !banner.Disposing)) return;
 			}
 
 			// Show new banner if text is not empty
@@ -596,8 +502,9 @@ namespace BasicDemo
 				control.Controls.Add(label);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
 				label.BringToFront();
+                
 				control.Focus();
 			}
 		}
-	}
+    }
 }

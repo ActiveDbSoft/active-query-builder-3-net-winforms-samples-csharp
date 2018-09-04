@@ -27,7 +27,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 	    public bool Modified { get; set; }
 
-
 	    public SqlFormattingPage(SqlBuilderOptionsPages page, SQLFormattingOptions sqlFormattingOptions)
 		{
             Modified = false;
@@ -123,7 +122,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 		private void Changed(object sender, EventArgs e)
 		{
-			Modified = true;
+			ApplyChanges();
 		}
 
 		private void checkNewLineWhereTop_CheckedChanged(object sender, EventArgs e)
@@ -138,7 +137,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 			if (sender != null)
 			{
-				Modified = true;
+				ApplyChanges();
 			}
 		}
 
@@ -148,7 +147,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 			if (sender != null)
 			{
-				Modified = true;
+				ApplyChanges();
 			}
 		}
 
@@ -164,7 +163,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 			if (sender != null)
 			{
-				Modified = true;
+				ApplyChanges();
 			}
 		}
 
@@ -174,11 +173,11 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
 			if (sender != null)
 			{
-				Modified = true;
+				ApplyChanges();
 			}
 		}
 
-		public void ApplyChanges()
+		private void ApplyChanges()
 		{
 			if (Modified)
 			{

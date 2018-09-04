@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
@@ -21,24 +22,20 @@ namespace FullFeaturedDemo.PropertiesForm
 	[ToolboxItem(false)]
 	internal partial class OfflineModePage : UserControl
 	{
-		private readonly MetadataContainer _metadataContainerCopy;
 	    private readonly SQLContext _sqlContext;
+	    private readonly SQLContext _sqlContextCopy;
 
-		public bool Modified { get; set; }
+        public bool Modified { get; set; }
 
-
-	    public OfflineModePage(SQLContext sqlContext)
+        public OfflineModePage(SQLContext context)
 		{
-            _sqlContext = sqlContext;
-            Modified = false;
+		    _sqlContext = context;
+            _sqlContextCopy = new SQLContext();
+		    _sqlContextCopy.Assign(context);
 
+            InitializeComponent();
 
-			_metadataContainerCopy = new MetadataContainer(_sqlContext);
-            _metadataContainerCopy.Assign(_sqlContext.MetadataContainer);
-
-			InitializeComponent();
-
-            cbOfflineMode.Checked = _sqlContext.LoadingOptions.OfflineMode;
+			cbOfflineMode.Checked = _sqlContextCopy.LoadingOptions.OfflineMode;
 
 			UpdateMode();
 
@@ -46,18 +43,16 @@ namespace FullFeaturedDemo.PropertiesForm
 			bEditMetadata.Click += buttonEditMetadata_Click;
 			bSaveToXML.Click += buttonSaveToXML_Click;
 			bLoadFromXML.Click += buttonLoadFromXML_Click;
-			bLoadMetadata.Click += buttonLoadMetadata_Click;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			_metadataContainerCopy.Dispose();
+			_sqlContextCopy.Dispose();
 
 			cbOfflineMode.CheckedChanged -= checkOfflineMode_CheckedChanged;
 			bEditMetadata.Click -= buttonEditMetadata_Click;
 			bSaveToXML.Click -= buttonSaveToXML_Click;
 			bLoadFromXML.Click -= buttonLoadFromXML_Click;
-			bLoadMetadata.Click -= buttonLoadMetadata_Click;
 
 			if (disposing && (components != null))
 			{
@@ -71,20 +66,20 @@ namespace FullFeaturedDemo.PropertiesForm
 		{
 			if (Modified)
 			{
-                _sqlContext.LoadingOptions.OfflineMode = cbOfflineMode.Checked;
+				_sqlContextCopy.LoadingOptions.OfflineMode = cbOfflineMode.Checked;
 
-                if (_sqlContext.LoadingOptions.OfflineMode)
+				if (_sqlContextCopy.LoadingOptions.OfflineMode)
 				{
-					if (_sqlContext.MetadataProvider != null)
+					if (_sqlContextCopy.MetadataProvider != null)
 					{
-						_sqlContext.MetadataProvider.Disconnect();
+                        _sqlContextCopy.MetadataProvider.Disconnect();
 					}
 
-					_sqlContext.MetadataContainer.Assign(_metadataContainerCopy);
+				    _sqlContext.Assign(_sqlContextCopy);
 				}
 				else
 				{
-					_sqlContext.MetadataContainer.Items.Clear();
+				    _sqlContext.MetadataContainer.Items.Clear();
 				}
 			}
 		}
@@ -93,28 +88,7 @@ namespace FullFeaturedDemo.PropertiesForm
 		{
 			Modified = true;
 			UpdateMode();
-		}
-
-		private void buttonLoadMetadata_Click(object sender, EventArgs e)
-		{
-			_metadataContainerCopy.BeginUpdate();
-
-			try
-			{
-				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_metadataContainerCopy, false))
-				{
-					if (f.ShowDialog() == DialogResult.OK)
-					{
-						Modified = true;
-						cbOfflineMode.Checked = true;
-					}
-				}
-			}
-			finally
-			{
-				_metadataContainerCopy.EndUpdate();
-			}
-		}
+		}        
 
 		private void UpdateMode()
 		{
@@ -128,9 +102,9 @@ namespace FullFeaturedDemo.PropertiesForm
 
 		private void UpdateMetadataStats()
 		{
-			List<MetadataObject> metadataObjects = _metadataContainerCopy.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
+			List<MetadataObject> metadataObjects = _sqlContextCopy.MetadataContainer.Items.GetItemsRecursive<MetadataObject>(MetadataType.Objects);
             int t = 0, v = 0, p = 0, s = 0;
-
+            
             for (int i = 0; i < metadataObjects.Count; i++)
             {
                 MetadataObject mo = metadataObjects[i];
@@ -161,7 +135,7 @@ namespace FullFeaturedDemo.PropertiesForm
 		{
 			if (OpenDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ImportFromXML(OpenDialog.FileName);
+			    _sqlContextCopy.MetadataContainer.ImportFromXML(OpenDialog.FileName);
 				Modified = true;
 				UpdateMetadataStats();
 			}
@@ -171,13 +145,13 @@ namespace FullFeaturedDemo.PropertiesForm
 		{
 			if (SaveDialog.ShowDialog() == DialogResult.OK)
 			{
-				_metadataContainerCopy.ExportToXML(SaveDialog.FileName);
+			    _sqlContextCopy.MetadataContainer.ExportToXML(SaveDialog.FileName);
 			}
 		}
 
 		private void buttonEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (QueryBuilder.EditMetadataContainer(_metadataContainerCopy, _sqlContext.MetadataStructure, _sqlContext.LoadingOptions))
+			if (QueryBuilder.EditMetadataContainer(_sqlContextCopy, _sqlContextCopy.LoadingOptions))
 			{
 				Modified = true;
 			}

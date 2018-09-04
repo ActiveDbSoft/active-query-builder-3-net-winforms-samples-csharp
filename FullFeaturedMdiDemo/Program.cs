@@ -11,6 +11,8 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.View.WinForms;
 
 namespace FullFeaturedMdiDemo
 {
@@ -31,8 +33,10 @@ namespace FullFeaturedMdiDemo
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			Application.ThreadException += Thread_UnhandledException;
 
-			//if new version, import upgrade from previous version
-			if (Settings.CallUpgrade)
+		    var i = ControlFactory.Instance; // force call static constructor of control factory
+		    
+		    //if new version, import upgrade from previous version
+            if (Settings.CallUpgrade)
 			{
 				Settings.Upgrade();
 				Settings.CallUpgrade = false;
@@ -41,18 +45,25 @@ namespace FullFeaturedMdiDemo
 			if (Program.Settings.Connections != null)
 			{
 				Connections = Program.Settings.Connections;
+                Connections.RemoveObsoleteConnectionInfos();
+                Connections.RestoreData();
 			}
 
 			if (Program.Settings.XmlFiles != null)
 			{
 				XmlFiles = Program.Settings.XmlFiles;
-			}
+			    XmlFiles.RemoveObsoleteConnectionInfos();
+            }
 
-			Application.EnableVisualStyles();
+		    Helpers.Localizer.Language = Settings.Language;
+
+            Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());
 
-			Program.Settings.Connections = Connections;
+            Connections.SaveData();		    
+
+            Program.Settings.Connections = Connections;
 			Program.Settings.XmlFiles = XmlFiles;
 			Program.Settings.Save();
 		}

@@ -31,7 +31,8 @@ namespace BasicDemo
 				grid.Rows.Add();
 				grid.Rows[i].Cells[0].Value = p.ParameterName;
 				grid.Rows[i].Cells[1].Value = p.DbType;
-			}
+			    grid.Rows[i].Cells[2].Value = p.Value;
+            }
 		}
 
 		private void buttonOk_Click(object sender, EventArgs e)

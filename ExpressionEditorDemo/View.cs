@@ -395,8 +395,8 @@ namespace ExpressionEditorDemo
 
         private void RefreshCaptions()
         {
-            dockPanelSqlContext.Text = Helpers.Localizer.GetString("strSqlContextPanelTitle", Constants.strSqlContextPanelTitle);
-            dockPanelDatabaseSchema.Text = Helpers.Localizer.GetString("strDatabaseSchemaPanelTitle", Constants.strDatabaseSchemaPanelTitle);
+            dockPanelSqlContext.Text = Helpers.Localizer.GetString("strSqlContextPanelTitle", LocalizableConstantsUI.strSqlContextPanelTitle);
+            dockPanelDatabaseSchema.Text = Helpers.Localizer.GetString("strDatabaseSchemaPanelTitle", LocalizableConstantsUI.strDatabaseSchemaPanelTitle);
 
         }
         

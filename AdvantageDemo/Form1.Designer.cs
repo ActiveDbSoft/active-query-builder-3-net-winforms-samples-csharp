@@ -110,7 +110,7 @@ namespace AdvantageDemo
 			this.queryBuilder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
 			this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+			this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.queryBuilder.Location = new System.Drawing.Point(0, 0);
 			this.queryBuilder.MetadataProvider = this.advantageMetadataProvider1;
 			this.queryBuilder.Name = "queryBuilder";

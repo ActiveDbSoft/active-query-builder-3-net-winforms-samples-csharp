@@ -9,8 +9,9 @@
 //*******************************************************************//
 
 using System;
-using System.Windows.Forms;
 using Oracle.ManagedDataAccess.Client;
+using System.Windows.Forms;
+
 
 namespace FullFeaturedDemo.ConnectionFrames
 {
@@ -30,13 +31,16 @@ namespace FullFeaturedDemo.ConnectionFrames
 
 			if (String.IsNullOrEmpty(connectionString))
 			{
-				tbUserID.Enabled = true;
-				tbPassword.Enabled = true;
+				cmbIntegratedSecurity.SelectedIndex = 0;
+				tbUserID.Enabled = false;
+				tbPassword.Enabled = false;
 			}
 			else
 			{
 				ConnectionString = connectionString;
 			}
+
+			cmbIntegratedSecurity.SelectedIndexChanged += cmbIntegratedSecurity_SelectedIndexChanged;
 		}
 
 		public string GetConnectionString()
@@ -47,7 +51,8 @@ namespace FullFeaturedDemo.ConnectionFrames
 				builder.ConnectionString = _connectionString;
 
 				builder.DataSource = tbDataSource.Text;
-				builder.UserID = tbUserID.Text;
+                builder.UserID = (cmbIntegratedSecurity.SelectedIndex == 0) ? "/" : tbUserID.Text;
+
 				builder.Password = tbPassword.Text;
 
 				_connectionString = builder.ConnectionString;
@@ -71,8 +76,11 @@ namespace FullFeaturedDemo.ConnectionFrames
 					builder.ConnectionString = _connectionString;
 
 					tbDataSource.Text = builder.DataSource;
+					cmbIntegratedSecurity.SelectedIndex = (builder.UserID == "/") ? 0 : 1;
 					tbUserID.Text = builder.UserID;
+					tbUserID.Enabled = (builder.UserID != "/");
 					tbPassword.Text = builder.Password;
+					tbPassword.Enabled = (builder.UserID != "/");
 
 					_connectionString = builder.ConnectionString;
 				}
@@ -80,6 +88,12 @@ namespace FullFeaturedDemo.ConnectionFrames
 				{
 				}
 			}
+		}
+
+		private void cmbIntegratedSecurity_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			tbUserID.Enabled = (cmbIntegratedSecurity.SelectedIndex == 1);
+			tbPassword.Enabled = (cmbIntegratedSecurity.SelectedIndex == 1);
 		}
 
 		private void btnEditConnectionString_Click(object sender, EventArgs e)

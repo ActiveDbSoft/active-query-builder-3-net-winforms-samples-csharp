@@ -11,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using Oracle.ManagedDataAccess.Client;
@@ -20,41 +22,69 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.QueryTransformer;
 using ActiveQueryBuilder.View.WinForms;
-using FullFeaturedDemo.Common;
+
 using FullFeaturedDemo.Dailogs;
 using FullFeaturedDemo.PropertiesForm;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
-using Timer = System.Threading.Timer;
-
+using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace FullFeaturedDemo
 {
     public partial class MainForm : Form
     {
-        private readonly QueryTransformer _queryTransformerTop10;
-        private readonly Timer _timerForFastReuslt;
         private ConnectionInfo _selectedConnection;
         private readonly SQLFormattingOptions _sqlFormattingOptions;
         private readonly SQLGenerationOptions _sqlGenerationOptions;
         private string _fileSourcePath;
         private string _oldSql;
-        
+        private readonly Dictionary<string, SortOrder> _sortedColumns = new Dictionary<string, SortOrder>();
         private bool _hasError;
         private NoConnectionLabel _noConnectionLabel;
 
         public MainForm()
         {
-            _queryTransformerTop10 = new QueryTransformer();
-            _timerForFastReuslt = new Timer(TimerForFastResult_Elapsed);
             InitializeComponent();
+
+            // DEMO WARNING
+            Panel trialNoticePanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightGreen,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(6, 5, 3, 0),
+            };
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Margin = new Padding(0),
+                Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
+            buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+
+            trialNoticePanel.Controls.Add(buttonClose);
+
+            trialNoticePanel.Resize += delegate
+            {
+                buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+            };
+
+            trialNoticePanel.Controls.Add(label);
+            Controls.Add(trialNoticePanel);
+
+            Controls.SetChildIndex(trialNoticePanel, 2);
 
             // Options to present the formatted SQL query text to end-user
             // Use names of virtual objects, do not replace them with appropriate derived tables
@@ -83,8 +113,6 @@ namespace FullFeaturedDemo
             };
             CBuilder.QueryTransformer.SQLUpdated += CBuilder_SQLUpdated;
 
-            _queryTransformerTop10.Query = queryBuilder1.SQLQuery;
-
             LoadLanguages();
 
             queryBuilder1.SleepModeChanged += SqlQuery_SleepModeChanged;
@@ -93,50 +121,6 @@ namespace FullFeaturedDemo
             LocationChanged += MainForm_LocationChanged;
             Application.Idle += Application_Idle;
             UpdateLanguage();
-
-            // DEMO WARNING
-            Panel trialNoticePanel = new Panel
-            {
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = Color.LightPink,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Top,
-                Padding = new Padding(6, 5, 3, 0),
-            };
-
-            Label label = new Label
-            {
-                AutoSize = true,
-                Margin = new Padding(0),
-                Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-                Dock = DockStyle.Fill,
-                UseCompatibleTextRendering = true
-            };
-
-            var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
-            buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
-
-            trialNoticePanel.Controls.Add(buttonClose);
-
-            trialNoticePanel.Resize += delegate
-             {
-                 buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
-             };
-
-            trialNoticePanel.Controls.Add(label);
-            Controls.Add(trialNoticePanel);
-
-            Controls.SetChildIndex(trialNoticePanel, 2);
-        }
-
-        private void TimerForFastResult_Elapsed(object state)
-        {
-            Invoke((Action) delegate
-            {
-                resultGrid2.QueryTransformer = _queryTransformerTop10;
-                resultGrid2.FillDataGrid(_queryTransformerTop10.Take("10").SQL);
-            });
         }
 
         public string FormattedQueryText
@@ -237,6 +221,7 @@ namespace FullFeaturedDemo
                 Cursor = Cursors.WaitCursor;
 
                 BaseMetadataProvider metadataProvaider = null;
+                BaseSyntaxProvider syntaxSyntaxProvider;
 
                 // create new SqlConnection object using the connections string from the connection form
                 if (!_selectedConnection.IsXmlFile)
@@ -244,46 +229,49 @@ namespace FullFeaturedDemo
                     switch (_selectedConnection.ConnectionType)
                     {
                         case ConnectionTypes.MSSQL:
+                            syntaxSyntaxProvider = new MSSQLSyntaxProvider();
                             metadataProvaider = new MSSQLMetadataProvider
                             {
                                 Connection = new SqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.MSAccess:
+                            syntaxSyntaxProvider = new MSAccessSyntaxProvider();
                             metadataProvaider = new OLEDBMetadataProvider
                             {
                                 Connection = new OleDbConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.Oracle:
-                            // previous version of this demo uses deprecated System.Data.OracleClient
-                            // current version uses Oracle.ManagedDataAccess.Client which doesn't support "Integrated Security" setting
-                            var updatedConnectionString = Regex.Replace(_selectedConnection.ConnectionString,
-                                "Integrated Security=.*?;", "");
+                            syntaxSyntaxProvider = new OracleSyntaxProvider();
                             metadataProvaider = new OracleNativeMetadataProvider
                             {
-                                Connection = new OracleConnection(updatedConnectionString)
+                                Connection = new OracleConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.MySQL:
-                            metadataProvaider = new MySQLMetadataProvider
+                            syntaxSyntaxProvider = new MySQLSyntaxProvider();
+                            metadataProvaider = new UniversalMetadataProvider
                             {
                                 Connection = new MySqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.PostgreSQL:
-                            metadataProvaider = new PostgreSQLMetadataProvider
+                            syntaxSyntaxProvider = new PostgreSQLSyntaxProvider();
+                            metadataProvaider = new UniversalMetadataProvider
                             {
                                 Connection = new NpgsqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.OLEDB:
+                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
                             metadataProvaider = new OLEDBMetadataProvider
                             {
                                 Connection = new OleDbConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.ODBC:
+                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
                             metadataProvaider = new ODBCMetadataProvider
                             {
                                 Connection = new OdbcConnection(_selectedConnection.ConnectionString)
@@ -293,16 +281,40 @@ namespace FullFeaturedDemo
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-
-                if (_selectedConnection.IsXmlFile && _selectedConnection.SyntaxProvider == null)
+                else
                 {
-                    _selectedConnection.CreateSyntaxByType();
+                    switch (_selectedConnection.ConnectionType)
+                    {
+                        case ConnectionTypes.MSSQL:
+                            syntaxSyntaxProvider = new MSSQLSyntaxProvider();
+                            break;
+                        case ConnectionTypes.MSAccess:
+                            syntaxSyntaxProvider = new MSAccessSyntaxProvider();
+                            break;
+                        case ConnectionTypes.Oracle:
+                            syntaxSyntaxProvider = new OracleSyntaxProvider();
+                            break;
+                        case ConnectionTypes.MySQL:
+                            syntaxSyntaxProvider = new MySQLSyntaxProvider();
+                            break;
+                        case ConnectionTypes.PostgreSQL:
+                            syntaxSyntaxProvider = new PostgreSQLSyntaxProvider();
+                            break;
+                        case ConnectionTypes.OLEDB:
+                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
+                            break;
+                        case ConnectionTypes.ODBC:
+                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
 
                 // setup the query builder with metadata and syntax providers
                 queryBuilder1.SQLContext.MetadataContainer.Clear();
                 queryBuilder1.MetadataProvider = metadataProvaider;
-                queryBuilder1.SyntaxProvider = _selectedConnection.SyntaxProvider;
+                queryBuilder1.SyntaxProvider = syntaxSyntaxProvider;
                 queryBuilder1.MetadataLoadingOptions.OfflineMode = metadataProvaider == null;
 
                 if (metadataProvaider == null)
@@ -313,53 +325,7 @@ namespace FullFeaturedDemo
 
                 toolStripStatusLabel1.Text = @"Query builder state: " + (queryBuilder1.SleepMode ? "Inactive" : "Active");
                 RepairImageLists();
-                RefreshNoConnectionLabel();
-
-                resultGrid1.SqlQuery = queryBuilder1.SQLQuery;
-                resultGrid1.QueryTransformer = CBuilder.QueryTransformer;
-                resultGrid2.SqlQuery = queryBuilder1.SQLQuery;
-
-                if (queryBuilder1.MetadataProvider != null)
-                {
-                    // load from cache
-                    //load from database server
-                    Cursor = Cursors.WaitCursor;
-
-                    try
-                    {
-                        DateTime start = DateTime.Now;
-
-                        // ask for caching
-                        if ((DateTime.Now - start).Seconds > 60)
-                        {
-                            string message = "Do you want to cache the database structure to quicken further loading?";
-
-                            if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                string dir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\FullFeaturedDemo\";
-                                string cacheFile = dir + _selectedConnection.GetHashCode() + ".xml";
-
-                                if (!Directory.Exists(dir))
-                                {
-                                    Directory.CreateDirectory(dir);
-                                }
-
-                                // preload database databases/schemas/objects for export, but skip params/fields/foreign keys
-                                queryBuilder1.MetadataContainer.LoadAll(false);
-                                queryBuilder1.MetadataContainer.ExportToXML(cacheFile);
-                                _selectedConnection.CacheFile = cacheFile;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        Cursor = Cursors.Default;
-                    }
-                }
+                RefreshNoConnectionLabel();                
             }
             finally
             {
@@ -454,22 +420,6 @@ namespace FullFeaturedDemo
             imageList1.Images.Clear();
             imageList1.Images.Add(Properties.Resources.bricks);
             imageList1.Images.Add(Properties.Resources.database_go);
-
-            imageList2.Images.Clear();
-            imageList2.Images.Add(Properties.Resources.table);
-            imageList2.Images.Add(Properties.Resources.table_lightning);
-            imageList2.Images.Add(Properties.Resources.table_gear);
-            imageList2.Images.Add(Properties.Resources.table_sort);
-            imageList2.Images.Add(Properties.Resources.folder);
-            imageList2.Images.Add(Properties.Resources.table_multiple);
-            imageList2.Images.Add(Properties.Resources.database);
-
-            imageList3.Images.Clear();
-            imageList3.Images.Add(Properties.Resources.chart_organisation);
-            imageList3.Images.Add(Properties.Resources.folder_table);
-            imageList3.Images.Add(Properties.Resources.database_table);
-            imageList3.Images.Add(Properties.Resources.folder_bullet_green);
-            imageList3.Images.Add(Properties.Resources.bullet_green);
         }
 
         private void Language_Click(object sender, EventArgs e)
@@ -544,7 +494,7 @@ namespace FullFeaturedDemo
             tsbCopyUnionSubquery.Enabled = supportsUnion;
         }
 
-        private static void SqlQuery_QueryAwake(QueryRoot sender, ref bool abort)
+        private void SqlQuery_QueryAwake(QueryRoot sender, ref bool abort)
         {
             if (MessageBox.Show("You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
                 "Whatever the text in the editor is, it will be replaced with the SQL generated by the component. Is it right?", "Active Query Builder .NET Demo", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -553,36 +503,14 @@ namespace FullFeaturedDemo
             }
         }
 
-        private TabPage _tempTabCurrentSubquery;
-        private TabPage _tempTabPreviewResult;
-
         private void SqlQuery_SleepModeChanged(object sender, EventArgs e)
         {
-            labelSleepMode.Visible = queryBuilder1.SleepMode;
-
-            if (queryBuilder1.SleepMode)
-            {
-                _tempTabCurrentSubquery = tabControl2.TabPages[1];
-                _tempTabPreviewResult = tabControl2.TabPages[2];
-
-                tabControl2.TabPages.Remove(_tempTabCurrentSubquery);
-                tabControl2.TabPages.Remove(_tempTabPreviewResult);
-            }
-            else
-            {
-                tabControl2.TabPages.Add(_tempTabCurrentSubquery);
-                tabControl2.TabPages.Add(_tempTabPreviewResult);
-            }
-            
-
             //  panelTextInfo.Height = SqlQuery.SleepMode ? 60 : 0;
             toolStripStatusLabel1.Text = @"Query builder state: " + (queryBuilder1.SleepMode ? "Inactive" : "Active");
         }
 
         private void CBuilder_SQLUpdated(object sender, EventArgs e)
         {
-            if (Disposing) return;
-
             // Handle the event raised by Criteria Builder object that the text of SQL query is changed
             // update the text box
             if (tabControl1.SelectedTab != pageQueryResult)
@@ -593,19 +521,49 @@ namespace FullFeaturedDemo
             {
                 string sql = CBuilder.SQL;
                 teResultSql.Text = sql;
-
-                resultGrid1.FillDataGrid(sql);
+                ExecuteQuery(sql);
             }
-            catch
+            catch (Exception exception)
             {
-                //ignore
+                MessageBox.Show(exception.Message);
             }
+        }
+
+        private void DataGridView1_DataSourceChanged(object sender, EventArgs e)
+        {
+            teResultSql.Text = CBuilder.SQL;
+        }
+
+        private void DataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex != -1 || e.ColumnIndex == -1)
+            {
+                return;
+            }
+            SortedColumn sorting = CBuilder.QueryTransformer.Sortings
+                .FirstOrDefault(sort => sort.Column.OriginalName == dataGridView1.Columns[e.ColumnIndex].HeaderText);
+            if (sorting == null)
+            {
+                return;
+            }
+            e.Paint(e.ClipBounds, e.PaintParts);
+            int sortIndex = CBuilder.QueryTransformer.Sortings.IndexOf(sorting) + 1;
+            StringFormat format = new StringFormat
+            {
+                LineAlignment = StringAlignment.Center
+            };
+            e.Graphics.DrawString(sortIndex.ToString(), dataGridView1.Font, SystemBrushes.ControlText, new Rectangle(e.CellBounds.X + e.CellBounds.Width - 25, e.CellBounds.Y, 25, e.CellBounds.Height), format);
+            e.Handled = true;
         }
 
         private void tsmiNew_Click(object sender, EventArgs e)
         {
+            string query = queryBuilder1.SQL;
             if (Connect())
+            {
                 Clear();
+                queryBuilder1.SQL = query;
+            }
         }
 
         private bool Connect()
@@ -910,7 +868,7 @@ namespace FullFeaturedDemo
 
         private void tsmiEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(queryBuilder1.MetadataContainer, queryBuilder1.MetadataStructure, queryBuilder1.MetadataContainer.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.SQLContext.LoadingOptions);
         }
 
         private void tsmiClearMetadata_Click(object sender, EventArgs e)
@@ -1075,13 +1033,13 @@ namespace FullFeaturedDemo
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var propWindow = new QueryPropertiesForm(queryBuilder1.SQLContext, _sqlFormattingOptions);
+            var propWindow = new QueryBuilderPropertiesForm(queryBuilder1);
             propWindow.ShowDialog();
         }
 
         private void tsbEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(queryBuilder1.MetadataContainer, queryBuilder1.MetadataStructure, queryBuilder1.MetadataContainer.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.SQLContext.LoadingOptions);
         }
 
         private void tsbSaveInFile_Click(object sender, EventArgs e)
@@ -1093,10 +1051,66 @@ namespace FullFeaturedDemo
             }
         }
 
-        private void ShowException(Exception exception, InfoPanel infoPanel)
+        void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            Invoke((Action)delegate { infoPanel.Message = exception.Message; });
+            var nameColumn = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+            if (!_sortedColumns.ContainsKey(nameColumn))
+                _sortedColumns.Add(nameColumn, SortOrder.None);
+            var columnForSorting = CBuilder.QueryTransformer.Columns.FindColumnByResultName(nameColumn);
+            if (columnForSorting == null)
+            {
+                return;
+            }
+            SortedColumn newSortColumn = null;
+            var sortColumn = CBuilder.QueryTransformer.Sortings.FirstOrDefault(sorting => sorting.Column.ResultName == nameColumn);
+            if (sortColumn != null)
+                CBuilder.QueryTransformer.Sortings.Remove(sortColumn);
+            var columnSource = dataGridView1.Columns[e.ColumnIndex];
+            switch (columnSource.HeaderCell.SortGlyphDirection)
+            {
+                case SortOrder.Ascending:
+                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.Descending;
+                    newSortColumn = columnForSorting.Descending();
+                    break;
+                case SortOrder.Descending:
+                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.None;
+                    break;
+                case SortOrder.None:
+                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
+                    newSortColumn = columnForSorting.Ascending();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            if (newSortColumn != null)
+                CBuilder.QueryTransformer.Sortings.Add(newSortColumn);
+
+            ExecuteQuery(CBuilder.SQL);
         }
+
+        private DbCommand CreateSqlCommand(string sqlCommand)
+        {
+            DbCommand command = (DbCommand)queryBuilder1.MetadataProvider.Connection.CreateCommand();
+            command.CommandText = sqlCommand;
+            // handle the query parameters
+            if (queryBuilder1.SQLQuery.QueryParameters.Count > 0)
+            {
+                foreach (Parameter p in queryBuilder1.SQLQuery.QueryParameters.Where(item => !command.Parameters.Contains(item.FullName)))
+                {
+                    SqlParameter parameter = new SqlParameter
+                    {
+                        ParameterName = p.FullName,
+                        DbType = p.DataType
+                    };
+                    command.Parameters.Add(parameter);
+                }
+                using (QueryParametersForm qpf = new QueryParametersForm(command))
+                {
+                    qpf.ShowDialog();
+                }
+            }
+            return command;
+        }        
 
         private void paginationPanel1_EnabledPaginationChanged(object sender, EventArgs e)
         {
@@ -1142,10 +1156,68 @@ namespace FullFeaturedDemo
         {
             HideErrorBanner();
             teSql.Text = queryBuilder1.SleepMode ? queryBuilder1.SQL : FormattedQueryText;
+            CheckParameters();
+        }
 
-            if (queryBuilder1.ActiveUnionSubQuery == null) return;
-            // TextBoxCurrentSubQuerySql.Text = queryBuilder1.ActiveUnionSubQuery.GetResultSQL(_sqlFormattingOptions);
-            TextBoxCurrentSubQuerySql.Text = queryBuilder1.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+        private void CheckParameters()
+        {
+            if (Misc.CheckParameters(queryBuilder1))
+                HideParametersErrorPanel();
+            else
+            {
+                var acceptableFormats =
+                    Misc.GetAcceptableParametersFormats(queryBuilder1.MetadataProvider, queryBuilder1.SyntaxProvider);
+                ShowParametersErrorPanel(acceptableFormats);
+            }
+        }
+
+        private Control _parametersErrorPanel;
+        private void ShowParametersErrorPanel(List<string> acceptableFormats)
+        {
+            HideParametersErrorPanel();
+            _parametersErrorPanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightPink,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(6, 5, 3, 0),
+            };
+
+            var formats = acceptableFormats.Select(x =>
+            {
+                var s = x.Replace("n", "<number>");
+                return s.Replace("s", "<name>");
+            });
+
+            string formatsString = string.Join(", ", formats);
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Margin = new Padding(0),
+                Text = @"Unsupported parameter notation detected. For this type of connection and database server use " + formatsString,
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            _parametersErrorPanel.Controls.Add(label);
+            _parametersErrorPanel.Visible = true;
+            Controls.Add(_parametersErrorPanel);
+            Controls.SetChildIndex(_parametersErrorPanel, 2);
+        }
+
+        private void HideParametersErrorPanel()
+        {
+            if (_parametersErrorPanel != null)
+            {
+                _parametersErrorPanel.Visible = false;
+                if (_parametersErrorPanel.Parent != null)
+                    _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
+                _parametersErrorPanel.Dispose();
+                _parametersErrorPanel = null;
+            }
         }
 
         private void _sqlFormattingOptions_Updated(object sender, EventArgs e)
@@ -1200,6 +1272,7 @@ namespace FullFeaturedDemo
             {
                 if (_noConnectionLabel != null)
                 {
+                    dataGridView1.SizeChanged -= DataGridView1_SizeChanged;
                     _noConnectionLabel.Parent = null;
                     _noConnectionLabel = null;
                 }
@@ -1207,14 +1280,15 @@ namespace FullFeaturedDemo
             else if (_noConnectionLabel == null)
             {
                 _noConnectionLabel = new NoConnectionLabel();
-                resultGrid1.Controls.Add(_noConnectionLabel);
+                dataGridView1.SizeChanged += DataGridView1_SizeChanged;
+                dataGridView1.Controls.Add(_noConnectionLabel);
             }
         }
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             // Execute a query on switching to the Data tab
-            if (e.TabPage != pageQueryResult || queryBuilder1.SleepMode)
+            if (e.TabPage != pageQueryResult)
             {
                 return;
             }
@@ -1223,105 +1297,115 @@ namespace FullFeaturedDemo
                 e.Cancel = true;
                 return;
             }
-
             RefreshPaginationPanel();
             paginationPanel1.Clear();
-
-            CBuilder.QueryTransformer.BeginUpdate();
-            try
-            {
-                CBuilder.QueryTransformer.Skip(string.Empty);
-                CBuilder.QueryTransformer.Take(string.Empty);
-                CBuilder.QueryTransformer.NotifyUpdated();
-            }
-            finally
-            {
-                CBuilder.QueryTransformer.EndUpdate();
-            }
-
+            CBuilder.QueryTransformer.Skip("");
+            CBuilder.QueryTransformer.Take("");
             var sql = CBuilder.QueryTransformer.SQL;
             teResultSql.Text = sql;
-
-            resultGrid1.FillDataGrid(sql);
-
+            ExecuteQuery(sql);
+            paginationPanel1.RowsCount = dataGridView1.RowCount;
             RefreshNoConnectionLabel();
         }
 
-        private void queryBuilder1_ActiveUnionSubQueryChanged(object sender, EventArgs e)
+        private void ExecuteQuery(string sql)
         {
-            if (queryBuilder1.ActiveUnionSubQuery == null || queryBuilder1.SleepMode)
-            {
-                TextBoxCurrentSubQuerySql.Text = "";
-                return;
-            }
+            dataGridView1.DataSource = null;
 
-            TextBoxCurrentSubQuerySql.Text = queryBuilder1.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+            if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
+            {
+                try
+                {
+                    dataGridView1.DataSource = Misc.ExecuteSql(sql, queryBuilder1.SQLQuery);
+                    if (Misc.ParamsCache.Count != 0 && dataGridView1.DataSource != null)
+                        ShowUsedParams();
+                    else
+                        HideUsedParams();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "SQL query error");
+                }
+
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Programmatic;
+                    if (_sortedColumns.ContainsKey(column.HeaderText))
+                    {
+                        column.HeaderCell.SortGlyphDirection = _sortedColumns[column.HeaderText];
+                    }
+                }
+            }
         }
 
-        private void TextBoxCurrentSubQuerySql_TextChanged(object sender, EventArgs e)
+        private Control _usedParamsPanel;
+        private void ShowUsedParams()
         {
-            if (!tabPageFastResult.Visible || string.IsNullOrEmpty(TextBoxCurrentSubQuerySql.Text) ||
-                queryBuilder1.ActiveUnionSubQuery == null)
+            HideUsedParams();
+
+            _usedParamsPanel = new Panel
             {
-                return;
-            }
-
-            FillFastViewDataGrid();
-        }
-
-        private void FillFastViewDataGrid()
-        {
-            if (tabControl2.SelectedTab != tabPageFastResult) return;
-
-            var sql = queryBuilder1.ActiveUnionSubQuery.ParentSubQuery.GetSqlForDataPreview();
-
-            _queryTransformerTop10.Query = new SQLQuery(queryBuilder1.ActiveUnionSubQuery.SQLContext)
-            {
-                SQL = sql
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightGoldenrodYellow,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Top,
+                Padding = new Padding(2, 2, 2, 2)
             };
 
-            _timerForFastReuslt.Change(400, Timeout.Infinite);
+            var parameters = Misc.ParamsCache.Select(x => string.Format("{0} = {1}", x.Name, x.Value));
+            var paramsString = "Used parameters: " + string.Join(", ", parameters);
+
+            Label label = new Label
+            {
+                AutoSize = true,
+                Padding = new Padding(4, 3, 1, 0),
+                Text = paramsString,
+                Dock = DockStyle.Fill,
+                UseCompatibleTextRendering = true
+            };
+
+            var button = new Button
+            {
+                Text = "Edit",
+                Dock = DockStyle.Right,
+                BackColor = SystemColors.Control,
+                Margin = new Padding(5)
+            };
+
+            button.Click += EditParamsButtonOnClick;
+
+            _usedParamsPanel.Controls.Add(button);
+            _usedParamsPanel.Controls.Add(label);
+            _usedParamsPanel.Visible = true;
+            pageQueryResult.Controls.Add(_usedParamsPanel);
         }
 
-        private void tabControl2_Selected(object sender, TabControlEventArgs e)
+        private void EditParamsButtonOnClick(object sender, EventArgs eventArgs)
         {
-            if (e.Action == TabControlAction.Selected && e.TabPage == tabPageFastResult)
+            Misc.ParamsCache.Clear();
+            if (tabControl1.SelectedTab == pageQueryResult)
+                ExecuteQuery(CBuilder.SQL);
+        }
+
+        private void HideUsedParams()
+        {
+            if (_usedParamsPanel != null)
             {
-                FillFastViewDataGrid();
+                _usedParamsPanel.Visible = false;
+                if (_usedParamsPanel.Parent != null)
+                    _usedParamsPanel.Parent.Controls.Remove(_usedParamsPanel);
+                _usedParamsPanel.Dispose();
+                _usedParamsPanel = null;
             }
         }
 
-        private void TextBoxCurrentSubQuerySql_Validating(object sender, CancelEventArgs e)
+        private void DataGridView1_SizeChanged(object sender, EventArgs e)
         {
-            try
-            {
-                infoPanel2.Message = "";
-                queryBuilder1.ActiveUnionSubQuery.ParentSubQuery.SQL = TextBoxCurrentSubQuerySql.Text;
-            }
-            catch (Exception ex)
-            {
-                ShowException(ex, infoPanel2);
-            }
-        }
-
-        private void resultGrid1_RowsLoaded(object sender, EventArgs e)
-        {
-            if (!paginationPanel1.Enabled)
-                paginationPanel1.RowsCount = resultGrid1.RowCount;
-        }
-
-        private void resultGrid1_SizeChanged(object sender, EventArgs e)
-        {
-            if(_noConnectionLabel == null) return;
-            Control parent = (UserControl)sender;
+            Control parent = (Control)sender;
             int x = parent.Width / 2 - _noConnectionLabel.Width / 2;
             int y = parent.Height / 2 - _noConnectionLabel.Height / 2;
             _noConnectionLabel.Location = new Point(x > 0 ? x : 0, y > 0 ? y : 0);
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            RefreshNoConnectionLabel();
         }
     }
 }
