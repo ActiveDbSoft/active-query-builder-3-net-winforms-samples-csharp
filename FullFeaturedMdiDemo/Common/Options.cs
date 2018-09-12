@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.Serialization;
 using ActiveQueryBuilder.View;
@@ -26,6 +27,8 @@ namespace FullFeaturedMdiDemo.Common
 {
     public class Options
     {
+        private readonly Padding DefaultTextEditorPadding = new Padding(5, 5, 0, 0);
+
         public BehaviorOptions BehaviorOptions { get; set; }
         public DatabaseSchemaViewOptions DatabaseSchemaViewOptions { get; set; }
         public DesignPaneOptions DesignPaneOptions { get; set; }
@@ -57,7 +60,11 @@ namespace FullFeaturedMdiDemo.Common
             SqlFormattingOptions = new SQLFormattingOptions();
             SqlGenerationOptions = new SQLGenerationOptions();
             ExpressionEditorOptions = new ExpressionEditorOptions();
-            TextEditorOptions = new TextEditorOptions();
+            TextEditorOptions = new TextEditorOptions
+            {
+                Padding = DefaultTextEditorPadding,
+                LineHeight = new LengthUnit(90, SizeUnitType.Percent)
+            };
             TextEditorSqlOptions = new SqlTextEditorOptions();
         }
 

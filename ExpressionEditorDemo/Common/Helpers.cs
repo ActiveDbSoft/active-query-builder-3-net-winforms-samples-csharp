@@ -31,10 +31,7 @@ namespace ExpressionEditorDemo.Common
             if (castedFont == null)
                 return null;
 
-            return new CFont(castedFont.FontFamily.Name, castedFont.Size, castedFont.Bold, castedFont.Italic)
-            {
-                LineSpacing = castedFont.Height / castedFont.Size
-            };
+            return new CFont(castedFont.FontFamily.Name, castedFont.Size, castedFont.Bold, castedFont.Italic);
         }
     }
 }

@@ -150,7 +150,6 @@ namespace BasicDemo
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder1.Name = "queryBuilder1";
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 201;
-            this.queryBuilder1.PanesConfigurationOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarEnabled = true;
@@ -253,6 +252,7 @@ namespace BasicDemo
             this.expressionEditor1.HighlightMatchingParentheses = ActiveQueryBuilder.View.ExpressionEditor.ParenthesesHighlighting.NoHighlight;
             this.expressionEditor1.KeepMetadataObjectsOnTopOfSuggestionList = true;
             this.expressionEditor1.SearchFields = false;
+            this.expressionEditor1.TextColor = System.Drawing.SystemColors.ControlText;
             this.expressionEditor1.TextEditorFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.expressionEditor1.Width = 0;
             // 
@@ -266,8 +266,9 @@ namespace BasicDemo
             this.sqlTextEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sqlTextEditor1.Location = new System.Drawing.Point(0, 0);
             this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sqlTextEditor1.Padding = new System.Windows.Forms.Padding(0);
+            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.sqlTextEditor1.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.sqlTextEditor1.QueryProvider = this.queryBuilder1;
             this.sqlTextEditor1.SelectedText = "";
             this.sqlTextEditor1.SelectionLength = 0;

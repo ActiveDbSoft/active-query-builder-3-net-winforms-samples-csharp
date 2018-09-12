@@ -33,6 +33,7 @@ using MySql.Data.MySqlClient;
 using Npgsql;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 using SortOrder = System.Windows.Forms.SortOrder;
+using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace FullFeaturedDemo
 {
@@ -52,39 +53,47 @@ namespace FullFeaturedDemo
             InitializeComponent();
 
             // DEMO WARNING
-            Panel trialNoticePanel = new Panel
+            if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
             {
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = Color.LightGreen,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Top,
-                Padding = new Padding(6, 5, 3, 0),
-            };
+                Panel trialNoticePanel = new Panel
+                {
+                    AutoSize = true,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    BackColor = Color.LightGreen,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Dock = DockStyle.Top,
+                    Padding = new Padding(6, 5, 3, 0),
+                };
 
-            Label label = new Label
-            {
-                AutoSize = true,
-                Margin = new Padding(0),
-                Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-                Dock = DockStyle.Fill,
-                UseCompatibleTextRendering = true
-            };
+                Label label = new Label
+                {
+                    AutoSize = true,
+                    Margin = new Padding(0),
+                    Text =
+                        @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+                    Dock = DockStyle.Fill,
+                    UseCompatibleTextRendering = true
+                };
 
-            var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
-            buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+                var buttonClose = new PictureBox
+                {
+                    Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand
+                };
+                buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
 
-            trialNoticePanel.Controls.Add(buttonClose);
+                trialNoticePanel.Controls.Add(buttonClose);
 
-            trialNoticePanel.Resize += delegate
-            {
-                buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
-            };
+                trialNoticePanel.Resize += delegate
+                {
+                    buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10,
+                        trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+                };
 
-            trialNoticePanel.Controls.Add(label);
-            Controls.Add(trialNoticePanel);
+                trialNoticePanel.Controls.Add(label);
+                Controls.Add(trialNoticePanel);
 
-            Controls.SetChildIndex(trialNoticePanel, 2);
+                Controls.SetChildIndex(trialNoticePanel, 2);
+            }
 
             // Options to present the formatted SQL query text to end-user
             // Use names of virtual objects, do not replace them with appropriate derived tables
@@ -1406,6 +1415,11 @@ namespace FullFeaturedDemo
             int x = parent.Width / 2 - _noConnectionLabel.Width / 2;
             int y = parent.Height / 2 - _noConnectionLabel.Height / 2;
             _noConnectionLabel.Location = new Point(x > 0 ? x : 0, y > 0 ? y : 0);
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            Connect();
         }
     }
 }

@@ -83,15 +83,15 @@
             this.panelButtons.Controls.Add(this.buttonSave);
             this.panelButtons.Controls.Add(this.buttonCancel);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelButtons.Location = new System.Drawing.Point(0, 443);
+            this.panelButtons.Location = new System.Drawing.Point(0, 439);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(724, 39);
+            this.panelButtons.Size = new System.Drawing.Size(781, 43);
             this.panelButtons.TabIndex = 2;
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoad.Location = new System.Drawing.Point(114, 8);
+            this.buttonLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonLoad.Location = new System.Drawing.Point(109, 10);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(96, 23);
             this.buttonLoad.TabIndex = 3;
@@ -101,8 +101,8 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(12, 8);
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.Location = new System.Drawing.Point(7, 10);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(96, 23);
             this.buttonSave.TabIndex = 2;
@@ -114,7 +114,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonCancel.Location = new System.Drawing.Point(637, 6);
+            this.buttonCancel.Location = new System.Drawing.Point(694, 10);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -129,7 +129,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(724, 443);
+            this.tabControl.Size = new System.Drawing.Size(781, 439);
             this.tabControl.TabIndex = 3;
             // 
             // tabQueryBuilder
@@ -138,7 +138,7 @@
             this.tabQueryBuilder.Location = new System.Drawing.Point(4, 22);
             this.tabQueryBuilder.Name = "tabQueryBuilder";
             this.tabQueryBuilder.Padding = new System.Windows.Forms.Padding(3);
-            this.tabQueryBuilder.Size = new System.Drawing.Size(716, 417);
+            this.tabQueryBuilder.Size = new System.Drawing.Size(773, 413);
             this.tabQueryBuilder.TabIndex = 0;
             this.tabQueryBuilder.Text = "QueryBuilder properties";
             this.tabQueryBuilder.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             this.panelQueryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelQueryBuilder.Location = new System.Drawing.Point(3, 3);
             this.panelQueryBuilder.Name = "panelQueryBuilder";
-            this.panelQueryBuilder.Size = new System.Drawing.Size(710, 411);
+            this.panelQueryBuilder.Size = new System.Drawing.Size(767, 407);
             this.panelQueryBuilder.TabIndex = 4;
             // 
             // panelPages1
@@ -164,7 +164,7 @@
             this.panelPages1.Margin = new System.Windows.Forms.Padding(0);
             this.panelPages1.Name = "panelPages1";
             this.panelPages1.Padding = new System.Windows.Forms.Padding(10, 10, 6, 6);
-            this.panelPages1.Size = new System.Drawing.Size(540, 411);
+            this.panelPages1.Size = new System.Drawing.Size(597, 407);
             this.panelPages1.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -189,7 +189,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 411);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 407);
             this.flowLayoutPanel1.TabIndex = 6;
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel_Paint);
             // 
@@ -727,7 +727,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(724, 482);
+            this.ClientSize = new System.Drawing.Size(781, 482);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.panelButtons);
             this.MaximizeBox = false;

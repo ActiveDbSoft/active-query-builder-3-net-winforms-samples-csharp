@@ -45,7 +45,15 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             var propertiesContainer = PropertiesFactory.GetPropertiesContainer(propertiesObject);
 
             // create property page control
-            var propertyPage = new PropertiesBar();
+            var propertyPage = new PropertiesBar
+            {
+                EditorsOptions =
+                {
+                    WideEditControlsMaxWidth = 225,
+                    WideEditControlsMinWidth = 100,
+                    ShowDescriptions = true
+                }
+            };
 
             // set properties to property page
             var propertiesControl = (IPropertiesControl)propertyPage;
@@ -58,6 +66,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
         public QueryPropertiesForm(ChildForm childForm, DatabaseSchemaView dbView)
         {
             InitializeComponent();
+            LocalizeGroups();
             _childForm = childForm;
             _dbView = dbView;
 
@@ -119,6 +128,22 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // Activate the first page on tab2
             SideMenu2_LinkClicked(linkMain,
                 new LinkLabelLinkClickedEventArgs(linkMain.Links[0], MouseButtons.Left));
+        }
+
+        private void LocalizeGroups()
+        {
+            var localizer = ActiveQueryBuilder.Core.Helpers.Localizer;
+            linkBehaviorOptions.Text = localizer.GetString("strBehaviorOptions", LocalizableConstantsInternal.strBehaviorOptions);
+            linkDatabaseSchemaView.Text = localizer.GetString("strDatabaseSchemaViewOptions", LocalizableConstantsInternal.strDatabaseSchemaViewOptions);
+            linkDesignPane.Text = localizer.GetString("strDesignPaneOptions", LocalizableConstantsInternal.strDesignPaneOptions);
+            linkVisualOptions.Text = localizer.GetString("strVisualOptions", LocalizableConstantsInternal.strVisualOptions);
+            linkAddObjectDialog.Text = localizer.GetString("strAddObjectDialogOptions", LocalizableConstantsInternal.strAddObjectDialogOptions);
+            linkQueryColumnList.Text = localizer.GetString("strQueryColumnListOptions", LocalizableConstantsInternal.strQueryColumnListOptions);
+            linkQueryNavBar.Text = localizer.GetString("strQueryNavbarOptions", LocalizableConstantsInternal.strQueryNavbarOptions);
+            linkQueryView.Text = localizer.GetString("strUserInterfaceOptions", LocalizableConstantsInternal.strUserInterfaceOptions);
+            lbExpressionEditor.Text = localizer.GetString("strExpressionEditorOptions", LocalizableConstantsInternal.strExpressionEditorOptions);
+            lbTextEditor.Text = localizer.GetString("strTextEditorOptions", LocalizableConstantsInternal.strTextEditorOptions);
+            lbTextEditorSql.Text = localizer.GetString("strTextEditorSqlOptions", LocalizableConstantsInternal.strTextEditorSqlOptions);
         }
 
         private void MetadataStructureOptionsOnUpdated(object sender, EventArgs eventArgs)

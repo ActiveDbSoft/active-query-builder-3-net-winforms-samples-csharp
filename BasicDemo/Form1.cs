@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace BasicDemo
 {
@@ -30,42 +31,51 @@ namespace BasicDemo
 		    {
 		        sqlTextEditor1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery;
 		    };
-            
-		    // DEMO WARNING
-		    Panel trialNoticePanel = new Panel
+
+            // DEMO WARNING
+		    if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
 		    {
-		        AutoSize = true,
-		        AutoSizeMode = AutoSizeMode.GrowAndShrink,
-		        BackColor = Color.LightGreen,
-		        BorderStyle = BorderStyle.FixedSingle,
-		        Dock = DockStyle.Top,
-		        Padding = new Padding(6, 5, 3, 0),
-		    };
+		        Panel trialNoticePanel = new Panel
+		        {
+		            AutoSize = true,
+		            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+		            BackColor = Color.LightGreen,
+		            BorderStyle = BorderStyle.FixedSingle,
+		            Dock = DockStyle.Top,
+		            Padding = new Padding(6, 5, 3, 0),
+		        };
 
-		    Label label = new Label
-		    {
-		        AutoSize = true,
-		        Margin = new Padding(0),
-		        Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-		        Dock = DockStyle.Fill,
-		        UseCompatibleTextRendering = true
-		    };
+		        Label label = new Label
+		        {
+		            AutoSize = true,
+		            Margin = new Padding(0),
+		            Text =
+		                @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+		            Dock = DockStyle.Fill,
+		            UseCompatibleTextRendering = true
+		        };
 
-		    var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
-		    buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+		        var buttonClose = new PictureBox
+		        {
+		            Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand
+		        };
+		        buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
 
-		    trialNoticePanel.Controls.Add(buttonClose);
+		        trialNoticePanel.Controls.Add(buttonClose);
 
-		    trialNoticePanel.Resize += delegate
-		    {
-		        buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
-		    };
+		        trialNoticePanel.Resize += delegate
+		        {
+		            buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10,
+		                trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+		        };
 
-		    trialNoticePanel.Controls.Add(label);
-		    Controls.Add(trialNoticePanel);
+		        trialNoticePanel.Controls.Add(label);
+		        Controls.Add(trialNoticePanel);
 
-		    Controls.SetChildIndex(trialNoticePanel, 2);
-            Load += Form1_Load;
+		        Controls.SetChildIndex(trialNoticePanel, 2);
+		    }
+
+		    Load += Form1_Load;
 		}
 
         private void Form1_Load(object sender, EventArgs e)
@@ -210,16 +220,15 @@ namespace BasicDemo
 		}
 
 	    private void menuItem5_Click(object sender, EventArgs e)
-	    {
-	        ResetQueryBuilder();
-
+	    {	        
 	        using (var connectionForm = new ConnectionForm())
 	        {
 	            if (connectionForm.ShowDialog() == DialogResult.OK)
 	            {
 	                try
 	                {
-	                    var context = connectionForm.Connection.GetSqlContext();
+	                    ResetQueryBuilder();
+                        var context = connectionForm.Connection.GetSqlContext();
 	                    queryBuilder1.SQLContext.Assign(context);
                     }
 	                catch (Exception ex)

@@ -29,6 +29,7 @@ using ActiveQueryBuilder.View.WinForms;
 using FullFeaturedMdiDemo.Common;
 using FullFeaturedMdiDemo.Dailogs;
 using FullFeaturedMdiDemo.PropertiesForm;
+using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
@@ -73,39 +74,44 @@ namespace FullFeaturedMdiDemo
             TryToLoadOptions();
 
 		    // DEMO WARNING
-		    Panel trialNoticePanel = new Panel
+
+		    if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
 		    {
-		        AutoSize = true,
-		        AutoSizeMode = AutoSizeMode.GrowAndShrink,
-		        BackColor = Color.LightGreen,
-		        BorderStyle = BorderStyle.FixedSingle,
-		        Dock = DockStyle.Top,
-		        Padding = new Padding(6, 5, 3, 0),
-		    };
+		        Panel trialNoticePanel = new Panel
+		        {
+		            AutoSize = true,
+		            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+		            BackColor = Color.LightGreen,
+		            BorderStyle = BorderStyle.FixedSingle,
+		            Dock = DockStyle.Top,
+		            Padding = new Padding(6, 5, 3, 0),
+		        };
 
-		    Label label = new Label
-		    {
-		        AutoSize = true,
-		        Margin = new Padding(0),
-		        Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-		        Dock = DockStyle.Fill,
-		        UseCompatibleTextRendering = true
-		    };
+		        Label label = new Label
+		        {
+		            AutoSize = true,
+		            Margin = new Padding(0),
+		            Text = @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+		            Dock = DockStyle.Fill,
+		            UseCompatibleTextRendering = true
+		        };
 
-		    var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
-		    buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+		        var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
+		        buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
 
-		    trialNoticePanel.Controls.Add(buttonClose);
+		        trialNoticePanel.Controls.Add(buttonClose);
 
-		    trialNoticePanel.Resize += delegate
-		    {
-		        buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
-		    };
+		        trialNoticePanel.Resize += delegate
+		        {
+		            buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+		        };
 
-		    trialNoticePanel.Controls.Add(label);
-		    Controls.Add(trialNoticePanel);
+		        trialNoticePanel.Controls.Add(label);
+		        Controls.Add(trialNoticePanel);
 
-		    Controls.SetChildIndex(trialNoticePanel, 2);
+		        Controls.SetChildIndex(trialNoticePanel, 2);
+            }
+		    
         }
 
 	    private void TryToLoadOptions()
@@ -140,7 +146,10 @@ namespace FullFeaturedMdiDemo
 	    }
 
 	    void DBView_ItemDoubleClick(object sender, MetadataStructureItem clickedItem)
-        {
+	    {
+	        if (clickedItem.MetadataItem == null)
+	            return;
+
 			// Adding a table to the currently active query.
             if((MetadataType.Objects & clickedItem.MetadataItem.Type) == 0 &&
                 (MetadataType.ObjectMetadata & clickedItem.MetadataItem.Type) == 0)
@@ -1035,6 +1044,11 @@ namespace FullFeaturedMdiDemo
         private void userQueriesView1_SelectedItemChanged(object sender, EventArgs e)
         {
             toolStripExecuteUserQuery.Enabled = userQueriesView1.SelectedItem != null && !userQueriesView1.SelectedItem.IsFolder();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            Connect();
         }
     }
 }

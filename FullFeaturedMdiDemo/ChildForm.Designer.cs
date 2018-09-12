@@ -22,7 +22,7 @@ namespace FullFeaturedMdiDemo
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChildForm));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess3 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.toolStripPanel1 = new System.Windows.Forms.ToolStripPanel();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiUndo = new System.Windows.Forms.ToolStripMenuItem();
@@ -382,12 +382,12 @@ namespace FullFeaturedMdiDemo
             this.designPaneControl1.Location = new System.Drawing.Point(29, 0);
             this.designPaneControl1.Name = "designPaneControl1";
             this.designPaneControl1.Options.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess1;
+            linkPainterAccess3.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess3.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess3.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess3.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess3.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess3;
             this.designPaneControl1.Options.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.designPaneControl1.Size = new System.Drawing.Size(632, 213);
             this.designPaneControl1.TabIndex = 1;
@@ -503,6 +503,7 @@ namespace FullFeaturedMdiDemo
             this.expressionEditor1.ShowSuggestionAfterCharCount = 0;
             this.expressionEditor1.SQLFormattingOptions = null;
             this.expressionEditor1.SuggestionListContent = ActiveQueryBuilder.View.ExpressionEditor.SuggestionObjectType.None;
+            this.expressionEditor1.TextColor = System.Drawing.SystemColors.ControlText;
             this.expressionEditor1.TextEditorFont = new System.Drawing.Font("Courier New", 10F);
             this.expressionEditor1.Width = 0;
             // 
@@ -584,9 +585,8 @@ namespace FullFeaturedMdiDemo
             this.rtbQueryText.Location = new System.Drawing.Point(4, 4);
             this.rtbQueryText.Margin = new System.Windows.Forms.Padding(4);
             this.rtbQueryText.Name = "rtbQueryText";
-            this.rtbQueryText.Options.ChangeFontSizeByMouseWheel = true;
+            this.rtbQueryText.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQueryText.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.rtbQueryText.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.rtbQueryText.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.rtbQueryText.Query = null;
             this.rtbQueryText.QueryProvider = null;
@@ -595,6 +595,7 @@ namespace FullFeaturedMdiDemo
             this.rtbQueryText.SelectionStart = 0;
             this.rtbQueryText.Size = new System.Drawing.Size(838, 158);
             this.rtbQueryText.SQLContext = null;
+            this.rtbQueryText.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.rtbQueryText.SuggestionWindowSize = new System.Drawing.Size(200, 200);
             this.rtbQueryText.TabIndex = 1;
             this.rtbQueryText.Validating += new System.ComponentModel.CancelEventHandler(this.rtbQueryText_Validating);
@@ -658,8 +659,8 @@ namespace FullFeaturedMdiDemo
             this.TextBoxCurrentSubQuerySql.Location = new System.Drawing.Point(0, 0);
             this.TextBoxCurrentSubQuerySql.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxCurrentSubQuerySql.Name = "TextBoxCurrentSubQuerySql";
+            this.TextBoxCurrentSubQuerySql.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCurrentSubQuerySql.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.TextBoxCurrentSubQuerySql.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.TextBoxCurrentSubQuerySql.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.TextBoxCurrentSubQuerySql.Query = null;
             this.TextBoxCurrentSubQuerySql.QueryProvider = null;
@@ -668,6 +669,7 @@ namespace FullFeaturedMdiDemo
             this.TextBoxCurrentSubQuerySql.SelectionStart = 0;
             this.TextBoxCurrentSubQuerySql.Size = new System.Drawing.Size(840, 160);
             this.TextBoxCurrentSubQuerySql.SQLContext = null;
+            this.TextBoxCurrentSubQuerySql.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.TextBoxCurrentSubQuerySql.SuggestionWindowSize = new System.Drawing.Size(200, 200);
             this.TextBoxCurrentSubQuerySql.TabIndex = 0;
             this.TextBoxCurrentSubQuerySql.TextChanged += new System.EventHandler(this.TextBoxCurrentSubQuerySql_TextChanged);

@@ -885,6 +885,7 @@
             this.Text = "Active Query Builder for .NET WinForms Edition - Professional Full-featured demo " +
     "(C#)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.toolStripPanel1.ResumeLayout(false);
             this.toolStripPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
