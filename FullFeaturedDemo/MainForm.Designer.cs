@@ -909,7 +909,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 60D;
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Caption = "Or...";
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 0D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Caption = "Expression";
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 150D;
