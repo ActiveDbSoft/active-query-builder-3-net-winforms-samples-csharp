@@ -511,8 +511,6 @@ namespace BasicDemo
 				control.Controls.Add(label);
 				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
 				label.BringToFront();
-                
-				control.Focus();
 			}
 		}
     }

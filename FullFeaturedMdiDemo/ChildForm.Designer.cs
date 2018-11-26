@@ -502,7 +502,7 @@ namespace FullFeaturedMdiDemo
             this.expressionEditor1.SearchFields = false;
             this.expressionEditor1.ShowSuggestionAfterCharCount = 0;
             this.expressionEditor1.SQLFormattingOptions = null;
-            this.expressionEditor1.SuggestionListContent = ActiveQueryBuilder.View.ExpressionEditor.SuggestionObjectType.None;
+            this.expressionEditor1.SuggestionListContent = ActiveQueryBuilder.View.ExpressionEditor.SuggestionObjectType.All;
             this.expressionEditor1.TextColor = System.Drawing.SystemColors.ControlText;
             this.expressionEditor1.TextEditorFont = new System.Drawing.Font("Courier New", 10F);
             this.expressionEditor1.Width = 0;

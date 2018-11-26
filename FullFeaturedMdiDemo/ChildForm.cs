@@ -995,8 +995,6 @@ Do you want to load database structure from cache?";
 
 	            // Show banner with error text
 	            ShowErrorBanner(ex.Message);
-                if (e != null)
-	                e.Cancel = true;
 	        }
 	    }
 

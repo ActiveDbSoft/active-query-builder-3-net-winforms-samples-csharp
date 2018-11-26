@@ -8,6 +8,9 @@
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
+
+
+
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -34,9 +37,9 @@ namespace ExpressionEditorDemo
             sqlContext.MetadataContainer.ImportFromXML("AdventureWorks2014.xml");
             var query = new SQLQuery(sqlContext) { SQL = sqlBuilder.ToString() };
 
-            ExpressionEditor.Query = query;
-            ExpressionEditor.ActiveUnionSubQuery = query.QueryRoot.FirstSelect();
-            ExpressionEditor.Expression = "Person.Address.AddressLine1";
+            expressionEditorControl1.Query = query;
+            expressionEditorControl1.ActiveUnionSubQuery = query.QueryRoot.FirstSelect();
+            expressionEditorControl1.Expression = "Person.Address.AddressLine1";
         }
     }
 }

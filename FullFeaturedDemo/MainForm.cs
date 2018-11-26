@@ -410,7 +410,6 @@ namespace FullFeaturedDemo
             teSql.Controls.Add(label);
             teSql.Controls.SetChildIndex(label, 0);
             label.Location = new Point(teSql.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-            teSql.Focus();
         }
 
         private void HideErrorBanner()
@@ -1259,7 +1258,6 @@ namespace FullFeaturedDemo
 
                 // Show banner with error text
                 ShowErrorBanner(ex.Message);
-                e.Cancel = true;
             }
         }
 

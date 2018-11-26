@@ -350,6 +350,8 @@ namespace FullFeaturedMdiDemo
                         userQueriesView1.ImportFromXML(reader);
                     }
                 }
+                else
+                    userQueriesView1.Initialize();
             }
             finally
             {
@@ -803,13 +805,6 @@ namespace FullFeaturedMdiDemo
 
         private bool SaveUserQuery(ChildForm childForm)
         {
-                if (childForm.SqlQuery.QueryRoot.IsQueryWithCTE && !childForm.SqlQuery.SQLContext.SyntaxProvider.IsSupportSubQueryCTE())
-                {
-                    var cannotSaveQuery = "Error: Queries with Common Table Expressions can not be saved to the repository.";
-                    MessageBox.Show(cannotSaveQuery, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
             if(childForm.UserMetadataStructureItem == null)
             {
                 return false;
@@ -825,13 +820,6 @@ namespace FullFeaturedMdiDemo
 
 	    private bool SaveNewUserQuery(ChildForm childWindow)
 	    {
-            if (childWindow.SqlQuery.QueryRoot.IsQueryWithCTE && !childWindow.SqlQuery.SQLContext.SyntaxProvider.IsSupportSubQueryCTE())
-            {
-                var cannotSaveQuery = "Error: Queries with Common Table Expressions can not be saved to the repository.";
-                MessageBox.Show(cannotSaveQuery, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
 	        if (string.IsNullOrEmpty(childWindow.SqlQuery.SQL))
 	        {
 	            MessageBox.Show("Nothing to save: SQL query is empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
