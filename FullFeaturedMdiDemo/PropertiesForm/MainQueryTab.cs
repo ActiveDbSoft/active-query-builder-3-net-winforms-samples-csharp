@@ -1,7 +1,7 @@
 ﻿//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2018 Active Database Software              //
+//       Copyright © 2006-2019 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -32,7 +32,17 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             chBxEnableDynamicIndents.Checked = Options.DynamicIndents;
             chBxEnableDynamicRightMargin.Checked = Options.DynamicRightMargin;
 
-            upDownMaxCharsInLine.Value = Options.RightMargin;
+            if (Options.RightMargin > 0)
+            {
+                chBxEnableWordWrap.Checked = false;
+                upDownMaxCharsInLine.Value = Options.RightMargin;
+            }
+            else
+            {
+                // no margin
+                chBxEnableWordWrap.Checked = false;
+                upDownMaxCharsInLine.Value = 80;
+            }
             chBxParenthesizeConditionsWithinAndOperators.Checked = Options.ParenthesizeANDGroups;
             chBxParenthesizeEachSingleCondition.Checked = Options.ParenthesizeSingleCriterion;
 
@@ -53,7 +63,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
         private void chBxEnableWordWrap_CheckedChanged(object sender, EventArgs e)
         {
             if (!chBxEnableWordWrap.Checked)
-                Options.RightMargin = 80;
+                Options.RightMargin = 0;
             else
                 Options.RightMargin = (int)upDownMaxCharsInLine.Value;
         }

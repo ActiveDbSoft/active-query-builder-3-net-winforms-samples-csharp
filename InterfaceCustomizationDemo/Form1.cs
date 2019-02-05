@@ -1,7 +1,7 @@
 ﻿//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2018 Active Database Software              //
+//       Copyright © 2006-2019 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -148,8 +148,45 @@ namespace InterfaceCustomizationDemo
             }
             else if (queryelement is QueryColumnListItem) // QueryColumnListControl context menu
             {
-                menu.ClearItems();
+                var queryColumnListItem = (QueryColumnListItem)queryelement;
+                var point = QBuilder.QueryColumnListControl.PointToClient(new CPoint(MousePosition.X, MousePosition.Y));
+                var queryColumnListHitTestInfo = QBuilder.QueryColumnListControl.HitTest(new CPoint(point.X, point.Y));
+
+                switch (queryColumnListHitTestInfo.ItemProperty)
+                {
+                    case QueryColumnListItemProperty.Expression:
+                        menu.AddSeparator();
+                        var menuItemExpression = menu.AddSubMenu("Expression property");
+                        menuItemExpression.AddItem("Show full SQL", ExpressionColumnEventHandler, false, true, null,
+                            queryColumnListItem.Expression.GetSQL());
+                        break;
+                    case QueryColumnListItemProperty.Selected:
+                    case QueryColumnListItemProperty.Alias:      
+                    case QueryColumnListItemProperty.SortType:
+                    case QueryColumnListItemProperty.SortOrder:
+                    case QueryColumnListItemProperty.Aggregate:
+                    case QueryColumnListItemProperty.Grouping:
+                    case QueryColumnListItemProperty.ConditionType:
+                    case QueryColumnListItemProperty.Condition:
+                    case QueryColumnListItemProperty.Custom:
+                        menu.AddSeparator();
+                        menu.AddItem("Get info of current cell", (o, args) =>
+                        {
+                            var message = $"Item property [{queryColumnListHitTestInfo.ItemProperty}]\nItem index[{queryColumnListHitTestInfo.ItemIndex}]\nCondition index[{queryColumnListHitTestInfo.ConditionIndex}]\nIs now here[{queryColumnListHitTestInfo.IsNowhere}]";
+                                MessageBox.Show(this, message, "Information");
+                            });
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+        }
+
+        private void ExpressionColumnEventHandler(object o, EventArgs eventArgs)
+        {
+            var menuItem = (ICustomMenuItem)o;
+
+            MessageBox.Show(menuItem.Tag.ToString());
         }
 
         private void QBuilder_CustomizeDataSourceCaption(DataSource dataSource, ref string caption)

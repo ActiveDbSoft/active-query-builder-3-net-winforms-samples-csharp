@@ -1,7 +1,7 @@
 ﻿//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2018 Active Database Software              //
+//       Copyright © 2006-2019 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -813,7 +813,7 @@ namespace FullFeaturedMdiDemo
             {
                 return false;
             }
-            UserQueries.SaveUserQuery(childForm.SqlQuery.SQLContext.MetadataContainer, childForm.UserMetadataStructureItem, childForm.SqlQuery.SQL, childForm.QueryView.LayoutSQL);
+            UserQueries.SaveUserQuery(childForm.SqlQuery.SQLContext.MetadataContainer, childForm.UserMetadataStructureItem, childForm.FormattedQueryText, childForm.QueryView.LayoutSQL);
             SaveSettings();
             return true;
         }
@@ -854,8 +854,8 @@ namespace FullFeaturedMdiDemo
 
 	                try
 	                {
-	                    node = UserQueries.AddUserQuery(childWindow.SqlQuery.SQLContext.MetadataContainer, atItem, title,
-	                        childWindow.SqlQuery.SQL, (int)DefaultImageListImageIndices.VirtualObject, childWindow.QueryView.LayoutSQL);
+                        node = UserQueries.AddUserQuery(childWindow.SqlQuery.SQLContext.MetadataContainer, atItem, title,
+	                        childWindow.FormattedQueryText, (int)DefaultImageListImageIndices.VirtualObject, childWindow.QueryView.LayoutSQL);
                     }
 	                catch (Exception e)
 	                {
@@ -970,7 +970,7 @@ namespace FullFeaturedMdiDemo
             childWindow.SqlSourceType = ChildForm.SourceType.UserQuery;
             childWindow.Show();
             childWindow.Activate();
-            childWindow.QueryText = ((MetadataObject)e.MetadataStructureItem.MetadataItem).Expression.Trim('(', ')');
+            childWindow.QueryText = ((MetadataObject)e.MetadataStructureItem.MetadataItem).Expression;
         }
 
 		// Closing the current query window on deleting the corresponding user query.
@@ -1025,7 +1025,7 @@ namespace FullFeaturedMdiDemo
             childWindow.SqlSourceType = ChildForm.SourceType.UserQuery;
             childWindow.Show();
             childWindow.Activate();
-            childWindow.QueryText = ((MetadataObject)userQueriesView1.SelectedItem.MetadataItem).Expression.Trim('(', ')');
+            childWindow.QueryText = ((MetadataObject)userQueriesView1.SelectedItem.MetadataItem).Expression;
             childWindow.OpenExecuteTab();
         }
 
