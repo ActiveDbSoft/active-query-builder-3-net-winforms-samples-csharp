@@ -151,7 +151,7 @@ namespace FullFeaturedDemo.PropertiesForm
 
 		private void buttonEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (QueryBuilder.EditMetadataContainer(_sqlContextCopy, _sqlContextCopy.LoadingOptions))
+			if (QueryBuilder.EditMetadataContainer(_sqlContextCopy))
 			{
 				Modified = true;
 			}

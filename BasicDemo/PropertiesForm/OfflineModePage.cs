@@ -178,7 +178,7 @@ namespace BasicDemo
 
 		private void buttonEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.LoadingOptions))
+			if (QueryBuilder.EditMetadataContainer(_sqlContext))
 			{
 				Modified = true;
 			}

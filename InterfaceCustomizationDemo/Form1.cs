@@ -90,7 +90,7 @@ namespace InterfaceCustomizationDemo
                     context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
             }
 
-            var imageKey = (Bitmap)QBuilder.DataSourceOptions.MarkColumnOptions.PrimaryKeyIcon;
+            var imageKey = (Bitmap)QBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon;
 
             context.DrawImage(imageKey, new Point((int) rect.X + 3, (int) rect.Y));
 

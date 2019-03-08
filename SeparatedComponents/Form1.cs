@@ -63,7 +63,7 @@ namespace SeparatedComponents
 		{
 			// Open the metadata container editor
 
-			QueryBuilder.EditMetadataContainer(sqlContext1, sqlContext1.LoadingOptions);
+			QueryBuilder.EditMetadataContainer(sqlContext1);
 		}
 
 		private void clearMetadataMenuItem_Click(object sender, EventArgs e)

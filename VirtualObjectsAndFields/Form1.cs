@@ -171,7 +171,7 @@ namespace VirtualObjectsAndFields
 		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext, queryBuilder.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext);
 		}
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

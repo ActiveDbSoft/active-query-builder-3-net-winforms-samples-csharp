@@ -756,7 +756,7 @@ Do you want to load database structure from cache?";
 
 	    public void EditMetadata()
 	    {
-	        QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.MetadataContainer.LoadingOptions);
+	        QueryBuilder.EditMetadataContainer(_sqlContext);
 	    }
 
 	    public void ClearMetadata()

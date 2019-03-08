@@ -957,7 +957,7 @@ namespace FullFeaturedMdiDemo
 
         private void tsbEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(_sqlContext, _sqlContext.MetadataContainer.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(_sqlContext);
         }
 
         private void userQueriesView1_EditUserQuery(object sender, MetadataStructureItemCancelEventArgs e)

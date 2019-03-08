@@ -46,8 +46,6 @@ namespace MetadataStructureDemo
 				// Disable the automatic metadata structure creation
 				queryBuilder.MetadataStructure.AllowChildAutoItems = false;
 				
-				// queryBuilder.DatabaseSchemaTreeOptions.DefaultExpandLevel = 0;
-
 				MetadataFilterItem filter;
 
                 // Create a top-level folder containing all objects
@@ -137,7 +135,7 @@ namespace MetadataStructureDemo
 
         private void tsbMetadataEditor_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext, queryBuilder.MetadataLoadingOptions);
+            QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext);
         }
 
 		public void ShowErrorBanner(Control control, String text)

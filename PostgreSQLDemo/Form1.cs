@@ -58,7 +58,7 @@ namespace PostgreSQLDemo
 		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
 		}
 
 		private void clearMetadataToolStripMenuItem_Click(object sender, EventArgs e)

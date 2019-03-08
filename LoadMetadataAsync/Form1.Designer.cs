@@ -38,7 +38,7 @@ namespace LoadMetadataAsync
 			// 
 			// queryBuilder
 			// 
-			this.queryBuilder.DataSourceOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
+			this.queryBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
 			this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.queryBuilder.Location = new System.Drawing.Point(0, 0);
 			this.queryBuilder.MetadataStructureOptions.ProceduresFolderText = null;

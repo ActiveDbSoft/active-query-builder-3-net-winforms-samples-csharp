@@ -59,7 +59,7 @@ namespace MySQLdemo
 		{
 			// Open the metadata container editor
 
-			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext, queryBuilder.MetadataLoadingOptions);
+			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext);
 		}
 
 		private void clearMetadataToolStripMenuItem_Click(object sender, EventArgs e)

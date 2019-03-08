@@ -876,7 +876,7 @@ namespace FullFeaturedDemo
 
         private void tsmiEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.SQLContext.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
         }
 
         private void tsmiClearMetadata_Click(object sender, EventArgs e)
