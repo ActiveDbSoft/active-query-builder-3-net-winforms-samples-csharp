@@ -244,7 +244,6 @@ namespace BasicDemo
             // 
             // expressionEditor1
             // 
-            this.expressionEditor1.ActiveUnionSubQuery = null;
             this.expressionEditor1.BackColor = System.Drawing.Color.White;
             this.expressionEditor1.CloseOnEscape = false;
             this.expressionEditor1.Expression = "";
@@ -259,7 +258,7 @@ namespace BasicDemo
             // sqlTextEditor1
             // 
             this.sqlTextEditor1.AcceptTabs = false;
-            this.sqlTextEditor1.ActiveUnionSubQuery = null;
+            this.sqlTextEditor1.ExpressionContext = null;
             this.sqlTextEditor1.BackColor = System.Drawing.Color.White;
             this.sqlTextEditor1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sqlTextEditor1.CaretOffset = 0;

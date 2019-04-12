@@ -40,7 +40,7 @@ namespace FullFeaturedMdiDemo
             pnlFilterInfo.InfoText = "1. Add unwanted objects to Exclude tab. Any other objects will be displayed.\r\n" +
                                      "2. Add the needed objects to Include tab. Only those objects will be displayed.";
 
-            pnlFilterInfo.TooltipText =
+            pnlFilterInfo.Tooltip =
                 "By adding a namespace (database, schema, etc.) you instruct to include or exclude all objects from this namespace.\r\n\r\n" +
                 "You can add the needed namespaces to the Include tab but exclude certain objects or nested namespaces by adding them to the Exclude tab at the same time.";
 

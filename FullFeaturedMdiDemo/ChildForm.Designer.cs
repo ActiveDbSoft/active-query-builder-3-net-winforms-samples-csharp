@@ -484,7 +484,6 @@ namespace FullFeaturedMdiDemo
             this.queryColumnListControl1.Options.Font = null;
             this.queryColumnListControl1.Options.InitialOrColumnsCount = 2;
             this.queryColumnListControl1.Options.NullOrderingInOrderBy = false;
-            this.queryColumnListControl1.Options.RowHeadersWidth = 0;
             this.queryColumnListControl1.Options.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryColumnListControl1.Query = null;
             this.queryColumnListControl1.Size = new System.Drawing.Size(866, 83);
@@ -578,7 +577,7 @@ namespace FullFeaturedMdiDemo
             // rtbQueryText
             // 
             this.rtbQueryText.AcceptTabs = false;
-            this.rtbQueryText.ActiveUnionSubQuery = null;
+            this.rtbQueryText.ExpressionContext = null;
             this.rtbQueryText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbQueryText.CaretOffset = 0;
             this.rtbQueryText.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -652,7 +651,7 @@ namespace FullFeaturedMdiDemo
             // TextBoxCurrentSubQuerySql
             // 
             this.TextBoxCurrentSubQuerySql.AcceptTabs = false;
-            this.TextBoxCurrentSubQuerySql.ActiveUnionSubQuery = null;
+            this.TextBoxCurrentSubQuerySql.ExpressionContext = null;
             this.TextBoxCurrentSubQuerySql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TextBoxCurrentSubQuerySql.CaretOffset = 0;
             this.TextBoxCurrentSubQuerySql.Dock = System.Windows.Forms.DockStyle.Fill;

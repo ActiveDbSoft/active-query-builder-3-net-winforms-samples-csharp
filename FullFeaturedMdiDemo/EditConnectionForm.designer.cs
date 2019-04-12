@@ -377,15 +377,14 @@ namespace FullFeaturedMdiDemo
             // pnlFilterInfo
             // 
             this.pnlFilterInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlFilterInfo.Hint = "";
-            this.pnlFilterInfo.IconLocation = ActiveQueryBuilder.View.WinForms.InfoIconLocation.Left;
+            this.pnlFilterInfo.IconLocation = ActiveQueryBuilder.View.InfoIconLocation.Left;
             this.pnlFilterInfo.InfoText = "";
             this.pnlFilterInfo.Location = new System.Drawing.Point(3, 3);
             this.pnlFilterInfo.Name = "pnlFilterInfo";
             this.pnlFilterInfo.ShowIcon = true;
             this.pnlFilterInfo.Size = new System.Drawing.Size(431, 7);
             this.pnlFilterInfo.TabIndex = 6;
-            this.pnlFilterInfo.TooltipText = "By adding a namespace (database, schema, etc.) you instruct to include or exclude" +
+            this.pnlFilterInfo.Tooltip = "By adding a namespace (database, schema, etc.) you instruct to include or exclude" +
     " all objects from this namespace.";
             // 
             // tpMetadataLoading

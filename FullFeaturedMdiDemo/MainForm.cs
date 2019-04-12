@@ -8,20 +8,6 @@
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
-using System;
-using System.ComponentModel;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
@@ -29,12 +15,21 @@ using ActiveQueryBuilder.View.WinForms;
 using FullFeaturedMdiDemo.Common;
 using FullFeaturedMdiDemo.Dailogs;
 using FullFeaturedMdiDemo.PropertiesForm;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
 {
-	public partial class MainForm : Form
+    public partial class MainForm : Form
 	{
         private ConnectionInfo _selectedConnection;
         private SQLContext _sqlContext;
@@ -257,13 +252,13 @@ namespace FullFeaturedMdiDemo
 	        tsbCut.Enabled = (ActiveMdiChild != null && ((ChildForm) ActiveMdiChild).CanCut());
 	        tsbCopy.Enabled = (ActiveMdiChild != null && ((ChildForm) ActiveMdiChild).CanCopy());
 	        tsbPaste.Enabled = (ActiveMdiChild != null && ((ChildForm) ActiveMdiChild).CanPaste());
-	        tsmiOfflineMode.Enabled = (ActiveMdiChild != null);
-	        tsmiOfflineMode.Checked = (ActiveMdiChild != null && ((ChildForm) ActiveMdiChild).IsOfflineMode());
-	        tsmiRefreshMetadata.Enabled = (ActiveMdiChild != null);
-	        tsmiEditMetadata.Enabled = (ActiveMdiChild != null);
-	        tsmiClearMetadata.Enabled = (ActiveMdiChild != null);
-	        tsmiLoadMetadataFromXML.Enabled = (ActiveMdiChild != null);
-	        tsmiSaveMetadataToXML.Enabled = (ActiveMdiChild != null);
+	        tsmiOfflineMode.Enabled = (_sqlContext != null);
+	        tsmiOfflineMode.Checked = (_sqlContext != null && _sqlContext.MetadataContainer.LoadingOptions.OfflineMode);
+	        tsmiRefreshMetadata.Enabled = (_sqlContext != null);
+	        tsmiEditMetadata.Enabled = (_sqlContext != null);
+	        tsmiClearMetadata.Enabled = (_sqlContext != null);
+	        tsmiLoadMetadataFromXML.Enabled = (_sqlContext != null);
+	        tsmiSaveMetadataToXML.Enabled = (_sqlContext != null);
 	        propertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
 	        queryPropertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
 
@@ -289,9 +284,6 @@ namespace FullFeaturedMdiDemo
             try
             {
                 Cursor = Cursors.WaitCursor;
-
-                BaseMetadataProvider metadataProvaider = null;
-
 
                 if (_selectedConnection.IsXmlFile)
                 {
@@ -335,7 +327,10 @@ namespace FullFeaturedMdiDemo
                     _sqlContext.MetadataStructure.XML = _selectedConnection.MetadataStructure;
                     _sqlContext.MetadataStructure.Refresh();
                 }
-                _sqlContext.MetadataStructure.FavouritesItem.UpdateEnded += Favourites_Updated;
+
+                var favouritesItem = _sqlContext.MetadataStructure.FavouritesItem;
+                if (favouritesItem != null)
+                    favouritesItem.UpdateEnded += Favourites_Updated;
 
                 CaptionConnection.Text = _selectedConnection.Name;
 
@@ -638,30 +633,26 @@ namespace FullFeaturedMdiDemo
 
 		private void tsmiRefreshMetadata_Click(object sender, EventArgs e)
 		{
-			if (ActiveMdiChild != null)
-			{
-				// to refresh metadata, just clear already loaded items
-				((ChildForm) ActiveMdiChild).ClearMetadata();
-				((ChildForm) ActiveMdiChild).RefreshMetadata();
-			}
-		}
+            if (_sqlContext.MetadataProvider == null || !_sqlContext.MetadataProvider.Connected) return;
+
+            // to refresh metadata, just clear already loaded items
+            _sqlContext.MetadataContainer.Clear();
+            _sqlContext.MetadataContainer.LoadAll(true);
+            DBView.InitializeDatabaseSchemaTree();
+        }
 
 		private void tsmiEditMetadata_Click(object sender, EventArgs e)
 		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).EditMetadata();
-			}
-		}
+            if(_sqlContext == null) return;
+
+            QueryBuilder.EditMetadataContainer(_sqlContext);
+        }
 
 		private void tsmiClearMetadata_Click(object sender, EventArgs e)
 		{
-			if (ActiveMdiChild != null)
-			{
-				// to refresh metadata, just clear already loaded items
-				((ChildForm) ActiveMdiChild).ClearMetadata();
-			}
-		}
+            if (_sqlContext == null) return;
+            _sqlContext.MetadataContainer.Clear();
+        }
 
 		private void tsmiLoadMetadataFromXML_Click(object sender, EventArgs e)
 		{

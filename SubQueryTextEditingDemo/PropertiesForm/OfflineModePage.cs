@@ -105,7 +105,7 @@ namespace ActiveUnionSubQueryChangedBlock.PropertiesForm
 			{
 				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_sqlContextCopy.MetadataContainer))
 				{
-					if (f.ShowDialog() == DialogResult.OK)
+					if (f.ShowDialog())
 					{
 						Modified = true;
 						cbOfflineMode.Checked = true;

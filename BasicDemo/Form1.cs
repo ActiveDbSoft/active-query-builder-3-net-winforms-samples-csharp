@@ -29,7 +29,7 @@ namespace BasicDemo
 
 		    queryBuilder1.ActiveUnionSubQueryChanged += delegate
 		    {
-		        sqlTextEditor1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery;
+		        sqlTextEditor1.ExpressionContext = queryBuilder1.ActiveUnionSubQuery;
 		    };
 
             // DEMO WARNING
@@ -82,7 +82,7 @@ namespace BasicDemo
         {
             Load -= Form1_Load;
             queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
-            sqlTextEditor1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery;
+            sqlTextEditor1.ExpressionContext = queryBuilder1.ActiveUnionSubQuery;
         }
 
         private void refreshMetadataMenuItem_Click(object sender, EventArgs e)

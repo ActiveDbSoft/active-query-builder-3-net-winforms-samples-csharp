@@ -466,7 +466,7 @@ namespace FullFeaturedDemo
             this.addUnionSubqueryToolStripMenuItem.Name = "addUnionSubqueryToolStripMenuItem";
             this.addUnionSubqueryToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.addUnionSubqueryToolStripMenuItem.Text = "Add Union Sub-Query";
-            this.addUnionSubqueryToolStripMenuItem.Click += new System.EventHandler(this.addUnionSubqueryToolStripMenuItem_Click);
+            this.addUnionSubqueryToolStripMenuItem.Click += new System.EventHandler(this.addUnionSubQueryToolStripMenuItem_Click);
             // 
             // copyUnionSubwueryToolStripMenuItem
             // 

@@ -60,7 +60,7 @@
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(336, 13);
 			this.label3.TabIndex = 7;
-			this.label3.Text = "Copyright � 2008-2015 Active Database Software. All rights reserved.";
+			this.label3.Text = "Copyright � 2008-2019 Active Database Software. All rights reserved.";
 			// 
 			// bClose
 			// 

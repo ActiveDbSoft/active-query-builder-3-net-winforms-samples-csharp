@@ -150,6 +150,7 @@ namespace FullFeaturedDemo
             {
                 queryBuilder1.MetadataContainer.LoadingOptions.OfflineMode = true;
                 queryBuilder1.MetadataContainer.ImportFromXML(fileDialog.FileName);
+                queryBuilder1.InitializeDatabaseSchemaTree();
             }
         }
 
@@ -1034,7 +1035,7 @@ namespace FullFeaturedDemo
             queryBuilder1.ActiveUnionSubQuery = usq;
         }
 
-        private void addUnionSubqueryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addUnionSubQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             queryBuilder1.ActiveUnionSubQuery = queryBuilder1.ActiveUnionSubQuery.ParentGroup.Add();
         }
@@ -1047,7 +1048,7 @@ namespace FullFeaturedDemo
 
         private void tsbEditMetadata_Click(object sender, EventArgs e)
         {
-            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext, queryBuilder1.SQLContext.LoadingOptions);
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
         }
 
         private void tsbSaveInFile_Click(object sender, EventArgs e)

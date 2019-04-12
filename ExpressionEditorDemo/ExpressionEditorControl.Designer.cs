@@ -95,7 +95,7 @@
             // sqlTextEditor1
             // 
             this.sqlTextEditor1.Options.AcceptTabs = false;
-            this.sqlTextEditor1.ActiveUnionSubQuery = null;
+            this.sqlTextEditor1.ExpressionContext = null;
             this.sqlTextEditor1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sqlTextEditor1.CaretOffset = 0;
             this.sqlTextEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -276,15 +276,13 @@
             // pnlNotification
             // 
             this.pnlNotification.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNotification.Hint = "";
-            this.pnlNotification.IconLocation = ActiveQueryBuilder.View.WinForms.InfoIconLocation.Right;
+            this.pnlNotification.IconLocation = ActiveQueryBuilder.View.InfoIconLocation.Right;
             this.pnlNotification.InfoText = "";
             this.pnlNotification.Location = new System.Drawing.Point(0, 505);
             this.pnlNotification.Name = "pnlNotification";
             this.pnlNotification.ShowIcon = false;
             this.pnlNotification.Size = new System.Drawing.Size(764, 7);
             this.pnlNotification.TabIndex = 6;
-            this.pnlNotification.TooltipText = "";
             this.pnlNotification.Visible = false;
             // 
             // ExpressionEditorControl
@@ -323,7 +321,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox tbFilterForFunctions;
         private System.Windows.Forms.FlowLayoutPanel pnlOperators;
-        private System.Windows.Forms.ToolTip toolTip1;
         private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView treeQueryObjects;
         private ActiveQueryBuilder.View.WinForms.DockPanels.DockManager dockManager1;
         private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanelSqlContext;

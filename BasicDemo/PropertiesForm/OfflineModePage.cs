@@ -104,7 +104,7 @@ namespace BasicDemo
 			{
 				using (MetadataContainerLoadForm f = new MetadataContainerLoadForm(_sqlContext.MetadataContainer))
 				{
-					if (f.ShowDialog() == DialogResult.OK)
+					if (f.ShowDialog())
 					{
 						Modified = true;
 						cbOfflineMode.Checked = true;

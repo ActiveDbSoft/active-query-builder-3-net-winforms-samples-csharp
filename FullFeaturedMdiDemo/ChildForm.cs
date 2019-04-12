@@ -293,8 +293,8 @@ namespace FullFeaturedMdiDemo
             SqlQuery.SQLUpdated += query_SQLUpdated;
             QueryView.ActiveUnionSubQueryChanged += QueryViewOnActiveUnionSubQueryChanged;
 
-            rtbQueryText.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
-            TextBoxCurrentSubQuerySql.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
+            rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;
+            TextBoxCurrentSubQuerySql.ExpressionContext = QView.ActiveUnionSubQuery;
         }
 
         private void QueryViewOnActiveUnionSubQueryChanged(object sender, EventArgs eventArgs)
@@ -302,8 +302,8 @@ namespace FullFeaturedMdiDemo
             if (QueryView.ActiveUnionSubQuery != null && QueryView.ActiveUnionSubQuery.ParentSubQuery != null)
                 TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
 
-            rtbQueryText.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
-            TextBoxCurrentSubQuerySql.ActiveUnionSubQuery = QView.ActiveUnionSubQuery;
+            rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;
+            TextBoxCurrentSubQuerySql.ExpressionContext = QView.ActiveUnionSubQuery;
         }
 
         private void TimerForFastResult_Elapsed(object state)
