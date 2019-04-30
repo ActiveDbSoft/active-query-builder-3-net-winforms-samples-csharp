@@ -24,7 +24,7 @@
             this.lblSortObjectsBy = new System.Windows.Forms.Label();
             this.cmbSortObjectsBy = new System.Windows.Forms.ComboBox();
             this.lblDefaultExpandLevel = new System.Windows.Forms.Label();
-            this.cbDefaultExpandType = new ActiveQueryBuilder.View.WinForms.CheckComboBox();
+            this.cbDefaultExpandType = new CheckComboBox();
             this.SuspendLayout();
             // 
             // lblGroupObjectsBy
@@ -166,6 +166,6 @@
 		private System.Windows.Forms.Label lblSortObjectsBy;
 		private System.Windows.Forms.ComboBox cmbSortObjectsBy;
 		private System.Windows.Forms.Label lblDefaultExpandLevel;
-        private ActiveQueryBuilder.View.WinForms.CheckComboBox cbDefaultExpandType;
+        private CheckComboBox cbDefaultExpandType;
     }
 }

@@ -11,17 +11,6 @@
           "lib/net452/FirebirdSql.Data.FirebirdClient.dll": {}
         }
       },
-      "IBM.Data.DB2/10.0.5.5": {
-        "type": "package",
-        "compile": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
-        }
-      },
       "MySql.Data/6.9.12": {
         "type": "package",
         "compile": {
@@ -107,17 +96,6 @@
           "lib/net452/FirebirdSql.Data.FirebirdClient.dll": {}
         }
       },
-      "IBM.Data.DB2/10.0.5.5": {
-        "type": "package",
-        "compile": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
-        }
-      },
       "MySql.Data/6.9.12": {
         "type": "package",
         "compile": {
@@ -201,17 +179,6 @@
         },
         "runtime": {
           "lib/net452/FirebirdSql.Data.FirebirdClient.dll": {}
-        }
-      },
-      "IBM.Data.DB2/10.0.5.5": {
-        "type": "package",
-        "compile": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IBM.Data.DB2.Entity.dll": {},
-          "lib/net451/IBM.Data.DB2.dll": {}
         }
       },
       "MySql.Data/6.9.12": {
@@ -308,33 +275,6 @@
         "lib/netstandard2.0/FirebirdSql.Data.FirebirdClient.dll",
         "lib/netstandard2.0/FirebirdSql.Data.FirebirdClient.pdb",
         "readme.txt"
-      ]
-    },
-    "IBM.Data.DB2/10.0.5.5": {
-      "sha512": "xejIiNOIZVazhaTeEz4C9mh4gwHd5nSeCgnUTBCXJAD/KbZtIIfP4DJdrabw79Z7wCkW5xspvjb9U7S/+45RQg==",
-      "type": "package",
-      "path": "ibm.data.db2/10.0.5.5",
-      "files": [
-        ".nupkg.metadata",
-        "ibm.data.db2.10.0.5.5.nupkg.sha512",
-        "ibm.data.db2.nuspec",
-        "lib/db2dascmn64.dll",
-        "lib/db2g11n64.dll",
-        "lib/db2genreg64.dll",
-        "lib/db2install64.dll",
-        "lib/db2locale64.dll",
-        "lib/db2osse64.dll",
-        "lib/db2osse_db364.dll",
-        "lib/db2sdbin64.dll",
-        "lib/db2sys64.dll",
-        "lib/db2trcapi64.dll",
-        "lib/db2wint64.dll",
-        "lib/net20/IBM.Data.DB2.ASP.dll",
-        "lib/net20/IBM.Data.DB2.Entity.dll",
-        "lib/net20/IBM.Data.DB2.dll",
-        "lib/net45/_._",
-        "lib/net451/IBM.Data.DB2.Entity.dll",
-        "lib/net451/IBM.Data.DB2.dll"
       ]
     },
     "MySql.Data/6.9.12": {
@@ -548,7 +488,6 @@
   "projectFileDependencyGroups": {
     "": [
       "FirebirdSql.Data.FirebirdClient >= 6.0.0",
-      "IBM.Data.DB2 >= 10.0.5.5",
       "MySql.Data >= 6.9.12",
       "Npgsql >= 4.0.1",
       "Oracle.ManagedDataAccess >= 12.2.1100",
@@ -583,7 +522,6 @@
     },
     "dependencies": {
       "FirebirdSql.Data.FirebirdClient": "[6.0.0, )",
-      "IBM.Data.DB2": "[10.0.5.5, )",
       "MySql.Data": "[6.9.12, )",
       "Npgsql": "[4.0.1, )",
       "Oracle.ManagedDataAccess": "[12.2.1100, )",

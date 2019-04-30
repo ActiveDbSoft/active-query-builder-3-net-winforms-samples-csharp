@@ -56,7 +56,7 @@ namespace FullFeaturedMdiDemo
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDeleteFilter = new System.Windows.Forms.Button();
             this.btnAddFilter = new System.Windows.Forms.Button();
-            this.pnlFilterInfo = new ActiveQueryBuilder.View.WinForms.InformationPanel();
+            this.pnlFilterInfo = new FullFeaturedMdiDemo.Common.InformationPanel();
             this.tpMetadataLoading = new System.Windows.Forms.TabPage();
             this.pbMetadataLoading = new ActiveQueryBuilder.View.WinForms.QueryView.PropertiesBar();
             this.tpStructureOptions = new System.Windows.Forms.TabPage();
@@ -488,6 +488,6 @@ namespace FullFeaturedMdiDemo
         private PropertiesBar pbMetadataLoading;
         private PropertiesBar pbStructureOptions;
         private DatabaseSchemaView databaseSchemaView1;
-        private ActiveQueryBuilder.View.WinForms.InformationPanel pnlFilterInfo;
+        private FullFeaturedMdiDemo.Common.InformationPanel pnlFilterInfo;
     }
 }

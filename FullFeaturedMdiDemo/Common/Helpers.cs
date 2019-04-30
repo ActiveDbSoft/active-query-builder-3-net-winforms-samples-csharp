@@ -13,12 +13,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.Serialization;
-using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.View.WinForms.DatabaseSchemaView;
 using ActiveQueryBuilder.View.WinForms.Serialization;
 
@@ -26,6 +26,51 @@ namespace FullFeaturedMdiDemo.Common
 {
     public static class Helpers
     {
+        private const int DesignTimeDpi = 96;
+        private static int _currentDPI = -1;
+
+        private static int MulDiv(int number, int numerator, int denominator)
+        {
+            return (int)(((long)number * numerator) / denominator);
+        }
+
+        public static int GetCurrentDPI()
+        {
+            try
+            {
+                var graphics = Graphics.FromHwnd(IntPtr.Zero);
+                var result = (int)graphics.DpiX;
+                graphics.Dispose();
+
+                return result;
+            }
+            catch
+            {
+                return DesignTimeDpi;
+            }
+        }
+
+        public static int ScaleByCurrentDPI(int value)
+        {
+            if (_currentDPI == -1)
+            {
+                _currentDPI = GetCurrentDPI();
+            }
+
+            return MulDiv(value, _currentDPI, DesignTimeDpi);
+        }
+
+        public static Rectangle ScaleByCurrentDPI(Rectangle bounds)
+        {
+            if (_currentDPI == -1)
+            {
+                _currentDPI = GetCurrentDPI();
+            }
+
+            return new Rectangle(MulDiv(bounds.X, _currentDPI, DesignTimeDpi), MulDiv(bounds.Y, _currentDPI, DesignTimeDpi),
+                MulDiv(bounds.Width, _currentDPI, DesignTimeDpi), MulDiv(bounds.Height, _currentDPI, DesignTimeDpi));
+        }
+
         public static readonly List<Type> ConnectionDescriptorList = new List<Type>
         {
             typeof(MSAccessConnectionDescriptor),

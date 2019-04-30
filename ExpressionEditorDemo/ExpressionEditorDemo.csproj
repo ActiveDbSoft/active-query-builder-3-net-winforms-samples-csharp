@@ -33,13 +33,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActiveQueryBuilder.Core">
-		<HintPath>..\packages\ActiveQueryBuilder.Core.3.5.14.1126\lib\net\ActiveQueryBuilder.Core.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.Core.3.5.15.1127\lib\net\ActiveQueryBuilder.Core.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.View">
-		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.14.1126\lib\net\ActiveQueryBuilder.View.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.15.1127\lib\net\ActiveQueryBuilder.View.dll</HintPath>
 	</Reference>
     <Reference Include="ActiveQueryBuilder.View.WinForms">
-		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.14.1126\lib\net\ActiveQueryBuilder.View.WinForms.dll</HintPath>
+		<HintPath>..\packages\ActiveQueryBuilder.View.WinForms.3.5.15.1127\lib\net\ActiveQueryBuilder.View.WinForms.dll</HintPath>
 	</Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,6 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\InformationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\InformationPanel.Designer.cs">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\TreeViewMod.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Common\InformationPanel.resx">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExpressionEditorControl.resx">
       <DependentUpon>ExpressionEditorControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +119,9 @@
     <None Include="AdventureWorks2014.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
