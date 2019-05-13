@@ -32,7 +32,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.customTextColumnDemoFrame = new CustomColumnsDemo.CustomTextColumnDemoFrame();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.customComobBoxColumnDemoFrame = new CustomColumnsDemo.CustomComobBoxColumnDemoFrame();
+            this._customComboBoxColumnDemoFrame = new CustomColumnsDemo.CustomComboBoxColumnDemoFrame();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.customCheckBoxColumnDemoFrame = new CustomColumnsDemo.CustomCheckBoxColumnDemoFrame();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -84,7 +84,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.customComobBoxColumnDemoFrame);
+            this.tabPage2.Controls.Add(this._customComboBoxColumnDemoFrame);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -93,13 +93,13 @@
             this.tabPage2.Text = "ComboBox Column";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // customComobBoxColumnDemoFrame
+            // _customComboBoxColumnDemoFrame
             // 
-            this.customComobBoxColumnDemoFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customComobBoxColumnDemoFrame.Location = new System.Drawing.Point(3, 3);
-            this.customComobBoxColumnDemoFrame.Name = "customComobBoxColumnDemoFrame";
-            this.customComobBoxColumnDemoFrame.Size = new System.Drawing.Size(978, 446);
-            this.customComobBoxColumnDemoFrame.TabIndex = 0;
+            this._customComboBoxColumnDemoFrame.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._customComboBoxColumnDemoFrame.Location = new System.Drawing.Point(3, 3);
+            this._customComboBoxColumnDemoFrame.Name = "_customComboBoxColumnDemoFrame";
+            this._customComboBoxColumnDemoFrame.Size = new System.Drawing.Size(978, 446);
+            this._customComboBoxColumnDemoFrame.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -183,7 +183,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private CustomTextColumnDemoFrame customTextColumnDemoFrame;
-        private CustomComobBoxColumnDemoFrame customComobBoxColumnDemoFrame;
+        private CustomComboBoxColumnDemoFrame _customComboBoxColumnDemoFrame;
         private CustomCheckBoxColumnDemoFrame customCheckBoxColumnDemoFrame;
         private System.Windows.Forms.TabPage tabPage4;
         private CustomTextWithButtonColumnDemoFrame customTextWithButtonColumnDemoFrame;

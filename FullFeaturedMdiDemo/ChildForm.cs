@@ -456,7 +456,7 @@ Do you want to load database structure from cache?";
 	                DateTime start = DateTime.Now;
 
 	                // ask for caching
-	                if ((DateTime.Now - start).Seconds > 60)
+	                if ((DateTime.Now - start).TotalSeconds > 60)
 	                {
 	                    String message = "Do you want to cache the database structure to quicken further loading?";
 
@@ -470,7 +470,7 @@ Do you want to load database structure from cache?";
 	                            Directory.CreateDirectory(dir);
 	                        }
 
-	                        // preload database databases/schemas/objects for export, but skip params/fields/foreign keys
+	                        // pre-load database databases/schemas/objects for export, but skip params/fields/foreign keys
 	                        _sqlContext.MetadataContainer.LoadAll(false);
 	                        _sqlContext.MetadataContainer.ExportToXML(cacheFile);
 	                        _connectionInfo.CacheFile = cacheFile;

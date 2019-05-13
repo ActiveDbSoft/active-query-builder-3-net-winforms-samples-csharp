@@ -43,12 +43,12 @@
 			this.queryBuilder1.QueryElementControlCreated += new ActiveQueryBuilder.View.QueryView.QueryElementControlCreatedEventHandler(this.queryBuilder1_QueryElementControlCreated);
 			this.queryBuilder1.QueryElementControlDestroying += new ActiveQueryBuilder.View.QueryView.QueryElementControlDestroyingEventHandler(this.queryBuilder1_QueryElementControlDestroying);
 			// 
-			// CustomComboBoxColumnDemoFrame
+			// CustomComobBoxColumnDemoFrame
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.queryBuilder1);
-			this.Name = "CustomComboBoxColumnDemoFrame";
+			this.Name = "CustomComobBoxColumnDemoFrame";
 			this.Size = new System.Drawing.Size(640, 340);
 			this.ResumeLayout(false);
 		}

@@ -14,15 +14,16 @@ using System.Windows.Forms;
 
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.QueryView;
-using ActiveQueryBuilder.View.WinForms.QueryView;
 
 namespace CustomColumnsDemo
 {
 	public partial class CustomTextColumnDemoFrame : UserControl
 	{
 		private readonly List<string> _customValuesProvider = new List<string>();
+        private DataGridViewTextBoxColumn _customColumn;
 
-		public CustomTextColumnDemoFrame()
+
+        public CustomTextColumnDemoFrame()
 		{
 			InitializeComponent();
 
@@ -36,25 +37,26 @@ namespace CustomColumnsDemo
 			// Fill custom values source (for demo purposes)
 			for (int i = 0; i < 100; i++)
 				_customValuesProvider.Add("Some Value " + i);
-		}
+        }
 
-		private void queryBuilder1_QueryElementControlCreated(QueryElement queryElement, IQueryElementControl queryElementControl)
+        private void queryBuilder1_QueryElementControlCreated(QueryElement queryElement, IQueryElementControl queryElementControl)
 		{
             if (queryElementControl is IQueryColumnListControl)
             {
                 var queryColumnListControl = (IQueryColumnListControl)queryElementControl;
                 DataGridView dataGridView = (DataGridView)queryColumnListControl.DataGrid;
 
+                _customColumn?.Dispose();
+
                 // Create custom column
-                DataGridViewTextBoxColumn customColumn = new DataGridViewTextBoxColumn();
-                customColumn.Name = "CustomColumn";
-                customColumn.HeaderText = "Custom Column";
-                customColumn.Width = 200;
-                customColumn.ValueType = typeof(string);
-                customColumn.HeaderCell.Style.Font = new Font("Tahoma", 8, FontStyle.Bold);
+                _customColumn = new DataGridViewTextBoxColumn
+                {
+                    Name = "CustomColumn", HeaderText = "Custom Column", Width = 200, ValueType = typeof(string)
+                };
+                _customColumn.HeaderCell.Style.Font = new Font("Tahoma", 8, FontStyle.Bold);
 
                 // Insert custom column to specified position
-                dataGridView.Columns.Insert(2, customColumn);
+                dataGridView.Columns.Insert(2, _customColumn);
 
                 // Handle requierd events
                 dataGridView.CellBeginEdit += DataGridView_CellBeginEdit;
@@ -78,8 +80,12 @@ namespace CustomColumnsDemo
 		}
 
 		private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-		{
-			if (e.ColumnIndex == 2 && e.RowIndex < ((DataGridView) sender).RowCount - 1)
+        {
+            var dataGrid = (DataGridView) sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+
+			if (e.RowIndex < ((DataGridView) sender).RowCount - 1)
 			{
 				// Make cell editable
 				e.Cancel = false; // Set true if you need read-only cell.			
@@ -89,7 +95,11 @@ namespace CustomColumnsDemo
 		// This event handler allows you to display some custom value in you column
 		private void DataGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.ColumnIndex == 2 && e.RowIndex < ((DataGridView) sender).RowCount - 1)
+            var dataGrid = (DataGridView)sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+
+            if (e.RowIndex < ((DataGridView) sender).RowCount - 1)
 			{
 				// Set cell value
 				e.Value = _customValuesProvider[e.RowIndex];
@@ -100,16 +110,18 @@ namespace CustomColumnsDemo
 		}
 
 		// This event handler allows you to store modified cell value (if your column is editable)
-		private void DataGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
-		{
-			if (e.ColumnIndex == 2)
-			{
-				// Store new cell value
-				_customValuesProvider[e.RowIndex] = (string) e.Value;
+        private void DataGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            var dataGrid = (DataGridView) sender;
 
-				// If you need to access to the low level data item, use the following:
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+
+            // Store new cell value
+            _customValuesProvider[e.RowIndex] = (string) e.Value;
+
+            // If you need to access to the low level data item, use the following:
 //				QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
-			}
-		}
-	}
+
+        }
+    }
 }

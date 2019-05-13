@@ -22,8 +22,9 @@ namespace CustomColumnsDemo
 	public partial class CustomComobBoxWithButtonColumnDemoFrame : UserControl
 	{
 		private readonly List<string> _customValuesProvider = new List<string>();
+        private ComboBoxWithButtonColumn _customColumn;
 
-		public CustomComobBoxWithButtonColumnDemoFrame()
+        public CustomComobBoxWithButtonColumnDemoFrame()
 		{
 			InitializeComponent();
 
@@ -46,18 +47,23 @@ namespace CustomColumnsDemo
                 IQueryColumnListControl queryColumnListControl = (IQueryColumnListControl)queryElementControl;
                 DataGridView dataGridView = (DataGridView) queryColumnListControl.DataGrid;
 
+                _customColumn?.Dispose();
+
                 // Create custom column
-                ComboBoxWithButtonColumn customColumn = new ComboBoxWithButtonColumn();
-                customColumn.Name = "CustomColumn";
-                customColumn.HeaderText = "Custom Column";
-                customColumn.Width = 200;
-                customColumn.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing; // hide the comboox if cell is not focused
-                customColumn.ValueType = typeof(string);
-                customColumn.HeaderCell.Style.Font = new Font("Tahoma", 8, FontStyle.Bold);
-                customColumn.ShowButton = true;
+                _customColumn = new ComboBoxWithButtonColumn
+                {
+                    Name = "CustomColumn",
+                    HeaderText = "Custom Column",
+                    Width = 200,
+                    DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing, // hide the combobox if cell is not focused
+                    ValueType = typeof(string)
+                };
+
+                _customColumn.HeaderCell.Style.Font = new Font("Tahoma", 8, FontStyle.Bold);
+                _customColumn.ShowButton = true;
 
                 // Insert custom column to specified position
-                dataGridView.Columns.Insert(2, customColumn);
+                dataGridView.Columns.Insert(2, _customColumn);
 
                 // Handle requierd events
                 dataGridView.CellEnter += DataGridView_CellEnter;
@@ -88,8 +94,10 @@ namespace CustomColumnsDemo
 
 		private void DataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.ColumnIndex == 2)
-			{
+            var dataGrid = (DataGridView)sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+            {
 				// Make the combobox visible when a cell got the focus
 				DataGridView dataGridView = (DataGridView) sender;
 				DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell) dataGridView[e.ColumnIndex, e.RowIndex];
@@ -99,8 +107,10 @@ namespace CustomColumnsDemo
 
 		private void DataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.ColumnIndex == 2)
-			{
+            var dataGrid = (DataGridView)sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+            {
 				// Make the combobox invisible when a cell lost the focus
 				DataGridView dataGridView = (DataGridView) sender;
 				DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell) dataGridView[e.ColumnIndex, e.RowIndex];
@@ -110,7 +120,11 @@ namespace CustomColumnsDemo
 
 		private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
 		{
-			if (e.ColumnIndex == 2 && e.RowIndex < ((DataGridView) sender).RowCount - 1)
+            var dataGrid = (DataGridView)sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+
+            if ( e.RowIndex < ((DataGridView) sender).RowCount - 1)
 			{
 				// Make cell editable
 				e.Cancel = false; // Set true if you need read-only cell.			
@@ -120,7 +134,11 @@ namespace CustomColumnsDemo
 		// This event handler allows you to provide cell values for your column
 		private void DataGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.ColumnIndex == 2 && e.RowIndex < ((DataGridView) sender).RowCount - 1)
+            var dataGrid = (DataGridView)sender;
+
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
+
+            if (e.RowIndex < ((DataGridView) sender).RowCount - 1)
 			{
 				DataGridView dataGridView = (DataGridView) sender;
 
@@ -133,24 +151,27 @@ namespace CustomColumnsDemo
 					cb.Items.Add(e.Value);
 
 				// If you need to access to the low level data item, use the following:
-//				QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
+                // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
 			}
 		}
 
 		// This event handler allows you to store modified cell value (if your column is editable)
-		private void DataGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
-		{
-			if (e.ColumnIndex == 2)
-			{
-				// Store new cell value
-				_customValuesProvider[e.RowIndex] = (string) e.Value;
+        private void DataGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            var dataGrid = (DataGridView) sender;
 
-				// If you need to access to the low level data item, use the following:
-//				QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
-			}
-		}
+            if (dataGrid.Columns[e.ColumnIndex] != _customColumn) return;
 
-		private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+
+            // Store new cell value
+            _customValuesProvider[e.RowIndex] = (string) e.Value;
+
+            // If you need to access to the low level data item, use the following:
+            // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
+
+        }
+
+        private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
 		{
 			DataGridView dataGridView = (DataGridView) sender;
 			int currentColumn = dataGridView.CurrentCell.ColumnIndex;
@@ -191,7 +212,7 @@ namespace CustomColumnsDemo
 			MessageBox.Show("Button at row " + dataGridView.CurrentCell.RowIndex + " clicked.");
 
 			// If you need to access to the low level data item, use the following:
-//			QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[dataGridView.CurrentCell.RowIndex];
+            // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[dataGridView.CurrentCell.RowIndex];
 		}
 	}
 }
