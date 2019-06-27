@@ -39,6 +39,12 @@ namespace FullFeaturedMdiDemo
             UserQuery
         }
 
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
+        private int _errorPositionCurrent = -1;
+        private string _lastValidSqlCurrent;
+
         private readonly QueryTransformer _queryTransformerTop10;
         private readonly Timer _timerForFastReuslt;
 
@@ -792,34 +798,6 @@ Do you want to load database structure from cache?";
 	        }
 	    }
 
-        public void ShowErrorBanner(string text)
-        {
-            HideErrorBanner();
-            _hasError = true;
-            Label label = new Label
-            {
-                Name = "ErrorBanner",
-                Text = text,
-                BorderStyle = BorderStyle.FixedSingle,
-                BackColor = Color.LightPink,
-                AutoSize = true,
-                Visible = true
-            };
-            rtbQueryText.Controls.Add(label);
-            rtbQueryText.Controls.SetChildIndex(label, 0);
-            label.Location = new Point(rtbQueryText.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-            rtbQueryText.Focus();
-        }
-
-        private void HideErrorBanner()
-        {
-            foreach (Label banner in rtbQueryText.Controls.OfType<Label>().Where(item => item.Name.StartsWith("ErrorBanner")))
-            {
-                banner.Dispose();
-            }
-            _hasError = false;
-        }
-
         private void SqlQuery_QueryAwake(QueryRoot sender, ref bool abort)
 	    {
 	        if (MessageBox.Show(@"You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
@@ -881,8 +859,10 @@ Do you want to load database structure from cache?";
 
 	    private void query_SQLUpdated(object sender, EventArgs e)
 	    {
-	        HideErrorBanner();
-            rtbQueryText.Text = SqlQuery.SleepMode
+	        errorBox1.Show(null, _sqlContext.SyntaxProvider);
+	        errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
+
+            _lastValidSql = rtbQueryText.Text = SqlQuery.SleepMode
 	            ? SqlQuery.SQL
 	            : FormattedQueryText;
 	        if(_oldSql == null)
@@ -891,7 +871,7 @@ Do you want to load database structure from cache?";
 	        }
 
 	        if (QueryView.ActiveUnionSubQuery == null || SqlQuery.SleepMode) return;
-	        TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+	        _lastValidSqlCurrent = TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
 	        CheckParameters();
 	    }
 
@@ -986,16 +966,16 @@ Do you want to load database structure from cache?";
                 }
                 // Update the query builder with manually edited query text:
                 SqlQuery.SQL = rtbQueryText.Text;
-	            HideErrorBanner();
+	            errorBox1.Show(null, _sqlContext.SyntaxProvider);
 	        }
 	        catch (SQLParsingException ex)
 	        {
 	            // Set caret to error position
-	            rtbQueryText.SelectionStart = ex.ErrorPos.pos;
+	            _errorPosition= rtbQueryText.SelectionStart = ex.ErrorPos.pos;
 
-	            // Show banner with error text
-	            ShowErrorBanner(ex.Message);
-	        }
+                // Show banner with error text
+                errorBox1.Show(ex.Message, _sqlContext.SyntaxProvider);
+            }
 	    }
 
 	    private void Application_Idle(object sender, EventArgs e)
@@ -1311,7 +1291,7 @@ Do you want to load database structure from cache?";
             if (!tabPageFastResult.Visible || string.IsNullOrEmpty(TextBoxCurrentSubQuerySql.Text) ||
                 QView.ActiveUnionSubQuery == null)
             {
-                infoPanel.Message = "";
+                errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
                 return;
             }
             
@@ -1343,16 +1323,12 @@ Do you want to load database structure from cache?";
             }
         }
 
-        private void ShowException(Exception exception, InfoPanel infoPanel)
-        {
-            Invoke((Action)delegate { infoPanel.Message = exception.Message; });
-        }
 
         private void TextBoxCurrentSubQuerySql_Validating(object sender, CancelEventArgs e)
         {
             try
             {
-                infoPanel.Message = "";
+                errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
 
                 // save active subquery
                 var parent = QueryView.ActiveUnionSubQuery.ParentSubQuery;
@@ -1365,9 +1341,10 @@ Do you want to load database structure from cache?";
                 items = parent.GetUnionSubQueryList();
                 QueryView.ActiveUnionSubQuery = idx != -1 ? items[idx] : items.First();
             }
-            catch (Exception ex)
+            catch (SQLParsingException ex)
             {
-                ShowException(ex, infoPanel);
+                errorBoxCurrent.Show(ex.Message, _sqlContext.SyntaxProvider);
+                _errorPositionCurrent = ex.ErrorPos.pos;
             }
         }
 
@@ -1375,6 +1352,42 @@ Do you want to load database structure from cache?";
         {
             if (!paginationPanel1.Enabled)
                 paginationPanel1.RowsCount = resultGrid1.RowCount;
+        }
+
+        private void errorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            rtbQueryText.Text = _lastValidSql;
+            rtbQueryText.Focus();
+        }
+
+        private void errorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                rtbQueryText.SelectionStart = _errorPosition;
+                rtbQueryText.SelectionLength = 0;
+                rtbQueryText.ScrollToPosition(_errorPosition);
+            }
+
+            rtbQueryText.Focus();
+        }
+
+        private void errorBoxCurrent_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                TextBoxCurrentSubQuerySql.SelectionStart = _errorPositionCurrent;
+                TextBoxCurrentSubQuerySql.SelectionLength = 0;
+                TextBoxCurrentSubQuerySql.ScrollToPosition(_errorPositionCurrent);
+            }
+
+            TextBoxCurrentSubQuerySql.Focus();
+        }
+
+        private void errorBoxCurrent_RevertValidText(object sender, EventArgs e)
+        {
+            TextBoxCurrentSubQuerySql.Text = _lastValidSql;
+            TextBoxCurrentSubQuerySql.Focus();
         }
     }
 }

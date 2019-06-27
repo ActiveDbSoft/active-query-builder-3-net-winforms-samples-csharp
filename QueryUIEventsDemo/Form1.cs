@@ -18,6 +18,9 @@ namespace QueryUIEventsDemo
 {
     public partial class Form1 : Form
     {
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +31,7 @@ namespace QueryUIEventsDemo
             // Fill metadata container from the XML file. (For demonstration purposes.)
             try
             {
+                QBuilder.SQLQuery.QueryRoot.AllowSleepMode = false;
                 QBuilder.MetadataLoadingOptions.OfflineMode = true;
                 QBuilder.MetadataContainer.ImportFromXML("Northwind.xml");
                 QBuilder.InitializeDatabaseSchemaTree();
@@ -239,52 +243,10 @@ namespace QueryUIEventsDemo
         private void QBuilder_SQLUpdated(object sender, EventArgs e)
         {
 			// Update the text of SQL query when it's changed in the query builder.
-            TextBoxSQL.Text = QBuilder.FormattedSQL;
+            _lastValidSql = TextBoxSQL.Text = QBuilder.FormattedSQL;
+
+            errorBox1.Show(null, QBuilder.SyntaxProvider);
         }
-
-        public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				bool existBanner = false;
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
-
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) 
-						{
-							existBanner = true;
-							continue;
-						}
-				        banner.Dispose();
-				    }
-				}
-
-                if(existBanner) return;
-			}
-
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
-
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
 
         private void AddRowToReport(string value)
         {
@@ -300,15 +262,15 @@ namespace QueryUIEventsDemo
                 QBuilder.SQL = QBuilder.Text;
 
                 // Hide error banner if any
-                ShowErrorBanner(TextBoxSQL, "");
+                errorBox1.Show(null, QBuilder.SyntaxProvider);
             }
             catch (SQLParsingException ex)
             {
                 // Set caret to error position
-                TextBoxSQL.SelectionStart = ex.ErrorPos.pos;
+                _errorPosition = TextBoxSQL.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
-                ShowErrorBanner(TextBoxSQL, ex.Message);
+                errorBox1.Show(ex.Message, QBuilder.SyntaxProvider);
             }
         }
 
@@ -330,6 +292,24 @@ namespace QueryUIEventsDemo
                 @"QueryColumnListItemRemoving", MessageBoxButtons.YesNo);
 
             abort = answer == DialogResult.No;
+        }
+
+        private void ErrorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                TextBoxSQL.SelectionStart = _errorPosition;
+                TextBoxSQL.SelectionLength = 0;
+                TextBoxSQL.ScrollToCaret();
+            }
+
+            TextBoxSQL.Focus();
+        }
+
+        private void ErrorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            TextBoxSQL.Text = _lastValidSql;
+            TextBoxSQL.Focus();
         }
     }
 }

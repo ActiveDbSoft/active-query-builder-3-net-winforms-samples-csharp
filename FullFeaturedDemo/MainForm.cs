@@ -11,8 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using Oracle.ManagedDataAccess.Client;
@@ -39,9 +37,12 @@ namespace FullFeaturedDemo
 {
     public partial class MainForm : Form
     {
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
         private ConnectionInfo _selectedConnection;
         private readonly SQLFormattingOptions _sqlFormattingOptions;
-        private readonly SQLGenerationOptions _sqlGenerationOptions;
+        
         private string _fileSourcePath;
         private string _oldSql;
         private readonly Dictionary<string, SortOrder> _sortedColumns = new Dictionary<string, SortOrder>();
@@ -102,7 +103,7 @@ namespace FullFeaturedDemo
 
             // Options to generate the SQL query text for execution against a database server
             // Replace virtual objects with derived tables
-            _sqlGenerationOptions = new SQLGenerationOptions { ExpandVirtualObjects = true };
+            queryBuilder1.SQLGenerationOptions = new SQLGenerationOptions { ExpandVirtualObjects = true };
 
             if (Program.Settings.WindowPlacement == Rectangle.Empty)
                 StartPosition = FormStartPosition.WindowsDefaultLocation;
@@ -132,13 +133,7 @@ namespace FullFeaturedDemo
             UpdateLanguage();
         }
 
-        public string FormattedQueryText
-        {
-            get
-            {
-                return FormattedSQLBuilder.GetSQL(queryBuilder1.SQLQuery.QueryRoot, _sqlFormattingOptions);
-            }
-        }
+        public string FormattedQueryText => FormattedSQLBuilder.GetSQL(queryBuilder1.SQLQuery.QueryRoot, _sqlFormattingOptions);
 
         private void LoadMetadataFromXml()
         {
@@ -183,15 +178,9 @@ namespace FullFeaturedDemo
             if (disposing)
             {
                 // ReSharper disable once MergeSequentialChecks
-                if (queryBuilder1 != null && queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connection != null)
-                {
-                    queryBuilder1.MetadataProvider.Connection.Close();
-                }
+                queryBuilder1?.MetadataProvider?.Connection?.Close();
                 Application.Idle -= Application_Idle;
-                if (components != null)
-                {
-                    components.Dispose();
-                }
+                components?.Dispose();
             }
 
             base.Dispose(disposing);
@@ -230,7 +219,7 @@ namespace FullFeaturedDemo
             {
                 Cursor = Cursors.WaitCursor;
 
-                BaseMetadataProvider metadataProvaider = null;
+                BaseMetadataProvider metadataProvider = null;
                 BaseSyntaxProvider syntaxSyntaxProvider;
 
                 // create new SqlConnection object using the connections string from the connection form
@@ -240,49 +229,49 @@ namespace FullFeaturedDemo
                     {
                         case ConnectionTypes.MSSQL:
                             syntaxSyntaxProvider = new MSSQLSyntaxProvider();
-                            metadataProvaider = new MSSQLMetadataProvider
+                            metadataProvider = new MSSQLMetadataProvider
                             {
                                 Connection = new SqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.MSAccess:
                             syntaxSyntaxProvider = new MSAccessSyntaxProvider();
-                            metadataProvaider = new OLEDBMetadataProvider
+                            metadataProvider = new OLEDBMetadataProvider
                             {
                                 Connection = new OleDbConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.Oracle:
                             syntaxSyntaxProvider = new OracleSyntaxProvider();
-                            metadataProvaider = new OracleNativeMetadataProvider
+                            metadataProvider = new OracleNativeMetadataProvider
                             {
                                 Connection = new OracleConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.MySQL:
                             syntaxSyntaxProvider = new MySQLSyntaxProvider();
-                            metadataProvaider = new UniversalMetadataProvider
+                            metadataProvider = new UniversalMetadataProvider
                             {
                                 Connection = new MySqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.PostgreSQL:
                             syntaxSyntaxProvider = new PostgreSQLSyntaxProvider();
-                            metadataProvaider = new UniversalMetadataProvider
+                            metadataProvider = new UniversalMetadataProvider
                             {
                                 Connection = new NpgsqlConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.OLEDB:
                             syntaxSyntaxProvider = new SQL92SyntaxProvider();
-                            metadataProvaider = new OLEDBMetadataProvider
+                            metadataProvider = new OLEDBMetadataProvider
                             {
                                 Connection = new OleDbConnection(_selectedConnection.ConnectionString)
                             };
                             break;
                         case ConnectionTypes.ODBC:
                             syntaxSyntaxProvider = new SQL92SyntaxProvider();
-                            metadataProvaider = new ODBCMetadataProvider
+                            metadataProvider = new ODBCMetadataProvider
                             {
                                 Connection = new OdbcConnection(_selectedConnection.ConnectionString)
                             };
@@ -323,11 +312,11 @@ namespace FullFeaturedDemo
 
                 // setup the query builder with metadata and syntax providers
                 queryBuilder1.SQLContext.MetadataContainer.Clear();
-                queryBuilder1.MetadataProvider = metadataProvaider;
+                queryBuilder1.MetadataProvider = metadataProvider;
                 queryBuilder1.SyntaxProvider = syntaxSyntaxProvider;
-                queryBuilder1.MetadataLoadingOptions.OfflineMode = metadataProvaider == null;
+                queryBuilder1.MetadataLoadingOptions.OfflineMode = metadataProvider == null;
 
-                if (metadataProvaider == null)
+                if (metadataProvider == null)
                     queryBuilder1.MetadataContainer.ImportFromXML(_selectedConnection.ConnectionString);
 
                 // Instruct the query builder to fill the database schema tree
@@ -343,14 +332,6 @@ namespace FullFeaturedDemo
             }
         }
 
-        public bool CanShowProperties
-        {
-            get
-            {
-                return queryBuilder1.ActiveUnionSubQuery != null;
-            }
-        }
-
         public bool CanAddUnionSubQuery
         {
             get
@@ -363,13 +344,7 @@ namespace FullFeaturedDemo
             }
         }
 
-        public bool CanCopyUnionSubQuery
-        {
-            get
-            {
-                return CanAddUnionSubQuery;
-            }
-        }
+        public bool CanCopyUnionSubQuery => CanAddUnionSubQuery;
 
         public bool CanAddDerivedTable
         {
@@ -387,40 +362,7 @@ namespace FullFeaturedDemo
             }
         }
 
-        private bool CanAddObject
-        {
-            get
-            {
-                return queryBuilder1.AddObjectDialog != null;
-            }
-        }
-
-        public void ShowErrorBanner(string text)
-        {
-            HideErrorBanner();
-            _hasError = true;
-            Label label = new Label
-            {
-                Name = "ErrorBanner",
-                Text = text,
-                BorderStyle = BorderStyle.FixedSingle,
-                BackColor = Color.LightPink,
-                AutoSize = true,
-                Visible = true
-            };
-            teSql.Controls.Add(label);
-            teSql.Controls.SetChildIndex(label, 0);
-            label.Location = new Point(teSql.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-        }
-
-        private void HideErrorBanner()
-        {
-            foreach (Label banner in teSql.Controls.OfType<Label>().Where(item => item.Name.StartsWith("ErrorBanner")))
-            {
-                banner.Dispose();
-            }
-            _hasError = false;
-        }
+        private bool CanAddObject => queryBuilder1.AddObjectDialog != null;
 
         // Workaround for the old Microsoft's bug: ImageList damages the alpha channel of 32-bit ICO and PNG files.
         // Clear all images from designed image lists and reload all images manually.
@@ -505,8 +447,8 @@ namespace FullFeaturedDemo
 
         private void SqlQuery_QueryAwake(QueryRoot sender, ref bool abort)
         {
-            if (MessageBox.Show("You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
-                "Whatever the text in the editor is, it will be replaced with the SQL generated by the component. Is it right?", "Active Query Builder .NET Demo", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show(@"You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
+                @"Whatever the text in the editor is, it will be replaced with the SQL generated by the component. Is it right?", @"Active Query Builder .NET Demo", MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 abort = true;
             }
@@ -514,7 +456,7 @@ namespace FullFeaturedDemo
 
         private void SqlQuery_SleepModeChanged(object sender, EventArgs e)
         {
-            //  panelTextInfo.Height = SqlQuery.SleepMode ? 60 : 0;
+            panelSleepMode.Visible = queryBuilder1.SleepMode;
             toolStripStatusLabel1.Text = @"Query builder state: " + (queryBuilder1.SleepMode ? "Inactive" : "Active");
         }
 
@@ -1060,7 +1002,7 @@ namespace FullFeaturedDemo
             }
         }
 
-        void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var nameColumn = dataGridView1.Columns[e.ColumnIndex].HeaderText;
             if (!_sortedColumns.ContainsKey(nameColumn))
@@ -1096,30 +1038,6 @@ namespace FullFeaturedDemo
 
             ExecuteQuery(CBuilder.SQL);
         }
-
-        private DbCommand CreateSqlCommand(string sqlCommand)
-        {
-            DbCommand command = (DbCommand)queryBuilder1.MetadataProvider.Connection.CreateCommand();
-            command.CommandText = sqlCommand;
-            // handle the query parameters
-            if (queryBuilder1.SQLQuery.QueryParameters.Count > 0)
-            {
-                foreach (Parameter p in queryBuilder1.SQLQuery.QueryParameters.Where(item => !command.Parameters.Contains(item.FullName)))
-                {
-                    SqlParameter parameter = new SqlParameter
-                    {
-                        ParameterName = p.FullName,
-                        DbType = p.DataType
-                    };
-                    command.Parameters.Add(parameter);
-                }
-                using (QueryParametersForm qpf = new QueryParametersForm(command))
-                {
-                    qpf.ShowDialog();
-                }
-            }
-            return command;
-        }        
 
         private void paginationPanel1_EnabledPaginationChanged(object sender, EventArgs e)
         {
@@ -1163,8 +1081,8 @@ namespace FullFeaturedDemo
 
         private void queryBuilder1_SQLUpdated(object sender, EventArgs e)
         {
-            HideErrorBanner();
-            teSql.Text = queryBuilder1.SleepMode ? queryBuilder1.SQL : FormattedQueryText;
+            errorBox1.Show(null, queryBuilder1.SyntaxProvider);
+            _lastValidSql = teSql.Text = queryBuilder1.SleepMode ? queryBuilder1.SQL : FormattedQueryText;
             CheckParameters();
         }
 
@@ -1250,15 +1168,15 @@ namespace FullFeaturedDemo
             {
                 // Update the query builder with manually edited query text:
                 queryBuilder1.SQL = teSql.Text;
-                HideErrorBanner();
+                errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             }
             catch (SQLParsingException ex)
             {
                 // Set caret to error position
-                teSql.SelectionStart = ex.ErrorPos.pos;
+                _errorPosition = teSql.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
-                ShowErrorBanner(ex.Message);
+                errorBox1.Show(ex.Message, queryBuilder1.SyntaxProvider);
             }
         }
 
@@ -1419,6 +1337,24 @@ namespace FullFeaturedDemo
         private void MainForm_Shown(object sender, EventArgs e)
         {
             Connect();
+        }
+
+        private void errorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                teSql.SelectionStart = _errorPosition;
+                teSql.SelectionLength = 0;
+                teSql.ScrollToCaret();
+            }
+
+            teSql.Focus();
+        }
+
+        private void errorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            teSql.Text = _lastValidSql;
+            teSql.Focus();
         }
     }
 }

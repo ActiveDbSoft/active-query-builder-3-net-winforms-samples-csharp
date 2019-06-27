@@ -19,7 +19,7 @@ namespace FullFeaturedDemo
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +102,7 @@ namespace FullFeaturedDemo
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.queryBuilder1 = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
+            this.panelSleepMode = new System.Windows.Forms.Label();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tsbQueryProperties = new System.Windows.Forms.ToolStripButton();
             this.tsbAddObject = new System.Windows.Forms.ToolStripButton();
@@ -118,6 +119,7 @@ namespace FullFeaturedDemo
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.teResultSql = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.errorBox1 = new FullFeaturedDemo.Common.ErrorBox();
             this.toolStripPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -852,6 +854,7 @@ namespace FullFeaturedDemo
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.errorBox1);
             this.splitContainer1.Panel2.Controls.Add(this.teSql);
             this.splitContainer1.Size = new System.Drawing.Size(819, 503);
             this.splitContainer1.SplitterDistance = 408;
@@ -860,6 +863,7 @@ namespace FullFeaturedDemo
             // panel1
             // 
             this.panel1.Controls.Add(this.queryBuilder1);
+            this.panel1.Controls.Add(this.panelSleepMode);
             this.panel1.Controls.Add(this.toolStrip2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -877,12 +881,12 @@ namespace FullFeaturedDemo
             this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
             this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
+            linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess2.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess2.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess2.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess2;
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
@@ -895,10 +899,29 @@ namespace FullFeaturedDemo
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 5;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 7;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 8;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 6;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 4;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 3;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
             this.queryBuilder1.QueryColumnListOptions.Font = null;
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
-            this.queryBuilder1.QueryColumnListOptions.RowHeadersWidth = 15;
             this.queryBuilder1.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryBuilder1.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
@@ -906,7 +929,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.queryBuilder1.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.queryBuilder1.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
-            this.queryBuilder1.Size = new System.Drawing.Size(819, 383);
+            this.queryBuilder1.Size = new System.Drawing.Size(819, 344);
             // 
             // 
             // 
@@ -934,7 +957,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.SQLGenerationOptions.ExpandVirtualFields = true;
             this.queryBuilder1.SQLGenerationOptions.ExpandVirtualObjects = true;
             this.queryBuilder1.SQLGenerationOptions.UseAltNames = false;
-            this.queryBuilder1.TabIndex = 0;
+            this.queryBuilder1.TabIndex = 4;
             this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
             this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
             this.queryBuilder1.VisualOptions.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
@@ -948,6 +971,22 @@ namespace FullFeaturedDemo
             this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder1_SQLUpdated);
+            // 
+            // panelSleepMode
+            // 
+            this.panelSleepMode.BackColor = System.Drawing.Color.Bisque;
+            this.panelSleepMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSleepMode.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelSleepMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.panelSleepMode.Location = new System.Drawing.Point(0, 369);
+            this.panelSleepMode.Name = "panelSleepMode";
+            this.panelSleepMode.Padding = new System.Windows.Forms.Padding(10);
+            this.panelSleepMode.Size = new System.Drawing.Size(819, 39);
+            this.panelSleepMode.TabIndex = 3;
+            this.panelSleepMode.Text = "Unsupported SQL statement. Visual Query Builder has been disabled. Either type a " +
+    "SELECT statement or start building a query visually to turn this mode off.";
+            this.panelSleepMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.panelSleepMode.Visible = false;
             // 
             // toolStrip2
             // 
@@ -1135,6 +1174,23 @@ namespace FullFeaturedDemo
             this.contextMenuStripForRichTextBox.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStripForRichTextBox.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripForRichTextBox_Opening);
             // 
+            // errorBox1
+            // 
+            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBox1.AutoSize = true;
+            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
+            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBox1.CurrentSyntaxProvider = null;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(499, 25);
+            this.errorBox1.Name = "errorBox1";
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBox1.Size = new System.Drawing.Size(315, 61);
+            this.errorBox1.TabIndex = 1;
+            this.errorBox1.Visible = false;
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1164,6 +1220,7 @@ namespace FullFeaturedDemo
             this.pageQueryBuilder.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -1265,7 +1322,6 @@ namespace FullFeaturedDemo
         private ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder CBuilder;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveAs;
-        private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.RichTextBox teSql;
@@ -1286,7 +1342,9 @@ namespace FullFeaturedDemo
         private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
-
+        private System.Windows.Forms.Label panelSleepMode;
+        private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
+        private Common.ErrorBox errorBox1;
     }
 }
 

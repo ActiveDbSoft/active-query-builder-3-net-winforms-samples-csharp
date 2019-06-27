@@ -18,15 +18,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.QueryTransformer;
-using ActiveQueryBuilder.View;
-using ActiveQueryBuilder.View.WinForms;
 
 
 namespace SubQueryResultsPreview
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
+        public Form1()
 		{
 			InitializeComponent();
 
@@ -39,7 +40,7 @@ namespace SubQueryResultsPreview
         private void queryBuilder_SQLUpdated(object sender, EventArgs e)
 		{
 			// Hide error banner if any
-			ShowErrorBanner(textBox1, "");
+			errorBox1.Show(null, queryBuilder.SyntaxProvider);
 
 		    QueryPartChanged(sender, e);
 			//textBox1.Text =  queryBuilder.FormattedSQL;
@@ -56,31 +57,31 @@ namespace SubQueryResultsPreview
 				queryBuilder.SQL = textBox1.Text;
 
 				// Hide error banner if any
-				ShowErrorBanner(textBox1, "");
-			}
+                errorBox1.Show(null, queryBuilder.SyntaxProvider);
+            }
 			catch (SQLParsingException ex)
 			{
 				// Set caret to error position
-				textBox1.SelectionStart = ex.ErrorPos.pos;
+				_errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
 
-				// Show banner with error text
-				ShowErrorBanner(textBox1, ex.Message);
-			}
+                // Show banner with error text
+                errorBox1.Show(ex.Message, queryBuilder.SyntaxProvider);
+            }
 		}
 
 		private void QueryPartChanged(object sender, EventArgs e)
 		{
 			if (rbQuery.Checked)
 			{
-                textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
+                _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
 			}
 			else if (rbSubQuery.Checked)
 			{
-                textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.ParentSubQuery);
+                _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.ParentSubQuery);
 			}
 			else if (rbUnionSubQuery.Checked)
             {
-                textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery);
+                _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery);
 			}
 		}
 
@@ -422,53 +423,27 @@ namespace SubQueryResultsPreview
 			}
 		}
 
-		public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				bool existBanner = false;
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
-
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) 
-						{
-							existBanner = true;
-							continue;
-						}
-				        banner.Dispose();
-				    }
-				}
-
-                if(existBanner) return;
-			}
-
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
-
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
-
         private void queryBuilder_ActiveUnionSubQueryChanged(object sender, EventArgs e)
         {
             QueryPartChanged(sender, e);
+        }
+
+        private void errorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                textBox1.SelectionStart = _errorPosition;
+                textBox1.SelectionLength = 0;
+                textBox1.ScrollToCaret();
+            }
+
+            textBox1.Focus();
+        }
+
+        private void errorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            textBox1.Text = _lastValidSql;
+            textBox1.Focus();
         }
     }
 }

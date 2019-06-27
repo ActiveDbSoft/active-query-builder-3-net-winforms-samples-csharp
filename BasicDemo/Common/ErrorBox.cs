@@ -9,7 +9,7 @@
 //*******************************************************************//
 
 using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -20,27 +20,45 @@ namespace BasicDemo.Common
     {
         private bool _allowChangedSyntax = true;
 
+        [Browsable(true)]
+        public bool IsVisibleCheckSyntaxPanel
+        {
+            get { return panelCheckSyntax.Visible; }
+            set { panelCheckSyntax.Visible = value; }
+        }
         public event EventHandler SyntaxProviderChanged;
-        public event EventHandler GoToErrorPositionEvent;
-        public event EventHandler RevertValidTextEvent;
+        public event EventHandler GoToErrorPosition;
+        public event EventHandler RevertValidText;
         
         public BaseSyntaxProvider CurrentSyntaxProvider { get; set; }
-        public ObservableCollection<BaseSyntaxProvider> SyntaxProviders { get; } 
-        public string Message
-        {
-            get { return labelMessage.Text; }
-            set { labelMessage.Text = value; }
-        }
-        
+
         public ErrorBox()
         {
             InitializeComponent();
-            SyntaxProviders =  new ObservableCollection<BaseSyntaxProvider>();
-            SyntaxProviders.CollectionChanged += SyntaxProviders_CollectionChanged;   
+
+            Visible = false;
+
+            comboBoxSyntaxProvider.Items.Clear();
+
+            foreach (Type baseSyntaxProvider in Helpers.SyntaxProviderList)
+            {
+                var instance = Activator.CreateInstance(baseSyntaxProvider) as BaseSyntaxProvider;
+                comboBoxSyntaxProvider.Items.Add(new ComboBoxItem(instance));
+            }
         }
 
-        public void SetSyntaxProvider(BaseSyntaxProvider baseSyntaxProvider)
+        public void Show(string message, BaseSyntaxProvider baseSyntaxProvider)
         {
+            labelMessage.Text = message;
+
+            if (string.IsNullOrEmpty(message))
+            {
+                Visible = false;
+                return;
+            }
+
+            Visible = true;
+
             CurrentSyntaxProvider = baseSyntaxProvider;
 
             _allowChangedSyntax = false;
@@ -49,37 +67,24 @@ namespace BasicDemo.Common
             _allowChangedSyntax = true;
         }
 
-        private void SyntaxProviders_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            comboBoxSyntaxProvider.Items.Clear();
-
-            foreach (var baseSyntaxProvider in SyntaxProviders)
-            {
-                comboBoxSyntaxProvider.Items.Add(new ComboBoxItem(baseSyntaxProvider));
-            }
-        }
-
-        public new void Dispose()
-        {
-            SyntaxProviders.CollectionChanged -= SyntaxProviders_CollectionChanged;
-            base.Dispose();
-        }
-
         protected virtual void OnSyntaxProviderChanged()
         {
             if (!_allowChangedSyntax) return;
             CurrentSyntaxProvider = ((ComboBoxItem) comboBoxSyntaxProvider.SelectedItem).SyntaxProvider;
             SyntaxProviderChanged?.Invoke(this, EventArgs.Empty);
+            Visible = false;
         }
 
         protected virtual void OnGoToErrorPositionEvent()
         {
-            GoToErrorPositionEvent?.Invoke(this, EventArgs.Empty);
+            GoToErrorPosition?.Invoke(this, EventArgs.Empty);
+            Visible = false;
         }
 
         protected virtual void OnRevertValidTextEvent()
         {
-            RevertValidTextEvent?.Invoke(this, EventArgs.Empty);
+            RevertValidText?.Invoke(this, EventArgs.Empty);
+            Visible = false;
         }
 
         private void linkLabelGoTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

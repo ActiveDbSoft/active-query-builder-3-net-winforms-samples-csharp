@@ -10,7 +10,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
@@ -19,7 +18,13 @@ namespace VirtualObjectsAndFields
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
+        private int _errorPositionReal = -1;
+        private string _lastValidSqlReal;
+
+        public Form1()
 		{
 			InitializeComponent();
 		}
@@ -111,12 +116,12 @@ namespace VirtualObjectsAndFields
 			// Text of SQL query has been updated.
 			
 			// Hide error banner if any
-			ShowErrorBanner(textBox1, "");
-            ShowErrorBanner(textBox2, "");
-			
-			// has ExpandVirtualFields and ExpandVirtualObjects properties turned off.
-			// Set the text of the first text box to the query text containing virtual objects.
-            textBox1.Text = sqlFormattingOptions1.GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
+			errorBox1.Show(null, queryBuilder.SyntaxProvider);
+            errorBoxReal.Show(null, queryBuilder.SyntaxProvider);
+
+            // has ExpandVirtualFields and ExpandVirtualObjects properties turned off.
+            // Set the text of the first text box to the query text containing virtual objects.
+            _lastValidSql = textBox1.Text = sqlFormattingOptions1.GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
                 //new SQLFormattingOptions(new SQLGenerationOptions
                 //{
                 //    ExpandVirtualObjects = false,
@@ -124,7 +129,7 @@ namespace VirtualObjectsAndFields
                 //}).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
             // has ExpandVirtualFields and ExpandVirtualObjects properties turned on.
             // Set the text of the second text box to the query text containing virtual objects expanded to theirs expressions.
-            textBox2.Text =
+            _lastValidSqlReal = textBox2.Text =
                 sqlFormattingOptions2.GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
 		}
 
@@ -135,17 +140,17 @@ namespace VirtualObjectsAndFields
 				// Update the query builder with manually edited query text:
 				queryBuilder.SQL = textBox1.Text;
 
-				// Hide error banner if any
-				ShowErrorBanner(textBox1, "");
-			}
+                // Hide error banner if any
+                errorBox1.Show(null, queryBuilder.SyntaxProvider);
+            }
 			catch (SQLParsingException ex)
 			{
 				// Set caret to error position
-				textBox1.SelectionStart = ex.ErrorPos.pos;
+				_errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
 
-				// Show banner with error text
-				ShowErrorBanner(textBox1, ex.Message);
-			}
+                // Show banner with error text
+                errorBox1.Show(ex.Message, queryBuilder.SyntaxProvider);
+            }
 		}
 
 		private void textBox2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -155,17 +160,17 @@ namespace VirtualObjectsAndFields
 				// Update the query builder with manually edited query text:
 				queryBuilder.SQL = textBox2.Text;
 
-				// Hide error banner if any
-				ShowErrorBanner(textBox2, "");
-			}
+                // Hide error banner if any
+                errorBoxReal.Show(null, queryBuilder.SyntaxProvider);
+            }
 			catch (SQLParsingException ex)
 			{
 				// Set caret to error position
-				textBox1.SelectionStart = ex.ErrorPos.pos;
+				textBox2.SelectionStart = ex.ErrorPos.pos;
 
-				// Show banner with error text
-				ShowErrorBanner(textBox2, ex.Message);
-			}
+                // Show banner with error text
+                errorBoxReal.Show(ex.Message, queryBuilder.SyntaxProvider);
+            }
 		}
 
 		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -179,48 +184,40 @@ namespace VirtualObjectsAndFields
 			QueryBuilder.ShowAboutDialog();
 		}
 
-		public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				bool existBanner = false;
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
+        private void ErrorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                textBox1.SelectionStart = _errorPosition;
+                textBox1.SelectionLength = 0;
+                textBox1.ScrollToCaret();
+            }
 
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) 
-						{
-							existBanner = true;
-							continue;
-						}
-				        banner.Dispose();
-				    }
-				}
+            textBox1.Focus();
+        }
 
-                if(existBanner) return;
-			}
+        private void ErrorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            textBox1.Text = _lastValidSql;
+            textBox1.Focus();
+        }
 
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
+        private void ErrorBoxReal_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPositionReal != -1)
+            {
+                textBox2.SelectionStart = _errorPositionReal;
+                textBox2.SelectionLength = 0;
+                textBox2.ScrollToCaret();
+            }
 
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
-	}
+            textBox2.Focus();
+        }
+
+        private void ErrorBoxReal_RevertValidText(object sender, EventArgs e)
+        {
+            textBox2.Text = _lastValidSqlReal;
+            textBox2.Focus();
+        }
+    }
 }

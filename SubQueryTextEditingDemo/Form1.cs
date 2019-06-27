@@ -28,6 +28,9 @@ namespace SubQueryTextEditingDemo
 {
 	public partial class Form1 : Form
 	{
+        private int _errorPosition = -1;
+        private string _lastValidSql;
+
         internal enum ModeEditor
         {
             Entire, SubQuery, Expression
@@ -201,10 +204,10 @@ namespace SubQueryTextEditingDemo
 			// Handle the event raised by SQL Builder object that the text of SQL query is changed
 			
 			// Hide error banner if any
-			ShowErrorBanner(textBox1, "");
+			errorBox1.Show(null, queryBuilder1.SyntaxProvider);
 
 			// update the text box
-			textBox1.Text = queryBuilder1.FormattedSQL;
+			_lastValidSql = textBox1.Text = queryBuilder1.FormattedSQL;
 		}
 
 		public void ResetQueryBuilder()
@@ -409,7 +412,7 @@ namespace SubQueryTextEditingDemo
 		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
 		{
             string text = textBox1.Text.Trim();
-            bool isSuccess = true;        
+
             queryBuilder1.BeginUpdate();
             try
             {
@@ -432,19 +435,17 @@ namespace SubQueryTextEditingDemo
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                ShowErrorBanner(textBox1, "");
+                errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             }
-            catch (Exception exception)
+            catch (SQLParsingException exception)
             {
-                isSuccess = false;                
-                ShowErrorBanner(textBox1, exception.Message);
+                errorBox1.Show(exception.Message, queryBuilder1.SyntaxProvider);
+                _errorPosition = exception.ErrorPos.pos;
             }
             finally
             {
                 queryBuilder1.EndUpdate();
             }
-		    e.Cancel = !isSuccess;
-		    //e.Handled = !isSuccess;
 		}
 
 		private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -691,50 +692,6 @@ namespace SubQueryTextEditingDemo
 			((Timer) source).Dispose();
 		}
 
-		public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				bool existBanner = false;
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
-
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) 
-						{
-							existBanner = true;
-							continue;
-						}
-				        banner.Dispose();
-				    }
-				}
-
-                if(existBanner) return;
-			}
-
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
-
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
-
         private void button1_Click(object sender, EventArgs e)
         {
             Point location = new Point(button1.Location.X + button1.ClientRectangle.Width, button1.Location.Y);            
@@ -808,6 +765,24 @@ namespace SubQueryTextEditingDemo
             tsmiEntire.Checked = false;
             _mode = ModeEditor.Expression;
             ApplyText();
+        }
+
+        private void errorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                textBox1.SelectionStart = _errorPosition;
+                textBox1.SelectionLength = 0;
+                textBox1.ScrollToCaret();
+            }
+
+            textBox1.Focus();
+        }
+
+        private void errorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            textBox1.Text = _lastValidSql;
+            textBox1.Focus();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VistaDB5demo", "VistaDB5demo.csproj", "{F4CE8570-3067-4512-841E-72A42C143285}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VistaDB5demo", "VistaDB5demo.csproj", "{F9B4D923-7B7D-4A63-A006-63C05D8A298B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4CE8570-3067-4512-841E-72A42C143285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4CE8570-3067-4512-841E-72A42C143285}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4CE8570-3067-4512-841E-72A42C143285}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4CE8570-3067-4512-841E-72A42C143285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B4D923-7B7D-4A63-A006-63C05D8A298B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B4D923-7B7D-4A63-A006-63C05D8A298B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B4D923-7B7D-4A63-A006-63C05D8A298B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B4D923-7B7D-4A63-A006-63C05D8A298B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {629CDBF5-B3A6-4918-89A5-1140FF16592C}
 	EndGlobalSection
 EndGlobal

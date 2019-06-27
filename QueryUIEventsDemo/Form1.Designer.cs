@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -54,6 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.QBuilder = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
+            this.errorBox1 = new QueryUIEventsDemo.Common.ErrorBox();
             this.TextBoxSQL = new System.Windows.Forms.RichTextBox();
             this.TextBoxReport = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -69,6 +71,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QBuilder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QBuilder.SQLFormattingOptions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QBuilder.SQLGenerationOptions)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -375,6 +379,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.errorBox1);
             this.splitContainer1.Panel2.Controls.Add(this.TextBoxSQL);
             this.splitContainer1.Size = new System.Drawing.Size(1002, 557);
             this.splitContainer1.SplitterDistance = 443;
@@ -382,57 +387,83 @@
             // 
             // QBuilder
             // 
+            this.QBuilder.AddObjectDialogOptions.Location = new System.Drawing.Point(0, 0);
+            this.QBuilder.AddObjectDialogOptions.Size = new System.Drawing.Size(430, 430);
+            this.QBuilder.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.QBuilder.BehaviorOptions.ResolveColumnNamingConflictsAutomatically = false;
-            this.QBuilder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.QBuilder.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.QBuilder.DatabaseSchemaViewOptions.DrawTreeLines = false;
+            this.QBuilder.DatabaseSchemaViewOptions.ImageList = null;
+            this.QBuilder.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
+            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.QBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.QBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.QBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.QBuilder.Location = new System.Drawing.Point(0, 0);
-            this.QBuilder.MetadataStructureOptions.ProceduresFolderText = "Procedures";
-            this.QBuilder.MetadataStructureOptions.SynonymsFolderText = "Synonyms";
-            this.QBuilder.MetadataStructureOptions.TablesFolderText = "Tables";
-            this.QBuilder.MetadataStructureOptions.ViewsFolderText = "Views";
             this.QBuilder.Name = "QBuilder";
-            this.QBuilder.PanesConfigurationOptions.DisableQueryNavigationBarPopup = false;
             this.QBuilder.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
             this.QBuilder.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
             this.QBuilder.PanesConfigurationOptions.PropertiesBarEnabled = true;
             this.QBuilder.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
             this.QBuilder.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.QBuilder.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
-            this.QBuilder.QueryColumnListOptions.AutoSizeColumns = false;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 5;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 7;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 70;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 70D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 8;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 60;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 60D;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 150;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 150D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 6;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 80;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 80D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 4;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 90;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 90D;
             this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 3;
-            this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 80;
-            this.QBuilder.QueryColumnListOptions.DisableDirectEditingIn = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
-            this.QBuilder.QueryColumnListOptions.HideAsteriskItem = false;
+            this.QBuilder.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 80D;
+            this.QBuilder.QueryColumnListOptions.Font = null;
             this.QBuilder.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.QBuilder.QueryColumnListOptions.NullOrderingInOrderBy = false;
-            this.QBuilder.QueryColumnListOptions.RowHeadersWidth = 15;
             this.QBuilder.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
+            this.QBuilder.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
+            this.QBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
+            this.QBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.QBuilder.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
+            this.QBuilder.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
+            this.QBuilder.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
             this.QBuilder.Size = new System.Drawing.Size(1002, 443);
             // 
             // 
             // 
+            this.QBuilder.SQLFormattingOptions.CTESubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.CTESubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.CTESubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.DerivedQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.DerivedQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.DerivedQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.DynamicIndents = false;
+            this.QBuilder.SQLFormattingOptions.DynamicRightMargin = false;
             this.QBuilder.SQLFormattingOptions.ExpandVirtualFields = false;
             this.QBuilder.SQLFormattingOptions.ExpandVirtualObjects = false;
+            this.QBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.QBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.NewLineAfterDatasource = false;
+            this.QBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.QBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.MainPartsFromNewLine = false;
+            this.QBuilder.SQLFormattingOptions.ExpressionSubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.MainQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.MainQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.QBuilder.SQLFormattingOptions.MainQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             // 
             // 
             // 
@@ -469,6 +500,23 @@
             this.QBuilder.DataSourceFieldRemoving += new ActiveQueryBuilder.View.QueryView.DataSourceFieldRemovingEventHandler(this.QBuilder_DataSourceFieldRemoving);
             this.QBuilder.DatasourceFieldRemoved += new ActiveQueryBuilder.View.QueryView.DatasourceFieldRemovedEventHandler(this.QBuilder_DatasourceFieldRemoved);
             this.QBuilder.SQLUpdated += new System.EventHandler(this.QBuilder_SQLUpdated);
+            // 
+            // errorBox1
+            // 
+            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBox1.AutoSize = true;
+            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
+            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBox1.CurrentSyntaxProvider = null;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(677, 46);
+            this.errorBox1.Name = "errorBox1";
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBox1.Size = new System.Drawing.Size(316, 61);
+            this.errorBox1.TabIndex = 1;
+            this.errorBox1.Visible = false;
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.ErrorBox1_GoToErrorPosition);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.ErrorBox1_RevertValidText);
             // 
             // TextBoxSQL
             // 
@@ -514,8 +562,11 @@
             this.flowLayoutPanel6.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.QBuilder.SQLFormattingOptions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QBuilder.SQLGenerationOptions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QBuilder)).EndInit();
             this.ResumeLayout(false);
 
@@ -551,6 +602,7 @@
         private System.Windows.Forms.CheckBox CbLinkCreating;
         private System.Windows.Forms.CheckBox CbLinkDeleting;
         private System.Windows.Forms.CheckBox cbQueryColumnListItemRemoving;
+        private Common.ErrorBox errorBox1;
     }
 }
 

@@ -21,7 +21,10 @@ using ActiveQueryBuilder.View.WinForms;
 namespace AdvantageDemo
 {
 	public partial class Form1 : Form
-	{
+    {
+        private string _lastValidSql;
+        private int _errorPosition = -1;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -130,10 +133,10 @@ namespace AdvantageDemo
 			// Handle the event raised by QueryBuilder that the text of SQL query is changed
 
 			// Hide error banner if any
-			ShowErrorBanner(textBox1, "");
+            errorBox1.Show(null, queryBuilder.SyntaxProvider);
 
 			// update the text box
-			textBox1.Text = queryBuilder.FormattedSQL;
+			_lastValidSql = textBox1.Text = queryBuilder.FormattedSQL;
 		}
 
 		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -143,17 +146,17 @@ namespace AdvantageDemo
 				// Update the query builder with manually edited query text:
 				queryBuilder.SQL = textBox1.Text;
 
-				// Hide error banner if any
-				ShowErrorBanner(textBox1, "");
-			}
+                // Hide error banner if any
+                errorBox1.Show(null, queryBuilder.SyntaxProvider);
+            }
 			catch (SQLParsingException ex)
 			{
 				// Set caret to error position
-				textBox1.SelectionStart = ex.ErrorPos.pos;
+				_errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
 
-				// Show banner with error text
-				ShowErrorBanner(textBox1, ex.Message);
-			}
+                // Show banner with error text
+                errorBox1.Show(ex.Message, queryBuilder.SyntaxProvider);
+            }
 		}
 
 		private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -234,43 +237,23 @@ namespace AdvantageDemo
 			MessageBox.Show(stats);
 		}
 
-		public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
+        private void ErrorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                textBox1.SelectionStart = _errorPosition;
+                textBox1.SelectionLength = 0;
+                textBox1.ScrollToCaret();
+            }
 
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) continue;
-				        banner.Dispose();
-				    }
-				}
+            errorBox1.Visible = false;
+            textBox1.Focus();
+        }
 
-                if(banners.Any(banner=> !banner.Disposing)) return;
-			}
-
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
-
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
-	}
+        private void ErrorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            textBox1.Text = _lastValidSql;
+            textBox1.Focus();
+        }
+    }
 }

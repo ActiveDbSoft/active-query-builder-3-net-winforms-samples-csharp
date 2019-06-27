@@ -17,6 +17,9 @@ namespace DatasourceFieldsLinkingDragnDropDemo
 {
     public partial class Form1 : Form
     {
+        private string _lastValidSql;
+        private int _errorPosition = -1;
+
         public Form1()
         {
             InitializeComponent();
@@ -45,7 +48,7 @@ namespace DatasourceFieldsLinkingDragnDropDemo
         private void queryBuilder1_SQLUpdated(object sender, EventArgs e)
         {
 			// Update the text of SQL query when it's changed in the query builder.
-            TextBoxSQL.Text = QBuilder.FormattedSQL;
+            _lastValidSql = TextBoxSQL.Text = QBuilder.FormattedSQL;
         }
 
 		/// <summary>
@@ -100,60 +103,35 @@ namespace DatasourceFieldsLinkingDragnDropDemo
                 QBuilder.SQL = TextBoxSQL.Text;
 
                 // Hide error banner if any
-                ShowErrorBanner(TextBoxSQL, "");
+                errorBox1.Show(null, QBuilder.SyntaxProvider);
             }
             catch (SQLParsingException ex)
             {
                 // Set caret to error position
-                TextBoxSQL.SelectionStart = ex.ErrorPos.pos;
+                _errorPosition = TextBoxSQL.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
-                ShowErrorBanner(TextBoxSQL, ex.Message);
+                errorBox1.Show(ex.Message, QBuilder.SyntaxProvider);
             }
         }
 
-        public void ShowErrorBanner(Control control, String text)
-		{
-			// Destory banner if already showing
-			{
-				bool existBanner = false;
-				Control[] banners = control.Controls.Find("ErrorBanner", true);
+        private void ErrorBox1_RevertValidText(object sender, EventArgs e)
+        {
+            TextBoxSQL.Text = _lastValidSql;
+            TextBoxSQL.Focus();
+        }
 
-				if (banners.Length > 0)
-				{
-				    foreach (Control banner in banners)
-				    {
-                        if(Equals(text, banner.Text)) 
-						{
-							existBanner = true;
-							continue;
-						}
-				        banner.Dispose();
-				    }
-				}
+        private void ErrorBox1_GoToErrorPosition(object sender, EventArgs e)
+        {
+            if (_errorPosition != -1)
+            {
+                TextBoxSQL.SelectionStart = _errorPosition;
+                TextBoxSQL.SelectionLength = 0;
+                TextBoxSQL.ScrollToCaret();
+            }
 
-                if(existBanner) return;
-			}
-
-			// Show new banner if text is not empty
-			if (!String.IsNullOrEmpty(text))
-			{
-				Label label = new Label
-				{
-					Name = "ErrorBanner",
-					Text = text,
-					BorderStyle = BorderStyle.FixedSingle,
-					BackColor = Color.LightPink,
-					AutoSize =  true,
-					Visible = true
-				};
-
-				control.Controls.Add(label);
-				label.Location = new Point(control.Width - label.Width - SystemInformation.VerticalScrollBarWidth - 6, 2);
-				label.BringToFront();
-                
-				control.Focus();
-			}
-		}
+            errorBox1.Visible = false;
+            TextBoxSQL.Focus();
+        }
     }
 }

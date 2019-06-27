@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelMessage = new BasicDemo.Common.GrowLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelMessage = new GrowLabel();
+            this.panelCheckSyntax = new System.Windows.Forms.Panel();
             this.comboBoxSyntaxProvider = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelGoTo = new System.Windows.Forms.LinkLabel();
             this.linkLabelRevert = new System.Windows.Forms.LinkLabel();
-            this.panel1.SuspendLayout();
+            this.panelCheckSyntax.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelMessage
@@ -47,18 +47,19 @@
             this.labelMessage.Tag = "";
             this.labelMessage.Text = "Some Text";
             // 
-            // panel1
+            // panelCheckSyntax
             // 
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.comboBoxSyntaxProvider);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(5, 18);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(344, 26);
-            this.panel1.TabIndex = 1;
+            this.panelCheckSyntax.AutoSize = true;
+            this.panelCheckSyntax.Controls.Add(this.comboBoxSyntaxProvider);
+            this.panelCheckSyntax.Controls.Add(this.label2);
+            this.panelCheckSyntax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCheckSyntax.Location = new System.Drawing.Point(5, 18);
+            this.panelCheckSyntax.Margin = new System.Windows.Forms.Padding(0);
+            this.panelCheckSyntax.Name = "panelCheckSyntax";
+            this.panelCheckSyntax.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.panelCheckSyntax.Size = new System.Drawing.Size(344, 26);
+            this.panelCheckSyntax.TabIndex = 1;
+            this.panelCheckSyntax.Visible = false;
             // 
             // comboBoxSyntaxProvider
             // 
@@ -120,13 +121,13 @@
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.linkLabelRevert);
             this.Controls.Add(this.linkLabelGoTo);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelCheckSyntax);
             this.Controls.Add(this.labelMessage);
             this.Name = "ErrorBox";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(354, 87);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelCheckSyntax.ResumeLayout(false);
+            this.panelCheckSyntax.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,7 +136,7 @@
         #endregion
 
         private GrowLabel labelMessage;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelCheckSyntax;
         private System.Windows.Forms.ComboBox comboBoxSyntaxProvider;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelGoTo;
