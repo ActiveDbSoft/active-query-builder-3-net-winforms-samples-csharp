@@ -369,7 +369,7 @@ namespace BasicDemo
             // oracleSyntaxProvider1
             // 
             this.oracleSyntaxProvider1.OnCalcExpressionType = null;
-            this.oracleSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.OracleServerVersion.Oracle10;
+            this.oracleSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.OracleServerVersion.Oracle18;
             // 
             // msaccessSyntaxProvider1
             // 
