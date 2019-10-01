@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 
-namespace BasicDemo
+namespace BasicDemo.PropertiesForm
 {
 	internal partial class QueryBuilderPropertiesForm : Form
 	{

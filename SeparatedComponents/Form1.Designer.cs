@@ -289,7 +289,7 @@ namespace SeparatedComponents
             // expressionEditor1
             // 
             this.expressionEditor1.ActiveUnionSubQuery = null;
-            this.expressionEditor1.CloseOnEscape = false;
+            this.expressionEditor1.CloseOnEscape = true;
             this.expressionEditor1.Expression = "";
             this.expressionEditor1.Height = 531;
             this.expressionEditor1.HighlightMatchingParentheses = ActiveQueryBuilder.View.ExpressionEditor.ParenthesesHighlighting.NoHighlight;

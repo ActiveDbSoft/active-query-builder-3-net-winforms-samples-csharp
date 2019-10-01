@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using BasicDemo.PropertiesForm;
 using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace BasicDemo

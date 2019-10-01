@@ -1,4 +1,4 @@
-﻿namespace BasicDemo
+﻿namespace BasicDemo.PropertiesForm
 {
 	partial class QueryBuilderPropertiesForm
 	{

@@ -40,7 +40,7 @@ namespace BasicDemo.Common
 
             comboBoxSyntaxProvider.Items.Clear();
 
-            foreach (Type baseSyntaxProvider in Helpers.SyntaxProviderList)
+            foreach (Type baseSyntaxProvider in ActiveQueryBuilder.Core.Helpers.SyntaxProviderList)
             {
                 var instance = Activator.CreateInstance(baseSyntaxProvider) as BaseSyntaxProvider;
                 comboBoxSyntaxProvider.Items.Add(new ComboBoxItem(instance));
