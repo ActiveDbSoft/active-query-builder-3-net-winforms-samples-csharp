@@ -12,7 +12,6 @@ using System;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
-using System.Data.OracleClient;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
@@ -107,28 +106,6 @@ namespace SubQueryResultsPreview
 					// setup the query builder with metadata and syntax providers
 				    queryBuilder.MetadataProvider = new MSSQLMetadataProvider {Connection = new SqlConnection(f.ConnectionString)};
 				    queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
-
-					// kick the query builder to fill database schema tree
-					queryBuilder.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToOracleServerToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to Oracle Server
-
-			// show the connection form
-			using (OracleConnectionForm f = new OracleConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// setup the query builder with metadata and syntax providers
-					queryBuilder.MetadataProvider = new OracleMetadataProvider();
-					queryBuilder.MetadataProvider.Connection = new OracleConnection(f.ConnectionString);
-					queryBuilder.SyntaxProvider = new OracleSyntaxProvider();
 
 					// kick the query builder to fill database schema tree
 					queryBuilder.InitializeDatabaseSchemaTree();
@@ -287,44 +264,6 @@ namespace SubQueryResultsPreview
 						}
 
 						SqlDataAdapter adapter = new SqlDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder.MetadataProvider is OracleMetadataProvider)
-					{
-						OracleCommand command = (OracleCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryToExecute;
-
-						// handle the query parameters
-						if (queryBuilder.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
-								{
-									OracleParameter parameter = new OracleParameter();
-									parameter.ParameterName = queryBuilder.Parameters[i].FullName;
-									parameter.DbType = queryBuilder.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						OracleDataAdapter adapter = new OracleDataAdapter(command);
 						DataSet dataset = new DataSet();
 
 						try

@@ -277,14 +277,6 @@
             this.connectToMicrosoftSQLServerToolStripMenuItem.Text = "Connect to Microsoft SQL Server";
             this.connectToMicrosoftSQLServerToolStripMenuItem.Click += new System.EventHandler(this.connectToMicrosoftSQLServerToolStripMenuItem_Click);
             // 
-            // connectToOracleServerToolStripMenuItem
-            // 
-            this.connectToOracleServerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.connectToOracleServerToolStripMenuItem.Name = "connectToOracleServerToolStripMenuItem";
-            this.connectToOracleServerToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.connectToOracleServerToolStripMenuItem.Text = "Connect to Oracle Server";
-            this.connectToOracleServerToolStripMenuItem.Click += new System.EventHandler(this.connectToOracleServerToolStripMenuItem_Click);
-            // 
             // connectToMicrosoftAccessDatabaseToolStripMenuItem
             // 
             this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);

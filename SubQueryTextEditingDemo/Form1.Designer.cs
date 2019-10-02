@@ -46,7 +46,6 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.mssqlMetadataProvider1 = new ActiveQueryBuilder.Core.MSSQLMetadataProvider(this.components);
             this.oledbMetadataProvider1 = new ActiveQueryBuilder.Core.OLEDBMetadataProvider(this.components);
-            this.oracleMetadataProvider1 = new ActiveQueryBuilder.Core.OracleMetadataProvider(this.components);
             this.odbcMetadataProvider1 = new ActiveQueryBuilder.Core.ODBCMetadataProvider(this.components);
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -336,10 +335,6 @@
             // 
             this.oledbMetadataProvider1.Connection = null;
             // 
-            // oracleMetadataProvider1
-            // 
-            this.oracleMetadataProvider1.Connection = null;
-            // 
             // odbcMetadataProvider1
             // 
             this.odbcMetadataProvider1.Connection = null;
@@ -371,12 +366,6 @@
             this.connectToMSSQLServerMenuItem.Index = 0;
             this.connectToMSSQLServerMenuItem.Text = "Connect to Microsoft SQL Server";
             this.connectToMSSQLServerMenuItem.Click += new System.EventHandler(this.connectToMSSQLServerMenuItem_Click);
-            // 
-            // connectToOracleServerMenuItem
-            // 
-            this.connectToOracleServerMenuItem.Index = 1;
-            this.connectToOracleServerMenuItem.Text = "Connect to Oracle Server";
-            this.connectToOracleServerMenuItem.Click += new System.EventHandler(this.connectToOracleServerMenuItem_Click);
             // 
             // connectToAccessDatabaseMenuItem
             // 
@@ -619,7 +608,6 @@
 		private ActiveQueryBuilder.Core.MSSQLSyntaxProvider mssqlSyntaxProvider1;
 		private ActiveQueryBuilder.Core.MSSQLMetadataProvider mssqlMetadataProvider1;
 		private ActiveQueryBuilder.Core.OLEDBMetadataProvider oledbMetadataProvider1;
-		private ActiveQueryBuilder.Core.OracleMetadataProvider oracleMetadataProvider1;
 		private ActiveQueryBuilder.Core.ODBCMetadataProvider odbcMetadataProvider1;
 		private ActiveQueryBuilder.Core.OracleSyntaxProvider oracleSyntaxProvider1;
 		private ActiveQueryBuilder.Core.MSAccessSyntaxProvider msaccessSyntaxProvider1;

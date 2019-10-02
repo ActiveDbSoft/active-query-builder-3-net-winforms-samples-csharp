@@ -12,7 +12,6 @@ using System;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
-using System.Data.OracleClient;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -242,51 +241,6 @@ namespace SubQueryTextEditingDemo
 			}
 		}
 
-		private void connectToOracleServerMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to Oracle Server.
-			// Connect using a metadata provider based on Microsoft .NET Framework Data Provider for Oracle.
-
-			// show the connection form
-			using (OracleConnectionForm f = new OracleConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// create new OracleConnection object using the connections string from the connection form
-					oracleMetadataProvider1.Connection = new OracleConnection(f.ConnectionString);
-
-					// setup the query builder with metadata and syntax providers
-					queryBuilder1.MetadataProvider = oracleMetadataProvider1;
-					queryBuilder1.SyntaxProvider = oracleSyntaxProvider1;
-
-					// kick the query builder to fill metadata tree
-					queryBuilder1.InitializeDatabaseSchemaTree();
-				}
-			}
-
-			
-			// You also can use a metadata provider based on the native Oracle Data Provider for .NET (Oracle.DataAccess.Client).
-			// Add references to Oracle.ManagedDataAccess.dll and ActiveQueryBuilder.OracleNativeMetadataProvider.dll assemblies
-			// and uncomment the following code:
-
-// 			OracleNativeMetadataProvider oracleNativeMetadataProvider = new OracleNativeMetadataProvider();
-//
-// 			// create new OracleConnection object using the connections string from the connection form
-// 			oracleNativeMetadataProvider.Connection = new Oracle.ManagedDataAccess.Client.OracleConnection();
-//
-// 			// don't forget to edit the connection string
-// 			oracleNativeMetadataProvider.Connection.ConnectionString = "Data Source=****;User Id=****;Password=****";
-//
-// 			// setup the query builder with metadata and syntax providers
-// 			queryBuilder1.MetadataProvider = oracleNativeMetadataProvider;
-// 			queryBuilder1.SyntaxProvider = oracleSyntaxProvider1;
-//
-//			// kick the query builder to fill metadata tree
-//			queryBuilder1.InitializeDatabaseSchemaTree();
-		}
-
 		private void connectToAccessDatabaseMenuItem_Click(object sender, EventArgs e)
 		{
 			ResetQueryBuilder();
@@ -490,44 +444,6 @@ namespace SubQueryTextEditingDemo
 						}
 
 						SqlDataAdapter adapter = new SqlDataAdapter(command);
-						DataSet dataset = new DataSet();
-
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder1.MetadataProvider is OracleMetadataProvider)
-					{
-						OracleCommand command = (OracleCommand) queryBuilder1.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryBuilder1.SQL;
-
-						// handle the query parameters
-						if (queryBuilder1.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder1.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder1.Parameters[i].FullName))
-								{
-									OracleParameter parameter = new OracleParameter();
-									parameter.ParameterName = queryBuilder1.Parameters[i].FullName;
-									parameter.DbType = queryBuilder1.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
-
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
-
-						OracleDataAdapter adapter = new OracleDataAdapter(command);
 						DataSet dataset = new DataSet();
 
 						try
