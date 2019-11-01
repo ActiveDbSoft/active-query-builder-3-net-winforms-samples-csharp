@@ -46,7 +46,7 @@ namespace FullFeaturedMdiDemo
             {
                 connection.ConnectionString = connection.ConnectionDescriptor.ConnectionString;
                 connection.LoadingOptions =
-                    xmlSerializer.Serialize(connection.ConnectionDescriptor.MetadataLoadingOptions);                
+                    xmlSerializer.Serialize(connection.ConnectionDescriptor.MetadataLoadingOptions);
                 connection.SyntaxProviderState =
                     xmlSerializer.SerializeObject(connection.ConnectionDescriptor.SyntaxProvider);
                 connection.StructureOptionsState = xmlSerializer.SerializeObject(connection.StructureOptions);
@@ -109,21 +109,9 @@ namespace FullFeaturedMdiDemo
             }
         }
 
-        public ConnectionInfo this[int index]
-        {
-            get
-            {
-                return (ConnectionInfo)_connections[index];
-            }
-        }
+        public ConnectionInfo this[int index] => (ConnectionInfo)_connections[index];
 
-        public int Count
-        {
-            get
-            {
-                return _connections.Count;
-            }
-        }
+        public int Count => _connections.Count;
 
         public System.Collections.ArrayList Connections
         {
@@ -197,8 +185,8 @@ namespace FullFeaturedMdiDemo
         {
             get { return _type; }
             set
-            {                
-                _type = value;                
+            {
+                _type = value;
                 CreateConnectionByType();
 
                 if (!string.IsNullOrEmpty(SyntaxProviderName) && IsGenericConnection())
@@ -225,13 +213,13 @@ namespace FullFeaturedMdiDemo
             XMLPath = xmlPath;
             Type = type;
             IsXmlFile = true;
-            StructureOptions = new MetadataStructureOptions() { AllowFavourites = true };
+            StructureOptions = new MetadataStructureOptions { AllowFavourites = true };
             CreateConnectionByType();
         }
 
         public ConnectionInfo()
         {
-            StructureOptions = new MetadataStructureOptions() { AllowFavourites = true };
+            StructureOptions = new MetadataStructureOptions { AllowFavourites = true };
         }
 
         private void CreateConnectionByType()
@@ -270,9 +258,9 @@ namespace FullFeaturedMdiDemo
                     case ConnectionTypes.SQLite:
                         ConnectionDescriptor = new SQLiteConnectionDescriptor();
                         return;
-					case ConnectionTypes.Excel:
+                    case ConnectionTypes.Excel:
                         ConnectionDescriptor = new ExcelConnectionDescriptor();
-                        return;						
+                        return;
                 }
             }
             catch
@@ -351,6 +339,4 @@ namespace FullFeaturedMdiDemo
             return base.GetHashCode();
         }
     }
-
-    public class Misc { }
 }

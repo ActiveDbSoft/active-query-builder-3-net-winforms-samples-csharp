@@ -273,8 +273,8 @@ namespace FullFeaturedMdiDemo
                 {
                     Cursor = Cursors.Default;
                 }
-            }            
-            
+            }
+
             tcProperties.SelectedTab = tpFilter;
         }
 
@@ -307,27 +307,51 @@ namespace FullFeaturedMdiDemo
 
         private void LoadFilterTo(MetadataSimpleFilter filter, ListView listBox)
         {
+            var sqlContext = databaseSchemaView1.SQLContext;
+
             foreach (var filterObject in filter.Objects)
             {
-                var item = FindItemByName(GetNameForSearch(filterObject));
-                var listItem = listBox.Items.Add(item.NameFull, GetImageKeyByItem(item));
-                listItem.Tag = filterObject;
+                using (var parsedName = GetNameForSearch(sqlContext, filterObject))
+                {
+                    var item = FindItemByName(parsedName);
+                    if (item != null)
+                    {
+                        var listItem = listBox.Items.Add(item.NameFull, GetImageKeyByItem(item));
+                        listItem.Tag = filterObject;
+                    }
+                    else
+                    {
+                        var listItem = listBox.Items.Add(parsedName.GetQualifiedName(), GetImageKeyByItem(null));
+                        listItem.Tag = filterObject;
+                    }
+                }
             }
 
             foreach (var filterSchema in filter.Schemas)
             {
-                var item = FindItemByName(GetNameForSearch(filterSchema));
-                var listItem = listBox.Items.Add(item.NameFull, GetImageKeyByItem(item));
-                listItem.Tag = filterSchema;
+                using (var parsedName = GetNameForSearch(sqlContext, filterSchema))
+                {
+                    var item = FindItemByName(parsedName);
+                    if (item != null)
+                    {
+                        var listItem = listBox.Items.Add(item.NameFull, GetImageKeyByItem(item));
+                        listItem.Tag = filterSchema;
+                    }
+                    else
+                    {
+                        var listItem = listBox.Items.Add(parsedName.GetQualifiedName(), GetImageKeyByItem(null));
+                        listItem.Tag = filterSchema;
+                    }
+                }
             }
         }
 
-        private string GetNameForSearch(string name)
+        private SQLQualifiedName GetNameForSearch(SQLContext sqlContext, string name)
         {
-            return name.Replace(".%", "").Replace("%.", "");
+            return sqlContext.ParseQualifiedName(name.Replace(".%", "").Replace("%.", ""));
         }
 
-        private MetadataItem FindItemByName(string name)
+        private MetadataItem FindItemByName(SQLQualifiedName name)
         {
             return databaseSchemaView1.MetadataStructure.MetadataItem.FindItem<MetadataItem>(name);
         }
@@ -352,17 +376,17 @@ namespace FullFeaturedMdiDemo
                 var metadataItem = structureItem.MetadataItem;
                 if (metadataItem == null)
                 {
-                    continue;                    
+                    continue;
                 }
 
                 var filtrationName = GetObjectNameForFilter(metadataItem);
                 if (metadataItem.Type.IsNamespace())
-                {                    
-                    filter.Schemas.Add(filtrationName);                    
+                {
+                    filter.Schemas.Add(filtrationName);
                 }
                 else if (metadataItem.Type.IsObject())
-                {                 
-                    filter.Objects.Add(filtrationName);                    
+                {
+                    filter.Objects.Add(filtrationName);
                 }
 
                 var listItem = lvInclude.Items.Add(metadataItem.NameFull, GetImageKeyByItem(metadataItem));
@@ -386,7 +410,7 @@ namespace FullFeaturedMdiDemo
                 var filtrationName = GetObjectNameForFilter(metadataItem);
                 if (metadataItem.Type.IsNamespace())
                 {
-                    filter.Schemas.Add(filtrationName);                    
+                    filter.Schemas.Add(filtrationName);
                 }
                 else if (metadataItem.Type.IsObject())
                 {
@@ -427,8 +451,8 @@ namespace FullFeaturedMdiDemo
 
             var result = new StringBuilder();
             if (servers)
-            {                
-                result.Append(item.Server != null ? item.Server.Name : "%");
+            {
+                result.Append(item.Server != null ? "\"" + item.Server.Name + "\"" : "%");
             }
 
             if (databases)
@@ -436,7 +460,7 @@ namespace FullFeaturedMdiDemo
                 if (result.Length != 0)
                     result.Append(".");
 
-                result.Append(item.Database != null ? item.Database.Name : "%");
+                result.Append(item.Database != null ? "\"" + item.Database.Name + "\"" : "%");
             }
 
             if (packages)
@@ -444,7 +468,7 @@ namespace FullFeaturedMdiDemo
                 if (result.Length != 0)
                     result.Append(".");
 
-                result.Append(item.Package != null ? item.Package.Name : "%");
+                result.Append(item.Package != null ? "\"" + item.Package.Name + "\"" : "%");
             }
 
             if (schemas)
@@ -452,7 +476,7 @@ namespace FullFeaturedMdiDemo
                 if (result.Length != 0)
                     result.Append(".");
 
-                result.Append(item.Schema != null ? item.Schema.Name : "%");
+                result.Append(item.Schema != null ? "\"" + item.Schema.Name + "\"" : "%");
             }
 
             return result.ToString();
@@ -616,6 +640,11 @@ namespace FullFeaturedMdiDemo
         {
             if (e.KeyCode == Keys.Delete)
                 btnDeleteFilter_Click(this, EventArgs.Empty);
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
