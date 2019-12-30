@@ -435,7 +435,6 @@ namespace FullFeaturedMdiDemo
             // subQueryNavBar1
             // 
             this.subQueryNavBar1.AutoScroll = true;
-            this.subQueryNavBar1.BackColor = System.Drawing.SystemColors.Window;
             this.subQueryNavBar1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subQueryNavBar1.Location = new System.Drawing.Point(0, 21);
             this.subQueryNavBar1.Name = "subQueryNavBar1";

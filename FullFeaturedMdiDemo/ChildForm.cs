@@ -21,6 +21,7 @@ using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.Core.QueryTransformer;
 using ActiveQueryBuilder.View;
+using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
 using FullFeaturedMdiDemo.Common;
@@ -152,7 +153,11 @@ namespace FullFeaturedMdiDemo
         public QueryNavBarOptions QueryNavBarOptions
         {
             get { return NavBar.Options; }
-            set { NavBar.Options = value; }
+            set
+            {
+                NavBar.Options.Assign(value);
+                subQueryNavBar1.Options.Assign((IQueryNavigationBarOptions)NavBar.Options);
+            }
         }
 
         public AddObjectDialogOptions AddObjectDialogOptions
@@ -209,20 +214,20 @@ namespace FullFeaturedMdiDemo
 
         public void SetOptions(Options options)
         {
-            AddObjectDialogOptions = options.AddObjectDialogOptions;
-            BehaviorOptions = options.BehaviorOptions;
-            MainForm.DBView.Options = options.DatabaseSchemaViewOptions;
-            DataSourceOptions = options.DataSourceOptions;
-            DesignPaneOptions = options.DesignPaneOptions;
-            ExpressionEditorOptions = options.ExpressionEditorOptions;
-            QueryColumnListOptions = options.QueryColumnListOptions;
-            QueryNavBarOptions = options.QueryNavBarOptions;
-            SqlFormattingOptions = options.SqlFormattingOptions;
-            SqlGenerationOptions = options.SqlGenerationOptions;
-            TextEditorOptions = options.TextEditorOptions;
-            TextEditorSqlOptions = options.TextEditorSqlOptions;
-            UserInterfaceOptions = options.UserInterfaceOptions;
-            VisualOptions = options.VisualOptions;
+            AddObjectDialogOptions.Assign(options.AddObjectDialogOptions);
+            BehaviorOptions.Assign(options.BehaviorOptions);
+            MainForm.DBView.Options.Assign(options.DatabaseSchemaViewOptions);
+            DataSourceOptions.Assign(options.DataSourceOptions);
+            DesignPaneOptions.Assign(options.DesignPaneOptions);
+            ExpressionEditorOptions.Assign(options.ExpressionEditorOptions);
+            QueryColumnListOptions.Assign(options.QueryColumnListOptions);
+            QueryNavBarOptions.Assign(options.QueryNavBarOptions);
+            SqlFormattingOptions.Assign(options.SqlFormattingOptions);
+            SqlGenerationOptions.Assign(options.SqlGenerationOptions);
+            TextEditorOptions.Assign(options.TextEditorOptions);
+            TextEditorSqlOptions.Assign(options.TextEditorSqlOptions);
+            UserInterfaceOptions.Assign(options.UserInterfaceOptions);
+            VisualOptions.Assign(options.VisualOptions);
         }
 
         public string QueryText
@@ -301,11 +306,17 @@ namespace FullFeaturedMdiDemo
 
             rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;
             TextBoxCurrentSubQuerySql.ExpressionContext = QView.ActiveUnionSubQuery;
+            QueryNavBarOptions.Updated += QueryNavBarOptions_Updated;
+        }
+
+        private void QueryNavBarOptions_Updated(object sender, EventArgs e)
+        {
+            subQueryNavBar1.Options.Assign((IQueryNavigationBarOptions)QueryNavBarOptions);
         }
 
         private void QueryViewOnActiveUnionSubQueryChanged(object sender, EventArgs eventArgs)
         {
-            if (QueryView.ActiveUnionSubQuery != null && QueryView.ActiveUnionSubQuery.ParentSubQuery != null)
+            if (QueryView.ActiveUnionSubQuery?.ParentSubQuery != null)
                 TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
 
             rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;

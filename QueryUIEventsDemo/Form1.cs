@@ -259,7 +259,7 @@ namespace QueryUIEventsDemo
             try
             {
                 // Update the query builder with manually edited query text:
-                QBuilder.SQL = QBuilder.Text;
+                QBuilder.SQL = TextBoxSQL.Text;
 
                 // Hide error banner if any
                 errorBox1.Show(null, QBuilder.SyntaxProvider);

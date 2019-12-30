@@ -260,7 +260,11 @@ namespace FullFeaturedMdiDemo
 	        tsmiLoadMetadataFromXML.Enabled = (_sqlContext != null);
 	        tsmiSaveMetadataToXML.Enabled = (_sqlContext != null);
 	        propertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
-	        queryPropertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
+            propertiesToolStripMenuItem.Text = propertiesToolStripMenuItem.Enabled
+                ? @"Properties"
+                : @"Properties (open a query to edit)";
+
+            queryPropertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
 
             addDerivedTableToolStripMenuItem.Enabled = (ActiveMdiChild != null &&
 	                                                    ((ChildForm) ActiveMdiChild).CanAddDerivedTable());
