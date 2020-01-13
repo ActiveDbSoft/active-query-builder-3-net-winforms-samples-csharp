@@ -62,10 +62,7 @@ namespace FullFeaturedMdiDemo
         public string FileSourcePath { get; set; }
         public MetadataStructureItem UserMetadataStructureItem { get; set; }
 
-        public QueryView QueryView
-        {
-            get { return QView; }
-        }
+        public QueryView QueryView => QView;
 
         public MetadataLoadingOptions MetadataLoadingOptions
         {
@@ -184,12 +181,9 @@ namespace FullFeaturedMdiDemo
             set { queryColumnListControl1.Options = value;}
         }
 
-        public SQLQuery SqlQuery { get; private set; }
+        public SQLQuery SqlQuery { get; }
 
-        public MainForm MainForm
-        {
-            get { return MdiParent as MainForm; }
-        }
+        public MainForm MainForm => MdiParent as MainForm;
 
         public Options GetOptions()
         {
@@ -252,13 +246,7 @@ namespace FullFeaturedMdiDemo
             }
         }
 
-        public string FormattedQueryText
-        {
-            get
-            {
-                return FormattedSQLBuilder.GetSQL(SqlQuery.QueryRoot, _sqlFormattingOptions);
-            }
-        }
+        public string FormattedQueryText => FormattedSQLBuilder.GetSQL(SqlQuery.QueryRoot, _sqlFormattingOptions);
 
         public ChildForm(SQLContext sqlContext, ConnectionInfo connectionInfo)
         {
