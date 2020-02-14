@@ -157,7 +157,12 @@ namespace BasicDemo
             // update the text box
             sqlTextEditor1.Text = queryBuilder1.FormattedSQL;
 		    CheckParameters();
-		}
+
+            // Try to execute the query using current database connection:
+
+            if (tabControl1.SelectedTab == tabPageData)
+                ExecuteQuery();
+        }
 
 	    private void CheckParameters()
 	    {

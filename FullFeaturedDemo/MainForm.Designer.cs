@@ -19,7 +19,7 @@ namespace FullFeaturedDemo
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,6 +111,7 @@ namespace FullFeaturedDemo
             this.tsbAddUnionSubquery = new System.Windows.Forms.ToolStripButton();
             this.tsbCopyUnionSubquery = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.errorBox1 = new FullFeaturedDemo.Common.ErrorBox();
             this.teSql = new System.Windows.Forms.RichTextBox();
             this.pageQueryResult = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -119,7 +120,6 @@ namespace FullFeaturedDemo
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.teResultSql = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.errorBox1 = new FullFeaturedDemo.Common.ErrorBox();
             this.toolStripPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -881,17 +881,18 @@ namespace FullFeaturedDemo
             this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
             this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess2.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess2.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess2.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess2;
+            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder1.Location = new System.Drawing.Point(0, 25);
             this.queryBuilder1.Name = "queryBuilder1";
+            this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 168;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
@@ -923,12 +924,30 @@ namespace FullFeaturedDemo
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder1.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
+            this.queryBuilder1.QueryNavBarOptions.ActionButtonBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActionButtonBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.AddCteCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
+            this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GroupTextColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.queryBuilder1.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.queryBuilder1.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
             this.queryBuilder1.Size = new System.Drawing.Size(819, 344);
             // 
             // 
@@ -960,6 +979,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.TabIndex = 4;
             this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
             this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
+            this.queryBuilder1.VisualOptions.DockPanelBackColor = System.Drawing.Color.Empty;
             this.queryBuilder1.VisualOptions.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.VisualOptions.DockTabFontColor = System.Drawing.Color.White;
             this.queryBuilder1.VisualOptions.DockTabFontHoverColor = System.Drawing.Color.White;
@@ -1064,6 +1084,23 @@ namespace FullFeaturedDemo
             this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(6, 25);
             // 
+            // errorBox1
+            // 
+            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBox1.AutoSize = true;
+            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
+            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBox1.CurrentSyntaxProvider = null;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(499, 25);
+            this.errorBox1.Name = "errorBox1";
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBox1.Size = new System.Drawing.Size(315, 61);
+            this.errorBox1.TabIndex = 1;
+            this.errorBox1.Visible = false;
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
+            // 
             // teSql
             // 
             this.teSql.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1146,7 +1183,6 @@ namespace FullFeaturedDemo
             this.CBuilder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CBuilder.Dock = System.Windows.Forms.DockStyle.Top;
             this.CBuilder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CBuilder.JunctionPostfix = null;
             this.CBuilder.Location = new System.Drawing.Point(0, 0);
             this.CBuilder.MinimumSize = new System.Drawing.Size(188, 51);
             this.CBuilder.Name = "CBuilder";
@@ -1173,23 +1209,6 @@ namespace FullFeaturedDemo
             this.contextMenuStripForRichTextBox.Name = "contextMenuStripForRichTextBox";
             this.contextMenuStripForRichTextBox.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStripForRichTextBox.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripForRichTextBox_Opening);
-            // 
-            // errorBox1
-            // 
-            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorBox1.AutoSize = true;
-            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
-            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.errorBox1.CurrentSyntaxProvider = null;
-            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(499, 25);
-            this.errorBox1.Name = "errorBox1";
-            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.errorBox1.Size = new System.Drawing.Size(315, 61);
-            this.errorBox1.TabIndex = 1;
-            this.errorBox1.Visible = false;
-            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
-            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
             // 
             // MainForm
             // 

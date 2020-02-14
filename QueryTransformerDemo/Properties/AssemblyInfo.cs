@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("QueryTransformerCoreDemo")]
-[assembly: AssemblyCopyright("Copyright © 2006-2019 Active Database Software")]
+[assembly: AssemblyCopyright("Copyright © 2006-2020 Active Database Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
