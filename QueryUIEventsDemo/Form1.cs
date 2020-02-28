@@ -90,7 +90,8 @@ namespace QueryUIEventsDemo
         private void QBuilder_DataSourceFieldAdded(DataSource dataSource, MetadataField field, QueryColumnListItem queryColumnListItem, bool focusCondition)
         {
             if (CbDataSourceFieldAdded.Checked != true) return;
-            AddRowToReport("DataSourceFieldAdded \"" + field.Name + "\"");
+            var text = field == null ? dataSource.NameInQuery + ".*" : field.Name;
+            AddRowToReport("DataSourceFieldAdded \"" + text + "\"");
         }
 
         //
@@ -100,8 +101,10 @@ namespace QueryUIEventsDemo
         {
             if (!CbDataSourceFieldAdding.Checked) return;
 
-            AddRowToReport("DataSourceFieldAdding. Field name \"" + field.Name + "\"");
-            var msg = "Do you want to add the field \"" + field.Name + "\" to the query?";
+            var text = field == null ? dataSource.NameInQuery + ".*" : field.Name;
+
+            AddRowToReport("DataSourceFieldAdding. Field name \"" + text + "\"");
+            var msg = "Do you want to add the field \"" + text + "\" to the query?";
 
             if (MessageBox.Show(msg, "DatasourceFieldAdding event handler", MessageBoxButtons.YesNo) == DialogResult.No)
             {
@@ -112,17 +115,23 @@ namespace QueryUIEventsDemo
         private void QBuilder_DatasourceFieldRemoved(DataSource dataSource, MetadataField field)
         {
             if (CbDatasourceFieldRemoved.Checked != true) return;
-            AddRowToReport("DatasourceFieldRemoved \"" + field.Name + "\"");
+
+            var text = field == null ? dataSource.NameInQuery + ".*" : field.Name;
+
+            AddRowToReport("DatasourceFieldRemoved \"" + text + "\"");
         }
 
         private void QBuilder_DataSourceFieldRemoving(DataSource dataSource, MetadataField field, ref bool abort)
         {
             if (CbDataSourceFieldRemoving.Checked != true) return;
-            AddRowToReport("DataSourceFieldRemoving removing field \"" + field.Name + "\" form \"" +
+
+            var text = field == null ? dataSource.NameInQuery + ".*" : field.Name;
+
+            AddRowToReport("DataSourceFieldRemoving removing field \"" + text + "\" form \"" +
                                 dataSource.NameInQuery + "\"");
 
             var name = dataSource.NameInQuery;
-            var msg = "Do you want to uncheck field \"" + field.Name + "\" in the object \"" + name +
+            var msg = "Do you want to uncheck field \"" + text + "\" in the object \"" + name +
                          "\"?";
 
             if (MessageBox.Show(msg, "DataSourceFieldRemoving event handler", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -207,12 +216,20 @@ namespace QueryUIEventsDemo
         {
             if(!CbLinkCreating.Checked) return;
 
-            var value = string.Format("LinkCreating. Creating the link between {0}.{1} and {2}.{3}",
-                                      fromDataSource.MetadataObject.Name, fromField.Name, toDataSource.MetadataObject.Name, toField.Name);
+            var fromFieldText = fromField == null
+                ? fromDataSource.NameInQuery + ".*"
+                : fromDataSource.MetadataObject.Name + "." + fromField.Name;
+
+            var toFieldText = fromField == null
+                ? toDataSource.NameInQuery + ".*"
+                : toDataSource.MetadataObject.Name + "." + toField.Name;
+
+            var value =
+                $"LinkCreating. Creating the link between {fromFieldText} and {toFieldText}";
             AddRowToReport(value);
 
-            var msg = String.Format("Do you want to create the link between {0}.{1} and {2}.{3}?",
-                                       fromDataSource.MetadataObject.Name, fromField.Name, toDataSource.MetadataObject.Name, toField.Name);
+            var msg =
+                $"Do you want to create the link between {fromFieldText} and {toFieldText}?";
 
             if (MessageBox.Show(msg, "LinkCreating event handler", MessageBoxButtons.YesNo) == DialogResult.No)
             {
