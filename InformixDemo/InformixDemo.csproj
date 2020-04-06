@@ -76,12 +76,6 @@
   <ItemGroup>
     <None Include="project.json" />
     
-    
-    
-    
-    <Reference Include="IBM.Data.Informix">
-		<HintPath>..\third-party\IBM.Data.Informix.dll</HintPath>
-	</Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -90,12 +84,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\ErrorBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ErrorBox.Designer.cs">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,9 +92,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Common\ErrorBox.resx">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -114,10 +99,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryParametersForm.resx">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="InformixConnectionForm.resx">
@@ -138,12 +119,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="QueryParametersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryParametersForm.designer.cs">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InformixConnectionForm.cs">
       <SubType>Form</SubType>
@@ -168,6 +143,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
+      <Name>GeneralAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

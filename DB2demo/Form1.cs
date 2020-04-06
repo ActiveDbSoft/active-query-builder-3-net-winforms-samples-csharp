@@ -13,6 +13,7 @@ using System.Data;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly.Forms.QueryInformationForms;
 using IBM.Data.DB2;
 
 

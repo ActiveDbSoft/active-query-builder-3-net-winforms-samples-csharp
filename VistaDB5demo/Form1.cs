@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly.Forms.QueryInformationForms;
 using VistaDB.Provider;
 
 namespace VistaDB5demo

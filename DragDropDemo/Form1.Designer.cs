@@ -35,7 +35,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.errorBox1 = new DragDropDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).BeginInit();
@@ -234,7 +234,7 @@
 		private System.Windows.Forms.Label label1;
 		private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
 		private System.Windows.Forms.ListBox listBox1;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

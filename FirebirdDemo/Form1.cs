@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using FirebirdSql.Data.FirebirdClient;
+using GeneralAssembly.Forms.QueryInformationForms;
 
 namespace FirebirdDemo
 {

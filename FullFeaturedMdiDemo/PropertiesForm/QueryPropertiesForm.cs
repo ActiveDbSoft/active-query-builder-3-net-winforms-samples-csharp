@@ -11,8 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.PropertiesEditors;
@@ -21,7 +19,6 @@ using ActiveQueryBuilder.View.PropertiesEditors;
 using ActiveQueryBuilder.View.WinForms.DatabaseSchemaView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
-using Helpers = FullFeaturedMdiDemo.Common.Helpers;
 
 namespace FullFeaturedMdiDemo.PropertiesForm
 {

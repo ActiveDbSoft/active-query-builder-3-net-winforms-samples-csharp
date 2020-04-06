@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using GeneralAssembly.Forms.QueryInformationForms;
+
 namespace QueryCreationDemo
 {
 

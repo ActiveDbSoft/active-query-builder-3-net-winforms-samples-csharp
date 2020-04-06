@@ -60,7 +60,7 @@ namespace SeparatedComponents
             this.expressionEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor(this.components);
             this.sqlTextEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
             this.databaseSchemaView1 = new ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView();
-            this.errorBox1 = new SeparatedComponents.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             ((System.ComponentModel.ISupportInitialize)(this.sqlContext1.SQLGenerationOptionsForServer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1.SQLGenerationOptions)).BeginInit();
@@ -259,7 +259,6 @@ namespace SeparatedComponents
             this.queryColumnListControl1.Options.InitialOrColumnsCount = 2;
             this.queryColumnListControl1.Options.NullOrderingInOrderBy = false;
             this.queryColumnListControl1.Options.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
-            this.queryColumnListControl1.Query = this.sqlQuery1;
             this.queryColumnListControl1.SelectedItems = new int[0];
             this.queryColumnListControl1.Size = new System.Drawing.Size(1082, 116);
             this.queryColumnListControl1.TabIndex = 1;
@@ -359,8 +358,8 @@ namespace SeparatedComponents
             this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
             this.errorBox1.Size = new System.Drawing.Size(315, 61);
             this.errorBox1.TabIndex = 4;
-            this.errorBox1.GoToErrorPositionEvent += new System.EventHandler(this.ErrorBox1_GoToErrorPositionEvent);
-            this.errorBox1.RevertValidTextEvent += new System.EventHandler(this.ErrorBox1_RevertValidTextEvent);
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.ErrorBox1_GoToErrorPositionEvent);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.ErrorBox1_RevertValidTextEvent);
             // 
             // Form1
             // 
@@ -415,7 +414,7 @@ namespace SeparatedComponents
 		private ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl designPaneControl1;
 		private ActiveQueryBuilder.View.WinForms.QueryView.AddObjectDialog addObjectDialog1;
 		private ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor expressionEditor1;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

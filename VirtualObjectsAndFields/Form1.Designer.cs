@@ -47,8 +47,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.sqlFormattingOptions1 = new ActiveQueryBuilder.Core.SQLFormattingOptions();
             this.sqlFormattingOptions2 = new ActiveQueryBuilder.Core.SQLFormattingOptions();
-            this.errorBox1 = new VirtualObjectsAndFields.Common.ErrorBox();
-            this.errorBoxReal = new VirtualObjectsAndFields.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.errorBoxReal = new GeneralAssembly.Common.SqlErrorBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder.SQLFormattingOptions)).BeginInit();
@@ -448,8 +448,8 @@
 		private System.Windows.Forms.ToolStripMenuItem editMetadataToolStripMenuItem;
         private ActiveQueryBuilder.Core.SQLFormattingOptions sqlFormattingOptions1;
         private ActiveQueryBuilder.Core.SQLFormattingOptions sqlFormattingOptions2;
-        private Common.ErrorBox errorBox1;
-        private Common.ErrorBox errorBoxReal;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBoxReal;
     }
 }
 

@@ -76,6 +76,7 @@ namespace FullFeaturedDemo
             this.tsmiLanguageDefault = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editUserPredefinedConditionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
@@ -111,12 +112,11 @@ namespace FullFeaturedDemo
             this.tsbAddUnionSubquery = new System.Windows.Forms.ToolStripButton();
             this.tsbCopyUnionSubquery = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.errorBox1 = new FullFeaturedDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.teSql = new System.Windows.Forms.RichTextBox();
             this.pageQueryResult = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.paginationPanel1 = new FullFeaturedDemo.PaginationPanel();
+            this.dataViewer = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.teResultSql = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -139,7 +139,6 @@ namespace FullFeaturedDemo
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -580,7 +579,8 @@ namespace FullFeaturedDemo
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageToolStripMenuItem,
-            this.propertiesToolStripMenuItem});
+            this.propertiesToolStripMenuItem,
+            this.editUserPredefinedConditionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.toolsToolStripMenuItem.Text = "&Options";
@@ -592,7 +592,7 @@ namespace FullFeaturedDemo
             this.tsmiLanguageDefault,
             this.toolStripSeparator12});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // tsmiLanguageAuto
@@ -617,9 +617,16 @@ namespace FullFeaturedDemo
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            // 
+            // editUserPredefinedConditionsToolStripMenuItem
+            // 
+            this.editUserPredefinedConditionsToolStripMenuItem.Name = "editUserPredefinedConditionsToolStripMenuItem";
+            this.editUserPredefinedConditionsToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.editUserPredefinedConditionsToolStripMenuItem.Text = "Edit user predefined conditions";
+            this.editUserPredefinedConditionsToolStripMenuItem.Click += new System.EventHandler(this.editUserExpressionToolStripMenuItem_Click);
             // 
             // tsmiAbout
             // 
@@ -880,6 +887,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
+            this.queryBuilder1.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
             this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
             linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
             linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
@@ -1134,8 +1142,7 @@ namespace FullFeaturedDemo
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
-            this.splitContainer2.Panel1.Controls.Add(this.paginationPanel1);
+            this.splitContainer2.Panel1.Controls.Add(this.dataViewer);
             this.splitContainer2.Panel1.Controls.Add(this.CBuilder);
             // 
             // splitContainer2.Panel2
@@ -1145,37 +1152,16 @@ namespace FullFeaturedDemo
             this.splitContainer2.SplitterDistance = 408;
             this.splitContainer2.TabIndex = 0;
             // 
-            // dataGridView1
+            // dataViewer
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 51);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(819, 328);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.DataSourceChanged += new System.EventHandler(this.DataGridView1_DataSourceChanged);
-            this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridView1_CellPainting);
-            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
-            // 
-            // paginationPanel1
-            // 
-            this.paginationPanel1.CurrentPage = 1;
-            this.paginationPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.paginationPanel1.IsSupportLimitCount = false;
-            this.paginationPanel1.IsSupportLimitOffset = false;
-            this.paginationPanel1.Location = new System.Drawing.Point(0, 379);
-            this.paginationPanel1.Name = "paginationPanel1";
-            this.paginationPanel1.PageSize = 10;
-            this.paginationPanel1.RowsCount = 0;
-            this.paginationPanel1.Size = new System.Drawing.Size(819, 29);
-            this.paginationPanel1.TabIndex = 3;
-            this.paginationPanel1.EnabledPaginationChanged += new System.EventHandler(this.paginationPanel1_EnabledPaginationChanged);
-            this.paginationPanel1.CurrentPageChanged += new System.EventHandler(this.paginationPanel1_CurrentPageChanged);
-            this.paginationPanel1.PageSizeChanged += new System.EventHandler(this.paginationPanel1_PageSizeChanged);
+            this.dataViewer.AutoSize = true;
+            this.dataViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataViewer.Location = new System.Drawing.Point(0, 51);
+            this.dataViewer.Name = "dataViewer";
+            this.dataViewer.QueryTransformer = null;
+            this.dataViewer.Size = new System.Drawing.Size(819, 357);
+            this.dataViewer.SqlQuery = null;
+            this.dataViewer.TabIndex = 0;
             // 
             // CBuilder
             // 
@@ -1255,7 +1241,6 @@ namespace FullFeaturedDemo
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1336,8 +1321,7 @@ namespace FullFeaturedDemo
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripButton tsbSaveInFile;
         private System.Windows.Forms.TabPage pageQueryResult;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private PaginationPanel paginationPanel1;
+        private GeneralAssembly.DataViewerControl.DataViewer dataViewer;
         private ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder CBuilder;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveAs;
@@ -1363,7 +1347,8 @@ namespace FullFeaturedDemo
         private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
         private System.Windows.Forms.Label panelSleepMode;
         private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private System.Windows.Forms.ToolStripMenuItem editUserPredefinedConditionsToolStripMenuItem;
     }
 }
 

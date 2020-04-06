@@ -55,7 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.QBuilder = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
-            this.errorBox1 = new QueryUIEventsDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.TextBoxSQL = new System.Windows.Forms.RichTextBox();
             this.TextBoxReport = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -602,7 +602,7 @@
         private System.Windows.Forms.CheckBox CbLinkCreating;
         private System.Windows.Forms.CheckBox CbLinkDeleting;
         private System.Windows.Forms.CheckBox cbQueryColumnListItemRemoving;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

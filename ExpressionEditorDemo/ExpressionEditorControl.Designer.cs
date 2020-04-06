@@ -44,7 +44,7 @@
             this.pnlOperators = new System.Windows.Forms.FlowLayoutPanel();
             this.dockPanelDatabaseSchema = new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel();
             this.treeObjects = new ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView();
-            this.pnlNotification = new ExpressionEditorDemo.Common.InformationPanel();
+            this.pnlNotification = new GeneralAssembly.Common.InformationPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockManager1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -326,7 +326,7 @@
         private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanelSqlContext;
         private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanelDatabaseSchema;
         private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView treeObjects;
-        private ExpressionEditorDemo.Common.InformationPanel pnlNotification;
+        private GeneralAssembly.Common.InformationPanel pnlNotification;
         private System.Windows.Forms.Panel panel1;
         private ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor sqlTextEditor1;
     }

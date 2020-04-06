@@ -42,10 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    
-    
-    
-    
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.EventMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
@@ -55,11 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessConnectionForm.cs">
+    <Compile Include="ConnectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AccessConnectionForm.designer.cs">
-      <DependentUpon>AccessConnectionForm.cs</DependentUpon>
+    <Compile Include="ConnectionForm.designer.cs">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -67,55 +67,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MSSQLConnectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MSSQLConnectionForm.Designer.cs">
-      <DependentUpon>MSSQLConnectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ODBCConnectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ODBCConnectionForm.designer.cs">
-      <DependentUpon>ODBCConnectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OLEDBConnectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OLEDBConnectionForm.Designer.cs">
-      <DependentUpon>OLEDBConnectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OracleConnectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OracleConnectionForm.designer.cs">
-      <DependentUpon>OracleConnectionForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AccessConnectionForm.resx">
-      <DependentUpon>AccessConnectionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="ConnectionForm.resx">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MSSQLConnectionForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MSSQLConnectionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ODBCConnectionForm.resx">
-      <DependentUpon>ODBCConnectionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OLEDBConnectionForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>OLEDBConnectionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OracleConnectionForm.resx">
-      <DependentUpon>OracleConnectionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -143,6 +102,12 @@
     <Content Include="StoredDataSetSchema.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
+      <Name>GeneralAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

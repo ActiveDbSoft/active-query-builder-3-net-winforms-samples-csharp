@@ -9,21 +9,56 @@
 //*******************************************************************//
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
+using GeneralAssembly;
 
 namespace LoadMetadataDemo
 {
 	internal static class Program
 	{
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
+        public static ConnectionList Connections = new ConnectionList();
+        public static ConnectionList XmlFiles = new ConnectionList();
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
 		private static void Main()
 		{
-			Application.EnableVisualStyles();
+            // Catch ungandled exceptions for debugging purposes
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.ThreadException += Thread_UnhandledException;
+
+            Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Form1());
 		}
-	}
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception exception = e.ExceptionObject as Exception;
+            if (exception != null)
+            {
+                ThreadExceptionDialog exceptionDialog = new ThreadExceptionDialog(exception);
+                if (exceptionDialog.ShowDialog() == DialogResult.Abort)
+                {
+                    Application.Exit();
+                }
+            }
+        }
+
+        private static void Thread_UnhandledException(object sender, ThreadExceptionEventArgs e)
+        {
+            if (e.Exception != null)
+            {
+                ThreadExceptionDialog exceptionDialog = new ThreadExceptionDialog(e.Exception);
+
+                if (exceptionDialog.ShowDialog() == DialogResult.Abort)
+                {
+                    Application.Exit();
+                }
+            }
+        }
+    }
 }

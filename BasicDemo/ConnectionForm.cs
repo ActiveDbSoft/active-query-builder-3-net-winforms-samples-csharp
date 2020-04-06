@@ -9,16 +9,14 @@
 //*******************************************************************//
 
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.PropertiesEditors;
-using ActiveQueryBuilder.Core.Serialization;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.PropertiesEditors;
 using ActiveQueryBuilder.View.WinForms.Images;
-using FirebirdSql.Data.FirebirdClient;
+using GeneralAssembly;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace BasicDemo

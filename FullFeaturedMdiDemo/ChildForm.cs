@@ -24,10 +24,11 @@ using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
-using FullFeaturedMdiDemo.Common;
-using FullFeaturedMdiDemo.Dailogs;
+using GeneralAssembly;
+using GeneralAssembly.Dailogs;
+using GeneralAssembly.Forms.QueryInformationForms;
+using SqlHelpers = GeneralAssembly.SqlHelpers;
 using Timer = System.Threading.Timer;
-using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
 {
@@ -47,7 +48,7 @@ namespace FullFeaturedMdiDemo
         private string _lastValidSqlCurrent;
 
         private readonly QueryTransformer _queryTransformerTop10;
-        private readonly Timer _timerForFastReuslt;
+        private readonly Timer _timerForFastResult;
 
         private readonly SQLContext _sqlContext;
         private readonly ConnectionInfo _connectionInfo;
@@ -263,8 +264,7 @@ namespace FullFeaturedMdiDemo
             
             SqlQuery.SleepModeChanged += SqlQuery_SleepModeChanged;
             SqlQuery.QueryAwake += SqlQuery_QueryAwake;
-            _sqlContext.SyntaxProviderChanged += _sqlContext_SyntaxProviderChanged;
-            _timerForFastReuslt = new Timer(TimerForFastResult_Elapsed);            
+            _timerForFastResult = new Timer(TimerForFastResult_Elapsed);            
 
             CBuilder.QueryTransformer = new QueryTransformer
             {
@@ -319,17 +319,6 @@ namespace FullFeaturedMdiDemo
                 resultGrid2.FillDataGrid(_queryTransformerTop10.Take("10").SQL);
             });
         }
-
-        private void _sqlContext_SyntaxProviderChanged(object sender, EventArgs e)
-        {
-            RefreshPaginationPanel();
-        }
-
-        private void RefreshPaginationPanel() {
-            paginationPanel1.Visible = CBuilder.QueryTransformer.IsSupportLimitCount || CBuilder.QueryTransformer.IsSupportLimitOffset;
-            paginationPanel1.IsSupportLimitCount = CBuilder.QueryTransformer.IsSupportLimitCount;
-            paginationPanel1.IsSupportLimitOffset = CBuilder.QueryTransformer.IsSupportLimitOffset;
-        }    
 
         private void ChildForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -501,9 +490,8 @@ Do you want to load database structure from cache?";
 	        {
 	            Application.Idle -= Application_Idle;
 
-                if (components != null)
-	                components.Dispose();
-	        }
+                components?.Dispose();
+            }
 
 	        base.Dispose(disposing);
 	    }
@@ -692,10 +680,9 @@ Do you want to load database structure from cache?";
 	    }
 
 	    public void AddObject()
-	    {
-            if (QView.AddObjectDialog != null)
-                QView.AddObjectDialog.ShowModal();            
-	    }
+        {
+            QView.AddObjectDialog?.ShowModal();
+        }
 
 	    public void AddDerivedTable()
 	    {
@@ -876,12 +863,12 @@ Do you want to load database structure from cache?";
 
         private void CheckParameters()
         {
-            if (Common.Helpers.CheckParameters(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider, SqlQuery.QueryParameters))
+            if (SqlHelpers.CheckParameters(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider, SqlQuery.QueryParameters))
                 HideParametersErrorPanel();
             else
             {
                 var acceptableFormats =
-                    Common.Helpers.GetAcceptableParametersFormats(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider);
+                    SqlHelpers.GetAcceptableParametersFormats(_sqlContext.MetadataProvider, _sqlContext.SyntaxProvider);
                 ShowParametersErrorPanel(acceptableFormats);
             }
         }
@@ -924,14 +911,11 @@ Do you want to load database structure from cache?";
 
         private void HideParametersErrorPanel()
         {
-            if (_parametersErrorPanel != null)
-            {
-                _parametersErrorPanel.Visible = false;
-                if (_parametersErrorPanel.Parent != null)
-                    _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
-                _parametersErrorPanel.Dispose();
-                _parametersErrorPanel = null;
-            }
+            if (_parametersErrorPanel == null) return;
+            _parametersErrorPanel.Visible = false;
+            _parametersErrorPanel.Parent?.Controls.Remove(_parametersErrorPanel);
+            _parametersErrorPanel.Dispose();
+            _parametersErrorPanel = null;
         }
 
         private bool IsRecursionLoopInQueryText(string sql)
@@ -1014,9 +998,6 @@ Do you want to load database structure from cache?";
                 e.Cancel = true;
                 return;
             }
-
-            RefreshPaginationPanel();
-            paginationPanel1.Clear();
 
             CBuilder.QueryTransformer.BeginUpdate();
             try
@@ -1148,10 +1129,7 @@ Do you want to load database structure from cache?";
         private bool SaveQuery()
         {
             CancelEventArgs args = new CancelEventArgs();
-            if(SaveQueryEvent != null)
-            {
-                SaveQueryEvent(this, args);
-            }
+            SaveQueryEvent?.Invoke(this, args);
             if(!args.Cancel)
             {
                 _oldSql = FormattedQueryText;
@@ -1162,10 +1140,7 @@ Do you want to load database structure from cache?";
         private bool SaveAsNewUserQuery()
         {
             CancelEventArgs args = new CancelEventArgs();
-            if (SaveAsNewUserQueryEvent != null)
-            {
-                SaveAsNewUserQueryEvent(this, args);
-            }
+            SaveAsNewUserQueryEvent?.Invoke(this, args);
             if (!args.Cancel)
             {
                 _oldSql = FormattedQueryText;
@@ -1177,10 +1152,7 @@ Do you want to load database structure from cache?";
         private bool SaveInFile()
         {
             CancelEventArgs args = new CancelEventArgs();
-            if (SaveAsInFileEvent != null)
-            {
-                SaveAsInFileEvent(this, args);
-            }
+            SaveAsInFileEvent?.Invoke(this, args);
             if (!args.Cancel)
             {
                 _oldSql = FormattedQueryText;
@@ -1189,52 +1161,8 @@ Do you want to load database structure from cache?";
             return !args.Cancel;
         }
 
-        private void paginationPanel1_EnabledPaginationChanged(object sender, EventArgs e)
-        {
-			// Turn paging on and off
-			
-            if (paginationPanel1.PaginationEnabled)
-            {
-                CBuilder.QueryTransformer.Take(paginationPanel1.PageSize.ToString());
-            }
-            else
-            {
-                paginationPanel1.Clear();
-
-                CBuilder.QueryTransformer.BeginUpdate();
-                try
-                {
-                    CBuilder.QueryTransformer.Take("");
-                    CBuilder.QueryTransformer.Skip("");
-                }
-                finally
-                {
-                    CBuilder.QueryTransformer.EndUpdate();
-                }
-            }
-        }
-
-        private void paginationPanel1_CurrentPageChanged(object sender, EventArgs e)
-        {
-            if (paginationPanel1.CurrentPage == 1)
-            {
-                CBuilder.QueryTransformer.Skip("");
-                return;
-            }
-			
-			// Setting the current page number
-            CBuilder.QueryTransformer.Skip((paginationPanel1.PageSize * (paginationPanel1.CurrentPage - 1)).ToString());
-        }
-
-        private void paginationPanel1_PageSizeChanged(object sender, EventArgs e)
-        {
-			// Setting the number of records per page
-            CBuilder.QueryTransformer.Take(paginationPanel1.PageSize.ToString());
-            if(paginationPanel1.CurrentPage > 1)
-            {
-                CBuilder.QueryTransformer.Skip((paginationPanel1.PageSize * (paginationPanel1.CurrentPage - 1)).ToString());
-            }
-        }
+       
+      
 
         private void RefreshNoConnectionLabel()
         {
@@ -1306,7 +1234,7 @@ Do you want to load database structure from cache?";
                 _queryTransformerTop10.Query =
                     new SQLQuery(QueryView.ActiveUnionSubQuery.ParentSubQuery.SQLContext) { SQL = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetSqlForDataPreview() };
 
-                _timerForFastReuslt.Change(400, Timeout.Infinite);
+                _timerForFastResult.Change(400, Timeout.Infinite);
             }
             catch
             {
@@ -1347,11 +1275,7 @@ Do you want to load database structure from cache?";
             }
         }
 
-        private void RowsLoaded(object sender, EventArgs e)
-        {
-            if (!paginationPanel1.Enabled)
-                paginationPanel1.RowsCount = resultGrid1.RowCount;
-        }
+       
 
         private void errorBox1_RevertValidText(object sender, EventArgs e)
         {

@@ -10,7 +10,8 @@
 
 using System;
 using System.Windows.Forms;
-
+using GeneralAssembly;
+using GeneralAssembly.ConnectionFrames;
 
 namespace FullFeaturedDemo
 {
@@ -24,20 +25,24 @@ namespace FullFeaturedDemo
                 {
                     if (lvConnections.SelectedItems.Count > 0)
                     {
-                        return (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
+                        var connectionInfo = (ConnectionInfo) lvConnections.SelectedItems[0].Tag;
+                        if(connectionInfo.ConnectionDescriptor == null)
+                            connectionInfo.CreateConnectionDescriptor();
+                        return connectionInfo;
                     }
 
                     return null;
                 }
-                else
+
+                if (lvXmlFiles.SelectedItems.Count > 0)
                 {
-                    if (lvXmlFiles.SelectedItems.Count > 0)
-                    {
-                        return (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
-                    }
-
-                    return null;
+                    var connectionInfo = (ConnectionInfo) lvXmlFiles.SelectedItems[0].Tag;
+                    if (connectionInfo.ConnectionDescriptor == null)
+                        connectionInfo.CreateConnectionDescriptor();
+                    return connectionInfo;
                 }
+
+                return null;
             }
         }
 
@@ -48,8 +53,8 @@ namespace FullFeaturedDemo
             // fill connection list
             for (int i = 0; i < Program.Connections.Count; i++)
             {
-                ListViewItem lvi = lvConnections.Items.Add(Program.Connections[i].ConnectionName);
-                lvi.SubItems.Add(Program.Connections[i].ConnectionType.ToString());
+                ListViewItem lvi = lvConnections.Items.Add(Program.Connections[i].Name);
+                lvi.SubItems.Add(Program.Connections[i].Type.ToString());
                 lvi.Tag = Program.Connections[i];
             }
 
@@ -61,7 +66,7 @@ namespace FullFeaturedDemo
             // add preset
 
             bool found = false;
-            ConnectionInfo northwind = new ConnectionInfo(ConnectionTypes.MSSQL, "Northwind.xml", "Northwind.xml", true, null, "");
+            ConnectionInfo northwind = new ConnectionInfo(ConnectionTypes.MSSQL, "Northwind.xml", "Northwind.xml", true, "");
 
             for (int i = 0; i < Program.XmlFiles.Count; i++)
             {
@@ -79,8 +84,8 @@ namespace FullFeaturedDemo
             // fill XML files list
             for (int i = 0; i < Program.XmlFiles.Count; i++)
             {
-                ListViewItem lvi = lvXmlFiles.Items.Add(Program.XmlFiles[i].ConnectionName);
-                lvi.SubItems.Add(Program.XmlFiles[i].ConnectionType.ToString());
+                ListViewItem lvi = lvXmlFiles.Items.Add(Program.XmlFiles[i].Name);
+                lvi.SubItems.Add(Program.XmlFiles[i].Type.ToString());
                 lvi.Tag = Program.XmlFiles[i];
             }
 
@@ -118,7 +123,7 @@ namespace FullFeaturedDemo
 
                 for (int i = 0; i < Program.Connections.Count; i++)
                 {
-                    if (Program.Connections[i].ConnectionName == name)
+                    if (Program.Connections[i].Name == name)
                     {
                         found = true;
                         break;
@@ -143,7 +148,7 @@ namespace FullFeaturedDemo
 
                 for (int i = 0; i < Program.XmlFiles.Count; i++)
                 {
-                    if (Program.XmlFiles[i].ConnectionName == name)
+                    if (Program.XmlFiles[i].Name == name)
                     {
                         found = true;
                         break;
@@ -156,14 +161,14 @@ namespace FullFeaturedDemo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewConnectionEntryName(), null, false, null, "");
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewConnectionEntryName(), null, false, "");
 
             using (ConnectionEditForm cef = new ConnectionEditForm(ci))
             {
                 if (cef.ShowDialog() == DialogResult.OK)
                 {
-                    ListViewItem lvi = lvConnections.Items.Add(ci.ConnectionName);
-                    lvi.SubItems.Add(ci.ConnectionType.ToString());
+                    ListViewItem lvi = lvConnections.Items.Add(ci.Name);
+                    lvi.SubItems.Add(ci.Type.ToString());
                     lvi.Tag = ci;
                     lvi.Selected = true;
 
@@ -194,8 +199,8 @@ namespace FullFeaturedDemo
                 {
                     if (cef.ShowDialog() == DialogResult.OK)
                     {
-                        lvConnections.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
-                        lvConnections.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
+                        lvConnections.SelectedItems[0].SubItems[0].Text = ci.Name;
+                        lvConnections.SelectedItems[0].SubItems[1].Text = ci.Type.ToString();
                     }
                 }
             }
@@ -244,14 +249,14 @@ namespace FullFeaturedDemo
 
         private void btnAddXml_Click(object sender, EventArgs e)
         {
-            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewXmlFileEntryName(), null, true, null, "");
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewXmlFileEntryName(), null, true, "");
 
             using (ConnectionEditForm cef = new ConnectionEditForm(ci))
             {
                 if (cef.ShowDialog() == DialogResult.OK)
                 {
-                    ListViewItem lvi = lvXmlFiles.Items.Add(ci.ConnectionName);
-                    lvi.SubItems.Add(ci.ConnectionType.ToString());
+                    ListViewItem lvi = lvXmlFiles.Items.Add(ci.Name);
+                    lvi.SubItems.Add(ci.Type.ToString());
                     lvi.Tag = ci;
                     lvi.Selected = true;
 
@@ -282,8 +287,8 @@ namespace FullFeaturedDemo
                 {
                     if (cef.ShowDialog() == DialogResult.OK)
                     {
-                        lvXmlFiles.SelectedItems[0].SubItems[0].Text = ci.ConnectionName;
-                        lvXmlFiles.SelectedItems[0].SubItems[1].Text = ci.ConnectionType.ToString();
+                        lvXmlFiles.SelectedItems[0].SubItems[0].Text = ci.Name;
+                        lvXmlFiles.SelectedItems[0].SubItems[1].Text = ci.Type.ToString();
                     }
                 }
             }

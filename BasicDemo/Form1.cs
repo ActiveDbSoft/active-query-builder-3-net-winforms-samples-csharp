@@ -9,22 +9,19 @@
 //*******************************************************************//
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
-using BasicDemo.PropertiesForm;
+using GeneralAssembly.Forms.QueryInformationForms;
+using GeneralAssembly.QueryBuilderProperties;
 using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace BasicDemo
 {
 	public partial class Form1 : Form
 	{
-	    private Control _parametersErrorPanel;
-        private Control _usedParamsPanel;
         private string _lastValidSql;
         private int _errorPosition = -1;
 
@@ -36,7 +33,7 @@ namespace BasicDemo
 		    {
 		        sqlTextEditor1.ExpressionContext = queryBuilder1.ActiveUnionSubQuery;
 		    };
-
+            dataViewer1.SqlQuery = queryBuilder1.SQLQuery;
             // DEMO WARNING
 		    if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
 		    {
@@ -156,72 +153,11 @@ namespace BasicDemo
 
             // update the text box
             sqlTextEditor1.Text = queryBuilder1.FormattedSQL;
-		    CheckParameters();
-
+		
             // Try to execute the query using current database connection:
-
             if (tabControl1.SelectedTab == tabPageData)
                 ExecuteQuery();
         }
-
-	    private void CheckParameters()
-	    {
-	        if (Misc.CheckParameters(queryBuilder1))
-	            HideParametersErrorPanel();
-	        else
-	        {
-	            var acceptableFormats =
-	                Misc.GetAcceptableParametersFormats(queryBuilder1.MetadataProvider, queryBuilder1.SyntaxProvider);
-	            ShowParametersErrorPanel(acceptableFormats);
-	        }
-	    }
-
-	    private void ShowParametersErrorPanel(List<string> acceptableFormats)
-	    {
-	        HideParametersErrorPanel();
-            _parametersErrorPanel = new Panel
-	        {
-	            AutoSize = true,
-	            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-	            BackColor = Color.LightPink,
-	            BorderStyle = BorderStyle.FixedSingle,
-	            Dock = DockStyle.Top,
-	            Padding = new Padding(6, 5, 3, 0),
-	        };
-
-	        var formats = acceptableFormats.Select(x =>
-	        {
-	            var s = x.Replace("n", "<number>");
-	            return s.Replace("s", "<name>");
-	        });
-
-	        string formatsString = string.Join(", ", formats);
-
-	        Label label = new Label
-	        {
-	            AutoSize = true,
-	            Margin = new Padding(0),
-	            Text = @"Unsupported parameter notation detected. For this type of connection and database server use " + formatsString,
-	            Dock = DockStyle.Fill,
-	            UseCompatibleTextRendering = true
-	        };
-
-	        _parametersErrorPanel.Controls.Add(label);
-	        _parametersErrorPanel.Visible = true;
-	        Controls.Add(_parametersErrorPanel);
-	    }
-
-	    private void HideParametersErrorPanel()
-	    {
-	        if (_parametersErrorPanel != null)
-	        {
-	            _parametersErrorPanel.Visible = false;
-                if (_parametersErrorPanel.Parent != null)
-	                _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
-                _parametersErrorPanel.Dispose();
-	            _parametersErrorPanel = null;
-	        }
-	    }
 
         public void ResetQueryBuilder()
 		{
@@ -245,7 +181,7 @@ namespace BasicDemo
                     }
 	                catch (Exception ex)
 	                {
-	                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	                    MessageBox.Show(ex.Message, "@Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 	                }                    
 	            }
 	        }
@@ -336,90 +272,7 @@ namespace BasicDemo
 
         private void ExecuteQuery()
         {
-            dataGridView1.DataSource = null;
-
-            if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
-            {
-                try
-                {
-                    dataGridView1.DataSource = Misc.ExecuteSql(queryBuilder1.SQL, queryBuilder1.SQLQuery);
-                    if (Misc.ParamsCache.Count != 0 && dataGridView1.DataSource != null)
-                        ShowUsedParams();
-                    else
-                        HideUsedParams();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "SQL query error");
-                }
-
-                // enable sorting
-                foreach (DataGridViewColumn column in dataGridView1.Columns)
-                {
-                    column.SortMode = DataGridViewColumnSortMode.Automatic;
-                }
-            }
-        }
-        
-        private void ShowUsedParams()
-        {
-            HideUsedParams();
-
-            _usedParamsPanel = new Panel
-            {
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = Color.LightGoldenrodYellow,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Top,
-                Padding = new Padding(2, 2, 2, 2)
-            };
-
-            var parameters = Misc.ParamsCache.Select(x => string.Format("{0} = {1}", x.Name, x.Value));
-            var paramsString = "Used parameters: " + string.Join(", ", parameters);
-
-            Label label = new Label
-            {
-                AutoSize = true,
-                Padding = new Padding(4, 3, 1, 0),
-                Text = paramsString,
-                Dock = DockStyle.Fill,
-                UseCompatibleTextRendering = true
-            };
-
-            var button = new Button
-            {
-                Text = "Edit",
-                Dock = DockStyle.Right,
-                BackColor = SystemColors.Control,
-                Margin = new Padding(5)
-            };
-
-            button.Click += EditParamsButtonOnClick;
-
-            _usedParamsPanel.Controls.Add(button);
-            _usedParamsPanel.Controls.Add(label);
-            _usedParamsPanel.Visible = true;
-            tabPageData.Controls.Add(_usedParamsPanel);
-        }
-
-        private void EditParamsButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            Misc.ParamsCache.Clear();
-            if (tabControl1.SelectedTab == tabPageData)
-                ExecuteQuery();
-        }
-
-        private void HideUsedParams()
-        {
-            if (_usedParamsPanel != null)
-            {
-                _usedParamsPanel.Visible = false;
-                if (_usedParamsPanel.Parent != null)
-                    _usedParamsPanel.Parent.Controls.Remove(_usedParamsPanel);
-                _usedParamsPanel.Dispose();
-                _usedParamsPanel = null;
-            }
+            dataViewer1.FillDataGrid(queryBuilder1.SQL);
         }
 
         private void propertiesMenuItem_Click(object sender, EventArgs e)

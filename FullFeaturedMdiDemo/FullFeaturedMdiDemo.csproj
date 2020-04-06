@@ -90,64 +90,24 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.MSSQLMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OLEDBMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.SQLiteMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ChildForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChildForm.Designer.cs">
       <DependentUpon>ChildForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\ErrorBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ErrorBox.Designer.cs">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Helpers.cs" />
-    <Compile Include="Common\InfoPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\InfoPanel.Designer.cs">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\InformationPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\InformationPanel.Designer.cs">
-      <DependentUpon>InformationPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Options.cs" />
-    <Compile Include="Common\ResultGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ResultGrid.Designer.cs">
-      <DependentUpon>ResultGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="ConnectionForm.cs">
       <SubType>Form</SubType>
@@ -163,24 +123,6 @@
     </Compile>
     <Compile Include="ConnectionStringEditForm.Designer.cs">
       <DependentUpon>ConnectionStringEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dailogs\QueryNameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dailogs\QueryNameForm.Designer.cs">
-      <DependentUpon>QueryNameForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dailogs\SaveAsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dailogs\SaveAsForm.Designer.cs">
-      <DependentUpon>SaveAsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dailogs\SaveForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dailogs\SaveForm.Designer.cs">
-      <DependentUpon>SaveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditConnectionForm.cs">
       <SubType>Form</SubType>
@@ -200,18 +142,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc.cs" />
     <Compile Include="NoConnectionLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NoConnectionLabel.designer.cs">
       <DependentUpon>NoConnectionLabel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PaginationPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PaginationPanel.Designer.cs">
-      <DependentUpon>PaginationPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesForm\CommonTab.cs">
@@ -226,15 +161,6 @@
     <Compile Include="PropertiesForm\ExpressionsTab.Designer.cs">
       <DependentUpon>ExpressionsTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertiesForm\GeneralPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\GeneralPage.designer.cs">
-      <DependentUpon>GeneralPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\GroupLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="PropertiesForm\MainQueryTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -246,12 +172,6 @@
     </Compile>
     <Compile Include="PropertiesForm\QueryPropertiesForm.designer.cs">
       <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlFormattingPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlFormattingPage.designer.cs">
-      <DependentUpon>SqlFormattingPage.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertiesForm\SqlGenerationPage.cs">
       <SubType>UserControl</SubType>
@@ -266,25 +186,9 @@
       <DependentUpon>SubQueryTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ChildForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ChildForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\ErrorBox.resx">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\InfoPanel.resx">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\InformationPanel.resx">
-      <DependentUpon>InformationPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Common\ResultGrid.resx">
-      <DependentUpon>ResultGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionForm.resx">
       <SubType>Designer</SubType>
@@ -293,15 +197,6 @@
     <EmbeddedResource Include="ConnectionStringEditForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ConnectionStringEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dailogs\QueryNameForm.resx">
-      <DependentUpon>QueryNameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dailogs\SaveAsForm.resx">
-      <DependentUpon>SaveAsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dailogs\SaveForm.resx">
-      <DependentUpon>SaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditConnectionForm.resx">
       <DependentUpon>EditConnectionForm.cs</DependentUpon>
@@ -316,26 +211,17 @@
     <EmbeddedResource Include="NoConnectionLabel.resx">
       <DependentUpon>NoConnectionLabel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PaginationPanel.resx">
-      <DependentUpon>PaginationPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\CommonTab.resx">
       <DependentUpon>CommonTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\ExpressionsTab.resx">
       <DependentUpon>ExpressionsTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\GeneralPage.resx">
-      <DependentUpon>GeneralPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\MainQueryTab.resx">
       <DependentUpon>MainQueryTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\QueryPropertiesForm.resx">
       <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\SqlFormattingPage.resx">
-      <DependentUpon>SqlFormattingPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertiesForm\SqlGenerationPage.resx">
       <DependentUpon>SqlGenerationPage.cs</DependentUpon>
@@ -346,14 +232,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryParametersForm.resx">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryStatisticsForm.resx">
-      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -375,18 +253,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="QueryParametersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryParametersForm.designer.cs">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QueryStatisticsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryStatisticsForm.designer.cs">
-      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
   </ItemGroup>
@@ -496,6 +362,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly_ext\GeneralAssembly_ext.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ee}</Project>
+      <Name>GeneralAssembly_ext</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -39,7 +39,7 @@ namespace AdvantageDemo
             this.queryBuilder = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
             this.advantageMetadataProvider1 = new ActiveQueryBuilder.Core.AdvantageMetadataProvider(this.components);
             this.advantageSyntaxProvider1 = new ActiveQueryBuilder.Core.AdvantageSyntaxProvider(this.components);
-            this.errorBox1 = new AdvantageDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPageData = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -421,7 +421,7 @@ namespace AdvantageDemo
 		private ActiveQueryBuilder.Core.AdvantageSyntaxProvider advantageSyntaxProvider1;
 		private ActiveQueryBuilder.Core.AdvantageMetadataProvider advantageMetadataProvider1;
 		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

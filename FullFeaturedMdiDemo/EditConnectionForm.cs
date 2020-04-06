@@ -9,17 +9,15 @@
 //*******************************************************************//
 
 using System;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.PropertiesEditors;
-using ActiveQueryBuilder.Core.Serialization;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.PropertiesEditors;
 using ActiveQueryBuilder.View.WinForms.Images;
 using ActiveQueryBuilder.View.WinForms.QueryView;
+using GeneralAssembly;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
 namespace FullFeaturedMdiDemo
@@ -80,7 +78,7 @@ namespace FullFeaturedMdiDemo
 
         private void FillConnectionTypes()
         {
-            foreach (var name in Common.Helpers.ConnectionDescriptorNames)
+            foreach (var name in Misc.ConnectionDescriptorNames)
             {
                 cbConnectionType.Items.Add(name);
             }
@@ -170,7 +168,7 @@ namespace FullFeaturedMdiDemo
 
         private Type GetSelectedDescriptorType()
         {
-            return Common.Helpers.ConnectionDescriptorList[cbConnectionType.SelectedIndex];
+            return Helpers.ConnectionDescriptorList[cbConnectionType.SelectedIndex];
         }
 
         private BaseConnectionDescriptor CreateConnectionDescriptor(Type type)

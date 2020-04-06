@@ -39,23 +39,10 @@
     
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Helpers.cs" />
-    <Compile Include="Common\InformationPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\InformationPanel.Designer.cs">
-      <DependentUpon>InformationPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Common\TreeViewMod.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -73,9 +60,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Common\InformationPanel.resx">
-      <DependentUpon>InformationPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ExpressionEditorControl.resx">
       <DependentUpon>ExpressionEditorControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
+      <Name>GeneralAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

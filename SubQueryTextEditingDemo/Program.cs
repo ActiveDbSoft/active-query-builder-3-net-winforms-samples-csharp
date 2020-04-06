@@ -11,16 +11,18 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using SubQueryTextEditingDemo;
+using GeneralAssembly;
 
-namespace ActiveUnionSubQueryChangedBlock
+namespace SubQueryTextEditingDemo
 {
 	internal static class Program
 	{
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
+        public static ConnectionList Connections = new ConnectionList();
+        public static ConnectionList XmlFiles = new ConnectionList();
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
 		private static void Main()
 		{
 			// Catch ungandled exceptions for debugging purposes

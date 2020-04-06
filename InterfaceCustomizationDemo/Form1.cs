@@ -73,39 +73,49 @@ namespace InterfaceCustomizationDemo
             }
         }
 
-        private void cont_FieldListDrawItem(object drawingContext, CRectangle rect, CDrawItemState state, MetadataField field, ref bool handled)
+        private void cont_FieldListDrawItem(object drawingContext, CRectangle rect, CDrawItemState state,
+            MetadataField field, ref bool handled)
         {
-            var context = (Graphics)drawingContext;
+            var context = (Graphics) drawingContext;
             if (field == null || !field.PrimaryKey) return;
 
             handled = true;
 
-            context.FillRectangle(Brushes.White, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
+            context.FillRectangle(Brushes.White,
+                new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
 
             if (((CDrawItemState.Selected & state)) != 0 && (CDrawItemState.Focus & state) != 0)
             {
-                context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
-                context.DrawRectangle(new Pen(Color.Black) { DashStyle = DashStyle.Dot },
-                    new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height - 1)));
+                context.FillRectangle(Brushes.DodgerBlue,
+                    new Rectangle(new Point((int) rect.X, (int) rect.Y),
+                        new Size((int) rect.Width, (int) rect.Height)));
+                context.DrawRectangle(new Pen(Color.Black) {DashStyle = DashStyle.Dot},
+                    new Rectangle(new Point((int) rect.X, (int) rect.Y),
+                        new Size((int) rect.Width, (int) rect.Height - 1)));
             }
             else
             {
                 if ((CDrawItemState.Selected & state) != 0 && (CDrawItemState.Focus & state) == 0)
-                    context.FillRectangle(Brushes.DodgerBlue, new Rectangle(new Point((int) rect.X, (int) rect.Y), new Size((int) rect.Width, (int) rect.Height)));
+                    context.FillRectangle(Brushes.DodgerBlue,
+                        new Rectangle(new Point((int) rect.X, (int) rect.Y),
+                            new Size((int) rect.Width, (int) rect.Height)));
             }
 
-            var imageKey = (Bitmap)QBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon;
+            var imageKey = (Bitmap) QBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon;
 
             context.DrawImage(imageKey, new Point((int) rect.X + 3, (int) rect.Y));
 
-            const TextFormatFlags textFormatFlags = TextFormatFlags.NoClipping | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix;
+            const TextFormatFlags textFormatFlags =
+                TextFormatFlags.NoClipping | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix;
 
             var colorText = (CDrawItemState.Selected & state) != 0 ? Color.White : Color.Gray;
             var font = new Font(DefaultFont.FontFamily, DefaultFont.Size);
             var text = "(" + field.FieldTypeName + ") " + field.Name;
             var textSize = TextRenderer.MeasureText(text, font);
 
-            TextRenderer.DrawText(context, text, font, new Rectangle(new Point((int) rect.X + imageKey.Width + 2, (int) rect.Y), new Size(textSize.Width, (int) rect.Height)), colorText, textFormatFlags);
+            TextRenderer.DrawText(context, text, font,
+                new Rectangle(new Point((int) rect.X + imageKey.Width + 2, (int) rect.Y),
+                    new Size(textSize.Width, (int) rect.Height)), colorText, textFormatFlags);
         }
 
         private void QBuilder_QueryElementControlDestroying(QueryElement owner, IQueryElementControl control)

@@ -104,6 +104,7 @@
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DBView)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripStatusLabel1
@@ -894,6 +895,7 @@
             this.toolStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DBView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

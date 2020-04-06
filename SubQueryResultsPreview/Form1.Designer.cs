@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.queryBuilder = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rbQuery = new System.Windows.Forms.RadioButton();
@@ -40,18 +40,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToMicrosoftSQLServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToOracleServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectToDatabaseThroughODBCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageQueryText = new System.Windows.Forms.TabPage();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.tabPageResultsPreview = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.errorBox1 = new SubQueryResultsPreview.Common.ErrorBox();
+            this.connectToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder.SQLFormattingOptions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder.SQLGenerationOptions)).BeginInit();
@@ -69,16 +64,19 @@
             this.queryBuilder.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.queryBuilder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.queryBuilder.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.queryBuilder.DatabaseSchemaViewOptions.AllowDrop = true;
             this.queryBuilder.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder.DatabaseSchemaViewOptions.ImageList = null;
+            this.queryBuilder.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
             this.queryBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
             this.queryBuilder.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess2.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess2.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess2.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess2;
+            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder.Location = new System.Drawing.Point(12, 99);
@@ -117,12 +115,30 @@
             this.queryBuilder.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
+            this.queryBuilder.QueryNavBarOptions.ActionButtonBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.ActionButtonBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.AddCteCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.queryBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
+            this.queryBuilder.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.queryBuilder.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.GroupTextColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.queryBuilder.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.queryBuilder.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
+            this.queryBuilder.QueryNavBarOptions.SubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.SubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
             this.queryBuilder.Size = new System.Drawing.Size(926, 392);
             // 
             // 
@@ -151,6 +167,7 @@
             this.queryBuilder.TabIndex = 3;
             this.queryBuilder.VisualOptions.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
             this.queryBuilder.VisualOptions.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
+            this.queryBuilder.VisualOptions.DockPanelBackColor = System.Drawing.Color.Empty;
             this.queryBuilder.VisualOptions.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder.VisualOptions.DockTabFontColor = System.Drawing.Color.White;
             this.queryBuilder.VisualOptions.DockTabFontHoverColor = System.Drawing.Color.White;
@@ -258,53 +275,11 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToMicrosoftSQLServerToolStripMenuItem,
-            this.connectToOracleServerToolStripMenuItem,
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem,
-            this.connectToDatabaseThroughODBCToolStripMenuItem});
+            this.connectToToolStripMenuItem});
             this.connectToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
             this.connectToolStripMenuItem.Text = "Connect Database";
-            // 
-            // connectToMicrosoftSQLServerToolStripMenuItem
-            // 
-            this.connectToMicrosoftSQLServerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.connectToMicrosoftSQLServerToolStripMenuItem.Name = "connectToMicrosoftSQLServerToolStripMenuItem";
-            this.connectToMicrosoftSQLServerToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.connectToMicrosoftSQLServerToolStripMenuItem.Text = "Connect to Microsoft SQL Server";
-            this.connectToMicrosoftSQLServerToolStripMenuItem.Click += new System.EventHandler(this.connectToMicrosoftSQLServerToolStripMenuItem_Click);
-            // 
-            // connectToMicrosoftAccessDatabaseToolStripMenuItem
-            // 
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Name = "connectToMicrosoftAccessDatabaseToolStripMenuItem";
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Text = "Connect to Microsoft Access database";
-            this.connectToMicrosoftAccessDatabaseToolStripMenuItem.Click += new System.EventHandler(this.connectToMicrosoftAccessDatabaseToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(273, 6);
-            // 
-            // connectToDatabaseThroughOLEDBToolStripMenuItem
-            // 
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem.Name = "connectToDatabaseThroughOLEDBToolStripMenuItem";
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem.Text = "Connect to database through OLE DB";
-            this.connectToDatabaseThroughOLEDBToolStripMenuItem.Click += new System.EventHandler(this.connectToDatabaseThroughOLEDBToolStripMenuItem_Click);
-            // 
-            // connectToDatabaseThroughODBCToolStripMenuItem
-            // 
-            this.connectToDatabaseThroughODBCToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.connectToDatabaseThroughODBCToolStripMenuItem.Name = "connectToDatabaseThroughODBCToolStripMenuItem";
-            this.connectToDatabaseThroughODBCToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.connectToDatabaseThroughODBCToolStripMenuItem.Text = "Connect to database through ODBC";
-            this.connectToDatabaseThroughODBCToolStripMenuItem.Click += new System.EventHandler(this.connectToDatabaseThroughODBCToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -331,6 +306,23 @@
             this.tabPageQueryText.TabIndex = 0;
             this.tabPageQueryText.Text = "Selected Query Part Text";
             this.tabPageQueryText.UseVisualStyleBackColor = true;
+            // 
+            // errorBox1
+            // 
+            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBox1.AutoSize = true;
+            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
+            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBox1.CurrentSyntaxProvider = null;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(580, 66);
+            this.errorBox1.Name = "errorBox1";
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBox1.Size = new System.Drawing.Size(314, 61);
+            this.errorBox1.TabIndex = 5;
+            this.errorBox1.Visible = false;
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
             // 
             // tabPageResultsPreview
             // 
@@ -361,22 +353,12 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Query part to display:";
             // 
-            // errorBox1
+            // connectToToolStripMenuItem
             // 
-            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorBox1.AutoSize = true;
-            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
-            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.errorBox1.CurrentSyntaxProvider = null;
-            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(580, 66);
-            this.errorBox1.Name = "errorBox1";
-            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.errorBox1.Size = new System.Drawing.Size(314, 61);
-            this.errorBox1.TabIndex = 5;
-            this.errorBox1.Visible = false;
-            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
-            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
+            this.connectToToolStripMenuItem.Name = "connectToToolStripMenuItem";
+            this.connectToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectToToolStripMenuItem.Text = "Connect to...";
+            this.connectToToolStripMenuItem.Click += new System.EventHandler(this.connectToToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -423,18 +405,13 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem connectToMicrosoftSQLServerToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem connectToOracleServerToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem connectToMicrosoftAccessDatabaseToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripMenuItem connectToDatabaseThroughOLEDBToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem connectToDatabaseThroughODBCToolStripMenuItem;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPageQueryText;
 		private System.Windows.Forms.TabPage tabPageResultsPreview;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.DataGridView dataGridView1;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private System.Windows.Forms.ToolStripMenuItem connectToToolStripMenuItem;
     }
 }
 

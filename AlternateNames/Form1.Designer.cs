@@ -45,8 +45,8 @@ namespace AlternateNames
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.errorBox1 = new AlternateNames.Common.ErrorBox();
-            this.errorBox2 = new AlternateNames.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.errorBox2 = new GeneralAssembly.Common.SqlErrorBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).BeginInit();
@@ -365,8 +365,8 @@ namespace AlternateNames
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.ToolStripMenuItem editMetadataToolStripMenuItem;
-        private Common.ErrorBox errorBox1;
-        private Common.ErrorBox errorBox2;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox2;
     }
 }
 

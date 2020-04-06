@@ -8,109 +8,80 @@
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
-using ActiveQueryBuilder.View.WinForms;
 
 namespace ConsolidatedMetadataContainer
 {
     public partial class Form1 : Form
     {
-        private readonly QueryBuilder _aqb;
-        private readonly Dictionary<string, SQLContext> _connections = new Dictionary<string, SQLContext>();
-        private readonly Dictionary<MetadataItem, MetadataItem> _consolidatedToInner = new Dictionary<MetadataItem, MetadataItem>();
-        private readonly Dictionary<MetadataItem, MetadataItem> _innerToConsolidated = new Dictionary<MetadataItem, MetadataItem>();
+        // list of connections, name -> innerContext
+        private readonly Dictionary<string, SQLContext> _connections = InitConnections();
 
-        public Form1()
+        // fill connections dictionary
+        private static Dictionary<string, SQLContext> InitConnections()
         {
-            InitializeComponent();
+            var result = new Dictionary<string, SQLContext>();
 
             // first connection
-            var xmlNorthwind = new SQLContext
+            var innerXml = new SQLContext
             {
                 SyntaxProvider = new MSSQLSyntaxProvider(),
             };
-            xmlNorthwind.MetadataContainer.ImportFromXML("northwind.xml");
-            _connections.Add("xml", xmlNorthwind);
+            innerXml.MetadataContainer.ImportFromXML("northwind.xml");
+            result.Add("xml", innerXml);
 
             // second connection
-            var mssqlAdventureWorks = new SQLContext
+            var innerMsSql = new SQLContext
             {
                 SyntaxProvider = new MSSQLSyntaxProvider(),
                 MetadataProvider = new MSSQLMetadataProvider
                 {
                     Connection = new SqlConnection("Server=sql2014;Database=AdventureWorks;User Id=sa;Password=********;"),
                 },
+                LoadingOptions =
+                {
+                    LoadDefaultDatabaseOnly = false,
+                },
             };
-            _connections.Add("live", mssqlAdventureWorks);
+            result.Add("live", innerMsSql);
 
-            // QueryBuilder with consolidated metadata
-            _aqb = new QueryBuilder()
-            {
-                SyntaxProvider = new SQL2003SyntaxProvider(),
-                Dock = DockStyle.Fill,
-                Parent = this,
-            };
-
-            _aqb.MetadataContainer.ItemMetadataLoading += MetadataContainerOnItemMetadataLoading;
-
-            _aqb.InitializeDatabaseSchemaTree();
+            return result;
         }
 
-        private void MetadataContainerOnItemMetadataLoading(object sender, MetadataItem item, MetadataType loadtypes)
+        public Form1()
         {
-            // root of consolidated metadata contains connections
-            if (item == _aqb.MetadataContainer && loadtypes.Contains(MetadataType.Connection))
+            InitializeComponent();
+
+            // sql editing events
+            queryBuilder.SQLUpdated += QueryBuilderOnSqlUpdated;
+            textSql.Validating += TextSqlOnValidating;
+
+            // add connections
+            var metadataContainer = queryBuilder.MetadataContainer;
+            foreach (var connectionDescription in _connections)
             {
-                // add connections (as virtual "connection" objects)
-                foreach (var connectionDescription in _connections)
-                {
-                    var connectionName = connectionDescription.Key;
-                    var connection = connectionDescription.Value;
-                    var innerItem = connection.MetadataContainer;
-
-                    if (_innerToConsolidated.ContainsKey(innerItem))
-                        continue;
-
-                    var newItem = item.AddConnection(connectionName);
-                    newItem.Items = innerItem.Items;
-
-                    MapConsolidatedToInnerRecursive(newItem, innerItem);
-                }
-
-                return;
+                var name = connectionDescription.Key;
+                var innerContext = connectionDescription.Value;
+                metadataContainer.AddConnection(name, innerContext);
             }
 
-            // find "inner" item, load it's children and copy them to consolidated container
-            {
-                var innerItem = _consolidatedToInner[item];
-                innerItem.Items.Load(loadtypes, false);
-
-                foreach (var childItem in innerItem.Items)
-                {
-                    if (!loadtypes.Contains(childItem.Type))
-                        continue;
-
-                    if (_innerToConsolidated.ContainsKey(childItem))
-                        continue;
-
-                    var newItem = childItem.Clone(item.Items);
-                    item.Items.Add(newItem);
-
-                    MapConsolidatedToInnerRecursive(newItem, childItem);
-                }
-            }
+            // init metadata tree
+            queryBuilder.InitializeDatabaseSchemaTree();
         }
 
-        private void MapConsolidatedToInnerRecursive(MetadataItem consolidated, MetadataItem inner)
+        private void TextSqlOnValidating(object sender, CancelEventArgs e)
         {
-            _consolidatedToInner.Add(consolidated, inner);
-            _innerToConsolidated.Add(inner, consolidated);
+            queryBuilder.FormattedSQL = textSql.Text;
+        }
 
-            for (var i = 0; i < inner.Items.Count; i++)
-                MapConsolidatedToInnerRecursive(consolidated.Items[i], inner.Items[i]);
+        private void QueryBuilderOnSqlUpdated(object sender, EventArgs e)
+        {
+            textSql.Text = queryBuilder.FormattedSQL;
         }
     }
 }

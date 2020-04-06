@@ -15,22 +15,20 @@ is not suitable for some reason.
 
 using System;
 using System.Data;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using System.Data.OracleClient;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly;
 
 namespace LoadMetadataDemo
 {
 	public partial class Form1 : Form
 	{
 		private IDbConnection dbConnection;
+        private ConnectionInfo _selectedConnection;
 
-		public Form1()
+        public Form1()
 		{
 			InitializeComponent();
 		}
@@ -327,101 +325,6 @@ namespace LoadMetadataDemo
 			textBox1.Text = queryBuilder1.FormattedSQL;
 		}
 
-		private void connectToMSSQLServerMenuItem_Click(object sender, EventArgs e)
-		{
-			// Connect to MS SQL Server
-
-			using (MSSQLConnectionForm f = new MSSQLConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					if (dbConnection != null)
-					{
-						dbConnection.Close();
-						dbConnection.Dispose();
-					}
-
-					dbConnection = new SqlConnection(f.ConnectionString);
-				}
-			}
-		}
-
-		private void connectToOracleServerMenuItem_Click(object sender, EventArgs e)
-		{
-			// Connect to Oracle Server
-
-			using (OracleConnectionForm f = new OracleConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					if (dbConnection != null)
-					{
-						dbConnection.Close();
-						dbConnection.Dispose();
-					}
-
-					dbConnection = new OracleConnection(f.ConnectionString);
-				}
-			}
-		}
-
-		private void connectToAccessDatabaseMenuItem_Click(object sender, EventArgs e)
-		{
-			// Connect to MS Access database using OLE DB provider
-
-			using (AccessConnectionForm f = new AccessConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					if (dbConnection != null)
-					{
-						dbConnection.Close();
-						dbConnection.Dispose();
-					}
-
-					dbConnection = new OleDbConnection(f.ConnectionString);
-				}
-			}
-		}
-
-		private void connectOleDbMenuItem_Click(object sender, EventArgs e)
-		{
-			// Connect to a database through the OLE DB provider
-
-			using (OLEDBConnectionForm f = new OLEDBConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					if (dbConnection != null)
-					{
-						dbConnection.Close();
-						dbConnection.Dispose();
-					}
-
-					dbConnection = new OleDbConnection(f.ConnectionString);
-				}
-			}
-		}
-
-		private void connectODBCMenuItem_Click(object sender, EventArgs e)
-		{
-			// Connect to a database through the ODBC provider
-
-			using (ODBCConnectionForm f = new ODBCConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					if (dbConnection != null)
-					{
-						dbConnection.Close();
-						dbConnection.Dispose();
-					}
-
-					dbConnection = new OdbcConnection(f.ConnectionString);
-				}
-			}
-		}
-
 		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			try
@@ -444,7 +347,7 @@ namespace LoadMetadataDemo
 
 		private static DbType TypeToDbType(Type type)
 		{
-		    if (type == typeof (System.String)) return DbType.String;
+		    if (type == typeof (string)) return DbType.String;
 		    if (type == typeof (System.Int16)) return DbType.Int16;
 		    if (type == typeof (System.Int32)) return DbType.Int32;
 		    if (type == typeof (System.Int64)) return DbType.Int64;
@@ -515,5 +418,52 @@ namespace LoadMetadataDemo
 				control.Focus();
 			}
 		}
-	}
+
+        private void menuItemConnect_Click(object sender, EventArgs e)
+        {
+            var cf = new ConnectionForm() { Owner = this };
+
+            if (cf.ShowDialog() != DialogResult.OK) return;
+
+            _selectedConnection = cf.SelectedConnection;
+
+            InitializeSqlContext();
+        }
+
+        private void InitializeSqlContext()
+        {
+            try
+            {
+                queryBuilder1.Clear();
+
+                BaseMetadataProvider metadataProvider = null;
+
+                if (_selectedConnection == null) return;
+
+                // create new SqlConnection object using the connections string from the connection form
+                if (!_selectedConnection.IsXmlFile)
+                    metadataProvider = _selectedConnection.ConnectionDescriptor?.MetadataProvider;
+
+                // setup the query builder with metadata and syntax providers
+                queryBuilder1.SQLContext.MetadataContainer.Clear();
+                queryBuilder1.MetadataProvider = metadataProvider;
+                queryBuilder1.SyntaxProvider = _selectedConnection.ConnectionDescriptor?.SyntaxProvider;
+                queryBuilder1.MetadataLoadingOptions.OfflineMode = metadataProvider == null;
+
+                if (metadataProvider == null)
+                {
+                    queryBuilder1.MetadataContainer.ImportFromXML(_selectedConnection.ConnectionString);
+                }
+
+                // Instruct the query builder to fill the database schema tree
+                queryBuilder1.InitializeDatabaseSchemaTree();
+
+            }
+            finally
+            {
+
+               
+            }
+        }
+    }
 }

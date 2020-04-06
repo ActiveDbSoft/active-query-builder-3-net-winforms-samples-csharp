@@ -62,35 +62,19 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.MSSQLMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.ODBCMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OLEDBMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OracleNativeMetadataProvider, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.6.0.1159, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\CheckComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Common\ErrorBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ErrorBox.Designer.cs">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Helpers.cs" />
     <Compile Include="ConnectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,15 +87,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc.cs" />
-    <Compile Include="PropertiesForm\GroupLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Common\ErrorBox.resx">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ConnectionForm.resx">
       <DependentUpon>ConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,46 +100,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\GeneralPage.resx">
-      <DependentUpon>GeneralPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\DatabaseSchemaViewPage.resx">
-      <DependentUpon>DatabaseSchemaViewPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\MiscellaneousPage.resx">
-      <DependentUpon>MiscellaneousPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\OfflineModePage.resx">
-      <DependentUpon>OfflineModePage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\PanesVisibilityPage.resx">
-      <DependentUpon>PanesVisibilityPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\SqlFormattingPage.resx">
-      <DependentUpon>SqlFormattingPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\SqlSyntaxPage.resx">
-      <DependentUpon>SqlSyntaxPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesForm\QueryBuilderPropertiesForm.resx">
-      <DependentUpon>QueryBuilderPropertiesForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryParametersForm.resx">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryStatisticsForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -179,66 +116,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="PropertiesForm\GeneralPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\GeneralPage.designer.cs">
-      <DependentUpon>GeneralPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\DatabaseSchemaViewPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\DatabaseSchemaViewPage.designer.cs">
-      <DependentUpon>DatabaseSchemaViewPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\MiscellaneousPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\MiscellaneousPage.designer.cs">
-      <DependentUpon>MiscellaneousPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\OfflineModePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\OfflineModePage.designer.cs">
-      <DependentUpon>OfflineModePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\PanesVisibilityPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\PanesVisibilityPage.designer.cs">
-      <DependentUpon>PanesVisibilityPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlFormattingPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlFormattingPage.designer.cs">
-      <DependentUpon>SqlFormattingPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlSyntaxPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\SqlSyntaxPage.designer.cs">
-      <DependentUpon>SqlSyntaxPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesForm\QueryBuilderPropertiesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PropertiesForm\QueryBuilderPropertiesForm.designer.cs">
-      <DependentUpon>QueryBuilderPropertiesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QueryParametersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryParametersForm.designer.cs">
-      <DependentUpon>QueryParametersForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QueryStatisticsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryStatisticsForm.Designer.cs">
-      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +138,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly_ext\GeneralAssembly_ext.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ee}</Project>
+      <Name>GeneralAssembly_ext</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

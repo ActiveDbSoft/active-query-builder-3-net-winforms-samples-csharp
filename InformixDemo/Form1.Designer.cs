@@ -58,7 +58,7 @@ namespace InformixDemo
             this.openMetadataFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveMetadataFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.imageList32 = new System.Windows.Forms.ImageList(this.components);
-            this.errorBox1 = new InformixDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSQL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -458,7 +458,7 @@ namespace InformixDemo
 		private InformixSyntaxProvider informixSyntaxProvider1;
 		private InformixMetadataProvider informixMetadataProvider1;
 		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

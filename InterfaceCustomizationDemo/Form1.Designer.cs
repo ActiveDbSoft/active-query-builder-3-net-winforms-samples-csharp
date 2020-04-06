@@ -42,7 +42,7 @@
             this.CustomizeDataSourceCaption = new System.Windows.Forms.CheckBox();
             this.CustomizeDataSourceFieldList = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.errorBox1 = new InterfaceCustomizationDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -370,7 +370,7 @@
         private System.Windows.Forms.CheckBox CustomizeDataSourceCaption;
         private System.Windows.Forms.CheckBox CustomizeDataSourceFieldList;
         private System.Windows.Forms.Label label1;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }
 

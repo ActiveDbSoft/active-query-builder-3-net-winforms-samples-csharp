@@ -58,7 +58,7 @@ namespace DB2demo
             this.openMetadataFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveMetadataFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.imageList32 = new System.Windows.Forms.ImageList(this.components);
-            this.errorBox1 = new DB2demo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSQL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -454,6 +454,6 @@ namespace DB2demo
 		private DB2SyntaxProvider DB2SyntaxProvider1;
 		private DB2MetadataProvider DB2MetadataProvider1;
 		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }

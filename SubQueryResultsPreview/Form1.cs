@@ -17,6 +17,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.QueryTransformer;
+using GeneralAssembly;
+using GeneralAssembly.Forms.QueryInformationForms;
 
 
 namespace SubQueryResultsPreview
@@ -25,6 +27,7 @@ namespace SubQueryResultsPreview
 	{
         private int _errorPosition = -1;
         private string _lastValidSql;
+        private ConnectionInfo _selectedConnection;
 
         public Form1()
 		{
@@ -69,7 +72,9 @@ namespace SubQueryResultsPreview
 		}
 
 		private void QueryPartChanged(object sender, EventArgs e)
-		{
+        {
+            if (Disposing || queryBuilder.ActiveUnionSubQuery == null) return;
+
 			if (rbQuery.Checked)
 			{
                 _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
@@ -92,92 +97,6 @@ namespace SubQueryResultsPreview
 			queryBuilder.MetadataLoadingOptions.OfflineMode = false;
 		}
 
-		private void connectToMicrosoftSQLServerToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to MS SQL Server
-
-			// show the connection form
-			using (MSSQLConnectionForm f = new MSSQLConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// setup the query builder with metadata and syntax providers
-				    queryBuilder.MetadataProvider = new MSSQLMetadataProvider {Connection = new SqlConnection(f.ConnectionString)};
-				    queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
-
-					// kick the query builder to fill database schema tree
-					queryBuilder.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToMicrosoftAccessDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to MS Access database using OLE DB provider
-
-			// show the connection form
-			using (AccessConnectionForm f = new AccessConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// setup the query builder with metadata and syntax providers
-					queryBuilder.MetadataProvider = new OLEDBMetadataProvider();
-					queryBuilder.MetadataProvider.Connection = new OleDbConnection(f.ConnectionString);
-					queryBuilder.SyntaxProvider = new MSAccessSyntaxProvider();
-
-					// kick the query builder to fill database schema tree
-					queryBuilder.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToDatabaseThroughOLEDBToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to a database through the OLE DB provider
-
-			// show the connection form
-			using (OLEDBConnectionForm f = new OLEDBConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// setup the query builder with metadata and syntax providers
-					queryBuilder.MetadataProvider = new OLEDBMetadataProvider();
-					queryBuilder.MetadataProvider.Connection = new OleDbConnection(f.ConnectionString);
-					queryBuilder.SyntaxProvider = new AutoSyntaxProvider();
-
-					// kick the query builder to fill database schema tree
-					queryBuilder.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
-
-		private void connectToDatabaseThroughODBCToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
-
-			// Connect to a database through the ODBC provider
-
-			// show the connection form
-			using (ODBCConnectionForm f = new ODBCConnectionForm())
-			{
-				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// setup the query builder with metadata and syntax providers
-					queryBuilder.MetadataProvider = new ODBCMetadataProvider();
-					queryBuilder.MetadataProvider.Connection = new OdbcConnection(f.ConnectionString);
-					queryBuilder.SyntaxProvider = new AutoSyntaxProvider();
-
-					// kick the query builder to fill database schema tree
-					queryBuilder.InitializeDatabaseSchemaTree();
-				}
-			}
-		}
 
 		private void tabControl1_Selected(object sender, TabControlEventArgs e)
 		{
@@ -383,6 +302,51 @@ namespace SubQueryResultsPreview
         {
             textBox1.Text = _lastValidSql;
             textBox1.Focus();
+        }
+
+        private void connectToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cf = new ConnectionForm() { Owner = this };
+
+            if (cf.ShowDialog() != DialogResult.OK) return;
+
+            _selectedConnection = cf.SelectedConnection;
+
+            InitializeSqlContext();
+        }
+        private void InitializeSqlContext()
+        {
+            try
+            {
+                queryBuilder.Clear();
+
+                BaseMetadataProvider metadataProvider = null;
+
+                if (_selectedConnection == null) return;
+
+                // create new SqlConnection object using the connections string from the connection form
+                if (!_selectedConnection.IsXmlFile)
+                    metadataProvider = _selectedConnection.ConnectionDescriptor?.MetadataProvider;
+
+                // setup the query builder with metadata and syntax providers
+                queryBuilder.SQLContext.MetadataContainer.Clear();
+                queryBuilder.MetadataProvider = metadataProvider;
+                queryBuilder.SyntaxProvider = _selectedConnection.ConnectionDescriptor?.SyntaxProvider;
+                queryBuilder.MetadataLoadingOptions.OfflineMode = metadataProvider == null;
+                
+                if (metadataProvider == null)
+                {
+                    queryBuilder.MetadataContainer.ImportFromXML(_selectedConnection.ConnectionString);
+                }
+
+                // Instruct the query builder to fill the database schema tree
+                queryBuilder.InitializeDatabaseSchemaTree();
+
+            }
+            finally
+            {
+
+            }
         }
     }
 }

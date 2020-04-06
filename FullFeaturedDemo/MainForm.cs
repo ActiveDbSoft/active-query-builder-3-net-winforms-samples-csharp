@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Odbc;
 using System.Data.OleDb;
-using Oracle.ManagedDataAccess.Client;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
@@ -23,14 +22,14 @@ using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.QueryTransformer;
+using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms;
-
-using FullFeaturedDemo.Dailogs;
-using FullFeaturedDemo.PropertiesForm;
-using MySql.Data.MySqlClient;
-using Npgsql;
+using GeneralAssembly;
+using GeneralAssembly.Dailogs;
+using GeneralAssembly.Forms.QueryInformationForms;
+using GeneralAssembly.QueryBuilderProperties;
+using AboutForm = GeneralAssembly.Forms.AboutForm;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
-using SortOrder = System.Windows.Forms.SortOrder;
 using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace FullFeaturedDemo
@@ -45,8 +44,6 @@ namespace FullFeaturedDemo
         
         private string _fileSourcePath;
         private string _oldSql;
-        private readonly Dictionary<string, SortOrder> _sortedColumns = new Dictionary<string, SortOrder>();
-        private bool _hasError;
         private NoConnectionLabel _noConnectionLabel;
 
         public MainForm()
@@ -115,7 +112,6 @@ namespace FullFeaturedDemo
 
             queryBuilder1.SyntaxProvider = new GenericSyntaxProvider();
             queryBuilder1.SQLQuery.QueryRoot.AllowSleepMode = true;
-            queryBuilder1.SQLContext.SyntaxProviderChanged += _sqlContext_SyntaxProviderChanged;
             CBuilder.QueryTransformer = new QueryTransformer
             {
                 Query = queryBuilder1.SQLQuery,
@@ -131,6 +127,9 @@ namespace FullFeaturedDemo
             LocationChanged += MainForm_LocationChanged;
             Application.Idle += Application_Idle;
             UpdateLanguage();
+
+            dataViewer.SqlQuery = queryBuilder1.SQLQuery;
+            dataViewer.QueryTransformer = CBuilder.QueryTransformer;
         }
 
         public string FormattedQueryText => FormattedSQLBuilder.GetSQL(queryBuilder1.SQLQuery.QueryRoot, _sqlFormattingOptions);
@@ -225,64 +224,12 @@ namespace FullFeaturedDemo
                 // create new SqlConnection object using the connections string from the connection form
                 if (!_selectedConnection.IsXmlFile)
                 {
-                    switch (_selectedConnection.ConnectionType)
-                    {
-                        case ConnectionTypes.MSSQL:
-                            syntaxSyntaxProvider = new MSSQLSyntaxProvider();
-                            metadataProvider = new MSSQLMetadataProvider
-                            {
-                                Connection = new SqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.MSAccess:
-                            syntaxSyntaxProvider = new MSAccessSyntaxProvider();
-                            metadataProvider = new OLEDBMetadataProvider
-                            {
-                                Connection = new OleDbConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.Oracle:
-                            syntaxSyntaxProvider = new OracleSyntaxProvider();
-                            metadataProvider = new OracleNativeMetadataProvider
-                            {
-                                Connection = new OracleConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.MySQL:
-                            syntaxSyntaxProvider = new MySQLSyntaxProvider();
-                            metadataProvider = new UniversalMetadataProvider
-                            {
-                                Connection = new MySqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.PostgreSQL:
-                            syntaxSyntaxProvider = new PostgreSQLSyntaxProvider();
-                            metadataProvider = new UniversalMetadataProvider
-                            {
-                                Connection = new NpgsqlConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.OLEDB:
-                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
-                            metadataProvider = new OLEDBMetadataProvider
-                            {
-                                Connection = new OleDbConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        case ConnectionTypes.ODBC:
-                            syntaxSyntaxProvider = new SQL92SyntaxProvider();
-                            metadataProvider = new ODBCMetadataProvider
-                            {
-                                Connection = new OdbcConnection(_selectedConnection.ConnectionString)
-                            };
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                    syntaxSyntaxProvider = _selectedConnection.ConnectionDescriptor.SyntaxProvider;
+                    metadataProvider = _selectedConnection.ConnectionDescriptor.MetadataProvider;
                 }
                 else
                 {
-                    switch (_selectedConnection.ConnectionType)
+                    switch (_selectedConnection.Type)
                     {
                         case ConnectionTypes.MSSQL:
                             syntaxSyntaxProvider = new MSSQLSyntaxProvider();
@@ -325,6 +272,15 @@ namespace FullFeaturedDemo
                 toolStripStatusLabel1.Text = @"Query builder state: " + (queryBuilder1.SleepMode ? "Inactive" : "Active");
                 RepairImageLists();
                 RefreshNoConnectionLabel();                
+
+                queryBuilder1.QueryView.UserPredefinedConditions.Clear();
+
+                queryBuilder1.QueryView.UserPredefinedConditions.Add(
+                    new PredefinedCondition(
+                        "Check range",
+                        null,
+                        "Between 10 AND 100",
+                        false));
             }
             finally
             {
@@ -403,6 +359,8 @@ namespace FullFeaturedDemo
             tsbCopy.Enabled = CanCopy;
             tsbPaste.Enabled = CanPaste;
 
+            editUserPredefinedConditionsToolStripMenuItem.Enabled = queryBuilder1.SyntaxProvider != null;
+
             tsmiSave.Enabled = true;
             tsmiBuildQuery.Enabled = true;
             tsmiRunQuery.Enabled = true;
@@ -478,33 +436,6 @@ namespace FullFeaturedDemo
             {
                 MessageBox.Show(exception.Message);
             }
-        }
-
-        private void DataGridView1_DataSourceChanged(object sender, EventArgs e)
-        {
-            teResultSql.Text = CBuilder.SQL;
-        }
-
-        private void DataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex != -1 || e.ColumnIndex == -1)
-            {
-                return;
-            }
-            SortedColumn sorting = CBuilder.QueryTransformer.Sortings
-                .FirstOrDefault(sort => sort.Column.OriginalName == dataGridView1.Columns[e.ColumnIndex].HeaderText);
-            if (sorting == null)
-            {
-                return;
-            }
-            e.Paint(e.ClipBounds, e.PaintParts);
-            int sortIndex = CBuilder.QueryTransformer.Sortings.IndexOf(sorting) + 1;
-            StringFormat format = new StringFormat
-            {
-                LineAlignment = StringAlignment.Center
-            };
-            e.Graphics.DrawString(sortIndex.ToString(), dataGridView1.Font, SystemBrushes.ControlText, new Rectangle(e.CellBounds.X + e.CellBounds.Width - 25, e.CellBounds.Y, 25, e.CellBounds.Height), format);
-            e.Handled = true;
         }
 
         private void tsmiNew_Click(object sender, EventArgs e)
@@ -586,11 +517,6 @@ namespace FullFeaturedDemo
             {
                 Program.Settings.WindowPlacement = Bounds;
             }
-        }
-
-        private void _sqlContext_SyntaxProviderChanged(object sender, EventArgs e)
-        {
-            RefreshPaginationPanel();
         }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
@@ -882,13 +808,6 @@ namespace FullFeaturedDemo
             return true;
         }
 
-        private void RefreshPaginationPanel()
-        {
-            paginationPanel1.Visible = CBuilder.QueryTransformer.IsSupportLimitCount || CBuilder.QueryTransformer.IsSupportLimitOffset;
-            paginationPanel1.IsSupportLimitCount = CBuilder.QueryTransformer.IsSupportLimitCount;
-            paginationPanel1.IsSupportLimitOffset = CBuilder.QueryTransformer.IsSupportLimitOffset;
-        }
-
         private string SaveInFile(string path)
         {
             // Save the query text to file
@@ -997,81 +916,7 @@ namespace FullFeaturedDemo
         {
             string path = SaveInFile(null);
             if (path != null)
-            {
                 _fileSourcePath = path;
-            }
-        }
-
-        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var nameColumn = dataGridView1.Columns[e.ColumnIndex].HeaderText;
-            if (!_sortedColumns.ContainsKey(nameColumn))
-                _sortedColumns.Add(nameColumn, SortOrder.None);
-            var columnForSorting = CBuilder.QueryTransformer.Columns.FindColumnByResultName(nameColumn);
-            if (columnForSorting == null)
-            {
-                return;
-            }
-            SortedColumn newSortColumn = null;
-            var sortColumn = CBuilder.QueryTransformer.Sortings.FirstOrDefault(sorting => sorting.Column.ResultName == nameColumn);
-            if (sortColumn != null)
-                CBuilder.QueryTransformer.Sortings.Remove(sortColumn);
-            var columnSource = dataGridView1.Columns[e.ColumnIndex];
-            switch (columnSource.HeaderCell.SortGlyphDirection)
-            {
-                case SortOrder.Ascending:
-                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.Descending;
-                    newSortColumn = columnForSorting.Descending();
-                    break;
-                case SortOrder.Descending:
-                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.None;
-                    break;
-                case SortOrder.None:
-                    _sortedColumns[nameColumn] = columnSource.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
-                    newSortColumn = columnForSorting.Ascending();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            if (newSortColumn != null)
-                CBuilder.QueryTransformer.Sortings.Add(newSortColumn);
-
-            ExecuteQuery(CBuilder.SQL);
-        }
-
-        private void paginationPanel1_EnabledPaginationChanged(object sender, EventArgs e)
-        {
-            // Turn paging on and off
-            if (paginationPanel1.PaginationEnabled)
-            {
-                CBuilder.QueryTransformer.Take(paginationPanel1.PageSize.ToString());
-            }
-            else
-            {
-                paginationPanel1.Clear();
-                CBuilder.QueryTransformer.Take("");
-                CBuilder.QueryTransformer.Skip("");
-            }
-        }
-
-        private void paginationPanel1_CurrentPageChanged(object sender, EventArgs e)
-        {
-            // Select next n records
-            if (paginationPanel1.CurrentPage == 1)
-            {
-                CBuilder.QueryTransformer.Skip("");
-                return;
-            }
-            CBuilder.QueryTransformer.Skip((paginationPanel1.PageSize * (paginationPanel1.CurrentPage - 1)).ToString());
-        }
-
-        private void paginationPanel1_PageSizeChanged(object sender, EventArgs e)
-        {
-            CBuilder.QueryTransformer.Take(paginationPanel1.PageSize.ToString());
-            if (paginationPanel1.CurrentPage > 1)
-            {
-                CBuilder.QueryTransformer.Skip((paginationPanel1.PageSize * (paginationPanel1.CurrentPage - 1)).ToString());
-            }
         }
 
         private void tsbAddUnionSubquery_Click(object sender, EventArgs e)
@@ -1083,68 +928,6 @@ namespace FullFeaturedDemo
         {
             errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             _lastValidSql = teSql.Text = queryBuilder1.SleepMode ? queryBuilder1.SQL : FormattedQueryText;
-            CheckParameters();
-        }
-
-        private void CheckParameters()
-        {
-            if (Misc.CheckParameters(queryBuilder1))
-                HideParametersErrorPanel();
-            else
-            {
-                var acceptableFormats =
-                    Misc.GetAcceptableParametersFormats(queryBuilder1.MetadataProvider, queryBuilder1.SyntaxProvider);
-                ShowParametersErrorPanel(acceptableFormats);
-            }
-        }
-
-        private Control _parametersErrorPanel;
-        private void ShowParametersErrorPanel(List<string> acceptableFormats)
-        {
-            HideParametersErrorPanel();
-            _parametersErrorPanel = new Panel
-            {
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = Color.LightPink,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Top,
-                Padding = new Padding(6, 5, 3, 0),
-            };
-
-            var formats = acceptableFormats.Select(x =>
-            {
-                var s = x.Replace("n", "<number>");
-                return s.Replace("s", "<name>");
-            });
-
-            string formatsString = string.Join(", ", formats);
-
-            Label label = new Label
-            {
-                AutoSize = true,
-                Margin = new Padding(0),
-                Text = @"Unsupported parameter notation detected. For this type of connection and database server use " + formatsString,
-                Dock = DockStyle.Fill,
-                UseCompatibleTextRendering = true
-            };
-
-            _parametersErrorPanel.Controls.Add(label);
-            _parametersErrorPanel.Visible = true;
-            Controls.Add(_parametersErrorPanel);
-            Controls.SetChildIndex(_parametersErrorPanel, 2);
-        }
-
-        private void HideParametersErrorPanel()
-        {
-            if (_parametersErrorPanel != null)
-            {
-                _parametersErrorPanel.Visible = false;
-                if (_parametersErrorPanel.Parent != null)
-                    _parametersErrorPanel.Parent.Controls.Remove(_parametersErrorPanel);
-                _parametersErrorPanel.Dispose();
-                _parametersErrorPanel = null;
-            }
         }
 
         private void _sqlFormattingOptions_Updated(object sender, EventArgs e)
@@ -1198,7 +981,7 @@ namespace FullFeaturedDemo
             {
                 if (_noConnectionLabel != null)
                 {
-                    dataGridView1.SizeChanged -= DataGridView1_SizeChanged;
+                    dataViewer.SizeChanged -= DataViewerSizeChanged;
                     _noConnectionLabel.Parent = null;
                     _noConnectionLabel = null;
                 }
@@ -1206,8 +989,8 @@ namespace FullFeaturedDemo
             else if (_noConnectionLabel == null)
             {
                 _noConnectionLabel = new NoConnectionLabel();
-                dataGridView1.SizeChanged += DataGridView1_SizeChanged;
-                dataGridView1.Controls.Add(_noConnectionLabel);
+                dataViewer.SizeChanged += DataViewerSizeChanged;
+                dataViewer.Controls.Add(_noConnectionLabel);
             }
         }
 
@@ -1218,115 +1001,20 @@ namespace FullFeaturedDemo
             {
                 return;
             }
-            if (_hasError)
-            {
-                e.Cancel = true;
-                return;
-            }
-            RefreshPaginationPanel();
-            paginationPanel1.Clear();
-            CBuilder.QueryTransformer.Skip("");
-            CBuilder.QueryTransformer.Take("");
-            var sql = CBuilder.QueryTransformer.SQL;
-            teResultSql.Text = sql;
-            ExecuteQuery(sql);
-            paginationPanel1.RowsCount = dataGridView1.RowCount;
+
+            CBuilder.Clear();
+            
+            teResultSql.Text = queryBuilder1.FormattedSQL;
+            ExecuteQuery(queryBuilder1.FormattedSQL);
             RefreshNoConnectionLabel();
         }
 
         private void ExecuteQuery(string sql)
         {
-            dataGridView1.DataSource = null;
-
-            if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
-            {
-                try
-                {
-                    dataGridView1.DataSource = Misc.ExecuteSql(sql, queryBuilder1.SQLQuery);
-                    if (Misc.ParamsCache.Count != 0 && dataGridView1.DataSource != null)
-                        ShowUsedParams();
-                    else
-                        HideUsedParams();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "SQL query error");
-                }
-
-                foreach (DataGridViewColumn column in dataGridView1.Columns)
-                {
-                    column.SortMode = DataGridViewColumnSortMode.Programmatic;
-                    if (_sortedColumns.ContainsKey(column.HeaderText))
-                    {
-                        column.HeaderCell.SortGlyphDirection = _sortedColumns[column.HeaderText];
-                    }
-                }
-            }
+            dataViewer.FillDataGrid(sql);
         }
 
-        private Control _usedParamsPanel;
-        private void ShowUsedParams()
-        {
-            HideUsedParams();
-
-            _usedParamsPanel = new Panel
-            {
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = Color.LightGoldenrodYellow,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Top,
-                Padding = new Padding(2, 2, 2, 2)
-            };
-
-            var parameters = Misc.ParamsCache.Select(x => string.Format("{0} = {1}", x.Name, x.Value));
-            var paramsString = "Used parameters: " + string.Join(", ", parameters);
-
-            Label label = new Label
-            {
-                AutoSize = true,
-                Padding = new Padding(4, 3, 1, 0),
-                Text = paramsString,
-                Dock = DockStyle.Fill,
-                UseCompatibleTextRendering = true
-            };
-
-            var button = new Button
-            {
-                Text = "Edit",
-                Dock = DockStyle.Right,
-                BackColor = SystemColors.Control,
-                Margin = new Padding(5)
-            };
-
-            button.Click += EditParamsButtonOnClick;
-
-            _usedParamsPanel.Controls.Add(button);
-            _usedParamsPanel.Controls.Add(label);
-            _usedParamsPanel.Visible = true;
-            pageQueryResult.Controls.Add(_usedParamsPanel);
-        }
-
-        private void EditParamsButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            Misc.ParamsCache.Clear();
-            if (tabControl1.SelectedTab == pageQueryResult)
-                ExecuteQuery(CBuilder.SQL);
-        }
-
-        private void HideUsedParams()
-        {
-            if (_usedParamsPanel != null)
-            {
-                _usedParamsPanel.Visible = false;
-                if (_usedParamsPanel.Parent != null)
-                    _usedParamsPanel.Parent.Controls.Remove(_usedParamsPanel);
-                _usedParamsPanel.Dispose();
-                _usedParamsPanel = null;
-            }
-        }
-
-        private void DataGridView1_SizeChanged(object sender, EventArgs e)
+        private void DataViewerSizeChanged(object sender, EventArgs e)
         {
             Control parent = (Control)sender;
             int x = parent.Width / 2 - _noConnectionLabel.Width / 2;
@@ -1355,6 +1043,16 @@ namespace FullFeaturedDemo
         {
             teSql.Text = _lastValidSql;
             teSql.Focus();
+        }
+
+        private void editUserExpressionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new EditUserExpressionForm())
+            {
+                form.LoadUserExpressions(queryBuilder1.QueryView.UserPredefinedConditions);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
         }
     }
 }

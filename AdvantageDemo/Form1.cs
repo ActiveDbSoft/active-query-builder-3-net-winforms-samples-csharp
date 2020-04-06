@@ -12,10 +12,10 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
 using Advantage.Data.Provider;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly.Forms.QueryInformationForms;
 
 
 namespace AdvantageDemo

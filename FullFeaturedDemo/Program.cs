@@ -12,6 +12,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using FullFeaturedDemo.Properties;
+using GeneralAssembly;
 
 namespace FullFeaturedDemo
 {

@@ -62,7 +62,7 @@ namespace FullFeaturedMdiDemo
             this.tabPageFastResult = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.resultGrid2 = new FullFeaturedMdiDemo.Common.ResultGrid();
+            this.resultGrid2 = new GeneralAssembly.DataViewerControl.DataViewer();
             this.NavBar = new ActiveQueryBuilder.View.WinForms.NavigationBar.QueryNavigationBar();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbQueryProperties = new System.Windows.Forms.ToolStripButton();
@@ -76,8 +76,7 @@ namespace FullFeaturedMdiDemo
             this.tsbSaveInFile = new System.Windows.Forms.ToolStripButton();
             this.tsbSaveNewUserQuery = new System.Windows.Forms.ToolStripButton();
             this.pageQueryResult = new System.Windows.Forms.TabPage();
-            this.resultGrid1 = new FullFeaturedMdiDemo.Common.ResultGrid();
-            this.paginationPanel1 = new FullFeaturedMdiDemo.PaginationPanel();
+            this.resultGrid1 = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -86,8 +85,8 @@ namespace FullFeaturedMdiDemo
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
             this.panel4 = new System.Windows.Forms.Panel();
             this.rtbQueryText = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
-            this.errorBox1 = new FullFeaturedMdiDemo.Common.ErrorBox();
-            this.errorBoxCurrent = new FullFeaturedMdiDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.errorBoxCurrent = new GeneralAssembly.Common.SqlErrorBox();
             this.contextMenuStripForRichTextBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.pageQueryBuilder.SuspendLayout();
@@ -448,7 +447,6 @@ namespace FullFeaturedMdiDemo
             // 
             // queryColumnListControl1
             // 
-            this.queryColumnListControl1.ActiveUnionSubQuery = null;
             this.queryColumnListControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryColumnListControl1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.queryColumnListControl1.Location = new System.Drawing.Point(0, 0);
@@ -477,7 +475,6 @@ namespace FullFeaturedMdiDemo
             this.queryColumnListControl1.Options.InitialOrColumnsCount = 2;
             this.queryColumnListControl1.Options.NullOrderingInOrderBy = false;
             this.queryColumnListControl1.Options.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
-            this.queryColumnListControl1.Query = null;
             this.queryColumnListControl1.SelectedItems = new int[0];
             this.queryColumnListControl1.Size = new System.Drawing.Size(866, 83);
             this.queryColumnListControl1.TabIndex = 0;
@@ -668,7 +665,7 @@ namespace FullFeaturedMdiDemo
             // 
             this.resultGrid2.AutoSize = true;
             this.resultGrid2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultGrid2.EnabledSortings = false;
+            this.resultGrid2.EnabledSorting = false;
             this.resultGrid2.Location = new System.Drawing.Point(0, 0);
             this.resultGrid2.Name = "resultGrid2";
             this.resultGrid2.QueryTransformer = null;
@@ -808,7 +805,6 @@ namespace FullFeaturedMdiDemo
             // pageQueryResult
             // 
             this.pageQueryResult.Controls.Add(this.resultGrid1);
-            this.pageQueryResult.Controls.Add(this.paginationPanel1);
             this.pageQueryResult.Controls.Add(this.CBuilder);
             this.pageQueryResult.Controls.Add(this.richTextBox1);
             this.pageQueryResult.ImageIndex = 1;
@@ -830,23 +826,7 @@ namespace FullFeaturedMdiDemo
             this.resultGrid1.Size = new System.Drawing.Size(866, 426);
             this.resultGrid1.SqlQuery = null;
             this.resultGrid1.TabIndex = 4;
-            this.resultGrid1.RowsLoaded += new System.EventHandler(this.RowsLoaded);
-            // 
-            // paginationPanel1
-            // 
-            this.paginationPanel1.CurrentPage = 0;
-            this.paginationPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.paginationPanel1.IsSupportLimitCount = false;
-            this.paginationPanel1.IsSupportLimitOffset = false;
-            this.paginationPanel1.Location = new System.Drawing.Point(3, 480);
-            this.paginationPanel1.Name = "paginationPanel1";
-            this.paginationPanel1.PageSize = 0;
-            this.paginationPanel1.RowsCount = 0;
-            this.paginationPanel1.Size = new System.Drawing.Size(866, 29);
-            this.paginationPanel1.TabIndex = 3;
-            this.paginationPanel1.EnabledPaginationChanged += new System.EventHandler(this.paginationPanel1_EnabledPaginationChanged);
-            this.paginationPanel1.CurrentPageChanged += new System.EventHandler(this.paginationPanel1_CurrentPageChanged);
-            this.paginationPanel1.PageSizeChanged += new System.EventHandler(this.paginationPanel1_PageSizeChanged);
+         
             // 
             // CBuilder
             // 
@@ -854,7 +834,6 @@ namespace FullFeaturedMdiDemo
             this.CBuilder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CBuilder.Dock = System.Windows.Forms.DockStyle.Top;
             this.CBuilder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CBuilder.JunctionPostfix = null;
             this.CBuilder.Location = new System.Drawing.Point(3, 3);
             this.CBuilder.MinimumSize = new System.Drawing.Size(188, 51);
             this.CBuilder.Name = "CBuilder";
@@ -1092,7 +1071,6 @@ namespace FullFeaturedMdiDemo
         private System.Windows.Forms.ToolStripButton tsbSave;
         private System.Windows.Forms.ToolStripButton tsbSaveInFile;
         private System.Windows.Forms.ToolStripButton tsbSaveNewUserQuery;
-        private PaginationPanel paginationPanel1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPageSQL;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -1105,11 +1083,11 @@ namespace FullFeaturedMdiDemo
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label labelSleepMode;
-        private Common.ResultGrid resultGrid2;
-        private Common.ResultGrid resultGrid1;
+        private GeneralAssembly.DataViewerControl.DataViewer resultGrid2;
+        private GeneralAssembly.DataViewerControl.DataViewer resultGrid1;
         private System.Windows.Forms.Panel panel4;
         private SqlTextEditor rtbQueryText;
-        private Common.ErrorBox errorBox1;
-        private Common.ErrorBox errorBoxCurrent;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBoxCurrent;
     }
 }

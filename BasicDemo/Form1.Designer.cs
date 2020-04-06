@@ -36,9 +36,10 @@ namespace BasicDemo
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSQL = new System.Windows.Forms.TabPage();
+            this.sqlTextEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
+            this.queryBuilder1 = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
             this.expressionEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor(this.components);
             this.tabPageData = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.genericSyntaxProvider1 = new ActiveQueryBuilder.Core.GenericSyntaxProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -68,21 +69,19 @@ namespace BasicDemo
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.labelSleepMode = new System.Windows.Forms.Label();
-            this.sqlTextEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
-            this.queryBuilder1 = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
-            this.errorBox1 = new BasicDemo.Common.ErrorBox();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.dataViewer1 = new GeneralAssembly.DataViewerControl.DataViewer();
             this.tabControl1.SuspendLayout();
             this.tabPageSQL.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).BeginInit();
             this.tabPageData.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -93,7 +92,7 @@ namespace BasicDemo
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(901, 157);
+            this.tabControl1.Size = new System.Drawing.Size(901, 151);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -104,10 +103,156 @@ namespace BasicDemo
             this.tabPageSQL.Location = new System.Drawing.Point(4, 22);
             this.tabPageSQL.Name = "tabPageSQL";
             this.tabPageSQL.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSQL.Size = new System.Drawing.Size(893, 131);
+            this.tabPageSQL.Size = new System.Drawing.Size(893, 125);
             this.tabPageSQL.TabIndex = 0;
             this.tabPageSQL.Text = "SQL";
             this.tabPageSQL.UseVisualStyleBackColor = true;
+            // 
+            // sqlTextEditor1
+            // 
+            this.sqlTextEditor1.AllowShowSuggestionByMouse = false;
+            this.sqlTextEditor1.BackColor = System.Drawing.Color.White;
+            this.sqlTextEditor1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sqlTextEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sqlTextEditor1.Location = new System.Drawing.Point(3, 3);
+            this.sqlTextEditor1.Name = "sqlTextEditor1";
+            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.sqlTextEditor1.QueryProvider = this.queryBuilder1;
+            this.sqlTextEditor1.Size = new System.Drawing.Size(887, 119);
+            this.sqlTextEditor1.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
+            this.sqlTextEditor1.TabIndex = 1;
+            this.sqlTextEditor1.Validating += new System.ComponentModel.CancelEventHandler(this.sqlTextEditor1_Validating);
+            // 
+            // queryBuilder1
+            // 
+            this.queryBuilder1.AddObjectDialogOptions.Location = new System.Drawing.Point(0, 0);
+            this.queryBuilder1.AddObjectDialogOptions.Size = new System.Drawing.Size(400, 400);
+            this.queryBuilder1.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.queryBuilder1.BehaviorOptions.ResolveColumnNamingConflictsAutomatically = false;
+            this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
+            this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
+            this.queryBuilder1.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
+            this.queryBuilder1.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
+            this.queryBuilder1.DataSourceOptions.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
+            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
+            this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
+            this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.queryBuilder1.ExpressionEditor = this.expressionEditor1;
+            this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
+            this.queryBuilder1.MetadataStructureOptions.AllowFavourites = true;
+            this.queryBuilder1.Name = "queryBuilder1";
+            this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
+            this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 201;
+            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
+            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
+            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarEnabled = true;
+            this.queryBuilder1.PanesConfigurationOptions.QueryColumnsPaneHeight = 150;
+            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
+            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
+            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
+            this.queryBuilder1.QueryColumnListOptions.AlternateRowColor = System.Drawing.SystemColors.Highlight;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 5;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 7;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 8;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 6;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 4;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 3;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
+            this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
+            this.queryBuilder1.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
+            this.queryBuilder1.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
+            this.queryBuilder1.QueryNavBarOptions.ActionButtonBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActionButtonBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.AddCteCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
+            this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
+            this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.GroupTextColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
+            this.queryBuilder1.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.Size = new System.Drawing.Size(901, 337);
+            // 
+            // 
+            // 
+            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.DynamicIndents = false;
+            this.queryBuilder1.SQLFormattingOptions.DynamicRightMargin = false;
+            this.queryBuilder1.SQLFormattingOptions.ExpandVirtualFields = false;
+            this.queryBuilder1.SQLFormattingOptions.ExpandVirtualObjects = false;
+            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.NewLineAfterDatasource = false;
+            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.MainPartsFromNewLine = false;
+            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
+            // 
+            // 
+            // 
+            this.queryBuilder1.SQLGenerationOptions.ExpandVirtualFields = true;
+            this.queryBuilder1.SQLGenerationOptions.ExpandVirtualObjects = true;
+            this.queryBuilder1.SQLGenerationOptions.UseAltNames = false;
+            this.queryBuilder1.TabIndex = 6;
+            this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
+            this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
+            this.queryBuilder1.VisualOptions.DockPanelBackColor = System.Drawing.Color.Empty;
+            this.queryBuilder1.VisualOptions.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
+            this.queryBuilder1.VisualOptions.DockTabFontColor = System.Drawing.Color.White;
+            this.queryBuilder1.VisualOptions.DockTabFontHoverColor = System.Drawing.Color.White;
+            this.queryBuilder1.VisualOptions.DockTabHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
+            this.queryBuilder1.VisualOptions.DockTabIndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(90)))), ((int)(((byte)(125)))));
+            this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
+            this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
+            this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
+            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
+            this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
+            this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
+            this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
             // 
             // expressionEditor1
             // 
@@ -116,29 +261,18 @@ namespace BasicDemo
             // 
             // tabPageData
             // 
-            this.tabPageData.Controls.Add(this.dataGridView1);
+            this.tabPageData.Controls.Add(this.dataViewer1);
             this.tabPageData.Location = new System.Drawing.Point(4, 22);
             this.tabPageData.Name = "tabPageData";
             this.tabPageData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageData.Size = new System.Drawing.Size(893, 137);
+            this.tabPageData.Size = new System.Drawing.Size(893, 131);
             this.tabPageData.TabIndex = 1;
             this.tabPageData.Text = "Data";
             this.tabPageData.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(887, 131);
-            this.dataGridView1.TabIndex = 0;
-            // 
             // genericSyntaxProvider1
             // 
+            this.genericSyntaxProvider1.DetectServerVersion = false;
             this.genericSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
             this.genericSyntaxProvider1.OnCalcExpressionType = null;
             // 
@@ -152,6 +286,7 @@ namespace BasicDemo
             // 
             // mssqlSyntaxProvider1
             // 
+            this.mssqlSyntaxProvider1.DetectServerVersion = true;
             this.mssqlSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // mssqlMetadataProvider1
@@ -172,11 +307,13 @@ namespace BasicDemo
             // 
             // oracleSyntaxProvider1
             // 
+            this.oracleSyntaxProvider1.DetectServerVersion = true;
             this.oracleSyntaxProvider1.OnCalcExpressionType = null;
             this.oracleSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.OracleServerVersion.Oracle18;
             // 
             // msaccessSyntaxProvider1
             // 
+            this.msaccessSyntaxProvider1.DetectServerVersion = false;
             this.msaccessSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
             this.msaccessSyntaxProvider1.OnCalcExpressionType = null;
             // 
@@ -323,8 +460,8 @@ namespace BasicDemo
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(901, 551);
-            this.splitContainer2.SplitterDistance = 390;
+            this.splitContainer2.Size = new System.Drawing.Size(901, 530);
+            this.splitContainer2.SplitterDistance = 375;
             this.splitContainer2.TabIndex = 4;
             // 
             // labelSleepMode
@@ -333,7 +470,7 @@ namespace BasicDemo
             this.labelSleepMode.BackColor = System.Drawing.Color.Bisque;
             this.labelSleepMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelSleepMode.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelSleepMode.Location = new System.Drawing.Point(0, 352);
+            this.labelSleepMode.Location = new System.Drawing.Point(0, 337);
             this.labelSleepMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelSleepMode.Name = "labelSleepMode";
             this.labelSleepMode.Padding = new System.Windows.Forms.Padding(10);
@@ -344,151 +481,6 @@ namespace BasicDemo
             this.labelSleepMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelSleepMode.Visible = false;
             // 
-            // sqlTextEditor1
-            // 
-            this.sqlTextEditor1.AllowShowSuggestionByMouse = false;
-            this.sqlTextEditor1.BackColor = System.Drawing.Color.White;
-            this.sqlTextEditor1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sqlTextEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sqlTextEditor1.Location = new System.Drawing.Point(3, 3);
-            this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.sqlTextEditor1.QueryProvider = this.queryBuilder1;
-            this.sqlTextEditor1.Size = new System.Drawing.Size(887, 125);
-            this.sqlTextEditor1.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
-            this.sqlTextEditor1.TabIndex = 1;
-            this.sqlTextEditor1.Validating += new System.ComponentModel.CancelEventHandler(this.sqlTextEditor1_Validating);
-            // 
-            // queryBuilder1
-            // 
-            this.queryBuilder1.AddObjectDialogOptions.Location = new System.Drawing.Point(0, 0);
-            this.queryBuilder1.AddObjectDialogOptions.Size = new System.Drawing.Size(400, 400);
-            this.queryBuilder1.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.queryBuilder1.BehaviorOptions.ResolveColumnNamingConflictsAutomatically = false;
-            this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
-            this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
-            this.queryBuilder1.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
-            this.queryBuilder1.DataSourceOptions.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
-            this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
-            this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder1.ExpressionEditor = this.expressionEditor1;
-            this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
-            this.queryBuilder1.MetadataStructureOptions.AllowFavourites = true;
-            this.queryBuilder1.Name = "queryBuilder1";
-            this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
-            this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 201;
-            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
-            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
-            this.queryBuilder1.PanesConfigurationOptions.PropertiesBarEnabled = true;
-            this.queryBuilder1.PanesConfigurationOptions.QueryColumnsPaneHeight = 150;
-            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
-            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
-            this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
-            this.queryBuilder1.QueryColumnListOptions.AlternateRowColor = System.Drawing.SystemColors.Highlight;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 5;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 7;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 8;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 6;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 4;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 3;
-            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
-            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
-            this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
-            this.queryBuilder1.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
-            this.queryBuilder1.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
-            this.queryBuilder1.QueryNavBarOptions.ActionButtonBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.ActionButtonBorderColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.AddCteCircleColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
-            this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
-            this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.GroupTextColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
-            this.queryBuilder1.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
-            this.queryBuilder1.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
-            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.SubQueryItemBorderColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.Size = new System.Drawing.Size(901, 352);
-            // 
-            // 
-            // 
-            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.DerivedQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.DynamicIndents = false;
-            this.queryBuilder1.SQLFormattingOptions.DynamicRightMargin = false;
-            this.queryBuilder1.SQLFormattingOptions.ExpandVirtualFields = false;
-            this.queryBuilder1.SQLFormattingOptions.ExpandVirtualObjects = false;
-            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.FromClauseFormat.NewLineAfterDatasource = false;
-            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.MainPartsFromNewLine = false;
-            this.queryBuilder1.SQLFormattingOptions.ExpressionSubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            // 
-            // 
-            // 
-            this.queryBuilder1.SQLGenerationOptions.ExpandVirtualFields = true;
-            this.queryBuilder1.SQLGenerationOptions.ExpandVirtualObjects = true;
-            this.queryBuilder1.SQLGenerationOptions.UseAltNames = false;
-            this.queryBuilder1.TabIndex = 6;
-            this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
-            this.queryBuilder1.VisualOptions.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
-            this.queryBuilder1.VisualOptions.DockPanelBackColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.VisualOptions.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
-            this.queryBuilder1.VisualOptions.DockTabFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.DockTabFontHoverColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.DockTabHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
-            this.queryBuilder1.VisualOptions.DockTabIndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(90)))), ((int)(((byte)(125)))));
-            this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
-            this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
-            this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
-            this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
-            this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
-            this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
-            // 
             // errorBox1
             // 
             this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -497,7 +489,7 @@ namespace BasicDemo
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
             this.errorBox1.IsVisibleCheckSyntaxPanel = true;
-            this.errorBox1.Location = new System.Drawing.Point(531, 25);
+            this.errorBox1.Location = new System.Drawing.Point(531, 19);
             this.errorBox1.Name = "errorBox1";
             this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
             this.errorBox1.Size = new System.Drawing.Size(354, 100);
@@ -507,11 +499,22 @@ namespace BasicDemo
             this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidTextEvent);
             this.errorBox1.StyleChanged += new System.EventHandler(this.errorBox1_SyntaxProviderChanged);
             // 
+            // dataViewer1
+            // 
+            this.dataViewer1.AutoSize = true;
+            this.dataViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataViewer1.Location = new System.Drawing.Point(3, 3);
+            this.dataViewer1.Name = "dataViewer1";
+            this.dataViewer1.QueryTransformer = null;
+            this.dataViewer1.Size = new System.Drawing.Size(887, 125);
+            this.dataViewer1.SqlQuery = null;
+            this.dataViewer1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 588);
+            this.ClientSize = new System.Drawing.Size(901, 567);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -523,17 +526,17 @@ namespace BasicDemo
             this.tabControl1.ResumeLayout(false);
             this.tabPageSQL.ResumeLayout(false);
             this.tabPageSQL.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).EndInit();
             this.tabPageData.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPageData.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,7 +547,6 @@ namespace BasicDemo
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPageSQL;
 		private System.Windows.Forms.TabPage tabPageData;
-		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
@@ -573,10 +575,11 @@ namespace BasicDemo
         private System.Windows.Forms.Panel panel1;
         private ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor expressionEditor1;
         private System.Windows.Forms.MenuItem menuItem5;
-        private Common.ErrorBox errorBox1;
+        private GeneralAssembly.Common.SqlErrorBox errorBox1;
         private ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor sqlTextEditor1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
         private System.Windows.Forms.Label labelSleepMode;
+        private GeneralAssembly.DataViewerControl.DataViewer dataViewer1;
     }
 }

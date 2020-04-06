@@ -20,7 +20,7 @@ using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
 using ActiveQueryBuilder.View.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
-using ExpressionEditorDemo.Common;
+using GeneralAssembly;
 using DragEventArgs = ActiveQueryBuilder.View.EventHandlers.DragEventArgs;
 
 namespace ExpressionEditorDemo
@@ -830,7 +830,7 @@ namespace ExpressionEditorDemo
             CPoint point = GetScreenPoint((Control)sender, e.Location.FromNativePoint());
 
             if (menu.ItemCount > 0)
-                menu.Show(point.X, point.Y);
+                menu.Show(null, point.X, point.Y);
         }
 
         private void MenuItem_Clicked(object sender, EventArgs e)

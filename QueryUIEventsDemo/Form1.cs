@@ -71,7 +71,7 @@ namespace QueryUIEventsDemo
             }
         }
 
-		/// <summary>
+        /// <summary>
         /// Displays a prompt on deleting an object from the query.
         /// </summary>
         private void QBuilder_DataSourceDeleting(DataSource dataSource, ref bool abort)
@@ -140,7 +140,7 @@ namespace QueryUIEventsDemo
             }
         }
 
-        private void QBuilder_QueryColumnListItemChanged(QueryColumnList queryColumnList, QueryColumnListItem queryColumnListItem, 
+        private void QBuilder_QueryColumnListItemChanged(QueryColumnList queryColumnList, QueryColumnListItem queryColumnListItem,
             QueryColumnListItemProperty property, int conditionIndex, object newValue)
         {
             if (CbQueryColumnListItemChanged.Checked != true) return;
@@ -153,7 +153,7 @@ namespace QueryUIEventsDemo
         // Note: Some columns hide/unhide dynamically but this does not affect the column index in the event parameters -
         //       it includes hidden columns.
         // private void queryBuilder1_GridCellValueChanging(UnionSubQuery unionSubQuery, QueryColumnList criteriaList, QueryColumnListItem criteriaItem, int column, int row, object oldValue, ref object newValue, ref bool abort)
-        private void QBuilder_QueryColumnListItemChanging(QueryColumnList queryColumnList, QueryColumnListItem queryColumnListItem, 
+        private void QBuilder_QueryColumnListItemChanging(QueryColumnList queryColumnList, QueryColumnListItem queryColumnListItem,
             QueryColumnListItemProperty property, int conditionIndex, object oldValue, ref object newValue, ref bool abort)
         {
             if (!CbQueryColumnListItemChanging.Checked) return;
@@ -211,10 +211,10 @@ namespace QueryUIEventsDemo
         //
         // LinkCreating event allows to prevent link creation
         //
-        private void QBuilder_LinkCreating(DataSource fromDataSource, MetadataField fromField, DataSource toDataSource, MetadataField toField, 
+        private void QBuilder_LinkCreating(DataSource fromDataSource, MetadataField fromField, DataSource toDataSource, MetadataField toField,
             MetadataForeignKey correspondingMetadataForeignKey, ref bool abort)
         {
-            if(!CbLinkCreating.Checked) return;
+            if (!CbLinkCreating.Checked) return;
 
             var fromFieldText = fromField == null
                 ? fromDataSource.NameInQuery + ".*"
@@ -259,7 +259,7 @@ namespace QueryUIEventsDemo
 
         private void QBuilder_SQLUpdated(object sender, EventArgs e)
         {
-			// Update the text of SQL query when it's changed in the query builder.
+            // Update the text of SQL query when it's changed in the query builder.
             _lastValidSql = TextBoxSQL.Text = QBuilder.FormattedSQL;
 
             errorBox1.Show(null, QBuilder.SyntaxProvider);
@@ -272,7 +272,7 @@ namespace QueryUIEventsDemo
 
         private void TextBoxSQL_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-			// Feed the text from text editor to the query builder when user exits the editor.
+            // Feed the text from text editor to the query builder when user exits the editor.
             try
             {
                 // Update the query builder with manually edited query text:
@@ -299,7 +299,7 @@ namespace QueryUIEventsDemo
 
         private void QBuilder_QueryColumnListItemRemoving(object sender, QueryColumnListItem item, ref bool abort)
         {
-            if(!cbQueryColumnListItemRemoving.Checked) return;
+            if (!cbQueryColumnListItemRemoving.Checked) return;
 
             var value = string.Format("QueryColumnListItemRemoving. Deleting the [{0}]", item.ExpressionString);
             AddRowToReport(value);

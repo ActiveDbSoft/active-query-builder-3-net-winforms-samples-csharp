@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullFeaturedDemo", "FullFea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullFeaturedMdiDemo", "FullFeaturedMdiDemo\FullFeaturedMdiDemo.csproj", "{5398D988-F727-442E-BDE4-CDE35B956A61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralAssembly", "GeneralAssembly\GeneralAssembly.csproj", "{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralAssembly_ext", "GeneralAssembly_ext\GeneralAssembly_ext.csproj", "{459A8DFB-6B43-4A5D-B6A0-D81B32C553EE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformixDemo", "InformixDemo\InformixDemo.csproj", "{B260E06E-DFCC-453D-878B-8520B7260CB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceCustomizationDemo", "InterfaceCustomizationDemo\InterfaceCustomizationDemo.csproj", "{70376468-B60C-4FEF-AD2B-8FE30E244F1A}"
@@ -150,6 +154,16 @@ Global
 {5398D988-F727-442E-BDE4-CDE35B956A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 {5398D988-F727-442E-BDE4-CDE35B956A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 {5398D988-F727-442E-BDE4-CDE35B956A61}.Release|Any CPU.Build.0 = Release|Any CPU
+
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}.Release|Any CPU.Build.0 = Release|Any CPU
+
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+{459A8DFB-6B43-4A5D-B6A0-D81B32C553EE}.Release|Any CPU.Build.0 = Release|Any CPU
 
 {B260E06E-DFCC-453D-878B-8520B7260CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 {B260E06E-DFCC-453D-878B-8520B7260CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU

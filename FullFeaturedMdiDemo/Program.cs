@@ -13,6 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly;
 
 namespace FullFeaturedMdiDemo
 {
@@ -84,14 +85,11 @@ namespace FullFeaturedMdiDemo
 		private static void Thread_UnhandledException(object sender, ThreadExceptionEventArgs e)
 		{
 			Exception exception = e.Exception;
-			if (exception != null)
-			{
-				ThreadExceptionDialog exceptionDialog = new ThreadExceptionDialog(exception);
-				if (exceptionDialog.ShowDialog() == DialogResult.Abort)
-				{
-					Application.Exit();
-				}
-			}
-		}
+            if (exception == null) return;
+
+            var exceptionDialog = new ThreadExceptionDialog(exception);
+            if (exceptionDialog.ShowDialog() == DialogResult.Abort)
+                Application.Exit();
+        }
 	}
 }

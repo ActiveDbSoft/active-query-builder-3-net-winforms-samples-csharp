@@ -12,8 +12,6 @@ using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
 using ActiveQueryBuilder.View.WinForms;
-using FullFeaturedMdiDemo.Common;
-using FullFeaturedMdiDemo.Dailogs;
 using FullFeaturedMdiDemo.PropertiesForm;
 using System;
 using System.ComponentModel;
@@ -24,6 +22,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GeneralAssembly;
+using GeneralAssembly.Dailogs;
+using GeneralAssembly.Forms;
+using AboutForm = GeneralAssembly.Forms.AboutForm;
 using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 using Helpers = ActiveQueryBuilder.Core.Helpers;
 
@@ -188,9 +190,8 @@ namespace FullFeaturedMdiDemo
 				Application.Idle -= Application_Idle;
                 DBView.ItemDoubleClick -= DBView_ItemDoubleClick;
 
-				if (components != null)
-					components.Dispose();
-			}
+                components?.Dispose();
+            }
 
 			base.Dispose(disposing);
 		}
@@ -225,9 +226,7 @@ namespace FullFeaturedMdiDemo
             }
             Program.Settings.Language = (string)currentItem.Tag;
             Helpers.Localizer.Language = (string)currentItem.Tag;
-            if (ActiveMdiChild != null) {
-                ((ChildForm)ActiveMdiChild).UpdateLanguage();
-            }
+            ((ChildForm) ActiveMdiChild)?.UpdateLanguage();
             currentItem.Checked = true;
         }
 
@@ -275,7 +274,7 @@ namespace FullFeaturedMdiDemo
 	        copyUnionSubwueryToolStripMenuItem.Enabled = (ActiveMdiChild != null &&
 	                                                      ((ChildForm) ActiveMdiChild).CanCopyUnionSubQuery());
 
-            tsbEditMetadata.Enabled = _sqlContext != null && _sqlContext.MetadataContainer != null;
+            tsbEditMetadata.Enabled = _sqlContext?.MetadataContainer != null;
 	    }
 
 	    private void tsbNew_Click(object sender, EventArgs e)
@@ -303,7 +302,7 @@ namespace FullFeaturedMdiDemo
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -315,7 +314,7 @@ namespace FullFeaturedMdiDemo
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -332,9 +331,9 @@ namespace FullFeaturedMdiDemo
                     _sqlContext.MetadataStructure.Refresh();
                 }
 
-                var favouritesItem = _sqlContext.MetadataStructure.FavouritesItem;
-                if (favouritesItem != null)
-                    favouritesItem.UpdateEnded += Favourites_Updated;
+                var favoritesItem = _sqlContext.MetadataStructure.FavouritesItem;
+                if (favoritesItem != null)
+                    favoritesItem.UpdateEnded += Favourites_Updated;
 
                 CaptionConnection.Text = _selectedConnection.Name;
 
@@ -445,12 +444,9 @@ namespace FullFeaturedMdiDemo
 		}
 
 		private void tsmiSave_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-			    ((ChildForm) ActiveMdiChild).Save(false);
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Save(false);
+        }
 
 		private void tsmiExit_Click(object sender, EventArgs e)
 		{
@@ -499,36 +495,24 @@ namespace FullFeaturedMdiDemo
 		}
 
 		private void tsmiParseQuery_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).ParseQuery();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.ParseQuery();
+        }
 
 		private void tsmiBuildQuery_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).ActivateBuildQueryTab();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.ActivateBuildQueryTab();
+        }
 
 		private void tsmiRunQuery_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).ActivateRunQueryTab();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.ActivateRunQueryTab();
+        }
 
 		private void tsmiQueryStatistics_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).ShowQueryStatistics();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.ShowQueryStatistics();
+        }
 
 		private void tsmiAbout_Click(object sender, EventArgs e)
 		{
@@ -539,52 +523,34 @@ namespace FullFeaturedMdiDemo
 		}
 
 		private void tsmiUndo_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).Undo();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Undo();
+        }
 
 		private void tsmiRedo_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).Redo();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Redo();
+        }
 
 		private void tsmiCut_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).Cut();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Cut();
+        }
 
 		private void tsmiCopy_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).Copy();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Copy();
+        }
 
 		private void tsmiPaste_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).Paste();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.Paste();
+        }
 
 		private void tsmiSelectAll_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).SelectAll();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.SelectAll();
+        }
 
 		private void tsbOpen_Click(object sender, EventArgs e)
 		{
@@ -654,25 +620,18 @@ namespace FullFeaturedMdiDemo
 
 		private void tsmiClearMetadata_Click(object sender, EventArgs e)
 		{
-            if (_sqlContext == null) return;
-            _sqlContext.MetadataContainer.Clear();
+            _sqlContext?.MetadataContainer.Clear();
         }
 
 		private void tsmiLoadMetadataFromXML_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).LoadMetadataFromXml();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.LoadMetadataFromXml();
+        }
 
 		private void tsmiSaveMetadataToXML_Click(object sender, EventArgs e)
-		{
-			if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).SaveMetadataToXml();
-			}
-		}
+        {
+            ((ChildForm) ActiveMdiChild)?.SaveMetadataToXml();
+        }
 
 		private void tsmiLanguageAuto_Click(object sender, EventArgs e)
 		{
@@ -684,11 +643,8 @@ namespace FullFeaturedMdiDemo
 
 		    tsmiLanguageAuto.Checked = true;
 
-            if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).UpdateLanguage();
-			}
-		}
+            ((ChildForm) ActiveMdiChild)?.UpdateLanguage();
+        }
 
 		private void tsmiLanguageDefault_Click(object sender, EventArgs e)
 		{
@@ -701,11 +657,8 @@ namespace FullFeaturedMdiDemo
 
 		    tsmiLanguageDefault.Checked = true;
 
-            if (ActiveMdiChild != null)
-			{
-				((ChildForm) ActiveMdiChild).UpdateLanguage();
-			}
-		}
+            ((ChildForm) ActiveMdiChild)?.UpdateLanguage();
+        }
 
         private void newQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -841,7 +794,7 @@ namespace FullFeaturedMdiDemo
 
 	            if(!UserQueries.IsUserQueryExist(childWindow.SqlQuery.SQLContext.MetadataContainer, title))
 	            {
-	                var atItem = userQueriesView1.SelectedItem ?? userQueriesView1.MetadataStructure;
+	                var atItem = userQueriesView1.FocusedItem ?? userQueriesView1.MetadataStructure;
 	                if(!UserQueries.IsFolder(atItem))
 	                {
 	                    atItem = atItem.Parent;
@@ -972,10 +925,7 @@ namespace FullFeaturedMdiDemo
         private void userQueriesView1_UserQueryItemRemoved(object sender, MetadataStructureItem item)
         {
             var childWindow = MdiChildren.OfType<ChildForm>().FirstOrDefault(x => x.UserMetadataStructureItem == item);
-            if(childWindow != null)
-            {
-                childWindow.Close();
-            }
+            childWindow?.Close();
             SaveSettings();
         }
 
@@ -991,9 +941,6 @@ namespace FullFeaturedMdiDemo
 
         private void userQueriesView1_ValidateItemContextMenu(object sender, MetadataStructureItemMenuEventArgs e)
         {
-            if (e.MetadataStructureItem.MetadataItem == null)
-                return;
-
             var metadataObject = e.MetadataStructureItem.MetadataItem as MetadataObject;
             if (metadataObject == null)
                 return;
@@ -1013,20 +960,20 @@ namespace FullFeaturedMdiDemo
 
         private void toolStripExecuteUserQuery_Click(object sender, EventArgs e)
         {
-            if (userQueriesView1.SelectedItem == null) return;
+            if (userQueriesView1.FocusedItem == null) return;
 
-            var childWindow = CreateChildForm(userQueriesView1.SelectedItem.MetadataItem.Name);
-            childWindow.UserMetadataStructureItem = userQueriesView1.SelectedItem;
+            var childWindow = CreateChildForm(userQueriesView1.FocusedItem.MetadataItem.Name);
+            childWindow.UserMetadataStructureItem = userQueriesView1.FocusedItem;
             childWindow.SqlSourceType = ChildForm.SourceType.UserQuery;
             childWindow.Show();
             childWindow.Activate();
-            childWindow.QueryText = ((MetadataObject)userQueriesView1.SelectedItem.MetadataItem).Expression;
+            childWindow.QueryText = ((MetadataObject)userQueriesView1.FocusedItem.MetadataItem).Expression;
             childWindow.OpenExecuteTab();
         }
 
         private void userQueriesView1_SelectedItemChanged(object sender, EventArgs e)
         {
-            toolStripExecuteUserQuery.Enabled = userQueriesView1.SelectedItem != null && !userQueriesView1.SelectedItem.IsFolder();
+            toolStripExecuteUserQuery.Enabled = userQueriesView1.FocusedItem != null && !userQueriesView1.FocusedItem.IsFolder();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
