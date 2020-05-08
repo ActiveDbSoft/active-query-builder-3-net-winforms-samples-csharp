@@ -258,7 +258,8 @@ namespace FullFeaturedMdiDemo
 	        tsmiClearMetadata.Enabled = (_sqlContext != null);
 	        tsmiLoadMetadataFromXML.Enabled = (_sqlContext != null);
 	        tsmiSaveMetadataToXML.Enabled = (_sqlContext != null);
-	        propertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
+            editPredefinedConditionsToolStripMenuItem.Enabled = (ActiveMdiChild != null);
+            propertiesToolStripMenuItem.Enabled = (ActiveMdiChild != null);
             propertiesToolStripMenuItem.Text = propertiesToolStripMenuItem.Enabled
                 ? @"Properties"
                 : @"Properties (open a query to edit)";
@@ -979,6 +980,19 @@ namespace FullFeaturedMdiDemo
         private void MainForm_Shown(object sender, EventArgs e)
         {
             Connect();
+        }
+
+        private void editPredefinedConditionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var activeWindow = ActiveMdiChild as ChildForm;
+            if (activeWindow == null) return;
+
+            using (var form = new EditUserExpressionForm())
+            {
+                form.LoadUserConditions(activeWindow.QueryView);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
         }
     }
 }

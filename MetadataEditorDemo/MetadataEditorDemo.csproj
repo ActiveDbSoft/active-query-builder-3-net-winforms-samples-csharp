@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3065AEF2-DFE9-447A-B933-F6EBEC30CF68}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MetadataEditorDemo</RootNamespace>
+    <AssemblyName>MetadataEditorDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <Reference Include="ActiveQueryBuilder.AdvantageMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.DB2MetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.FirebirdMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.InformixMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.MSSQLCEMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.MSSQLMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.MySQLMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.ODBCMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OLEDBMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OracleMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.OracleNativeMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.PostgreSQLMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.SQLiteMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.SybaseMetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.VistaDB5MetadataProvider, Version=3.6.1.1160, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CollapsingControls\CollapsingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CollapsingControls\CollapsingControl.Designer.cs">
+      <DependentUpon>CollapsingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CollapsingControls\TextCollapsingDivider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CollapsingControls\TextCollapsingDivider.Designer.cs">
+      <DependentUpon>TextCollapsingDivider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\FocuslessButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\GroupContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\GroupContainer.designer.cs">
+      <DependentUpon>GroupContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\InformationMessageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\InformationMessageControl.Designer.cs">
+      <DependentUpon>InformationMessageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\InformationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\InformationPanel.designer.cs">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\ConnectionTypeWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\ConnectionTypeWizardPage.Designer.cs">
+      <DependentUpon>ConnectionTypeWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\FilterWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\FilterWizardPage.Designer.cs">
+      <DependentUpon>FilterWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\LoadingWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\LoadingWizardPage.Designer.cs">
+      <DependentUpon>LoadingWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\LoadOptsWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\LoadOptsWizardPage.Designer.cs">
+      <DependentUpon>LoadOptsWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\MetadataOptsWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\MetadataOptsWizardPage.Designer.cs">
+      <DependentUpon>MetadataOptsWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\SyntaxWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\SyntaxWizardPage.Designer.cs">
+      <DependentUpon>SyntaxWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\WelcomeWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LoadingWizardPages\WelcomeWizardPage.Designer.cs">
+      <DependentUpon>WelcomeWizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MetadataContainerLoadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\MetadataContainerLoadForm.designer.cs">
+      <DependentUpon>MetadataContainerLoadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MetadataEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\MetadataEditorControl.Designer.cs">
+      <DependentUpon>MetadataEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MetadataEditorController.cs" />
+    <Compile Include="Common\MetadataFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\MetadataFilterControl.designer.cs">
+      <DependentUpon>MetadataFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MetadataFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\MetadataFilterForm.designer.cs">
+      <DependentUpon>MetadataFilterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MetadataFilterItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\MetadataFilterItemControl.designer.cs">
+      <DependentUpon>MetadataFilterItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetadataEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetadataEditor.designer.cs">
+      <DependentUpon>MetadataEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CollapsingControls\CollapsingControl.resx">
+      <DependentUpon>CollapsingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CollapsingControls\TextCollapsingDivider.resx">
+      <DependentUpon>TextCollapsingDivider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\GroupContainer.resx">
+      <DependentUpon>GroupContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\InformationMessageControl.resx">
+      <DependentUpon>InformationMessageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\InformationPanel.resx">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\ConnectionTypeWizardPage.resx">
+      <DependentUpon>ConnectionTypeWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\FilterWizardPage.resx">
+      <DependentUpon>FilterWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\LoadingWizardPage.resx">
+      <DependentUpon>LoadingWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\LoadOptsWizardPage.resx">
+      <DependentUpon>LoadOptsWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\MetadataOptsWizardPage.resx">
+      <DependentUpon>MetadataOptsWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\SyntaxWizardPage.resx">
+      <DependentUpon>SyntaxWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoadingWizardPages\WelcomeWizardPage.resx">
+      <DependentUpon>WelcomeWizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MetadataContainerLoadForm.resx">
+      <DependentUpon>MetadataContainerLoadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MetadataEditorControl.resx">
+      <DependentUpon>MetadataEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MetadataFilterControl.resx">
+      <DependentUpon>MetadataFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MetadataFilterForm.resx">
+      <DependentUpon>MetadataFilterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\MetadataFilterItemControl.resx">
+      <DependentUpon>MetadataFilterItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetadataEditor.resx">
+      <DependentUpon>MetadataEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\server_database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\schema.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alert_exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_message.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\procedure.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\relation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\synonym.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Northwind.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assemblies\dblgde16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgen16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblges16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgfr16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgit16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgja16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgko16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblglt16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgpl16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgpt16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgru16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgtw16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblguk16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgzh16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

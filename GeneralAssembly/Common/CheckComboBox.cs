@@ -40,7 +40,13 @@ namespace GeneralAssembly.Common
 
         public override string Text
         {
-            get { return SelectedItem as string; }
+            get
+            {
+                var list = new List<string>();
+                foreach (var item in _checkedListBox.CheckedItems)
+                    list.Add(item.ToString());
+                return string.Join(@", ", list);
+            }
             set
             {
                 if (SelectedItem as string == value)
@@ -49,6 +55,8 @@ namespace GeneralAssembly.Common
                 base.Items.Clear();
                 base.Items.Add(value);
                 SelectedItem = value;
+
+                Invalidate();
             }
         }
 
@@ -56,11 +64,17 @@ namespace GeneralAssembly.Common
         {
             _checkedListBox.Refresh();
             _checkedListBox.SetItemChecked(index, isChecked);
+
+            Invalidate();
         }
 
         public void ClearCheckedItems()
         {
             _checkedListBox.ClearSelected();
+            for (int i = 0; i < _checkedListBox.Items.Count; i++)
+                _checkedListBox.SetItemChecked(i, false);
+
+            Invalidate();
         }
 
         public bool IsItemChecked(int index)
@@ -70,7 +84,7 @@ namespace GeneralAssembly.Common
 
         public CheckComboBox()
         {
-            DropDownStyle = ComboBoxStyle.DropDownList;
+            DropDownStyle = ComboBoxStyle.DropDown;
             DropDownHeight = DropDownWidth = 1;
 
             _checkedListBox.CheckOnClick = true;
@@ -84,6 +98,16 @@ namespace GeneralAssembly.Common
             _dropDownControl.Closing += DropDownControlOnClosing;
 
             _timer.Tick += TimerOnTick;
+            DrawMode = DrawMode.OwnerDrawFixed;
+        }
+
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            base.OnDrawItem(e);
+
+            e.DrawBackground();
+            TextRenderer.DrawText(e.Graphics, Text, Font,
+                e.Bounds, e.ForeColor, TextFormatFlags.TextBoxControl);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,8 +134,9 @@ namespace GeneralAssembly.Common
                 CheckedItems.Remove(_checkedListBox.Items[e.Index]);
             }
 
-            if (ItemChecked != null)
-                ItemChecked(this, EventArgs.Empty);
+            ItemChecked?.Invoke(this, EventArgs.Empty);
+
+            Invalidate();
         }
 
         private void TimerOnTick(object sender, EventArgs eventArgs)

@@ -10,18 +10,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.QueryView;
 
-namespace FullFeaturedDemo
+namespace GeneralAssembly.Forms
 {
-    public partial class EditUserExpressionForm : Form, IDisposable
+    public partial class EditUserExpressionForm : Form
     {
-        private UserExpressionVisualItem _editingUserExpression;
-        private IList<PredefinedCondition> _predefinedConditions;
+        private UserConditionVisualItem _selectedPredefinedCondition;
+        private IQueryView _queryView;
+        private bool _cancelWithoutSave;
 
         public EditUserExpressionForm()
         {
@@ -29,153 +32,352 @@ namespace FullFeaturedDemo
 
             foreach (DbType name in Enum.GetValues(typeof(DbType)))
                 CheckComboBoxDbTypes.Items.Add(name);
-
-            Application.Idle += Application_Idle;
         }
 
-        private void Application_Idle(object sender, EventArgs e)
+        public void LoadUserConditions(IQueryView queryView)
         {
-            ButtonAddExpression.Enabled = !string.IsNullOrEmpty(TextBoxCaption.Text) &&
-                                          !string.IsNullOrEmpty(TextBoxExpression.Text);
+            ListBoxConditions.Items.Clear();
 
-            ButtonEditExpression.Enabled = ListBoxExpressions.SelectedItems.Count == 1;
-            ButtonRemoveExpression.Enabled = ListBoxExpressions.SelectedItems.Count != 0;
-        }
+            _selectedPredefinedCondition = null;
 
-        public void LoadUserExpressions(IList<PredefinedCondition> predefinedConditions)
-        {
-            ListBoxExpressions.Items.Clear();
-            _editingUserExpression = null;
+            if (_queryView == null)
+                _queryView = queryView;
 
-            if (!Equals(_predefinedConditions, predefinedConditions))
-                _predefinedConditions = predefinedConditions;
+            if (_queryView == null) return;
 
-            if (_predefinedConditions == null) return;
-
-            foreach (var expression in predefinedConditions)
-                ListBoxExpressions.Items.Add(new UserExpressionVisualItem(expression));
-        }
-
-        private void ButtonEditExpression_Click(object sender, EventArgs e)
-        {
-            if (ListBoxExpressions.SelectedItems.Count != 1) return;
-
-            _editingUserExpression = ListBoxExpressions.SelectedItem as UserExpressionVisualItem;
-
-            if (_editingUserExpression == null) return;
-
-            TextBoxCaption.Text = _editingUserExpression.Caption;
-            TextBoxExpression.Text = _editingUserExpression.Expression;
-            CheckBoxIsNeedEdit.Checked = _editingUserExpression.IsNeedEdit;
-
-            foreach (var item in _editingUserExpression.ShowOnlyForDbTypes.Select(type => CheckComboBoxDbTypes.Items
-                .OfType<DbType>().First(x =>
-                    x == type)))
+            foreach (var expression in _queryView.UserPredefinedConditions)
             {
-                CheckComboBoxDbTypes.SetItemChecked(CheckComboBoxDbTypes.Items.OfType<DbType>().ToList().IndexOf(item),
-                    true);
+                ListBoxConditions.Items.Add(new UserConditionVisualItem(expression));
             }
-        }
-
-        private void ButtonRemoveExpression_Click(object sender, EventArgs e)
-        {
-            RemoveSelectedUserExpression();
-        }
-
-        private void ButtonClearForm_Click(object sender, EventArgs e)
-        {
-            ResetForm();
-        }
-
-        private void ButtonAddExpression_Click(object sender, EventArgs e)
-        {
-            SaveForm();
         }
 
         private void RemoveSelectedUserExpression()
         {
-            var itemForRemove = ListBoxExpressions.SelectedItems.OfType<UserExpressionVisualItem>().ToList();
+            var itemForRemove = ListBoxConditions.SelectedItems.OfType<UserConditionVisualItem>().ToList();
+
 
             foreach (var item in itemForRemove)
-            {
-                _predefinedConditions.Remove(item.ConditionExpression);
-            }
+                _queryView.UserPredefinedConditions.Remove(item.PredefinedCondition);
 
-            LoadUserExpressions(null);
+            LoadUserConditions(null);
+
+            ResetForm();
         }
 
         private void ResetForm()
         {
-            _editingUserExpression = null;
+            _selectedPredefinedCondition = null;
             TextBoxCaption.Text = string.Empty;
             TextBoxExpression.Text = string.Empty;
             CheckBoxIsNeedEdit.Checked = false;
             CheckComboBoxDbTypes.ClearCheckedItems();
         }
 
-        private void SaveForm()
+        private bool SaveForm()
         {
             try
             {
-                var listTypes = CheckComboBoxDbTypes.CheckedItems.OfType<DbType>().ToList();
+                var result =
+                    _queryView.Query.SQLContext.ParseLogicalExpression(TextBoxExpression.Text, false, false,
+                        out var token);
+                if (result == null && token != null)
+                {
+                    throw new SQLParsingException(
+                        string.Format(
+                            Helpers.Localizer.GetString(nameof(LocalizableConstantsUI.strInvalidCondition),
+                                LocalizableConstantsUI.strInvalidCondition), TextBoxExpression.Text),
+                        token);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Invalid SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                var userExpression = new PredefinedCondition(
-                    TextBoxCaption.Text,
-                    listTypes,
-                    TextBoxExpression.Text, CheckBoxIsNeedEdit.Checked
-                );
+                TextBoxExpression.Focus();
+                return false;
+            }
 
-                if (_editingUserExpression != null)
-                    _predefinedConditions.Remove(_editingUserExpression.ConditionExpression);
+            var listTypes = CheckComboBoxDbTypes.CheckedItems.OfType<DbType>().ToList();
 
-                _predefinedConditions.Add(userExpression);
+            var userExpression = new PredefinedCondition(
+                TextBoxCaption.Text,
+                listTypes,
+                TextBoxExpression.Text, CheckBoxIsNeedEdit.Checked
+            );
+
+            var index = -1;
+            if (_selectedPredefinedCondition != null)
+            {
+                index = _queryView.UserPredefinedConditions.IndexOf(_selectedPredefinedCondition.PredefinedCondition);
+                _queryView.UserPredefinedConditions.Remove(_selectedPredefinedCondition.PredefinedCondition);
+            }
+
+            if (_queryView.UserPredefinedConditions.Any(x =>
+                string.Compare(x.Caption, TextBoxCaption.Text, StringComparison.InvariantCultureIgnoreCase) == 0))
+            {
+                MessageBox.Show($"Condition with caption \"{TextBoxCaption.Text}\" already exist", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                TextBoxCaption.Focus();
+
+                return false;
+            }
+
+            try
+            {
+                if (index != -1)
+                    _queryView.UserPredefinedConditions.Insert(index, userExpression);
+                else
+                    _queryView.UserPredefinedConditions.Add(userExpression);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString(), MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            finally
+
+            LoadUserConditions(null);
+
+            ResetForm();
+
+            if (index >= 0)
+                ListBoxConditions.SelectedIndex = index;
+
+            return true;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveForm();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            ResetForm();
+            ListBoxConditions.SelectedItem = null;
+            TextBoxCaption.Focus();
+        }
+
+        private void buttonCopy_Click(object sender, EventArgs e)
+        {
+            _selectedPredefinedCondition = ListBoxConditions.SelectedItem as UserConditionVisualItem;
+
+            if (_selectedPredefinedCondition == null) return;
+
+            var name = _selectedPredefinedCondition.Caption;
+
+            var newName = "";
+
+            if (ListBoxConditions.Items.OfType<UserConditionVisualItem>().All(x =>
+                string.Compare(x.Caption, $"{name} Copy", StringComparison.InvariantCultureIgnoreCase) != 0))
             {
-                LoadUserExpressions(_predefinedConditions);
-                ResetForm();
+                newName = $"{name} Copy";
             }
+            else
+            {
+                for (var i = 1; i < 1000; i++)
+                {
+                    if (ListBoxConditions.Items.OfType<UserConditionVisualItem>().Any(x => string.Compare(x.Caption, $"{name} Copy ({i})", StringComparison.InvariantCultureIgnoreCase) == 0)) continue;
+
+                    newName = $"{name} Copy ({i})";
+                    break;
+                }
+            }
+
+            var newCopy = _selectedPredefinedCondition.Copy(newName);
+            var index = ListBoxConditions.Items.IndexOf(_selectedPredefinedCondition);
+
+            _queryView.UserPredefinedConditions.Insert(index + 1, newCopy.PredefinedCondition);
+
+            LoadUserConditions(null);
+            ListBoxConditions.SelectedIndex = index + 1;
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedUserExpression();
+        }
+
+        private void buttonMoveUp_Click(object sender, EventArgs e)
+        {
+            var selectedItem = ListBoxConditions.SelectedItem as UserConditionVisualItem;
+
+            if (selectedItem == null) return;
+
+            var index = ListBoxConditions.SelectedIndex;
+
+            if (index - 1 < 0) return;
+
+            Helpers.IListMove(_queryView.UserPredefinedConditions, index, index - 1);
+
+            LoadUserConditions(null);
+
+            ListBoxConditions.SelectedIndex = index - 1;
+        }
+
+        private void buttonMoveDown_Click(object sender, EventArgs e)
+        {
+            var selectedItem = ListBoxConditions.SelectedItem as UserConditionVisualItem;
+
+            if (selectedItem == null) return;
+
+            var index = ListBoxConditions.SelectedIndex;
+
+            if (index + 1 >= ListBoxConditions.Items.Count) return;
+
+            Helpers.IListMove(_queryView.UserPredefinedConditions, index, index + 1);
+
+            LoadUserConditions(null);
+
+            ListBoxConditions.SelectedIndex = index + 1;
+        }
+
+        private void TextBoxCaption_TextChanged(object sender, EventArgs e)
+        {
+            CheckChangingItem();
+        }
+
+        private void TextBoxExpression_TextChanged(object sender, EventArgs e)
+        {
+            CheckChangingItem();
+        }
+
+        private void CheckBoxIsNeedEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckChangingItem();
+        }
+
+
+        private void CheckChangingItem()
+        {
+            if (_selectedPredefinedCondition == null)
+            {
+                buttonSave.Enabled =
+                    !string.IsNullOrEmpty(TextBoxCaption.Text) && !string.IsNullOrEmpty(TextBoxExpression.Text);
+
+                return;
+            }
+
+            var dbTypes = CheckComboBoxDbTypes.CheckedItems.OfType<DbType>().ToList();
+
+            var changed = string.Compare(TextBoxCaption.Text, _selectedPredefinedCondition.Caption,
+                              StringComparison.InvariantCulture) != 0 ||
+                          string.Compare(TextBoxExpression.Text, _selectedPredefinedCondition.Condition,
+                              StringComparison.InvariantCulture) != 0 ||
+                          CheckBoxIsNeedEdit.Checked != _selectedPredefinedCondition.IsNeedEdit ||
+                          !((_selectedPredefinedCondition.ShowOnlyForDbTypes.Count == dbTypes.Count) && !_selectedPredefinedCondition.ShowOnlyForDbTypes.Except(dbTypes).Any());
+
+            buttonSave.Enabled = changed;
+        }
+
+        private void ListBoxExpressions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateForm();
+        }
+
+        private void UpdateForm()
+        {
+            var enable = ListBoxConditions.SelectedItem is UserConditionVisualItem;
+
+            buttonCopy.Enabled = enable;
+            buttonDelete.Enabled = enable;
+            buttonMoveUp.Enabled = enable;
+            buttonMoveDown.Enabled = enable;
+
+            for (var i = 0; i < CheckComboBoxDbTypes.Items.Count; i++)
+                CheckComboBoxDbTypes.SetItemChecked(i, false);
+
+            if (!enable) return;
+
+            _selectedPredefinedCondition = (UserConditionVisualItem)ListBoxConditions.SelectedItem;
+
+            if (_selectedPredefinedCondition == null) return;
+
+            TextBoxCaption.Text = _selectedPredefinedCondition.Caption;
+            TextBoxExpression.Text = _selectedPredefinedCondition.Condition;
+            CheckBoxIsNeedEdit.Checked = _selectedPredefinedCondition.IsNeedEdit;
+
+            foreach (var item in _selectedPredefinedCondition.ShowOnlyForDbTypes.Select(type => CheckComboBoxDbTypes.Items
+                .OfType<DbType>().First(x =>
+                    x == type)))
+            {
+                CheckComboBoxDbTypes.SetItemChecked(CheckComboBoxDbTypes.Items.OfType<DbType>().ToList().IndexOf(item),
+                    true);
+            }
+
+            buttonSave.Enabled = false;
+        }
+
+        private void CheckComboBoxDbTypes_ItemChecked(object sender, EventArgs e)
+        {
+            CheckChangingItem();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void buttonSave_EnabledChanged(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.BackColor = buttonSave.Enabled ?   SystemColors.Info : SystemColors.Control;
+            labelSaveInform.Visible = buttonSave.Enabled;
+            buttonRevert.Enabled = buttonSave.Enabled;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if(buttonSave.Enabled && !_cancelWithoutSave)
+            {
+                DialogResult result =
+                    MessageBox.Show(@"Save changes to the current condition?",
+                        @"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (result == DialogResult.Yes && !SaveForm())
+                {
+                    e.Cancel = true;
+                }
+            }
+            base.OnClosing(e);
+        }
+        private void buttonRevert_Click(object sender, EventArgs e)
+        {
+            ResetForm();
+            UpdateForm();
         }
     }
 
-    internal class UserExpressionVisualItem
+    internal class UserConditionVisualItem
     {
-        public List<DbType> ShowOnlyForDbTypes { get; set; }
+        public List<DbType> ShowOnlyForDbTypes { get;  }
 
-        public string Caption { get; set; }
-        public string Expression { get; set; }
-        public bool IsNeedEdit { get; set; }
+        public string Caption { get;  }
+        public string Condition { get;  }
+        public bool IsNeedEdit { get;  }
 
-        public PredefinedCondition ConditionExpression { get; private set; }
+        public PredefinedCondition PredefinedCondition { get;}
 
-        public UserExpressionVisualItem(PredefinedCondition conditionExpression)
+        public UserConditionVisualItem(PredefinedCondition predefinedCondition)
         {
-            ConditionExpression = conditionExpression;
+            PredefinedCondition = predefinedCondition;
             ShowOnlyForDbTypes = new List<DbType>();
 
-            Caption = conditionExpression.Caption;
-            Expression = conditionExpression.Expression;
-            IsNeedEdit = conditionExpression.IsNeedEdit;
+            Caption = predefinedCondition.Caption;
+            Condition = predefinedCondition.Expression;
+            IsNeedEdit = predefinedCondition.IsNeedEdit;
 
-            ShowOnlyForDbTypes.AddRange(conditionExpression.ShowOnlyFor);
+            ShowOnlyForDbTypes.AddRange(predefinedCondition.ShowOnlyFor);
         }
 
         public override string ToString()
         {
-            var types = ShowOnlyForDbTypes.Count == 0 ? "For all types" : "For types: ";
-            foreach (var dbType in ShowOnlyForDbTypes)
-            {
-                if (ShowOnlyForDbTypes.IndexOf(dbType) != 0)
-                    types += ", ";
+            return $"{Caption}";
+        }
 
-                types += dbType;
-            }
-
-            return $"{Caption}, [{Expression}], Is need edit: {IsNeedEdit}, {types}";
+        public UserConditionVisualItem Copy(string newName)
+        {
+            return new UserConditionVisualItem(new PredefinedCondition(newName, PredefinedCondition.ShowOnlyFor,
+                PredefinedCondition.Expression, PredefinedCondition.IsNeedEdit));
         }
     }
 }

@@ -17,10 +17,9 @@ namespace FullFeaturedDemo
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -119,7 +118,7 @@ namespace FullFeaturedDemo
             this.dataViewer = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.teResultSql = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -592,7 +591,7 @@ namespace FullFeaturedDemo
             this.tsmiLanguageDefault,
             this.toolStripSeparator12});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // tsmiLanguageAuto
@@ -617,15 +616,15 @@ namespace FullFeaturedDemo
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // editUserPredefinedConditionsToolStripMenuItem
             // 
             this.editUserPredefinedConditionsToolStripMenuItem.Name = "editUserPredefinedConditionsToolStripMenuItem";
-            this.editUserPredefinedConditionsToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.editUserPredefinedConditionsToolStripMenuItem.Text = "Edit user predefined conditions";
+            this.editUserPredefinedConditionsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.editUserPredefinedConditionsToolStripMenuItem.Text = "Edit Predefined Conditions";
             this.editUserPredefinedConditionsToolStripMenuItem.Click += new System.EventHandler(this.editUserExpressionToolStripMenuItem_Click);
             // 
             // tsmiAbout

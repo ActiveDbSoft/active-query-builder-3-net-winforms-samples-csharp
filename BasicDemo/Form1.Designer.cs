@@ -135,7 +135,6 @@ namespace BasicDemo
             this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
             this.queryBuilder1.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
             this.queryBuilder1.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
-            this.queryBuilder1.DataSourceOptions.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
             linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
             linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
@@ -147,7 +146,6 @@ namespace BasicDemo
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder1.ExpressionEditor = this.expressionEditor1;
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
-            this.queryBuilder1.MetadataStructureOptions.AllowFavourites = true;
             this.queryBuilder1.Name = "queryBuilder1";
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 201;

@@ -100,6 +100,7 @@
             this.userQueriesView1 = new ActiveQueryBuilder.View.WinForms.UserQueries.UserQueriesView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DBView = new ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView();
+            this.editPredefinedConditionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -529,7 +530,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageToolStripMenuItem,
-            this.propertiesToolStripMenuItem});
+            this.propertiesToolStripMenuItem,
+            this.editPredefinedConditionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.toolsToolStripMenuItem.Text = "&Options";
@@ -541,7 +543,7 @@
             this.tsmiLanguageDefault,
             this.toolStripSeparator12});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // tsmiLanguageAuto
@@ -566,7 +568,7 @@
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
@@ -868,6 +870,13 @@
             this.DBView.SQLContext = null;
             this.DBView.TabIndex = 8;
             // 
+            // editPredefinedConditionsToolStripMenuItem
+            // 
+            this.editPredefinedConditionsToolStripMenuItem.Name = "editPredefinedConditionsToolStripMenuItem";
+            this.editPredefinedConditionsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.editPredefinedConditionsToolStripMenuItem.Text = "Edit Predefined Conditions";
+            this.editPredefinedConditionsToolStripMenuItem.Click += new System.EventHandler(this.editPredefinedConditionsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -986,6 +995,7 @@
         private ActiveQueryBuilder.View.WinForms.UserQueries.UserQueriesView userQueriesView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView DBView;
+        private System.Windows.Forms.ToolStripMenuItem editPredefinedConditionsToolStripMenuItem;
     }
 }
 

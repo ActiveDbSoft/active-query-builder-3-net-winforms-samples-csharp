@@ -154,7 +154,6 @@
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
-            this.queryBuilder1.MetadataStructureOptions.AllowFavourites = true;
             this.queryBuilder1.Name = "queryBuilder1";
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = false;

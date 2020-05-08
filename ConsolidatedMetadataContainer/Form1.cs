@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 
@@ -82,6 +83,58 @@ namespace ConsolidatedMetadataContainer
         private void QueryBuilderOnSqlUpdated(object sender, EventArgs e)
         {
             textSql.Text = queryBuilder.FormattedSQL;
+        }
+
+        private void buttonStats_Click(object sender, EventArgs e)
+        {
+            var result = new StringBuilder();
+
+            // collect all subQueries
+            var subQueries = queryBuilder.SQLQuery.QueryRoot.GetChildrenRecursive<SubQuery>(true); ;
+            // process main query also
+            subQueries.Insert(0, queryBuilder.SQLQuery.QueryRoot);
+
+            // OR collect unionSubQueries (single SELECT expressions)
+            //var subQueries = queryBuilder.SQLQuery.QueryRoot.GetChildrenRecursive<UnionSubQuery>(true);
+
+            foreach (var subQuery in subQueries)
+            {
+                result.AppendLine();
+                result.AppendLine("subQuery: " + subQuery.SQL);
+                // collect all dataSources in this subQuery
+                var dataSources = subQuery.GetChildrenRecursive<DataSourceObject>(false);
+
+                foreach (var dataSource in dataSources)
+                {
+                    result.AppendLine(dataSource.NameInQuery);
+
+                    var metadataObject = dataSource.MetadataObject;
+
+                    // metadataObject will be null in 2 cases:
+                    // 1. dataSource is CTE reference
+                    if (dataSource.SubQueryCTE != null)
+                    {
+                        result.AppendLine("\tCTE reference");
+                        continue;
+                    }
+                    // 2. no object with such name in MetadataContainer
+                    if (metadataObject == null)
+                    {
+                        using (var fullName = new SQLQualifiedName(queryBuilder.SQLContext))
+                        {
+                            fullName.Assign(dataSource.DatabaseObject);
+                            result.AppendLine("\tno such object in DB: " + fullName.GetSQL(queryBuilder.SQLGenerationOptions));
+                        }
+
+                        continue;
+                    }
+
+                    result.AppendLine("\tobject name: " + metadataObject.GetQualifiedNameSQL(null, queryBuilder.SQLGenerationOptions));
+                    result.AppendLine("\tconnection: " + metadataObject.Connection.Name);
+                }
+            }
+
+            MessageBox.Show(result.ToString());
         }
     }
 }

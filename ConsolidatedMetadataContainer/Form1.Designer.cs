@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.queryBuilder = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
             this.syntaxProviderSql2003 = new ActiveQueryBuilder.Core.SQL2003SyntaxProvider(this.components);
             this.textSql = new System.Windows.Forms.TextBox();
+            this.buttonStats = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.buttonStats);
             this.splitContainer1.Panel2.Controls.Add(this.textSql);
             this.splitContainer1.Size = new System.Drawing.Size(916, 490);
             this.splitContainer1.SplitterDistance = 329;
@@ -70,15 +72,16 @@
             this.queryBuilder.DatabaseSchemaViewOptions.AllowDrop = true;
             this.queryBuilder.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder.DatabaseSchemaViewOptions.ImageList = null;
+            this.queryBuilder.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
             this.queryBuilder.DataSourceOptions.ColumnsOptions.NameColumnOptions.DrawOrder = 1;
             this.queryBuilder.DataSourceOptions.DefaultWidth = 210;
             this.queryBuilder.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
+            linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess2.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess2.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess2.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess2;
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder.Location = new System.Drawing.Point(0, 0);
@@ -199,6 +202,17 @@
             this.textSql.Size = new System.Drawing.Size(916, 157);
             this.textSql.TabIndex = 0;
             // 
+            // buttonStats
+            // 
+            this.buttonStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStats.Location = new System.Drawing.Point(755, 116);
+            this.buttonStats.Name = "buttonStats";
+            this.buttonStats.Size = new System.Drawing.Size(158, 38);
+            this.buttonStats.TabIndex = 1;
+            this.buttonStats.Text = "Show DataSource stats";
+            this.buttonStats.UseVisualStyleBackColor = true;
+            this.buttonStats.Click += new System.EventHandler(this.buttonStats_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +240,7 @@
         private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder;
         private System.Windows.Forms.TextBox textSql;
         private ActiveQueryBuilder.Core.SQL2003SyntaxProvider syntaxProviderSql2003;
+        private System.Windows.Forms.Button buttonStats;
     }
 }
 

@@ -11,9 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -26,6 +23,7 @@ using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms;
 using GeneralAssembly;
 using GeneralAssembly.Dailogs;
+using GeneralAssembly.Forms;
 using GeneralAssembly.Forms.QueryInformationForms;
 using GeneralAssembly.QueryBuilderProperties;
 using AboutForm = GeneralAssembly.Forms.AboutForm;
@@ -1049,7 +1047,7 @@ namespace FullFeaturedDemo
         {
             using (var form = new EditUserExpressionForm())
             {
-                form.LoadUserExpressions(queryBuilder1.QueryView.UserPredefinedConditions);
+                form.LoadUserConditions(queryBuilder1.QueryView);
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog(this);
             }
