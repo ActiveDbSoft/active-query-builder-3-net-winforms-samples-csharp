@@ -168,7 +168,7 @@ namespace FullFeaturedMdiDemo
 
         private Type GetSelectedDescriptorType()
         {
-            return Helpers.ConnectionDescriptorList[cbConnectionType.SelectedIndex];
+            return Misc.ConnectionDescriptorList[cbConnectionType.SelectedIndex];
         }
 
         private BaseConnectionDescriptor CreateConnectionDescriptor(Type type)

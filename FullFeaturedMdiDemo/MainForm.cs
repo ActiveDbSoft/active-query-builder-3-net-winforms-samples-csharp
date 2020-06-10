@@ -296,7 +296,7 @@ namespace FullFeaturedMdiDemo
                         SyntaxProvider = _selectedConnection.ConnectionDescriptor.SyntaxProvider,
                         LoadingOptions = { OfflineMode = true }
                     };
-
+      
                     try
                     {
                         _sqlContext.MetadataContainer.ImportFromXML(_selectedConnection.XMLPath);

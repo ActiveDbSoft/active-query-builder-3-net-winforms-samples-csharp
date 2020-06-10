@@ -74,9 +74,7 @@ namespace BasicDemo
         private void FillConnectionTypes()
         {
             foreach (var name in Misc.ConnectionDescriptorNames)
-            {
                 cbConnectionType.Items.Add(name);
-            }
         }
 
         private void cbConnectionType_SelectedIndexChanged(object sender, EventArgs e)
