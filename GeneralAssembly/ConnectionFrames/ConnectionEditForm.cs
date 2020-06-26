@@ -216,7 +216,7 @@ namespace GeneralAssembly.ConnectionFrames
                             _currentConnectionFrame.ConnectionString = Regex.Replace(_currentConnectionFrame.ConnectionString,
                                 "Integrated Security=.*?;", "");
                         }
-                        //_connectionInfo.ConnectionDescriptor.MetadataProvider.Connection.ConnectionString = _currentConnectionFrame.ConnectionString;
+                        _connectionInfo.ConnectionDescriptor.MetadataProvider.Connection.ConnectionString = _currentConnectionFrame.ConnectionString;
                     }
 
                     e.Cancel = false;

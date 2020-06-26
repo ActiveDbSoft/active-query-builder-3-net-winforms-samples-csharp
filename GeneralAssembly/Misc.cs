@@ -168,7 +168,8 @@ namespace GeneralAssembly
             var xmlSerializer = new ActiveQueryBuilder.Core.Serialization.XmlSerializer();
             foreach (ConnectionInfo connection in _connections)
             {
-                connection.ConnectionString = connection.ConnectionDescriptor.ConnectionString;
+                if (string.IsNullOrEmpty(connection.ConnectionString))
+                    connection.ConnectionString = connection.ConnectionDescriptor.ConnectionString;
                 connection.LoadingOptions =
                     xmlSerializer.Serialize(connection.ConnectionDescriptor.MetadataLoadingOptions);
                 connection.SyntaxProviderState =
@@ -259,14 +260,29 @@ namespace GeneralAssembly
     [Serializable]
     public class ConnectionInfo
     {
-
+        private ConnectionTypes _type = ConnectionTypes.MSSQL;
         public string Name { get; set; }
-        [XmlIgnore]
-        public BaseConnectionDescriptor ConnectionDescriptor { get; set; }
-        [XmlIgnore]
-        public BaseSyntaxProvider SyntaxProvider { get; set; }
 
-        public string ConnectionString { get; set; }
+        private BaseConnectionDescriptor _connectionDescriptor;
+        [XmlIgnore]
+        public BaseConnectionDescriptor ConnectionDescriptor
+        {
+            get { return _connectionDescriptor; }
+            set
+            {
+                _connectionDescriptor = value;
+                if (_connectionDescriptor?.MetadataProvider?.Connection != null && string.IsNullOrEmpty(_connectionDescriptor.MetadataProvider.Connection.ConnectionString) && !string.IsNullOrEmpty(ConnectionString) && !IsXmlFile)
+                {
+                    _connectionDescriptor.MetadataProvider.Connection.ConnectionString = ConnectionString;
+                }
+            }
+        }
+        [XmlIgnore]
+        public BaseSyntaxProvider SyntaxProvider { get; 
+            set; }
+
+        public string ConnectionString { get; 
+            set; }
         public bool IsXmlFile { get; set; }
         public string XMLPath { get; set; }
         public string UserQueries { get; set; }
@@ -293,8 +309,21 @@ namespace GeneralAssembly
             return null;
         }
 
-        public ConnectionTypes Type { get; set; }
-       
+        public ConnectionTypes Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                CreateConnectionByType();
+
+                if (!string.IsNullOrEmpty(SyntaxProviderName) && IsGenericConnection())
+                {
+                    ConnectionDescriptor.SyntaxProvider = GetSyntaxByName(SyntaxProviderName);
+                }
+            }
+        }
+
         public ConnectionInfo(BaseConnectionDescriptor descriptor, string name, ConnectionTypes type, string connectionString)
         {
             Name = name;
@@ -312,6 +341,7 @@ namespace GeneralAssembly
             Type = type;
             IsXmlFile = true;
             ConnectionString = string.Empty;
+            CreateConnectionByType();
         }
 
         public ConnectionInfo(ConnectionTypes connectionType, string connectionName, string connectionString, bool isFromXml, string userQueriesXml)
@@ -321,22 +351,11 @@ namespace GeneralAssembly
             ConnectionString = connectionString;
             IsXmlFile = isFromXml;
             UserQueries = userQueriesXml;
+            CreateConnectionByType();
         }
 
         public ConnectionInfo()
         {
-        }
-
-        public void CreateConnectionDescriptor()
-        {
-            CreateConnectionByType();
-
-            if (!string.IsNullOrEmpty(SyntaxProviderName) && IsGenericConnection())
-                ConnectionDescriptor.SyntaxProvider = GetSyntaxByName(SyntaxProviderName);
-
-            if (IsXmlFile) return;
-
-            ConnectionDescriptor.MetadataProvider.Connection.ConnectionString = ConnectionString;
         }
 
         private void CreateConnectionByType()
@@ -434,6 +453,18 @@ namespace GeneralAssembly
             }
 
             return ConnectionTypes.MSSQL;
+        }
+
+        public void CreateConnectionDescriptor()
+        {
+            CreateConnectionByType();
+
+            if (!string.IsNullOrEmpty(SyntaxProviderName) && IsGenericConnection())
+                ConnectionDescriptor.SyntaxProvider = GetSyntaxByName(SyntaxProviderName);
+
+            if (IsXmlFile) return;
+
+            ConnectionDescriptor.MetadataProvider.Connection.ConnectionString = ConnectionString;
         }
 
         public override bool Equals(object obj)
