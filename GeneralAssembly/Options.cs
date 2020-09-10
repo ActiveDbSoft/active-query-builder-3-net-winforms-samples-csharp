@@ -93,18 +93,16 @@ namespace GeneralAssembly
                 {
                     var service = new OptionsSerializationService(xmlBuilder) {SerializeDefaultValues = true};
                     XmlSerializerExtensions.Builder = xmlBuilder;
-                    var root = xmlBuilder.BeginObject("Options");
+                    using (var root = xmlBuilder.BeginObject("Options"))
                     {
                         foreach (var option in _options)
                         {
-                            var optionHandle = xmlBuilder.BeginObjectProperty(root, option.GetType().Name);
+                            using (var optionHandle = xmlBuilder.BeginObjectProperty(root, option.GetType().Name))
                             {
                                 service.EncodeObject(optionHandle, option);
                             }
-                            xmlBuilder.EndObjectProperty(optionHandle);
                         }
                     }
-                    xmlBuilder.EndObject(root);
                 }
 
                 stream.Position = 0;
@@ -163,88 +161,74 @@ namespace GeneralAssembly
                 var service = new OptionsSerializationService(xmlBuilder) { SerializeDefaultValues = true };
                 var metadataService = new MetadataSerializationService(xmlBuilder);
                 XmlSerializerExtensions.Builder = xmlBuilder;
-                var root = xmlBuilder.BeginObject("Options");
+                using (var root = xmlBuilder.BeginObject("Options"))
                 {
                     // Behavior options
-                    var behaviorHandle = xmlBuilder.BeginObjectProperty(root, Constants.BehaviorOptionsTag);
+                    using (var behaviorHandle = xmlBuilder.BeginObjectProperty(root, Constants.BehaviorOptionsTag))
                     {
                         service.EncodeObject(behaviorHandle, withOptions.BehaviorOptions);
                     }
-                    xmlBuilder.EndObjectProperty(behaviorHandle);
                     // Database view options
-                    var dbViewOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.DatabaseSchemaViewOptionsTag);
+                    using (var dbViewOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.DatabaseSchemaViewOptionsTag))
                     {
                         service.EncodeObject(dbViewOptionsHandle, dbView.Options);
                     }
-                    xmlBuilder.EndObjectProperty(dbViewOptionsHandle);
                     // DesignPaneOptions
-                    var designPaneOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.DesignPaneOptionsTag);
+                    using (var designPaneOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.DesignPaneOptionsTag))
                     {
                         service.EncodeObject(designPaneOptionsHandle, withOptions.DesignPaneOptions);
                     }
-                    xmlBuilder.EndObjectProperty(designPaneOptionsHandle);
                     // VisualOptions
-                    var visualOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.VisualOptionsTag);
+                    using (var visualOptionsHandle = xmlBuilder.BeginObjectProperty(root, Constants.VisualOptionsTag))
                     {
                         service.EncodeObject(visualOptionsHandle, withOptions.VisualOptions);
                     }
-                    xmlBuilder.EndObjectProperty(visualOptionsHandle);
                     // AddObjectDialogOptions
-                    var addObjectDialogHandle = xmlBuilder.BeginObjectProperty(root, Constants.AddObjectDialogOptionsTag);
+                    using (var addObjectDialogHandle = xmlBuilder.BeginObjectProperty(root, Constants.AddObjectDialogOptionsTag))
                     {
                         service.EncodeObject(addObjectDialogHandle, withOptions.AddObjectDialogOptions);
                     }
-                    xmlBuilder.EndObjectProperty(addObjectDialogHandle);
                     // DataSourceOptions
-                    var dataSourceOptionsHandle = xmlBuilder.BeginObjectProperty(root, "DataSourceOptions");
+                    using (var dataSourceOptionsHandle = xmlBuilder.BeginObjectProperty(root, "DataSourceOptions"))
                     {
                         service.EncodeObject(dataSourceOptionsHandle, withOptions.DataSourceOptions);
                     }
-                    xmlBuilder.EndObjectProperty(dataSourceOptionsHandle);
                     // MetadataLoadingOptions
-                    var metadataLoadingOptionsHandle = xmlBuilder.BeginObjectProperty(root, "MetadataLoadingOptions");
+                    using (var metadataLoadingOptionsHandle = xmlBuilder.BeginObjectProperty(root, "MetadataLoadingOptions"))
                     {
                         metadataService.Encode(metadataLoadingOptionsHandle, withOptions.MetadataLoadingOptions);
                     }
-                    xmlBuilder.EndObjectProperty(metadataLoadingOptionsHandle);
                     // MetadataStructureOptions
-                    var metadataStructureOptionsHandle = xmlBuilder.BeginObjectProperty(root, "MetadataStructureOptions");
+                    using (var metadataStructureOptionsHandle = xmlBuilder.BeginObjectProperty(root, "MetadataStructureOptions"))
                     {
                         service.EncodeObject(metadataStructureOptionsHandle, withOptions.MetadataStructureOptions);
                     }
-                    xmlBuilder.EndObjectProperty(metadataStructureOptionsHandle);
                     // QueryColumnListOptions
-                    var queryColumnListOptionsHandle = xmlBuilder.BeginObjectProperty(root, "QueryColumnListOptions");
+                    using (var queryColumnListOptionsHandle = xmlBuilder.BeginObjectProperty(root, "QueryColumnListOptions"))
                     {
                         service.EncodeObject(queryColumnListOptionsHandle, withOptions.QueryColumnListOptions);
                     }
-                    xmlBuilder.EndObjectProperty(queryColumnListOptionsHandle);
                     // QueryNavBarOptions
-                    var queryNavBarOptionsHandle = xmlBuilder.BeginObjectProperty(root, "QueryNavBarOptions");
+                    using (var queryNavBarOptionsHandle = xmlBuilder.BeginObjectProperty(root, "QueryNavBarOptions"))
                     {
                         service.EncodeObject(queryNavBarOptionsHandle, withOptions.QueryNavBarOptions);
                     }
-                    xmlBuilder.EndObjectProperty(queryNavBarOptionsHandle);
                     // UserInterfaceOptions
-                    var userInterfaceOptionsHandle = xmlBuilder.BeginObjectProperty(root, "UserInterfaceOptions");
+                    using (var userInterfaceOptionsHandle = xmlBuilder.BeginObjectProperty(root, "UserInterfaceOptions"))
                     {
                         service.EncodeObject(userInterfaceOptionsHandle, withOptions.UserInterfaceOptions);
                     }
-                    xmlBuilder.EndObjectProperty(userInterfaceOptionsHandle);
                     // SqlFormattingOptions
-                    var sqlFormattingOptionsHandle = xmlBuilder.BeginObjectProperty(root, "SqlFormattingOptions");
+                    using (var sqlFormattingOptionsHandle = xmlBuilder.BeginObjectProperty(root, "SqlFormattingOptions"))
                     {
                         service.EncodeObject(sqlFormattingOptionsHandle, withOptions.SqlFormattingOptions);
                     }
-                    xmlBuilder.EndObjectProperty(sqlFormattingOptionsHandle);
                     // SqlGenerationOptions
-                    var sqlGenerationOptionsHandle = xmlBuilder.BeginObjectProperty(root, "SqlGenerationOptions");
+                    using (var sqlGenerationOptionsHandle = xmlBuilder.BeginObjectProperty(root, "SqlGenerationOptions"))
                     {
                         service.EncodeObject(sqlGenerationOptionsHandle, withOptions.SqlGenerationOptions);
                     }
-                    xmlBuilder.EndObjectProperty(sqlGenerationOptionsHandle);
                 }
-                xmlBuilder.EndObject(root);
             }
         }
 
