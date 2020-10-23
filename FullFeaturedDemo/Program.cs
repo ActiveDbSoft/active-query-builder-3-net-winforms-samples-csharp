@@ -43,12 +43,15 @@ namespace FullFeaturedDemo
             if (Program.Settings.Connections != null)
 			{
 				Connections = Program.Settings.Connections;
-			}
+            }
 
 			if (Program.Settings.XmlFiles != null)
 			{
 				XmlFiles = Program.Settings.XmlFiles;
 			}
+
+            Connections.RestoreData();
+            XmlFiles.RestoreData();
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);

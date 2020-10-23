@@ -13,7 +13,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core.PropertiesEditors;
 using ActiveQueryBuilder.View.PropertiesEditors;
-using ActiveQueryBuilder.View.WinForms.CollapsingControls;
 using MetadataEditorDemo.CollapsingControls;
 
 namespace MetadataEditorDemo.Common

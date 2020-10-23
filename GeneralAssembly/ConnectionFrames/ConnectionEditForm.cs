@@ -20,6 +20,7 @@ namespace GeneralAssembly.ConnectionFrames
 	{
 		private readonly ConnectionInfo _connectionInfo;
 		private ConnectionFrameBase _currentConnectionFrame;
+        private bool _isLockUpdate = false;
 
 		public ConnectionEditForm(ConnectionInfo connectionInfo)
 		{
@@ -190,6 +191,9 @@ namespace GeneralAssembly.ConnectionFrames
                     break;
             }
 
+            BoxSyntaxProvider.Enabled = _connectionInfo.Type == ConnectionTypes.ODBC ||
+                                        _connectionInfo.Type == ConnectionTypes.OLEDB;
+
             FillSyntax();
 		}
 
@@ -230,8 +234,11 @@ namespace GeneralAssembly.ConnectionFrames
 
         private void FillSyntax()
         {
+            _isLockUpdate = true;
+
             BoxSyntaxProvider.Items.Clear();
             BoxServerVersion.Items.Clear();
+            BoxServerVersion.Text = string.Empty;
 
             if (!string.IsNullOrEmpty(_connectionInfo.SyntaxProviderName) && _connectionInfo.SyntaxProvider == null)
             {
@@ -407,13 +414,16 @@ namespace GeneralAssembly.ConnectionFrames
                 BoxSyntaxProvider.Items.Add("Universal");
             }
 
-
             FillVersions();
+
+            _isLockUpdate = false;
         }
 
         private void FillVersions()
         {
             BoxServerVersion.Items.Clear();
+            BoxServerVersion.SelectedItem = null;
+            BoxServerVersion.Text = string.Empty;
 
             if (_connectionInfo.SyntaxProvider is SQL2003SyntaxProvider)
             {
@@ -651,6 +661,8 @@ namespace GeneralAssembly.ConnectionFrames
 
         private void BoxSyntaxProvider_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_isLockUpdate) return;
+
             switch (((string)BoxSyntaxProvider.SelectedItem))
             {
                 case "ANSI SQL-2003":
@@ -699,12 +711,14 @@ namespace GeneralAssembly.ConnectionFrames
                     _connectionInfo.SyntaxProvider = new GenericSyntaxProvider();
                     break;
             }
-
+            
             FillVersions();
         }
 
         private void BoxServerVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_isLockUpdate) return;
+
             if (_connectionInfo.SyntaxProvider is FirebirdSyntaxProvider)
             {
                 if ((string)BoxServerVersion.SelectedItem == "Firebird 1.0")

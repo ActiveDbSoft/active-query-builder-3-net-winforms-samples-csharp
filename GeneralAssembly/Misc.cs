@@ -168,6 +168,7 @@ namespace GeneralAssembly
             var xmlSerializer = new ActiveQueryBuilder.Core.Serialization.XmlSerializer();
             foreach (ConnectionInfo connection in _connections)
             {
+                connection.SyntaxProviderName = connection.ConnectionDescriptor.SyntaxProvider.GetType().ToString();
                 if (string.IsNullOrEmpty(connection.ConnectionString))
                     connection.ConnectionString = connection.ConnectionDescriptor.ConnectionString;
                 connection.LoadingOptions =
@@ -203,7 +204,8 @@ namespace GeneralAssembly
             {
                 if (connection.ConnectionDescriptor == null) continue;
 
-                connection.ConnectionDescriptor.ConnectionString = connection.ConnectionString;
+                if (!connection.IsXmlFile)
+                    connection.ConnectionDescriptor.ConnectionString = connection.ConnectionString;
 
                 if (!string.IsNullOrEmpty(connection.LoadingOptions))
                 {
@@ -219,6 +221,12 @@ namespace GeneralAssembly
 
                 if (!string.IsNullOrEmpty(connection.SyntaxProviderState))
                 {
+                    if (!string.IsNullOrEmpty(connection.SyntaxProviderName))
+                    {
+                        connection.ConnectionDescriptor.SyntaxProvider =
+                            ConnectionInfo.GetSyntaxByName(connection.SyntaxProviderName);
+                    }
+
                     xmlSerializer.DeserializeObject(connection.SyntaxProviderState, connection.ConnectionDescriptor.SyntaxProvider);
                     connection.ConnectionDescriptor.RecreateSyntaxProperties();
                 }
@@ -277,12 +285,15 @@ namespace GeneralAssembly
                 }
             }
         }
-        [XmlIgnore]
-        public BaseSyntaxProvider SyntaxProvider { get; 
-            set; }
 
-        public string ConnectionString { get; 
-            set; }
+        [XmlIgnore]
+        public BaseSyntaxProvider SyntaxProvider
+        {
+            get { return ConnectionDescriptor.SyntaxProvider; }
+            set { ConnectionDescriptor.SyntaxProvider = value; }
+        }
+
+        public string ConnectionString { get; set; }
         public bool IsXmlFile { get; set; }
         public string XMLPath { get; set; }
         public string UserQueries { get; set; }

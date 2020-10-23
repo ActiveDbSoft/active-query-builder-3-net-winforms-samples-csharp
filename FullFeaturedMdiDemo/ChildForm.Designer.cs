@@ -22,7 +22,7 @@ namespace FullFeaturedMdiDemo
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChildForm));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess3 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.toolStripPanel1 = new System.Windows.Forms.ToolStripPanel();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiUndo = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,9 +55,13 @@ namespace FullFeaturedMdiDemo
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPageSQL = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.rtbQueryText = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
             this.tabPageCurrentSubQuery = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.errorBoxCurrent = new GeneralAssembly.Common.SqlErrorBox();
             this.TextBoxCurrentSubQuerySql = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
             this.tabPageFastResult = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -83,10 +87,10 @@ namespace FullFeaturedMdiDemo
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.rtbQueryText = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
-            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
-            this.errorBoxCurrent = new GeneralAssembly.Common.SqlErrorBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonGenerateReport = new System.Windows.Forms.Button();
+            this.buttonExportExcel = new System.Windows.Forms.Button();
+            this.buttonExportCsv = new System.Windows.Forms.Button();
             this.contextMenuStripForRichTextBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.pageQueryBuilder.SuspendLayout();
@@ -111,6 +115,7 @@ namespace FullFeaturedMdiDemo
             this.tabControl2.SuspendLayout();
             this.tabPageSQL.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.tabPageCurrentSubQuery.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -120,7 +125,7 @@ namespace FullFeaturedMdiDemo
             this.toolStrip1.SuspendLayout();
             this.pageQueryResult.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripPanel1
@@ -330,6 +335,8 @@ namespace FullFeaturedMdiDemo
             this.addObjectDialog1.Options.Size = new System.Drawing.Size(430, 430);
             this.addObjectDialog1.Options.SortingType = ActiveQueryBuilder.View.DatabaseSchemaView.ObjectsSortingType.Name;
             this.addObjectDialog1.Options.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.addObjectDialog1.Options.StartWithDefaultNamespaceType = ActiveQueryBuilder.Core.MetadataType.Database;
+            this.addObjectDialog1.Options.StartWithMetadataStructurePath = null;
             this.addObjectDialog1.QueryView = this.QView;
             // 
             // splitContainer2
@@ -362,6 +369,7 @@ namespace FullFeaturedMdiDemo
             this.dockManager1.Name = "dockManager1";
             this.dockManager1.Options.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
             this.dockManager1.Options.ActiveDockPanelCaptionFontColor = System.Drawing.Color.Black;
+            this.dockManager1.Options.DockPanelBackColor = System.Drawing.Color.Empty;
             this.dockManager1.Options.DockTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.dockManager1.Options.DockTabFontColor = System.Drawing.Color.White;
             this.dockManager1.Options.DockTabFontHoverColor = System.Drawing.Color.White;
@@ -380,16 +388,17 @@ namespace FullFeaturedMdiDemo
             this.designPaneControl1.AllowDrop = true;
             this.designPaneControl1.AutoScroll = true;
             this.designPaneControl1.AutoScrollMargin = new System.Drawing.Size(20, 20);
+            this.designPaneControl1.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
             this.designPaneControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.designPaneControl1.Location = new System.Drawing.Point(29, 0);
             this.designPaneControl1.Name = "designPaneControl1";
             this.designPaneControl1.Options.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess2.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess2.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess2.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess2;
+            linkPainterAccess3.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess3.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess3.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess3.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess3.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess3;
             this.designPaneControl1.Options.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.designPaneControl1.Size = new System.Drawing.Size(632, 213);
             this.designPaneControl1.TabIndex = 1;
@@ -410,6 +419,7 @@ namespace FullFeaturedMdiDemo
             // propertiesBar1
             // 
             this.propertiesBar1.AutoScroll = true;
+            this.propertiesBar1.BackColor = System.Drawing.SystemColors.Window;
             this.propertiesBar1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertiesBar1.InformationMessageHost = this.QView;
             this.propertiesBar1.Location = new System.Drawing.Point(0, 21);
@@ -434,14 +444,32 @@ namespace FullFeaturedMdiDemo
             // subQueryNavBar1
             // 
             this.subQueryNavBar1.AutoScroll = true;
+            this.subQueryNavBar1.BackColor = System.Drawing.SystemColors.Window;
             this.subQueryNavBar1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subQueryNavBar1.Location = new System.Drawing.Point(0, 21);
             this.subQueryNavBar1.Name = "subQueryNavBar1";
+            this.subQueryNavBar1.Options.ActionButtonBackColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.ActionButtonBorderColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.AddCteCircleColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
             this.subQueryNavBar1.Options.CTEButtonBaseColor = System.Drawing.Color.Green;
+            this.subQueryNavBar1.Options.DragIndicatorColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
             this.subQueryNavBar1.Options.Font = null;
+            this.subQueryNavBar1.Options.ForeColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.GraphLineColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.GroupBackColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.GroupTextColor = System.Drawing.Color.Empty;
             this.subQueryNavBar1.Options.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.subQueryNavBar1.Options.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.subQueryNavBar1.Options.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
+            this.subQueryNavBar1.Options.SubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.SubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.SubQueryMarkerColor = System.Drawing.Color.Empty;
+            this.subQueryNavBar1.Options.TextHoverColor = System.Drawing.Color.Empty;
             this.subQueryNavBar1.Size = new System.Drawing.Size(196, 229);
             this.subQueryNavBar1.TabIndex = 1;
             // 
@@ -481,20 +509,9 @@ namespace FullFeaturedMdiDemo
             // 
             // expressionEditor1
             // 
-            this.expressionEditor1.ActiveUnionSubQuery = null;
             this.expressionEditor1.BackColor = System.Drawing.Color.White;
-            this.expressionEditor1.CloseOnEscape = true;
-            this.expressionEditor1.Expression = "";
-            this.expressionEditor1.Height = 0;
-            this.expressionEditor1.HighlightMatchingParentheses = ActiveQueryBuilder.View.ExpressionEditor.ParenthesesHighlighting.NoHighlight;
-            this.expressionEditor1.KeepMetadataObjectsOnTopOfSuggestionList = true;
-            this.expressionEditor1.LoadMetadataOnCodeCompletion = true;
-            this.expressionEditor1.SearchFields = false;
-            this.expressionEditor1.ShowSuggestionAfterCharCount = 0;
             this.expressionEditor1.SQLFormattingOptions = null;
             this.expressionEditor1.TextColor = System.Drawing.SystemColors.ControlText;
-            this.expressionEditor1.TextEditorFont = new System.Drawing.Font("Courier New", 10F);
-            this.expressionEditor1.Width = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -564,6 +581,52 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel1.Size = new System.Drawing.Size(846, 166);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.errorBox1);
+            this.panel4.Controls.Add(this.rtbQueryText);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(840, 160);
+            this.panel4.TabIndex = 0;
+            // 
+            // errorBox1
+            // 
+            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBox1.AutoSize = true;
+            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
+            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBox1.CurrentSyntaxProvider = null;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(536, 96);
+            this.errorBox1.Name = "errorBox1";
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBox1.Size = new System.Drawing.Size(290, 61);
+            this.errorBox1.TabIndex = 3;
+            this.errorBox1.Visible = false;
+            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
+            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
+            // 
+            // rtbQueryText
+            // 
+            this.rtbQueryText.AllowShowSuggestionByMouse = false;
+            this.rtbQueryText.BackColor = System.Drawing.SystemColors.Window;
+            this.rtbQueryText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbQueryText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbQueryText.Location = new System.Drawing.Point(0, 0);
+            this.rtbQueryText.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbQueryText.Name = "rtbQueryText";
+            this.rtbQueryText.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbQueryText.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
+            this.rtbQueryText.QueryProvider = null;
+            this.rtbQueryText.Size = new System.Drawing.Size(840, 160);
+            this.rtbQueryText.SQLContext = null;
+            this.rtbQueryText.SqlOptions.ShowSuggestionAfterCharCount = 0;
+            this.rtbQueryText.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
+            this.rtbQueryText.TabIndex = 2;
+            this.rtbQueryText.Validating += new System.ComponentModel.CancelEventHandler(this.rtbQueryText_Validating);
+            // 
             // tabPageCurrentSubQuery
             // 
             this.tabPageCurrentSubQuery.Controls.Add(this.tableLayoutPanel2);
@@ -600,29 +663,39 @@ namespace FullFeaturedMdiDemo
             this.panel3.Size = new System.Drawing.Size(840, 160);
             this.panel3.TabIndex = 3;
             // 
+            // errorBoxCurrent
+            // 
+            this.errorBoxCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorBoxCurrent.AutoSize = true;
+            this.errorBoxCurrent.BackColor = System.Drawing.Color.LightPink;
+            this.errorBoxCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.errorBoxCurrent.CurrentSyntaxProvider = null;
+            this.errorBoxCurrent.IsVisibleCheckSyntaxPanel = false;
+            this.errorBoxCurrent.Location = new System.Drawing.Point(492, 96);
+            this.errorBoxCurrent.Name = "errorBoxCurrent";
+            this.errorBoxCurrent.Padding = new System.Windows.Forms.Padding(5);
+            this.errorBoxCurrent.Size = new System.Drawing.Size(334, 61);
+            this.errorBoxCurrent.TabIndex = 2;
+            this.errorBoxCurrent.Visible = false;
+            this.errorBoxCurrent.GoToErrorPosition += new System.EventHandler(this.errorBoxCurrent_GoToErrorPosition);
+            this.errorBoxCurrent.RevertValidText += new System.EventHandler(this.errorBoxCurrent_RevertValidText);
+            // 
             // TextBoxCurrentSubQuerySql
             // 
-            this.TextBoxCurrentSubQuerySql.AcceptTabs = false;
             this.TextBoxCurrentSubQuerySql.AllowShowSuggestionByMouse = false;
+            this.TextBoxCurrentSubQuerySql.BackColor = System.Drawing.SystemColors.Window;
             this.TextBoxCurrentSubQuerySql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxCurrentSubQuerySql.CaretOffset = 0;
             this.TextBoxCurrentSubQuerySql.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextBoxCurrentSubQuerySql.Location = new System.Drawing.Point(0, 0);
             this.TextBoxCurrentSubQuerySql.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxCurrentSubQuerySql.Name = "TextBoxCurrentSubQuerySql";
             this.TextBoxCurrentSubQuerySql.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCurrentSubQuerySql.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.TextBoxCurrentSubQuerySql.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.TextBoxCurrentSubQuerySql.Query = null;
             this.TextBoxCurrentSubQuerySql.QueryProvider = null;
-            this.TextBoxCurrentSubQuerySql.SelectedText = "";
-            this.TextBoxCurrentSubQuerySql.SelectionLength = 0;
-            this.TextBoxCurrentSubQuerySql.SelectionStart = 0;
             this.TextBoxCurrentSubQuerySql.Size = new System.Drawing.Size(840, 160);
             this.TextBoxCurrentSubQuerySql.SQLContext = null;
             this.TextBoxCurrentSubQuerySql.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.TextBoxCurrentSubQuerySql.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
-            this.TextBoxCurrentSubQuerySql.SuggestionWindowSize = new System.Drawing.Size(200, 200);
             this.TextBoxCurrentSubQuerySql.TabIndex = 0;
             this.TextBoxCurrentSubQuerySql.TextChanged += new System.EventHandler(this.TextBoxCurrentSubQuerySql_TextChanged);
             this.TextBoxCurrentSubQuerySql.Validating += new System.ComponentModel.CancelEventHandler(this.TextBoxCurrentSubQuerySql_Validating);
@@ -680,12 +753,30 @@ namespace FullFeaturedMdiDemo
             this.NavBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.NavBar.Location = new System.Drawing.Point(0, 25);
             this.NavBar.Name = "NavBar";
+            this.NavBar.Options.ActionButtonBackColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.ActionButtonBorderColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.ActiveSubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.ActiveSubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.AddCteCircleColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.AddUnionSubQueryCircleColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.BreadcrumbsBackgroundColor = System.Drawing.Color.Empty;
             this.NavBar.Options.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.NavBar.Options.DisableQueryNavigationBarPopup = false;
+            this.NavBar.Options.DragIndicatorColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
             this.NavBar.Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NavBar.Options.ForeColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.GraphLineColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.GroupBackColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.GroupTextColor = System.Drawing.Color.Empty;
             this.NavBar.Options.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.NavBar.Options.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.NavBar.Options.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
+            this.NavBar.Options.SubQueryItemBackColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.SubQueryItemBorderColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.SubQueryMarkerColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.SubQueryPopupBackColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.TextHoverColor = System.Drawing.Color.Empty;
             this.NavBar.Query = null;
             this.NavBar.QueryView = null;
             this.NavBar.Size = new System.Drawing.Size(866, 40);
@@ -804,6 +895,7 @@ namespace FullFeaturedMdiDemo
             // 
             // pageQueryResult
             // 
+            this.pageQueryResult.Controls.Add(this.tableLayoutPanel5);
             this.pageQueryResult.Controls.Add(this.resultGrid1);
             this.pageQueryResult.Controls.Add(this.CBuilder);
             this.pageQueryResult.Controls.Add(this.richTextBox1);
@@ -823,10 +915,9 @@ namespace FullFeaturedMdiDemo
             this.resultGrid1.Location = new System.Drawing.Point(3, 54);
             this.resultGrid1.Name = "resultGrid1";
             this.resultGrid1.QueryTransformer = null;
-            this.resultGrid1.Size = new System.Drawing.Size(866, 426);
+            this.resultGrid1.Size = new System.Drawing.Size(866, 455);
             this.resultGrid1.SqlQuery = null;
             this.resultGrid1.TabIndex = 4;
-         
             // 
             // CBuilder
             // 
@@ -892,75 +983,63 @@ namespace FullFeaturedMdiDemo
             this.miniToolStrip.Stretch = true;
             this.miniToolStrip.TabIndex = 0;
             // 
-            // panel4
+            // tableLayoutPanel5
             // 
-            this.panel4.Controls.Add(this.errorBox1);
-            this.panel4.Controls.Add(this.rtbQueryText);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(840, 160);
-            this.panel4.TabIndex = 0;
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightGray;
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.Controls.Add(this.buttonGenerateReport, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonExportExcel, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonExportCsv, 2, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 472);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(866, 37);
+            this.tableLayoutPanel5.TabIndex = 5;
             // 
-            // rtbQueryText
+            // buttonGenerateReport
             // 
-            this.rtbQueryText.AcceptTabs = false;
-            this.rtbQueryText.AllowShowSuggestionByMouse = false;
-            this.rtbQueryText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbQueryText.CaretOffset = 0;
-            this.rtbQueryText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbQueryText.Location = new System.Drawing.Point(0, 0);
-            this.rtbQueryText.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbQueryText.Name = "rtbQueryText";
-            this.rtbQueryText.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbQueryText.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.rtbQueryText.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
-            this.rtbQueryText.Query = null;
-            this.rtbQueryText.QueryProvider = null;
-            this.rtbQueryText.SelectedText = "";
-            this.rtbQueryText.SelectionLength = 0;
-            this.rtbQueryText.SelectionStart = 0;
-            this.rtbQueryText.Size = new System.Drawing.Size(840, 160);
-            this.rtbQueryText.SQLContext = null;
-            this.rtbQueryText.SqlOptions.ShowSuggestionAfterCharCount = 0;
-            this.rtbQueryText.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
-            this.rtbQueryText.SuggestionWindowSize = new System.Drawing.Size(200, 200);
-            this.rtbQueryText.TabIndex = 2;
-            this.rtbQueryText.Validating += new System.ComponentModel.CancelEventHandler(this.rtbQueryText_Validating);
+            this.buttonGenerateReport.AutoSize = true;
+            this.buttonGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonGenerateReport.Enabled = false;
+            this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
+            this.buttonGenerateReport.Name = "buttonGenerateReport";
+            this.buttonGenerateReport.Size = new System.Drawing.Size(282, 31);
+            this.buttonGenerateReport.TabIndex = 0;
+            this.buttonGenerateReport.Text = "Generate report";
+            this.buttonGenerateReport.UseVisualStyleBackColor = true;
+            this.buttonGenerateReport.Click += new System.EventHandler(this.buttonGenerateReport_Click);
             // 
-            // errorBox1
+            // buttonExportExcel
             // 
-            this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorBox1.AutoSize = true;
-            this.errorBox1.BackColor = System.Drawing.Color.LightPink;
-            this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.errorBox1.CurrentSyntaxProvider = null;
-            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(536, 96);
-            this.errorBox1.Name = "errorBox1";
-            this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.errorBox1.Size = new System.Drawing.Size(290, 61);
-            this.errorBox1.TabIndex = 3;
-            this.errorBox1.Visible = false;
-            this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPosition);
-            this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidText);
+            this.buttonExportExcel.AutoSize = true;
+            this.buttonExportExcel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonExportExcel.Enabled = false;
+            this.buttonExportExcel.Location = new System.Drawing.Point(291, 3);
+            this.buttonExportExcel.Name = "buttonExportExcel";
+            this.buttonExportExcel.Size = new System.Drawing.Size(282, 31);
+            this.buttonExportExcel.TabIndex = 1;
+            this.buttonExportExcel.Text = "Export to Excel";
+            this.buttonExportExcel.UseVisualStyleBackColor = true;
+            this.buttonExportExcel.Click += new System.EventHandler(this.buttonExportExcel_Click);
             // 
-            // errorBoxCurrent
+            // buttonExportCsv
             // 
-            this.errorBoxCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorBoxCurrent.AutoSize = true;
-            this.errorBoxCurrent.BackColor = System.Drawing.Color.LightPink;
-            this.errorBoxCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.errorBoxCurrent.CurrentSyntaxProvider = null;
-            this.errorBoxCurrent.IsVisibleCheckSyntaxPanel = false;
-            this.errorBoxCurrent.Location = new System.Drawing.Point(492, 96);
-            this.errorBoxCurrent.Name = "errorBoxCurrent";
-            this.errorBoxCurrent.Padding = new System.Windows.Forms.Padding(5);
-            this.errorBoxCurrent.Size = new System.Drawing.Size(334, 61);
-            this.errorBoxCurrent.TabIndex = 2;
-            this.errorBoxCurrent.Visible = false;
-            this.errorBoxCurrent.GoToErrorPosition += new System.EventHandler(this.errorBoxCurrent_GoToErrorPosition);
-            this.errorBoxCurrent.RevertValidText += new System.EventHandler(this.errorBoxCurrent_RevertValidText);
+            this.buttonExportCsv.AutoSize = true;
+            this.buttonExportCsv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonExportCsv.Enabled = false;
+            this.buttonExportCsv.Location = new System.Drawing.Point(579, 3);
+            this.buttonExportCsv.Name = "buttonExportCsv";
+            this.buttonExportCsv.Size = new System.Drawing.Size(284, 31);
+            this.buttonExportCsv.TabIndex = 2;
+            this.buttonExportCsv.Text = "Export to CSV";
+            this.buttonExportCsv.UseVisualStyleBackColor = true;
+            this.buttonExportCsv.Click += new System.EventHandler(this.buttonExportCsv_Click);
             // 
             // ChildForm
             // 
@@ -1002,6 +1081,8 @@ namespace FullFeaturedMdiDemo
             this.tabControl2.ResumeLayout(false);
             this.tabPageSQL.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.tabPageCurrentSubQuery.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -1016,8 +1097,8 @@ namespace FullFeaturedMdiDemo
             this.pageQueryResult.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1089,5 +1170,9 @@ namespace FullFeaturedMdiDemo
         private SqlTextEditor rtbQueryText;
         private GeneralAssembly.Common.SqlErrorBox errorBox1;
         private GeneralAssembly.Common.SqlErrorBox errorBoxCurrent;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Button buttonGenerateReport;
+        private System.Windows.Forms.Button buttonExportExcel;
+        private System.Windows.Forms.Button buttonExportCsv;
     }
 }

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -24,6 +25,8 @@ using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
+using FullFeaturedMdiDemo.Common;
+using FullFeaturedMdiDemo.Reports;
 using GeneralAssembly;
 using GeneralAssembly.Dailogs;
 using GeneralAssembly.Forms.QueryInformationForms;
@@ -856,6 +859,9 @@ Do you want to load database structure from cache?";
 	            _oldSql = rtbQueryText.Text;
 	        }
 
+            buttonExportCsv.Enabled = buttonExportExcel.Enabled = buttonGenerateReport.Enabled =
+                !string.IsNullOrEmpty(FormattedQueryText) && _sqlContext.MetadataProvider != null;
+
 	        if (QueryView.ActiveUnionSubQuery == null || SqlQuery.SleepMode) return;
 	        _lastValidSqlCurrent = TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
 	        CheckParameters();
@@ -1311,6 +1317,84 @@ Do you want to load database structure from cache?";
         {
             TextBoxCurrentSubQuerySql.Text = _lastValidSql;
             TextBoxCurrentSubQuerySql.Focus();
+        }
+
+        private void CreateFastReport(DataTable dataTable)
+        {
+            if (dataTable == null)
+                throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
+
+            var reportWindow =
+                new FastReportForm(dataTable) { Owner = this };
+
+            reportWindow.ShowDialog();
+        }
+
+        private void CreateStimulsoftReport(DataTable dataTable)
+        {
+            if (dataTable == null)
+                throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
+
+            var reportWindow =
+                new StimulsoftForm(dataTable) { Owner = this };
+
+            reportWindow.ShowDialog();
+        }
+
+        private void CreateActiveReport(DataTable dataTable)
+        {
+            if (dataTable == null)
+                throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
+
+            var reportWindow =
+                new ActiveReportsForm(dataTable) { Owner = this };
+
+            reportWindow.ShowDialog();
+        }
+
+        private void buttonGenerateReport_Click(object sender, EventArgs e)
+        {
+            var window = new CreateReportForm { Owner = this };
+
+            DialogResult result = window.ShowDialog();
+
+            if (result != DialogResult.OK || window.SelectedReportType == null) return;
+            var dataTable = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+
+            switch (window.SelectedReportType)
+            {
+                case ReportType.ActiveReports14:
+                    CreateActiveReport(dataTable);
+                    break;
+                case ReportType.Stimulsoft:
+                    CreateStimulsoftReport(dataTable);
+                    break;
+                case ReportType.FastReport:
+                    CreateFastReport(dataTable);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void buttonExportExcel_Click(object sender, EventArgs e)
+        {
+            var dt = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+
+            var saveDialog = new SaveFileDialog { AddExtension = true, DefaultExt = "xlsx", FileName = "Export.xlsx" };
+            if (saveDialog.ShowDialog(this) != DialogResult.OK) return;
+
+            ExportHelpers.ExportToExcel(dt, saveDialog.FileName);
+        }
+
+        private void buttonExportCsv_Click(object sender, EventArgs e)
+        {
+            var saveDialog = new SaveFileDialog { AddExtension = true, DefaultExt = "csv", FileName = "Data.csv" };
+            var result = saveDialog.ShowDialog(this);
+            if (result != DialogResult.OK) return;
+
+            var dt = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+            ExportHelpers.ExportToCSV(dt, saveDialog.FileName);
         }
     }
 }

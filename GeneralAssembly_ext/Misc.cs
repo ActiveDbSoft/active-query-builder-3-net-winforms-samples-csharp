@@ -97,7 +97,7 @@ namespace GeneralAssembly
             "Oracle Native",
             "PostgreSQL",
             "ODBC",
-            "OLEDB",
+            "Generic OLEDB Connection",
             "SQLite",
             "Firebird",
             "VistaDB5",
@@ -142,6 +142,7 @@ namespace GeneralAssembly
             var xmlSerializer = new XmlSerializer();
             foreach (ConnectionInfo connection in _connections)
             {
+                connection.SyntaxProviderName = connection.ConnectionDescriptor.SyntaxProvider.GetType().ToString();
                 connection.ConnectionString = connection.ConnectionDescriptor.ConnectionString;
                 connection.LoadingOptions =
                     xmlSerializer.Serialize(connection.ConnectionDescriptor.MetadataLoadingOptions);
@@ -176,8 +177,9 @@ namespace GeneralAssembly
             foreach (ConnectionInfo connection in _connections)
             {
                 if(connection.ConnectionDescriptor == null) continue;
-                
-                connection.ConnectionDescriptor.ConnectionString = connection.ConnectionString;
+
+                if (!connection.IsXmlFile)
+                    connection.ConnectionDescriptor.ConnectionString = connection.ConnectionString;
 
                 if (!string.IsNullOrEmpty(connection.LoadingOptions))
                 {
@@ -193,8 +195,15 @@ namespace GeneralAssembly
 
                 if (!string.IsNullOrEmpty(connection.SyntaxProviderState))
                 {
-                    xmlSerializer.DeserializeObject(connection.SyntaxProviderState, connection.ConnectionDescriptor.SyntaxProvider);
-					connection.ConnectionDescriptor.RecreateSyntaxProperties();
+                    if (!string.IsNullOrEmpty(connection.SyntaxProviderName))
+                    {
+                        connection.ConnectionDescriptor.SyntaxProvider =
+                            ConnectionInfo.GetSyntaxByName(connection.SyntaxProviderName);
+                    }
+
+                    xmlSerializer.DeserializeObject(connection.SyntaxProviderState,
+                        connection.ConnectionDescriptor.SyntaxProvider);
+                    connection.ConnectionDescriptor.RecreateSyntaxProperties();
                 }
 
                 if (!string.IsNullOrEmpty(connection.StructureOptionsState))

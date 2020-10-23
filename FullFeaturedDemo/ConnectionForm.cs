@@ -177,6 +177,8 @@ namespace FullFeaturedDemo
             }
 
             lvConnections.Focus();
+
+            SaveData();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -187,6 +189,8 @@ namespace FullFeaturedDemo
             Program.Connections.Remove(ci);
 
             lvConnections.Focus();
+
+            SaveData();
         }
 
         private void btnConfigure_Click(object sender, EventArgs e)
@@ -206,6 +210,8 @@ namespace FullFeaturedDemo
             }
 
             lvConnections.Focus();
+
+            SaveData();
         }
 
         private void lvConnections_SizeChanged(object sender, EventArgs e)
@@ -233,6 +239,13 @@ namespace FullFeaturedDemo
             {
                 btnOk.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
             }
+        }
+
+        private void SaveData()
+        {
+            Program.Settings.Connections.SaveData();
+            Program.Settings.XmlFiles.SaveData();
+            Program.Settings.Save();
         }
 
         private void lvConnections_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -265,6 +278,8 @@ namespace FullFeaturedDemo
             }
 
             lvXmlFiles.Focus();
+
+            SaveData();
         }
 
         private void btnRemoveXml_Click(object sender, EventArgs e)
