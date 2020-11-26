@@ -1,4 +1,6 @@
-﻿namespace LoadMetadataDemo
+﻿using System.Windows.Forms;
+
+namespace LoadMetadataDemo
 {
 	partial class Form1
 	{
@@ -34,9 +36,9 @@
             this.imageList16 = new System.Windows.Forms.ImageList(this.components);
             this.openMetadataFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveMetadataFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.aboutMenuItem = new System.Windows.Forms.MenuItem();
+            this.mainMenu1 = new System.Windows.Forms.MenuStrip();
+            this.menuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.queryBuilder1 = new ActiveQueryBuilder.View.WinForms.QueryBuilder();
             this.genericSyntaxProvider1 = new ActiveQueryBuilder.Core.GenericSyntaxProvider(this.components);
@@ -56,7 +58,7 @@
             this.btnFifthWay = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.way3EventMetadataProvider = new ActiveQueryBuilder.Core.EventMetadataProvider(this.components);
-            this.menuItemConnect = new System.Windows.Forms.MenuItem();
+            this.menuItemConnect = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,20 +97,18 @@
             // 
             // mainMenu1
             // 
-            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
             this.menuItem1,
             this.aboutMenuItem});
             // 
             // menuItem1
             // 
-            this.menuItem1.Index = 0;
-            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
             this.menuItemConnect});
             this.menuItem1.Text = "Connect";
             // 
             // aboutMenuItem
             // 
-            this.aboutMenuItem.Index = 1;
             this.aboutMenuItem.Text = "About...";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
@@ -447,7 +447,6 @@
             // 
             // menuItemConnect
             // 
-            this.menuItemConnect.Index = 0;
             this.menuItemConnect.Text = "Connect to...";
             this.menuItemConnect.Click += new System.EventHandler(this.menuItemConnect_Click);
             // 
@@ -459,7 +458,9 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Menu = this.mainMenu1;
+            this.MainMenuStrip = this.mainMenu1;
+            this.Controls.Add(this.mainMenu1);
+            this.mainMenu1.Dock = DockStyle.Top;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -491,9 +492,9 @@
 		private System.Windows.Forms.ImageList imageList16;
 
 		private ActiveQueryBuilder.Core.EventMetadataProvider way3EventMetadataProvider;
-		private System.Windows.Forms.MainMenu mainMenu1;
-		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.MenuItem aboutMenuItem;
+		private System.Windows.Forms.MenuStrip mainMenu1;
+		private System.Windows.Forms.ToolStripMenuItem menuItem1;
+		private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
 		private System.Windows.Forms.TextBox textBox1;
@@ -512,7 +513,7 @@
 		private System.Windows.Forms.TabPage tabPageDataset;
 		private System.Windows.Forms.Button btnFifthWay;
 		private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.MenuItem menuItemConnect;
+        private System.Windows.Forms.ToolStripMenuItem menuItemConnect;
     }
 }
 

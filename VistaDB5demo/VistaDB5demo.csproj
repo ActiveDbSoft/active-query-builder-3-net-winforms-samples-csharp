@@ -76,6 +76,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="QueryInformationForms\QueryParametersForm.resx">
+      <DependentUpon>QueryParametersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryInformationForms\QueryStatisticsForm.resx">
+      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlErrorBox.resx">
+      <DependentUpon>SqlErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VistaDB5ConnectionForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>VistaDB5ConnectionForm.cs</DependentUpon>
@@ -94,6 +103,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryParametersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryParametersForm.designer.cs">
+      <DependentUpon>QueryParametersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryStatisticsForm.designer.cs">
+      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlErrorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqlErrorBox.designer.cs">
+      <DependentUpon>SqlErrorBox.cs</DependentUpon>
     </Compile>
     <Compile Include="VistaDB5ConnectionForm.cs">
       <SubType>Form</SubType>
@@ -118,12 +145,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
-      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
-      <Name>GeneralAssembly</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

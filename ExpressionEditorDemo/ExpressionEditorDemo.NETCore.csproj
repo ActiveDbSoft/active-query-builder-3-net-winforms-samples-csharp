@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ProjectGuid>{D2DD2AA5-91B9-4939-B5ED-D2E0CC53B243}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.6.1181" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="AdventureWorks2014.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.NETCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="UserControl1.resx" />
+  </ItemGroup>
+</Project>

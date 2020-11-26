@@ -55,7 +55,7 @@
             this.openMetadataFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveMetadataFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.imageList32 = new System.Windows.Forms.ImageList(this.components);
-            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
+            this.errorBox1 = new VistaDB5demo.SqlErrorBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSQL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -446,7 +446,7 @@
 		private ActiveQueryBuilder.Core.VistaDBSyntaxProvider vistaDbSyntaxProvider1;
 		private ActiveQueryBuilder.Core.VistaDB5MetadataProvider vistaDb5MetadataProvider1;
 		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
-        private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private VistaDB5demo.SqlErrorBox errorBox1;
     }
 }
 

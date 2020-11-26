@@ -15,8 +15,11 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+#if NETCOREAPP
+using IBM.Data.DB2.Core;
+#else
 using IBM.Data.DB2;
+#endif
 
 namespace DB2demo
 {

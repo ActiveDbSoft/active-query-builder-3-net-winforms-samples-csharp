@@ -14,7 +14,11 @@ using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using GeneralAssembly.Forms.QueryInformationForms;
+#if NETCOREAPP
+using Informix.Net.Core;
+#else
 using IBM.Data.Informix;
+#endif
 
 namespace InformixDemo
 {

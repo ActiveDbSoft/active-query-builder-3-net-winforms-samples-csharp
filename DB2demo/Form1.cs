@@ -14,7 +14,11 @@ using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using GeneralAssembly.Forms.QueryInformationForms;
+#if NETCOREAPP
+using IBM.Data.DB2.Core;
+#else
 using IBM.Data.DB2;
+#endif
 
 
 namespace DB2demo

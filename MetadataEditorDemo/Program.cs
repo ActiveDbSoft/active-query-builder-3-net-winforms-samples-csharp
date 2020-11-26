@@ -30,15 +30,12 @@ namespace MetadataEditorDemo
             ODBCConnectionDescriptor.Register();
             OLEDBConnectionDescriptor.Register();
             OracleNativeConnectionDescriptor.Register();
-            VistaDB5ConnectionDescriptor.Register();
             MySQLConnectionDescriptor.Register();
             DB2ConnectionDescriptor.Register();
-            AdvantageConnectionDescriptor.Register();
             FirebirdConnectionDescriptor.Register();
             SybaseConnectionDescriptor.Register();
             PostgreSQLConnectionDescriptor.Register();
             InformixConnectionDescriptor.Register();
-            MSSQLCEConnectionDescriptor.Register();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MetadataEditor());

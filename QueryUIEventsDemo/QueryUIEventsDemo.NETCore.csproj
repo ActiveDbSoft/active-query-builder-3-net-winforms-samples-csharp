@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ProjectGuid>{0DA015C3-D216-4D32-BB2E-DDF87CD308A1}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.6.1181" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Northwind.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.NETCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+</Project>

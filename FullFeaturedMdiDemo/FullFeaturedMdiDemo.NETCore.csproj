@@ -1,0 +1,316 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>demo.snk</AssemblyOriginatorKeyFile>
+    <StartupObject>FullFeaturedMdiDemo.Program</StartupObject>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ProjectGuid>{F3B66D55-D4C4-4C3E-980E-4AB2EBE7B565}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <LangVersion>6</LangVersion>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <PackageReference Include="Gcef.Data.DataEngine" Version="2.0.186" />
+    <PackageReference Include="Gcef.Data.ExpressionInfo" Version="2.0.186" />
+    <PackageReference Include="Gcef.Data.VBFunctionLib" Version="2.0.186" />
+    <PackageReference Include="GrapeCity.ActiveReports" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Chart" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.DataProviders" Version="1.6.7" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.Drawing.Gc" Version="1.8.4" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.Drawing.Gdi" Version="1.8.4" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.Export.Image.Page" Version="1.8.4" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.Rdl" Version="1.8.4" />
+    <PackageReference Include="GrapeCity.ActiveReports.Core.Rendering" Version="1.8.4" />
+    <PackageReference Include="GrapeCity.ActiveReports.Document" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Export.Image" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Export.Rdf" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Interop" Version="14.2.20581" />
+    <PackageReference Include="GrapeCity.ActiveReports.Viewer.Win" Version="14.2.20581" />
+    <PackageReference Include="Grapecity.DataVisualization" Version="0.1.248" />
+    <PackageReference Include="GrapeCity.Documents.Common" Version="3.2.0.556" />
+    <PackageReference Include="GrapeCity.Documents.Common.Windows" Version="3.2.0.556" />
+    <PackageReference Include="GrapeCity.Documents.DX.Windows" Version="3.2.0.556" />
+    <PackageReference Include="GrapeCity.Documents.Imaging" Version="3.2.0.556" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NPOI" Version="2.5.1" />
+    <PackageReference Include="Stimulsoft.Reports.Engine" Version="2020.4.2" />
+    <PackageReference Include="Stimulsoft.Reports.Net" Version="2020.4.2" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChildForm.Designer.cs">
+      <DependentUpon>ChildForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Common\CreateReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Common\CreateReportForm.Designer.cs">
+      <DependentUpon>CreateReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\FastReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reports\FastReportForm.Designer.cs">
+      <DependentUpon>FastReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\StimulsoftForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reports\StimulsoftForm.Designer.cs">
+      <DependentUpon>StimulsoftForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ConnectionForm.Designer.cs">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ConnectionFrameBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="ConnectionStringEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ConnectionStringEditForm.Designer.cs">
+      <DependentUpon>ConnectionStringEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="EditConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditConnectionForm.designer.cs">
+      <DependentUpon>EditConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="EditXMLConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditXMLConnectionForm.Designer.cs">
+      <DependentUpon>EditXMLConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="NoConnectionLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="NoConnectionLabel.designer.cs">
+      <DependentUpon>NoConnectionLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\CommonTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\CommonTab.Designer.cs">
+      <DependentUpon>CommonTab.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\ExpressionsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\ExpressionsTab.Designer.cs">
+      <DependentUpon>ExpressionsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\MainQueryTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\MainQueryTab.designer.cs">
+      <DependentUpon>MainQueryTab.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\QueryPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\QueryPropertiesForm.designer.cs">
+      <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\SqlGenerationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\SqlGenerationPage.Designer.cs">
+      <DependentUpon>SqlGenerationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PropertiesForm\SubQueryTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesForm\SubQueryTab.designer.cs">
+      <DependentUpon>SubQueryTab.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="ChildForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChildForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Common\CreateReportForm.resx">
+      <DependentUpon>CreateReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Reports\FastReportForm.resx">
+      <DependentUpon>FastReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Reports\StimulsoftForm.resx">
+      <DependentUpon>StimulsoftForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ConnectionForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ConnectionStringEditForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConnectionStringEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="EditConnectionForm.resx">
+      <DependentUpon>EditConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="EditXMLConnectionForm.resx">
+      <DependentUpon>EditXMLConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NoConnectionLabel.resx">
+      <DependentUpon>NoConnectionLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\CommonTab.resx">
+      <DependentUpon>CommonTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\ExpressionsTab.resx">
+      <DependentUpon>ExpressionsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\MainQueryTab.resx">
+      <DependentUpon>MainQueryTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\QueryPropertiesForm.resx">
+      <DependentUpon>QueryPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\SqlGenerationPage.resx">
+      <DependentUpon>SqlGenerationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PropertiesForm\SubQueryTab.resx">
+      <DependentUpon>SubQueryTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Update="Reports\ActiveReportsForm.resx">
+      <DependentUpon>ActiveReportsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Update="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="northwind.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Update="Reports\ActiveReportsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reports\ActiveReportsForm.Designer.cs">
+      <DependentUpon>ActiveReportsForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+    <Content Include="Nwind.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Update="Northwind.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly_ext\GeneralAssembly_ext.NETCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FastReport">
+      <HintPath>..\..\..\Assemblies\FastReport.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <PreBuildEvent>echo. 2&gt;"$(ProjectDir)\Properties\licenses.licx"</PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="WorkaroundMSBuild2836" BeforeTargets="CompileLicxFiles">
+    <PropertyGroup>
+      <_OriginalTargetFrameworkVersion>$(TargetFrameworkVersion)</_OriginalTargetFrameworkVersion>
+      <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    </PropertyGroup>
+  </Target>
+  <Target Name="UndoWorkaroundMSBuild2836" AfterTargets="CompileLicxFiles">
+    <PropertyGroup>
+      <TargetFrameworkVersion>$(_OriginalTargetFrameworkVersion)</TargetFrameworkVersion>
+    </PropertyGroup>
+  </Target>
+  <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+</Project>

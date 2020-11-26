@@ -1,0 +1,132 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ProjectGuid>{FB92543B-4599-4A83-B4E4-6ADA2DC856F3}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <PackageReference Include="ActiveQueryBuilder.DB2MetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.FirebirdMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.InformixMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.MSSQLMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.MySQLMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.ODBCMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.OLEDBMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.OracleNativeMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.PostgreSQLMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.SQLiteMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.SybaseMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.6.1181" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="CollapsingControls\CollapsingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="CollapsingControls\TextCollapsingDivider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\FocuslessButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Common\GroupContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\InformationMessageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\InformationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\ConnectionTypeWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\FilterWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\LoadingWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\LoadOptsWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\MetadataOptsWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\SyntaxWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\LoadingWizardPages\WelcomeWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\MetadataEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\MetadataFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Common\MetadataFilterItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="CustomContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Northwind.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assemblies\dblgde16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgen16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblges16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgfr16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgit16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgja16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgko16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblglt16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgpl16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgpt16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgru16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgtw16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblguk16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assemblies\dblgzh16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+  </ItemGroup>
+</Project>

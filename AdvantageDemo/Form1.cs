@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using Advantage.Data.Provider;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
-using GeneralAssembly.Forms.QueryInformationForms;
+using AdvantageDemo.QueryInformationForms;
 
 
 namespace AdvantageDemo

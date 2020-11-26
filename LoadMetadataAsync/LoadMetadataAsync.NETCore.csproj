@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ProjectGuid>{15EA4759-7FCC-4E67-B7C4-2263DE927CA0}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <PackageReference Include="ActiveQueryBuilder.OLEDBMetadataProvider" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.6.1181" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+    <Content Include="demo.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+    <StartupObject>LoadMetadataAsync.Program</StartupObject>
+  </PropertyGroup>
+</Project>

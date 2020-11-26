@@ -78,12 +78,9 @@ namespace GeneralAssembly
             typeof(OLEDBConnectionDescriptor),
             typeof(SQLiteConnectionDescriptor),
             typeof(FirebirdConnectionDescriptor),
-            typeof(VistaDB5ConnectionDescriptor),
             typeof(DB2ConnectionDescriptor),
-            typeof(AdvantageConnectionDescriptor),
             typeof(SybaseConnectionDescriptor),
             typeof(InformixConnectionDescriptor),
-            typeof(MSSQLCEConnectionDescriptor)
 
         };
 
@@ -368,24 +365,18 @@ namespace GeneralAssembly
                     case ConnectionTypes.Excel:
                         ConnectionDescriptor = new ExcelConnectionDescriptor();
                         return;
-                    case ConnectionTypes.VistaDB5:
-                        ConnectionDescriptor = new VistaDB5ConnectionDescriptor();
-                        break;
+                   
                     case ConnectionTypes.DB2:
                         ConnectionDescriptor = new DB2ConnectionDescriptor();
                         break;
-                    case ConnectionTypes.Advantage:
-                        ConnectionDescriptor = new AdvantageConnectionDescriptor();
-                        break;
+                    
                     case ConnectionTypes.Sybase:
                         ConnectionDescriptor = new SybaseConnectionDescriptor();
                         break;
                     case ConnectionTypes.Informix:
                         ConnectionDescriptor = new InformixConnectionDescriptor();
                         break;
-                    case ConnectionTypes.MSSQLCE:
-                        ConnectionDescriptor = new MSSQLCEConnectionDescriptor();
-                        break;
+                    
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -419,18 +410,13 @@ namespace GeneralAssembly
                 return ConnectionTypes.Firebird;
             if (descriptorType == typeof(SQLiteConnectionDescriptor))
                 return ConnectionTypes.SQLite;
-            if (descriptorType == typeof(VistaDB5ConnectionDescriptor))
-                return ConnectionTypes.VistaDB5;
             if (descriptorType == typeof(DB2ConnectionDescriptor))
                 return ConnectionTypes.DB2;
-            if (descriptorType == typeof(AdvantageConnectionDescriptor))
-                return ConnectionTypes.Advantage;
             if (descriptorType == typeof(SybaseConnectionDescriptor))
                 return ConnectionTypes.Sybase;
             if (descriptorType == typeof(InformixConnectionDescriptor))
                 return ConnectionTypes.Informix;
-            if (descriptorType == typeof(MSSQLCEConnectionDescriptor))
-                return ConnectionTypes.MSSQLCE;
+           
 
             return ConnectionTypes.MSSQL;
         }

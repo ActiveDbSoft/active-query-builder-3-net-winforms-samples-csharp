@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <Reference Include="ActiveQueryBuilder.AdvantageMetadataProvider, Version=3.7.5.1179, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.AdvantageMetadataProvider, Version=3.7.6.1181, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
     
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,6 +58,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryInformationForms\QueryParametersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryParametersForm.designer.cs">
+      <DependentUpon>QueryParametersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryInformationForms\QueryStatisticsForm.designer.cs">
+      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlErrorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqlErrorBox.designer.cs">
+      <DependentUpon>SqlErrorBox.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -76,6 +94,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QueryInformationForms\QueryParametersForm.resx">
+      <DependentUpon>QueryParametersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryInformationForms\QueryStatisticsForm.resx">
+      <DependentUpon>QueryStatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlErrorBox.resx">
+      <DependentUpon>SqlErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -92,12 +119,6 @@
     <Compile Include="AdvantageConnectionForm.Designer.cs">
       <DependentUpon>AdvantageConnectionForm.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
-      <Project>{459A8DFB-6B43-4A5D-B6A0-D81B32C553ED}</Project>
-      <Name>GeneralAssembly</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
