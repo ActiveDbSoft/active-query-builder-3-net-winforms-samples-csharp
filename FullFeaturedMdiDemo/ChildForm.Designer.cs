@@ -22,7 +22,7 @@ namespace FullFeaturedMdiDemo
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChildForm));
-            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess3 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
+            ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
             this.toolStripPanel1 = new System.Windows.Forms.ToolStripPanel();
             this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiUndo = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,9 +44,9 @@ namespace FullFeaturedMdiDemo
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dockManager1 = new ActiveQueryBuilder.View.WinForms.DockPanels.DockManager();
             this.designPaneControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl();
-            this.dockPanel1 = new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel();
+            this.dockPanelProperties = new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel();
             this.propertiesBar1 = new ActiveQueryBuilder.View.WinForms.QueryView.PropertiesBar();
-            this.dockPanel2 = new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel();
+            this.dockPanelSubquery = new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel();
             this.subQueryNavBar1 = new ActiveQueryBuilder.View.WinForms.NavigationBar.SubQueryNavBar();
             this.queryColumnListControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.QueryColumnListControl();
             this.expressionEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor(this.components);
@@ -80,6 +80,10 @@ namespace FullFeaturedMdiDemo
             this.tsbSaveInFile = new System.Windows.Forms.ToolStripButton();
             this.tsbSaveNewUserQuery = new System.Windows.Forms.ToolStripButton();
             this.pageQueryResult = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonGenerateReport = new System.Windows.Forms.Button();
+            this.buttonExportExcel = new System.Windows.Forms.Button();
+            this.buttonExportCsv = new System.Windows.Forms.Button();
             this.resultGrid1 = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -87,10 +91,6 @@ namespace FullFeaturedMdiDemo
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonGenerateReport = new System.Windows.Forms.Button();
-            this.buttonExportExcel = new System.Windows.Forms.Button();
-            this.buttonExportCsv = new System.Windows.Forms.Button();
             this.contextMenuStripForRichTextBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.pageQueryBuilder.SuspendLayout();
@@ -108,8 +108,8 @@ namespace FullFeaturedMdiDemo
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockManager1.SuspendLayout();
-            this.dockPanel1.SuspendLayout();
-            this.dockPanel2.SuspendLayout();
+            this.dockPanelProperties.SuspendLayout();
+            this.dockPanelSubquery.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.queryColumnListControl1)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -124,8 +124,8 @@ namespace FullFeaturedMdiDemo
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pageQueryResult.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripPanel1
@@ -363,8 +363,8 @@ namespace FullFeaturedMdiDemo
             this.dockManager1.Controls.Add(this.designPaneControl1);
             this.dockManager1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dockManager1.DockPanels.AddRange(new ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel[] {
-            this.dockPanel1,
-            this.dockPanel2});
+            this.dockPanelProperties,
+            this.dockPanelSubquery});
             this.dockManager1.Location = new System.Drawing.Point(0, 0);
             this.dockManager1.Name = "dockManager1";
             this.dockManager1.Options.ActiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(157)))));
@@ -393,28 +393,28 @@ namespace FullFeaturedMdiDemo
             this.designPaneControl1.Location = new System.Drawing.Point(29, 0);
             this.designPaneControl1.Name = "designPaneControl1";
             this.designPaneControl1.Options.Background = System.Drawing.SystemColors.Window;
-            linkPainterAccess3.LinkColor = System.Drawing.Color.Black;
-            linkPainterAccess3.LinkColorFocused = System.Drawing.Color.Black;
-            linkPainterAccess3.MarkColor = System.Drawing.SystemColors.Control;
-            linkPainterAccess3.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
-            linkPainterAccess3.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
-            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess3;
+            linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
+            linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
+            linkPainterAccess1.MarkColor = System.Drawing.SystemColors.Control;
+            linkPainterAccess1.MarkColorFocused = System.Drawing.SystemColors.ControlDark;
+            linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
+            this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess1;
             this.designPaneControl1.Options.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.designPaneControl1.Size = new System.Drawing.Size(632, 213);
             this.designPaneControl1.TabIndex = 1;
             // 
-            // dockPanel1
+            // dockPanelProperties
             // 
-            this.dockPanel1.AutoHide = false;
-            this.dockPanel1.Controls.Add(this.propertiesBar1);
-            this.dockPanel1.Docking = ActiveQueryBuilder.View.Docking.Right;
-            this.dockPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dockPanel1.Location = new System.Drawing.Point(0, 0);
-            this.dockPanel1.Name = "dockPanel1";
-            this.dockPanel1.Size = new System.Drawing.Size(200, 213);
-            this.dockPanel1.TabIndex = 2;
-            this.dockPanel1.TabStop = false;
-            this.dockPanel1.Text = "Properties";
+            this.dockPanelProperties.AutoHide = false;
+            this.dockPanelProperties.Controls.Add(this.propertiesBar1);
+            this.dockPanelProperties.Docking = ActiveQueryBuilder.View.Docking.Right;
+            this.dockPanelProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dockPanelProperties.Location = new System.Drawing.Point(0, 0);
+            this.dockPanelProperties.Name = "dockPanelProperties";
+            this.dockPanelProperties.Size = new System.Drawing.Size(200, 213);
+            this.dockPanelProperties.TabIndex = 2;
+            this.dockPanelProperties.TabStop = false;
+            this.dockPanelProperties.Text = "Properties";
             // 
             // propertiesBar1
             // 
@@ -427,19 +427,19 @@ namespace FullFeaturedMdiDemo
             this.propertiesBar1.Size = new System.Drawing.Size(199, 191);
             this.propertiesBar1.TabIndex = 1;
             // 
-            // dockPanel2
+            // dockPanelSubquery
             // 
-            this.dockPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dockPanelSubquery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dockPanel2.Controls.Add(this.subQueryNavBar1);
-            this.dockPanel2.Docking = ActiveQueryBuilder.View.Docking.Left;
-            this.dockPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dockPanel2.Location = new System.Drawing.Point(630, 0);
-            this.dockPanel2.Name = "dockPanel2";
-            this.dockPanel2.Size = new System.Drawing.Size(200, 251);
-            this.dockPanel2.TabIndex = 3;
-            this.dockPanel2.TabStop = false;
-            this.dockPanel2.Text = "Sub-query structure";
+            this.dockPanelSubquery.Controls.Add(this.subQueryNavBar1);
+            this.dockPanelSubquery.Docking = ActiveQueryBuilder.View.Docking.Left;
+            this.dockPanelSubquery.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dockPanelSubquery.Location = new System.Drawing.Point(630, 0);
+            this.dockPanelSubquery.Name = "dockPanelSubquery";
+            this.dockPanelSubquery.Size = new System.Drawing.Size(200, 251);
+            this.dockPanelSubquery.TabIndex = 3;
+            this.dockPanelSubquery.TabStop = false;
+            this.dockPanelSubquery.Text = "Sub-query structure";
             // 
             // subQueryNavBar1
             // 
@@ -908,6 +908,64 @@ namespace FullFeaturedMdiDemo
             this.pageQueryResult.Text = "Query Result";
             this.pageQueryResult.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightGray;
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.Controls.Add(this.buttonGenerateReport, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonExportExcel, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonExportCsv, 2, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 472);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(866, 37);
+            this.tableLayoutPanel5.TabIndex = 5;
+            // 
+            // buttonGenerateReport
+            // 
+            this.buttonGenerateReport.AutoSize = true;
+            this.buttonGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonGenerateReport.Enabled = false;
+            this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
+            this.buttonGenerateReport.Name = "buttonGenerateReport";
+            this.buttonGenerateReport.Size = new System.Drawing.Size(282, 31);
+            this.buttonGenerateReport.TabIndex = 0;
+            this.buttonGenerateReport.Text = "Generate report";
+            this.buttonGenerateReport.UseVisualStyleBackColor = true;
+            this.buttonGenerateReport.Click += new System.EventHandler(this.buttonGenerateReport_Click);
+            // 
+            // buttonExportExcel
+            // 
+            this.buttonExportExcel.AutoSize = true;
+            this.buttonExportExcel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonExportExcel.Enabled = false;
+            this.buttonExportExcel.Location = new System.Drawing.Point(291, 3);
+            this.buttonExportExcel.Name = "buttonExportExcel";
+            this.buttonExportExcel.Size = new System.Drawing.Size(282, 31);
+            this.buttonExportExcel.TabIndex = 1;
+            this.buttonExportExcel.Text = "Export to Excel";
+            this.buttonExportExcel.UseVisualStyleBackColor = true;
+            this.buttonExportExcel.Click += new System.EventHandler(this.buttonExportExcel_Click);
+            // 
+            // buttonExportCsv
+            // 
+            this.buttonExportCsv.AutoSize = true;
+            this.buttonExportCsv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonExportCsv.Enabled = false;
+            this.buttonExportCsv.Location = new System.Drawing.Point(579, 3);
+            this.buttonExportCsv.Name = "buttonExportCsv";
+            this.buttonExportCsv.Size = new System.Drawing.Size(284, 31);
+            this.buttonExportCsv.TabIndex = 2;
+            this.buttonExportCsv.Text = "Export to CSV";
+            this.buttonExportCsv.UseVisualStyleBackColor = true;
+            this.buttonExportCsv.Click += new System.EventHandler(this.buttonExportCsv_Click);
+            // 
             // resultGrid1
             // 
             this.resultGrid1.AutoSize = true;
@@ -983,64 +1041,6 @@ namespace FullFeaturedMdiDemo
             this.miniToolStrip.Stretch = true;
             this.miniToolStrip.TabIndex = 0;
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.AutoSize = true;
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightGray;
-            this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Controls.Add(this.buttonGenerateReport, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.buttonExportExcel, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.buttonExportCsv, 2, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 472);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(866, 37);
-            this.tableLayoutPanel5.TabIndex = 5;
-            // 
-            // buttonGenerateReport
-            // 
-            this.buttonGenerateReport.AutoSize = true;
-            this.buttonGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonGenerateReport.Enabled = false;
-            this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
-            this.buttonGenerateReport.Name = "buttonGenerateReport";
-            this.buttonGenerateReport.Size = new System.Drawing.Size(282, 31);
-            this.buttonGenerateReport.TabIndex = 0;
-            this.buttonGenerateReport.Text = "Generate report";
-            this.buttonGenerateReport.UseVisualStyleBackColor = true;
-            this.buttonGenerateReport.Click += new System.EventHandler(this.buttonGenerateReport_Click);
-            // 
-            // buttonExportExcel
-            // 
-            this.buttonExportExcel.AutoSize = true;
-            this.buttonExportExcel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonExportExcel.Enabled = false;
-            this.buttonExportExcel.Location = new System.Drawing.Point(291, 3);
-            this.buttonExportExcel.Name = "buttonExportExcel";
-            this.buttonExportExcel.Size = new System.Drawing.Size(282, 31);
-            this.buttonExportExcel.TabIndex = 1;
-            this.buttonExportExcel.Text = "Export to Excel";
-            this.buttonExportExcel.UseVisualStyleBackColor = true;
-            this.buttonExportExcel.Click += new System.EventHandler(this.buttonExportExcel_Click);
-            // 
-            // buttonExportCsv
-            // 
-            this.buttonExportCsv.AutoSize = true;
-            this.buttonExportCsv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonExportCsv.Enabled = false;
-            this.buttonExportCsv.Location = new System.Drawing.Point(579, 3);
-            this.buttonExportCsv.Name = "buttonExportCsv";
-            this.buttonExportCsv.Size = new System.Drawing.Size(284, 31);
-            this.buttonExportCsv.TabIndex = 2;
-            this.buttonExportCsv.Text = "Export to CSV";
-            this.buttonExportCsv.UseVisualStyleBackColor = true;
-            this.buttonExportCsv.Click += new System.EventHandler(this.buttonExportCsv_Click);
-            // 
             // ChildForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1073,8 +1073,8 @@ namespace FullFeaturedMdiDemo
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockManager1.ResumeLayout(false);
             this.dockManager1.PerformLayout();
-            this.dockPanel1.ResumeLayout(false);
-            this.dockPanel2.ResumeLayout(false);
+            this.dockPanelProperties.ResumeLayout(false);
+            this.dockPanelSubquery.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.queryColumnListControl1)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -1095,10 +1095,10 @@ namespace FullFeaturedMdiDemo
             this.toolStrip1.PerformLayout();
             this.pageQueryResult.ResumeLayout(false);
             this.pageQueryResult.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1142,11 +1142,11 @@ namespace FullFeaturedMdiDemo
         private System.Windows.Forms.SplitContainer splitContainer2;
         private ActiveQueryBuilder.View.WinForms.DockPanels.DockManager dockManager1;
         private ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl designPaneControl1;
-        private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanel1;
+        private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanelProperties;
         private ActiveQueryBuilder.View.WinForms.QueryView.PropertiesBar propertiesBar1;
         private ActiveQueryBuilder.View.WinForms.QueryView.QueryColumnListControl queryColumnListControl1;
         private ActiveQueryBuilder.View.WinForms.QueryView.AddObjectDialog addObjectDialog1;
-        private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanel2;
+        private ActiveQueryBuilder.View.WinForms.DockPanels.DockPanel dockPanelSubquery;
         private ActiveQueryBuilder.View.WinForms.NavigationBar.SubQueryNavBar subQueryNavBar1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbSave;

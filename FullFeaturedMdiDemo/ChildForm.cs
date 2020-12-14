@@ -607,6 +607,9 @@ Do you want to load database structure from cache?";
 	        tsbAddDerivedTable.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddSubQuery", "Add derived table");
 	        tsbAddUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strNewUnionSubQuery", "New union sub-query");
 	        tsbCopyUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strCopyToNewUnionSubQuery", "Copy union sub-query");
+
+            dockPanelProperties.Text = ActiveQueryBuilder.Core.Helpers.Localizer.GetString(nameof(LocalizableConstantsUI.strProperties), LocalizableConstantsUI.strProperties);
+            dockPanelSubquery.Text = ActiveQueryBuilder.Core.Helpers.Localizer.GetString("strSubQueryStructureBarCaption", LocalizableConstantsUI.strSubQueryStructureBarCaption);
         }
 
 	    public void ParseQuery()

@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.6.1181" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.7.1182" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="CustomExpressionEditor.cs">
