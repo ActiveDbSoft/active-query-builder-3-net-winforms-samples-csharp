@@ -25,7 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.7.1182" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.9.1184" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Form1.cs">

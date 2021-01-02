@@ -75,7 +75,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    
+    <Reference Include="IBM.Data.Informix">
+		<HintPath>..\third-party\IBM.Data.Informix.dll</HintPath>
+	</Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -144,12 +146,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
-      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
-      <Name>GeneralAssembly</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -158,4 +154,22 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
+      <Name>GeneralAssembly</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.InformixMetadataProvider, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+  </ItemGroup>
 </Project>

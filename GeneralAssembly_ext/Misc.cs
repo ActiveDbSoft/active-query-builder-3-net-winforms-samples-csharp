@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Drawing;
 using System.Linq;
 using System.Xml.Serialization;
 using ActiveQueryBuilder.Core;

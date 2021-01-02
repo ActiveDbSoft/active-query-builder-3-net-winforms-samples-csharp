@@ -20,7 +20,11 @@ using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
 using ActiveQueryBuilder.View.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
+#if NETCOREAPP
 using GeneralAssembly;
+#else
+using GeneralAssembly.Common;
+#endif
 using DragEventArgs = ActiveQueryBuilder.View.EventHandlers.DragEventArgs;
 
 namespace ExpressionEditorDemo

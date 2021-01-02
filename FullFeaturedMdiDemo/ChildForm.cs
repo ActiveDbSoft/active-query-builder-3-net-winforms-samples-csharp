@@ -30,6 +30,7 @@ using FullFeaturedMdiDemo.Reports;
 using GeneralAssembly;
 using GeneralAssembly.Dailogs;
 using GeneralAssembly.Forms.QueryInformationForms;
+using NPOI.OpenXmlFormats.Shared;
 using SqlHelpers = GeneralAssembly.SqlHelpers;
 using Timer = System.Threading.Timer;
 
@@ -1020,9 +1021,7 @@ Do you want to load database structure from cache?";
                 CBuilder.QueryTransformer.EndUpdate();
             }
 
-            var sql = CBuilder.QueryTransformer.SQL;
-         
-            resultGrid1.FillDataGrid(sql);
+            resultGrid1.FillDataGrid(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions));
 
             RefreshNoConnectionLabel();
         }
@@ -1112,7 +1111,7 @@ Do you want to load database structure from cache?";
                 string sql = CBuilder.SQL;
                 richTextBox1.Text = sql;
 
-                resultGrid1.FillDataGrid(sql);
+                resultGrid1.FillDataGrid(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions));
             }
             catch
             {

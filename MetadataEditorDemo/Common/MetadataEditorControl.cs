@@ -77,6 +77,7 @@ namespace MetadataEditorDemo.Common
         public IPropertiesBar PropertiesBar => propertiesBar;
 
         public IControlFactory ControlFactory => ActiveQueryBuilder.View.WinForms.ControlFactory.Instance;
+        public bool ContainerViewReadOnly { get; set; }
 
         public string Language => Helpers.Localizer.Language;
 
@@ -415,7 +416,9 @@ namespace MetadataEditorDemo.Common
 
         private void treeDatabaseSchema_KeyDown(object sender, KeyEventArgs e)
 		{
-			switch (e.KeyCode)
+            if (ContainerViewReadOnly) return;
+            
+            switch (e.KeyCode)
 			{
 				case Keys.Delete:
 					tsbMetadataDelete_Click();

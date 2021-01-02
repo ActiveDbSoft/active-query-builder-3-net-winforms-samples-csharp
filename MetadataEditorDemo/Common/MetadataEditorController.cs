@@ -172,7 +172,7 @@ namespace MetadataEditorDemo.Common
         public void UpdateContainerCommands()
         {
             var focusedItem = _view.ContainerView.FocusedItem;
-            if (focusedItem == null)
+            if (focusedItem == null || _view.ContainerViewReadOnly)
             {
                 DisableContainerCommands();
                 return;

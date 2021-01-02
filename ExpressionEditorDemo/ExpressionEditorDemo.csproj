@@ -34,9 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    
-    
-    
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -103,11 +100,20 @@
   <ItemGroup>
     <None Include="Resources\info.png" />
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.csproj">
-      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ed}</Project>
-      <Name>GeneralAssembly</Name>
+    <ProjectReference Include="..\GeneralAssembly_ext\GeneralAssembly_ext.csproj">
+      <Project>{459a8dfb-6b43-4a5d-b6a0-d81b32c553ee}</Project>
+      <Name>GeneralAssembly_ext</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+  </ItemGroup>
 </Project>

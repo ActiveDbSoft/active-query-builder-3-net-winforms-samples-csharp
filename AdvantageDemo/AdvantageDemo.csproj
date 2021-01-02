@@ -41,8 +41,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <Reference Include="ActiveQueryBuilder.AdvantageMetadataProvider, Version=3.7.7.1182, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
-    
+    <Reference Include="Advantage.Data.Provider">
+		<HintPath>..\third-party\Advantage.Data.Provider.dll</HintPath>
+	</Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -128,4 +129,18 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ActiveQueryBuilder.AdvantageMetadataProvider, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.Core, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+    <Reference Include="ActiveQueryBuilder.View.WinForms, Version=3.7.9.1184, Culture=neutral, PublicKeyToken=49d051b90653c7f4, processorArchitecture=MSIL" />
+  </ItemGroup>
 </Project>
