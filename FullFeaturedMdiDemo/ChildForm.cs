@@ -1361,7 +1361,7 @@ Do you want to load database structure from cache?";
             DialogResult result = window.ShowDialog();
 
             if (result != DialogResult.OK || window.SelectedReportType == null) return;
-            var dataTable = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+            var dataTable = SqlHelpers.GetDataTable(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions), SqlQuery);
 
             switch (window.SelectedReportType)
             {
@@ -1381,7 +1381,7 @@ Do you want to load database structure from cache?";
 
         private void buttonExportExcel_Click(object sender, EventArgs e)
         {
-            var dt = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+            var dt = SqlHelpers.GetDataTable(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions), SqlQuery);
 
             var saveDialog = new SaveFileDialog { AddExtension = true, DefaultExt = "xlsx", FileName = "Export.xlsx" };
             if (saveDialog.ShowDialog(this) != DialogResult.OK) return;
@@ -1395,7 +1395,7 @@ Do you want to load database structure from cache?";
             var result = saveDialog.ShowDialog(this);
             if (result != DialogResult.OK) return;
 
-            var dt = SqlHelpers.GetDataTable(CBuilder.SQL, SqlQuery);
+            var dt = SqlHelpers.GetDataTable(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions), SqlQuery);
             ExportHelpers.ExportToCSV(dt, saveDialog.FileName);
         }
     }

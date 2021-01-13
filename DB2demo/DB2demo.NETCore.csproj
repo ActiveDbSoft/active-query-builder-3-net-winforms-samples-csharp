@@ -9,8 +9,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.9.1184" />
-    <PackageReference Include="ActiveQueryBuilder.DB2MetadataProvider" Version="3.7.9.1184" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.10.1185" />
+    <PackageReference Include="ActiveQueryBuilder.DB2MetadataProvider" Version="3.7.10.1185" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Form1.cs">

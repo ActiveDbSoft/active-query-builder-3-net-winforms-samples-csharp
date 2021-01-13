@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DatasourceFieldsLinkingDragnDropDemo")]
-[assembly: AssemblyCopyright("Copyright © 2006-2020 Active Database Software")]
+[assembly: AssemblyCopyright("Copyright © 2006-2021 Active Database Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

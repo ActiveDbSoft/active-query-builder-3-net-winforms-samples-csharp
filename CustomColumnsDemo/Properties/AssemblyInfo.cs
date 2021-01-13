@@ -18,9 +18,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CustomColumnsDemo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Active Database Software")]
 [assembly: AssemblyProduct("CustomColumnsDemo")]
-[assembly: AssemblyCopyright("Copyright © 2006-2020 Active Database Software")]
+[assembly: AssemblyCopyright("Copyright © 2006-2021 Active Database Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
