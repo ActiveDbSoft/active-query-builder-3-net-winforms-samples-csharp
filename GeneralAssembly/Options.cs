@@ -17,7 +17,6 @@ using ActiveQueryBuilder.Core.Serialization;
 using ActiveQueryBuilder.View;
 using ActiveQueryBuilder.View.DatabaseSchemaView;
 using ActiveQueryBuilder.View.WinForms;
-using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
 using ActiveQueryBuilder.View.WinForms.Serialization;
 
@@ -37,9 +36,6 @@ namespace GeneralAssembly
         public UserInterfaceOptions UserInterfaceOptions { get; set; }
         public SQLFormattingOptions SqlFormattingOptions { get; set; }
         public SQLGenerationOptions SqlGenerationOptions { get; set; }
-        public ExpressionEditorOptions ExpressionEditorOptions { get; set; }
-        public TextEditorOptions TextEditorOptions { get; set; }
-        public SqlTextEditorOptions TextEditorSqlOptions { get; set; }
 
         private readonly List<OptionsBase> _options = new List<OptionsBase>();
 
@@ -55,13 +51,6 @@ namespace GeneralAssembly
             UserInterfaceOptions = new UserInterfaceOptions();
             SqlFormattingOptions = new SQLFormattingOptions();
             SqlGenerationOptions = new SQLGenerationOptions();
-            ExpressionEditorOptions = new ExpressionEditorOptions();
-            TextEditorOptions = new TextEditorOptions
-            {
-                Padding = DefaultTextEditorPadding,
-                LineHeight = new LengthUnit(90, SizeUnitType.Percent)
-            };
-            TextEditorSqlOptions = new SqlTextEditorOptions();
         }
 
         private void InitializeOptionsList()
@@ -77,9 +66,6 @@ namespace GeneralAssembly
             _options.Add(UserInterfaceOptions);
             _options.Add(SqlFormattingOptions);
             _options.Add(SqlGenerationOptions);
-            _options.Add(ExpressionEditorOptions);
-            _options.Add(TextEditorOptions);
-            _options.Add(TextEditorSqlOptions);
         }
 
         public string SerializeToString()
