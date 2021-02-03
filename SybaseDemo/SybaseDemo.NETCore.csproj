@@ -24,8 +24,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.SybaseMetadataProvider" Version="3.7.12.1187" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.12.1187" />
+    <PackageReference Include="ActiveQueryBuilder.SybaseMetadataProvider" Version="3.7.13.1188" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.13.1188" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Form1.cs">
