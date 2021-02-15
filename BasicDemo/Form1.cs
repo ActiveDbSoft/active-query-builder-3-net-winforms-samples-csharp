@@ -170,21 +170,20 @@ namespace BasicDemo
 	    private void menuItem5_Click(object sender, EventArgs e)
 	    {	        
 	        using (var connectionForm = new ConnectionForm())
-	        {
-	            if (connectionForm.ShowDialog() == DialogResult.OK)
-	            {
-	                try
-	                {
-	                    ResetQueryBuilder();
-                        var context = connectionForm.Connection.GetSqlContext();
-	                    queryBuilder1.SQLContext.Assign(context);
-                    }
-	                catch (Exception ex)
-	                {
-	                    MessageBox.Show(ex.Message, "@Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-	                }                    
-	            }
-	        }
+            {
+                if (connectionForm.ShowDialog() != DialogResult.OK) return;
+                try
+                {
+                    ResetQueryBuilder();
+                    var context = connectionForm.Connection.GetSqlContext();
+                    if (context?.SyntaxProvider == null) return;
+                    queryBuilder1.SQLContext.Assign(context);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void fillProgrammaticallyMenuItem_Click(object sender, EventArgs e)
@@ -237,20 +236,21 @@ namespace BasicDemo
 		{
 			try
 			{
-
                 // Update the query builder with manually edited query text:
                 queryBuilder1.SQL = sqlTextEditor1.Text;
 
 				// Hide error banner if any
 				errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				sqlTextEditor1.SelectionStart = ex.ErrorPos.pos;
-                _errorPosition = ex.ErrorPos.pos;
+			catch (Exception ex)
+            {
+                var parsingException = ex as SQLParsingException;
+                if (parsingException == null) return;
+                // Set caret to error position
+                sqlTextEditor1.SelectionStart = parsingException.ErrorPos.pos;
+                _errorPosition = parsingException.ErrorPos.pos;
                 // Show banner with error text
-                errorBox1.Show(ex.Message, queryBuilder1.SyntaxProvider);
+                errorBox1.Show(parsingException.Message, queryBuilder1.SyntaxProvider);
             }
 		}
 
