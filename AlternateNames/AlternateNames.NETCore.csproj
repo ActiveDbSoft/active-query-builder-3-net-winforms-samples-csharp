@@ -12,7 +12,7 @@
     <Compile Remove="Properties\Resources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.15.1190" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.16.1191" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

@@ -8,8 +8,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.MSSQLMetadataProvider" Version="3.7.15.1190" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.15.1190" />
+    <PackageReference Include="ActiveQueryBuilder.MSSQLMetadataProvider" Version="3.7.16.1191" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.16.1191" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="northwind.xml">
