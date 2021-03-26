@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
-    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.16.1191" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="3.7.18.1193" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="CustomComobBoxWithButtonColumnDemoFrame.cs">

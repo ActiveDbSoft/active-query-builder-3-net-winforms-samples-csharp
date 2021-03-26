@@ -118,7 +118,7 @@ namespace QueryStructureDemo
 		private void btnShowUnlinkedDatasourcesButton_Click(object sender, EventArgs e)
 		{
 		    // get active UnionSubQuery
-			var unionSubQuery = queryBuilder.ActiveUnionSubQuery.ParentUnionSubQuery;
+			var unionSubQuery = queryBuilder.ActiveUnionSubQuery;
 
 			// analize links and datasources
 			var unlinkedDatasourcesInfo = GetUnlinkedDataSourcesFromUnionSubQuery(unionSubQuery);

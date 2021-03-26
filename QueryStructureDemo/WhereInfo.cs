@@ -8,6 +8,8 @@
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ActiveQueryBuilder.Core;
 
@@ -15,7 +17,7 @@ namespace QueryStructureDemo
 {
 	partial class Form1
 	{
-		private void DumpExpression(StringBuilder stringBuilder, string indent, SQLExpressionItem expression)
+		private void DumpExpression(StringBuilder stringBuilder, string indent, AstNode expression)
 		{
 			const string cIndentInc = "    ";
 
@@ -23,7 +25,7 @@ namespace QueryStructureDemo
 
 			if (expression == null) // NULL reference protection
 			{
-				stringBuilder.AppendLine(indent + "--nil--");
+				stringBuilder.AppendLine(indent + "--null--");
 			}
 			else if (expression is SQLExpressionBrackets)
 			{
@@ -41,9 +43,7 @@ namespace QueryStructureDemo
 				stringBuilder.AppendLine(indent + "OR");
 
 				for (int i = 0; i < ((SQLExpressionOr) expression).Count; i++)
-				{
 					DumpExpression(stringBuilder, newIndent, ((SQLExpressionOr) expression)[i]);
-				}
 			}
 			else if (expression is SQLExpressionAnd)
 			{
@@ -53,9 +53,7 @@ namespace QueryStructureDemo
 				stringBuilder.AppendLine(indent + "AND");
 
 				for (int i = 0; i < ((SQLExpressionAnd) expression).Count; i++)
-				{
 					DumpExpression(stringBuilder, newIndent, ((SQLExpressionAnd) expression)[i]);
-				}
 			}
 			else if (expression is SQLExpressionNot)
 			{
@@ -77,12 +75,29 @@ namespace QueryStructureDemo
 				// right argument of the binary operator
 				DumpExpression(stringBuilder, newIndent, ((SQLExpressionOperatorBinary) expression).RExpression);
 			}
+			else if (expression is SQLExpressionFunction)
+			{
+				// Expression is actually the "FUNCTION CALL" query structure node.
+				// Create a tree node containing the function name and
+				// leaf nodes with function arguments.
+				string s = ((SQLExpressionFunction) expression).Name.QualifiedName;
+				stringBuilder.AppendLine(indent + s);
+				foreach(var param in ((SQLExpressionFunction)expression).Params)
+					DumpExpression(stringBuilder, newIndent, param);
+			}
 			else
 			{
 				// other type of AST nodes - out as a text
 				string s = expression.GetSQL(expression.SQLContext.SQLGenerationOptionsForServer);
-				stringBuilder.AppendLine(indent + s);
-			}
+				stringBuilder.AppendLine(indent + $"{expression.GetType().Name}: {s}");
+
+                // dump child nodes
+                var childNodes = new List<AstNodeBase>();
+                expression.GetMyChildren(childNodes);
+
+                foreach(var child in childNodes.OfType<AstNode>())
+                    DumpExpression(stringBuilder, newIndent, child);
+            }
 		}
 
 		public void DumpWhereInfo(StringBuilder stringBuilder, SQLExpressionItem where)
