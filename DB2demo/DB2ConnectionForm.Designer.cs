@@ -1,4 +1,4 @@
-﻿namespace DB2demo
+namespace DB2demo
 {
 	partial class DB2ConnectionForm
 	{

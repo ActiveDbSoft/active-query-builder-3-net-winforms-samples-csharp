@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -9,21 +9,25 @@
 //*******************************************************************//
 
 using System;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
+using GeneralAssembly;
 
 namespace SeparatedComponents
 {
 	public partial class Form1 : Form
 	{
-        private int _errorPosition = -1;
         private string _lastValidSql;
+        private int _errorPosition = -1;
 
         public Form1()
 		{
 			InitializeComponent();
+
+            Icon = ResourceHelpers.GetResourceIcon("App");
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -111,10 +115,10 @@ namespace SeparatedComponents
 			// Handle the event raised by SQL Builder object that the text of SQL query is changed
 			
 			// Hide error banner if any
-			errorBox1.Show(null, sqlContext1.SyntaxProvider);
+            errorBox1.Visible = false;
 
 			// update the text box with formatted query text created with default formatting options
-			_lastValidSql = sqlTextEditor1.Text = FormattedSQLBuilder.GetSQL(sqlQuery1.QueryRoot, new SQLFormattingOptions());
+			_lastValidSql = textBox1.Text = FormattedSQLBuilder.GetSQL(sqlQuery1.QueryRoot, new SQLFormattingOptions());
 		}
 
 		public void ResetQueryBuilder()
@@ -125,23 +129,24 @@ namespace SeparatedComponents
 			sqlContext1.LoadingOptions.OfflineMode = false;
 		}
 
-		private void sqlTextEditor1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			try
 			{
 				// Update the query builder with manually edited query text:
-				sqlQuery1.SQL = sqlTextEditor1.Text;
-
-                // Hide error banner if any
-                errorBox1.Show(null, sqlContext1.SyntaxProvider);
+				sqlQuery1.SQL = textBox1.Text;
+				
+				// Hide error banner if any
+                errorBox1.Visible = false;
             }
 			catch (SQLParsingException ex)
 			{
 				// Set caret to error position
-				_errorPosition = sqlTextEditor1.SelectionStart = ex.ErrorPos.pos;
-
-                // Show banner with error text
+				textBox1.SelectionStart = ex.ErrorPos.pos;
+				
+				// Show banner with error text
                 errorBox1.Show(ex.Message, sqlContext1.SyntaxProvider);
+                _errorPosition = ex.ErrorPos.pos;
             }
 		}
 
@@ -174,22 +179,28 @@ namespace SeparatedComponents
 			MessageBox.Show(builder.ToString());
 		}
 
+        private void ErrorBox1_RevertValidTextEvent(object sender, EventArgs e)
+        {
+            textBox1.Text = _lastValidSql;
+            textBox1.Focus();
+        }
+
         private void ErrorBox1_GoToErrorPositionEvent(object sender, EventArgs e)
         {
             if (_errorPosition != -1)
             {
-                sqlTextEditor1.SelectionStart = _errorPosition;
-                sqlTextEditor1.SelectionLength = 0;
-                sqlTextEditor1.ScrollToPosition(_errorPosition);
+                textBox1.SelectionStart = _errorPosition;
+                textBox1.SelectionLength = 0;
+                textBox1.ScrollToCaret();
             }
 
-            sqlTextEditor1.Focus();
+            errorBox1.Visible = false;
+            textBox1.Focus();
         }
 
-        private void ErrorBox1_RevertValidTextEvent(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
-            sqlTextEditor1.Text = _lastValidSql;
-            sqlTextEditor1.Focus();
+            errorBox1.Visible = false;
         }
     }
 }

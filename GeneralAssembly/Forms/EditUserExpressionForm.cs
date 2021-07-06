@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -24,7 +24,6 @@ namespace GeneralAssembly.Forms
     {
         private UserConditionVisualItem _selectedPredefinedCondition;
         private IQueryView _queryView;
-        private bool _cancelWithoutSave;
 
         public EditUserExpressionForm()
         {
@@ -327,7 +326,7 @@ namespace GeneralAssembly.Forms
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if(buttonSave.Enabled && !_cancelWithoutSave)
+            if(buttonSave.Enabled)
             {
                 DialogResult result =
                     MessageBox.Show(@"Save changes to the current condition?",

@@ -1,4 +1,4 @@
-﻿namespace FullFeaturedDemo
+namespace FullFeaturedDemo
 {
 	partial class ConnectionForm
 	{

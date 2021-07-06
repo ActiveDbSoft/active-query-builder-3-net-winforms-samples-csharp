@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -36,11 +36,13 @@ namespace SubQueryTextEditingDemo
         }
 
         private ModeEditor _mode = ModeEditor.SubQuery;
-        private ConnectionInfo _selectedConnection;
 
         public Form1()
 		{
 			InitializeComponent();
+
+            Icon = ResourceHelpers.GetResourceIcon("App");
+
             // DEMO WARNING
             Panel trialNoticePanel = new Panel
 			{
@@ -481,47 +483,38 @@ namespace SubQueryTextEditingDemo
 
         private void menuItemConnectTo_Click(object sender, EventArgs e)
         {
-            var cf = new ConnectionForm() { Owner = this };
-
-            if (cf.ShowDialog() != DialogResult.OK) return;
-
-            _selectedConnection = cf.SelectedConnection;
-
-            InitializeSqlContext();
+            using (var connectionForm = new ConnectionForm())
+            {
+                if (connectionForm.ShowDialog() != DialogResult.OK) return;
+                try
+                {
+                    ResetQueryBuilder();
+                    var context = connectionForm.Connection.GetSqlContext();
+                    InitializeSqlContext(context);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void InitializeSqlContext()
+        private void InitializeSqlContext(SQLContext context)
         {
             try
             {
                 queryBuilder1.Clear();
-
-                BaseMetadataProvider metadataProvider = null;
-
-                if (_selectedConnection == null) return;
-
-                // create new SqlConnection object using the connections string from the connection form
-                if (!_selectedConnection.IsXmlFile)
-                    metadataProvider = _selectedConnection.ConnectionDescriptor?.MetadataProvider;
+                queryBuilder1.SQLContext.MetadataContainer.Clear();
 
                 // setup the query builder with metadata and syntax providers
-                queryBuilder1.SQLContext.MetadataContainer.Clear();
-                queryBuilder1.MetadataProvider = metadataProvider;
-                queryBuilder1.SyntaxProvider = _selectedConnection.ConnectionDescriptor?.SyntaxProvider;
-                queryBuilder1.MetadataLoadingOptions.OfflineMode = metadataProvider == null;
-
-                if (metadataProvider == null)
-                {
-                    queryBuilder1.MetadataContainer.ImportFromXML(_selectedConnection.ConnectionString);
-                }
+                queryBuilder1.SQLContext.Assign(context);
+                queryBuilder1.MetadataLoadingOptions.OfflineMode = context.MetadataProvider == null;
 
                 // Instruct the query builder to fill the database schema tree
                 queryBuilder1.InitializeDatabaseSchemaTree();
-
             }
             finally
             {
-
                 dataGridView1.SqlQuery = queryBuilder1.SQLQuery;
             }
         }

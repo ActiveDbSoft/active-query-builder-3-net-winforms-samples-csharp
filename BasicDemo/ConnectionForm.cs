@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -9,510 +9,293 @@
 //*******************************************************************//
 
 using System;
-using System.Linq;
+using System.ComponentModel;
 using System.Windows.Forms;
-using ActiveQueryBuilder.Core;
-using ActiveQueryBuilder.Core.PropertiesEditors;
-using ActiveQueryBuilder.View;
-using ActiveQueryBuilder.View.PropertiesEditors;
-using ActiveQueryBuilder.View.WinForms.Images;
+using BasicDemo.Properties;
 using GeneralAssembly;
-using Helpers = ActiveQueryBuilder.Core.Helpers;
+using GeneralAssembly.ConnectionFrames;
 
 namespace BasicDemo
 {
     public partial class ConnectionForm : Form
     {
-        private bool _isFilterPageInitialized;
-        private BaseConnectionDescriptor _connection;
-
-        public BaseConnectionDescriptor Connection
+        public ConnectionInfo SelectedConnection
         {
-            get { return _connection; }
-        }
-
-        public ConnectionForm()
-        {
-            InitializeComponent();
-            _connection = new MSSQLConnectionDescriptor();
-            
-            lbMenu.SelectedIndex = 0;
-
-            FillConnectionTypes();
-            FillSyntaxTypes();
-
-            cbConnectionType.SelectedItem = _connection.GetDescription();
-            UpdateConnectionPropertiesFrames();
-            cbLoadFromDefaultDatabase.Visible = _connection.SyntaxProvider.IsSupportDatabases();
-            cbLoadFromDefaultDatabase.Checked =
-                _connection.MetadataLoadingOptions.LoadDefaultDatabaseOnly;
-
-            FillImageList();
-        }
-
-        private void FillImageList()
-        {
-            imageList.Images.Add("Server", Metadata.Server.Value);
-            imageList.Images.Add("Database", Metadata.Database.Value);
-            imageList.Images.Add("Schema", Metadata.Schema.Value);
-            imageList.Images.Add("Package", Metadata.Package.Value);
-            imageList.Images.Add("Table", Metadata.UserTable.Value);
-            imageList.Images.Add("View", Metadata.UserView.Value);
-            imageList.Images.Add("Procedure", Metadata.UserProcedure.Value);
-            imageList.Images.Add("Synonym", Metadata.UserSynonym.Value);            
-        }
-
-        private void FillSyntaxTypes()
-        {
-            foreach (Type syntax in Helpers.SyntaxProviderList)
+            get
             {
-                var instance = Activator.CreateInstance(syntax) as BaseSyntaxProvider;
-                cbSyntax.Items.Add(instance.Description);
-            }
-        }
+                if (tabControl1.SelectedIndex == 0)
+                {
+                    if (lvConnections.SelectedItems.Count > 0)
+                    {
+                        var connectionInfo = (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
+                       
+                            //connectionInfo.CreateConnectionDescriptor();
+                        return connectionInfo;
+                    }
 
-        private void FillConnectionTypes()
-        {
-            foreach (var name in Misc.ConnectionDescriptorNames)
-                cbConnectionType.Items.Add(name);
-        }
+                    return null;
+                }
 
-        private void cbConnectionType_SelectedIndexChanged(object sender, EventArgs e)
-        {            
-            var descriptorType = GetSelectedDescriptorType();
-            if (_connection != null && _connection.GetType() == descriptorType)
-            {
-                return;
-            }
-
-            _connection = CreateConnectionDescriptor(descriptorType);
-
-            if (_connection == null)
-            {
-                LockUI();
-                return;
-            }
-            else
-                UnlockUI();
-
-            UpdateConnectionPropertiesFrames();
-        }
-
-        private void LockUI()
-        {
-            lbMenu.Enabled = false;
-            btnOk.Enabled = false;
-            cbLoadFromDefaultDatabase.Visible = false;
-
-            RemoveConnectionPropertiesFrame();
-            RemoveSyntaxFrame();
-        }
-
-        private void UnlockUI()
-        {
-            lbMenu.Enabled = true;
-            btnOk.Enabled = true;
-            cbLoadFromDefaultDatabase.Visible = true;
-        }
-
-        private void UpdateConnectionPropertiesFrames()
-        {
-            SetupSyntaxCombobox();
-            RecreateConnectionFrame();
-            RecreateSyntaxFrame();
-        }
-
-        private void SetupSyntaxCombobox()
-        {
-            if (IsGenericConnection())
-            {
-                pnlTop.Height = cbSyntax.Bottom + 8;
-                cbSyntax.SelectedItem = _connection.SyntaxProvider.Description;
-            }
-            else
-            {
-                pnlTop.Height = cbConnectionType.Bottom + 8;
-            }
-        }
-
-        private bool IsGenericConnection()
-        {
-            return _connection is ODBCConnectionDescriptor || _connection is OLEDBConnectionDescriptor;
-        }
-
-        private Type GetSelectedDescriptorType()
-        {
-            return Misc.ConnectionDescriptorList[cbConnectionType.SelectedIndex];
-        }
-
-        private BaseConnectionDescriptor CreateConnectionDescriptor(Type type)
-        {
-            try
-            {
-                return Activator.CreateInstance(type) as BaseConnectionDescriptor;
-            }
-            catch (Exception e)
-            {
-                var message = e.InnerException != null ? e.InnerException.Message : e.Message;
-                MessageBox.Show(message + "\r\n \r\n" +
-                                "To fix this error you may need to install the appropriate database client software or \r\n re-compile the project from sources and add the needed assemblies to the References section.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                if (lvXmlFiles.SelectedItems.Count > 0)
+                {
+                    var connectionInfo = (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
+                   
+                        //connectionInfo.CreateConnectionDescriptor();
+                    return connectionInfo;
+                }
 
                 return null;
             }
         }
 
-        private void RecreateConnectionFrame()
+        public ConnectionForm()
         {
-            RemoveConnectionPropertiesFrame();
-            ClearProperties(_connection.MetadataProperties);
-            var container = PropertiesFactory.GetPropertiesContainer(_connection.MetadataProperties);
-            (pbConnection as IPropertiesControl).SetProperties(container);
-            cbLoadFromDefaultDatabase.Top = pbConnection.Controls[0].Bottom + 5;
-        }
+            InitializeComponent();
 
-        private void ClearProperties(ObjectProperties properties)
-        {
-            properties.GroupProperties.Clear();
-            properties.PropertiesEditors.Clear();
-        }
-
-        private void RemoveConnectionPropertiesFrame()
-        {            
-            var container = pbConnection.Controls.OfType<IPropertiesContainer>().FirstOrDefault() as Control;
-            if (container != null)
+            // fill connection list
+            for (int i = 0; i < Program.Connections.Count; i++)
             {
-                pbConnection.Controls.Remove(container);
-            }
-        }
-
-        private void RecreateSyntaxFrame()
-        {
-            RemoveSyntaxFrame();
-            var syntxProps = _connection.SyntaxProperties;
-            if (syntxProps == null)
-            {
-                pbSyntax.Height = 0;
-                return;
+                ListViewItem lvi = lvConnections.Items.Add(Program.Connections[i].Name);
+                lvi.SubItems.Add(Program.Connections[i].Type.ToString());
+                lvi.Tag = Program.Connections[i];
             }
 
-            ClearProperties(syntxProps);
-            var container = PropertiesFactory.GetPropertiesContainer(syntxProps);
-            (pbSyntax as IPropertiesControl).SetProperties(container);
-
-            cbLoadFromDefaultDatabase.Visible = _connection.SyntaxProvider.IsSupportDatabases();
-            pbSyntax.Height = pbSyntax.Controls[0].Bottom + 5;
-        }
-
-        private void RemoveSyntaxFrame()
-        {
-            pbSyntax.Controls.Clear();
-        }
-
-        private void lbMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (lbMenu.SelectedIndex)
+            if (lvConnections.Items.Count > 0)
             {
-                case 0:
-                    tcProperties.SelectedTab = tpConnection;
-                    break;
-                case 1:
-                    InitializeFilterPage();                    
-                    break;
+                lvConnections.Items[0].Selected = true;
             }
-        }
 
-        private void InitializeFilterPage()
-        {
-            if (!_isFilterPageInitialized)
+            // add preset
+
+            bool found = false;
+            ConnectionInfo northwind = new ConnectionInfo(ConnectionTypes.MSSQL, "Northwind.xml", "Northwind.xml", true, "");
+
+            for (int i = 0; i < Program.XmlFiles.Count; i++)
             {
-                Cursor = Cursors.WaitCursor;
-                try
+                if (Program.XmlFiles[i].Equals(northwind))
                 {
-                    databaseSchemaView1.SQLContext = _connection.GetSqlContext();
-                    ClearFilters(databaseSchemaView1.SQLContext.LoadingOptions);
-                    databaseSchemaView1.InitializeDatabaseSchemaTree();
-                    LoadFilters();
-                    _isFilterPageInitialized = true;
-                }
-                catch
-                {
-                    _isFilterPageInitialized = false;
-                }
-                finally
-                {
-                    Cursor = Cursors.Default;
-                }
-            }            
-            
-            tcProperties.SelectedTab = tpFilter;
-        }
-
-        private void ClearFilters(MetadataLoadingOptions options)
-        {
-            options.ExcludeFilter.Objects.Clear();
-            options.IncludeFilter.Objects.Clear();
-            options.ExcludeFilter.Schemas.Clear();
-            options.IncludeFilter.Schemas.Clear();
-        }
-
-        private void LoadFilters()
-        {
-            LoadIncludeFilters();
-            LoadExcludeFilters();
-        }
-
-        private void LoadIncludeFilters()
-        {
-            var filter = _connection.MetadataLoadingOptions.IncludeFilter;
-            LoadFilterTo(filter, lvInclude);
-        }
-
-        private void LoadExcludeFilters()
-        {
-            var filter = _connection.MetadataLoadingOptions.ExcludeFilter;
-            LoadFilterTo(filter, lvExclude);
-        }
-
-        private void LoadFilterTo(MetadataSimpleFilter filter, ListView listBox)
-        {
-            foreach (var filterObject in filter.Objects)
-            {
-                var item = FindItemByName(filterObject);
-                listBox.Items.Add(filterObject, filterObject, GetImageKeyByItem(item));
-            }
-
-            foreach (var filterSchema in filter.Schemas)
-            {
-                var item = FindItemByName(filterSchema);
-                listBox.Items.Add(filterSchema, filterSchema, GetImageKeyByItem(item));
-            }
-        }
-
-        private MetadataItem FindItemByName(string name)
-        {
-            return databaseSchemaView1.MetadataStructure.MetadataItem.FindItem<MetadataItem>(name);
-        }
-
-        private void cbLoadFromDefaultDatabase_CheckedChanged(object sender, EventArgs e)
-        {
-            _connection.MetadataLoadingOptions.LoadDefaultDatabaseOnly =
-                cbLoadFromDefaultDatabase.Checked;            
-        }
-
-        private void btnAddFilter_Click(object sender, EventArgs e)
-        {
-            if (tcFilters.SelectedTab == tpInclude)
-            {
-                AddIncludeFilter(databaseSchemaView1.SelectedItems);
-            }
-            else if (tcFilters.SelectedTab == tpExclude)
-            {
-                AddExcludeFilter(databaseSchemaView1.SelectedItems);
-            }
-        }
-
-        private void AddIncludeFilter(MetadataStructureItem[] items)
-        {
-            var filter = _connection.MetadataLoadingOptions.IncludeFilter;
-            foreach (var structureItem in items)
-            {
-                var metadataItem = structureItem.MetadataItem;
-                if (metadataItem == null)
-                {
-                    continue;                    
-                }
-
-                if (metadataItem.Type.IsNamespace())
-                {
-                    filter.Schemas.Add(metadataItem.NameFull);
-                    lvInclude.Items.Add(metadataItem.NameFull, metadataItem.NameFull, GetImageKeyByItem(metadataItem));
-                }
-                else if (metadataItem.Type.IsObject())
-                {
-                    filter.Objects.Add(metadataItem.NameFull);
-                    lvInclude.Items.Add(metadataItem.NameFull, metadataItem.NameFull, GetImageKeyByItem(metadataItem));
+                    found = true;
                 }
             }
+
+            if (!found)
+            {
+                Program.XmlFiles.Insert(0, northwind);
+            }
+
+            // fill XML files list
+            for (int i = 0; i < Program.XmlFiles.Count; i++)
+            {
+                ListViewItem lvi = lvXmlFiles.Items.Add(Program.XmlFiles[i].Name);
+                lvi.SubItems.Add(Program.XmlFiles[i].Type.ToString());
+                lvi.Tag = Program.XmlFiles[i];
+            }
+
+            if (lvXmlFiles.Items.Count > 0)
+            {
+                lvXmlFiles.Items[0].Selected = true;
+            }
+
+            Application.Idle += Application_Idle;
         }
 
-        private void AddExcludeFilter(MetadataStructureItem[] items)
+        protected override void Dispose(bool disposing)
         {
-            var filter = _connection.MetadataLoadingOptions.ExcludeFilter;
-            foreach (var structureItem in items)
+            if (disposing)
             {
-                var metadataItem = structureItem.MetadataItem;
-                if (metadataItem == null)
-                {
-                    continue;
-                }
+                Application.Idle -= Application_Idle;
 
-                if (metadataItem.Type.IsNamespace())
-                {
-                    filter.Schemas.Add(metadataItem.NameFull);
-                    lvExclude.Items.Add(metadataItem.NameFull, GetImageKeyByItem(metadataItem));
-                }
-                else if (metadataItem.Type.IsObject())
-                {
-                    filter.Objects.Add(metadataItem.NameFull);
-                    lvExclude.Items.Add(metadataItem.NameFull, GetImageKeyByItem(metadataItem));
-                }
+                if (components != null)
+                    components.Dispose();
             }
+            base.Dispose(disposing);
         }
 
-        private string GetImageKeyByItem(MetadataItem item)
+        private string GetNewConnectionEntryName()
         {
-            if (item == null)
-            {
-                return string.Empty;
-            }
+            int x = 0;
+            bool found;
+            string name;
 
-            switch (item.Type)
+            do
             {
-                case MetadataType.Server:
-                    return "Server";
-                case MetadataType.Database:
-                    return "Database";
-                case MetadataType.Schema:
-                    return "Schema";
-                case MetadataType.Package:
-                    return "Package";
-                case MetadataType.Table:
-                    return "Table";
-                case MetadataType.View:
-                    return "View";
-                case MetadataType.Procedure:
-                    return "Procedure";
-                case MetadataType.Synonym:
-                    return "Synonym";
-                default:
-                    return string.Empty;
-            }
-        }
+                x++;
+                found = false;
+                name = String.Format("Connection {0}", x);
 
-        private void btnDeleteFilter_Click(object sender, EventArgs e)
-        {
-            if (tcFilters.SelectedTab == tpInclude)
-            {
-                foreach (ListViewItem selectedItem in lvInclude.SelectedItems)
+                for (int i = 0; i < Program.Connections.Count; i++)
                 {
-                    DeleteFilter(selectedItem.Text);
+                    if (Program.Connections[i].Name == name)
+                    {
+                        found = true;
+                        break;
+                    }
                 }
-            }
-            else if (tcFilters.SelectedTab == tpExclude)
-            {
-                foreach (ListViewItem selectedItem in lvExclude.SelectedItems)
-                {
-                    DeleteFilter(selectedItem.Text);
-                }                
-            }
+            } while (found);
+
+            return name;
         }
 
-        private void DeleteFilter(string itemName)
+        private string GetNewXmlFileEntryName()
         {
-            MetadataSimpleFilter filter = null;
-            if (tcFilters.SelectedTab == tpInclude)
-            {
-                filter = _connection.MetadataLoadingOptions.IncludeFilter;
-            }
-            else if (tcFilters.SelectedTab == tpExclude)
-            {
-                filter = _connection.MetadataLoadingOptions.ExcludeFilter;
-            }
+            int x = 0;
+            bool found;
+            string name;
 
-            if (filter != null)
+            do
             {
-                filter.Objects.Remove(itemName);
-                filter.Schemas.Remove(itemName);
-            }
+                x++;
+                found = false;
+                name = String.Format("XML File {0}", x);
 
-            if (tcFilters.SelectedTab == tpInclude)
-            {
-                var items = lvInclude.Items.Find(itemName, false);
-                if (items.Length != 0)                
+                for (int i = 0; i < Program.XmlFiles.Count; i++)
                 {
-                    lvInclude.Items.Remove(items[0]);
-                }                
-            }
-            else if (tcFilters.SelectedTab == tpExclude)
+                    if (Program.XmlFiles[i].Name == name)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+            } while (found);
+
+            return name;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewConnectionEntryName(), null, false, "");
+
+            using (ConnectionEditForm cef = new ConnectionEditForm(ci))
             {
-                var items = lvExclude.Items.Find(itemName, false);
-                if (items.Length != 0)
+                if (cef.ShowDialog() == DialogResult.OK)
                 {
-                    lvExclude.Items.Remove(items[0]);
+                    ListViewItem lvi = lvConnections.Items.Add(ci.Name);
+                    lvi.SubItems.Add(ci.Type.ToString());
+                    lvi.Tag = ci;
+                    lvi.Selected = true;
+
+                    Program.Connections.Add(ci);
                 }
             }
+
+            lvConnections.Focus();
         }
 
-        private void lbInclude_DragDrop(object sender, DragEventArgs e)
+        private void btnRemove_Click(object sender, EventArgs e)
         {
-            DropItems(e, true);
+            ConnectionInfo ci = (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
+
+            lvConnections.Items.Remove(lvConnections.SelectedItems[0]);
+            Program.Connections.Remove(ci);
+
+            lvConnections.Focus();
         }
 
-        private void DropItems(DragEventArgs e, bool toInclude)
+        private void btnConfigure_Click(object sender, EventArgs e)
         {
-            var dragObject = e.Data.GetData(e.Data.GetFormats()[0]) as MetadataDragObject;
-            if (dragObject != null)
+            if (lvConnections.SelectedItems.Count > 0)
             {
-                if (toInclude)
+                ConnectionInfo ci = (ConnectionInfo)lvConnections.SelectedItems[0].Tag;
+
+                using (ConnectionEditForm cef = new ConnectionEditForm(ci))
                 {
-                    AddIncludeFilter(dragObject.MetadataStructureItems.ToArray());
+                    if (cef.ShowDialog() == DialogResult.OK)
+                    {
+                        lvConnections.SelectedItems[0].SubItems[0].Text = ci.Name;
+                        lvConnections.SelectedItems[0].SubItems[1].Text = ci.Type.ToString();
+                    }
                 }
-                else
+            }
+
+            lvConnections.Focus();
+        }
+
+        private void lvConnections_SizeChanged(object sender, EventArgs e)
+        {
+            lvConnections.Columns[0].Width = lvConnections.Width - lvConnections.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
+        }
+
+        private void lvXmlFiles_SizeChanged(object sender, EventArgs e)
+        {
+            lvXmlFiles.Columns[0].Width = lvXmlFiles.Width - lvXmlFiles.Columns[1].Width - SystemInformation.VerticalScrollBarWidth;
+        }
+
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            btnRemove.Enabled = (lvConnections.SelectedItems.Count > 0);
+            btnConfigure.Enabled = (lvConnections.SelectedItems.Count > 0);
+            btnRemoveXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+            btnConfigureXml.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+
+            if (tabControl1.SelectedIndex == 0)
+            {
+                btnOk.Enabled = (lvConnections.SelectedItems.Count > 0);
+            }
+            else
+            {
+                btnOk.Enabled = (lvXmlFiles.SelectedItems.Count > 0);
+            }
+        }
+
+        private void lvConnections_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void lvXmlFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnAddXml_Click(object sender, EventArgs e)
+        {
+            ConnectionInfo ci = new ConnectionInfo(ConnectionTypes.MSSQL, GetNewXmlFileEntryName(), null, true, "");
+
+            using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+            {
+                if (cef.ShowDialog() == DialogResult.OK)
                 {
-                    AddExcludeFilter(dragObject.MetadataStructureItems.ToArray());
+                    ListViewItem lvi = lvXmlFiles.Items.Add(ci.Name);
+                    lvi.SubItems.Add(ci.Type.ToString());
+                    lvi.Tag = ci;
+                    lvi.Selected = true;
+
+                    Program.XmlFiles.Add(ci);
                 }
             }
+
+            lvXmlFiles.Focus();
         }
 
-        private void lbInclude_DragOver(object sender, DragEventArgs e)
+        private void btnRemoveXml_Click(object sender, EventArgs e)
         {
-            e.Effect = DragDropEffects.All;
+            ConnectionInfo ci = (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
+
+            lvXmlFiles.Items.Remove(lvXmlFiles.SelectedItems[0]);
+            Program.XmlFiles.Remove(ci);
+
+            lvXmlFiles.Focus();
         }
 
-        private void lbExclude_DragOver(object sender, DragEventArgs e)
+        private void btnConfigureXml_Click(object sender, EventArgs e)
         {
-            e.Effect = DragDropEffects.All;
-        }
-
-        private void lbExclude_DragDrop(object sender, DragEventArgs e)
-        {
-            DropItems(e, false);
-        }
-
-        private void databaseSchemaView1_ItemDoubleClick(object sender, MetadataStructureItem item)
-        {
-            btnAddFilter_Click(this, EventArgs.Empty);
-        }
-
-        private void cbSyntax_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsGenericConnection())
+            if (lvXmlFiles.SelectedItems.Count > 0)
             {
-                return;
+                ConnectionInfo ci = (ConnectionInfo)lvXmlFiles.SelectedItems[0].Tag;
+
+                using (ConnectionEditForm cef = new ConnectionEditForm(ci))
+                {
+                    if (cef.ShowDialog() == DialogResult.OK)
+                    {
+                        lvXmlFiles.SelectedItems[0].SubItems[0].Text = ci.Name;
+                        lvXmlFiles.SelectedItems[0].SubItems[1].Text = ci.Type.ToString();
+                    }
+                }
             }
-
-            var syntaxType = GetSelectedSyntaxType();
-            if (_connection.SyntaxProvider.GetType() == syntaxType)
-            {
-                return;
-            }
-
-            _connection.SyntaxProvider = CreateSyntaxProvider(syntaxType);
-
-            RecreateSyntaxFrame();
-        }
-
-        private Type GetSelectedSyntaxType()
-        {
-            return Helpers.SyntaxProviderList[cbSyntax.SelectedIndex];
-        }
-
-        private BaseSyntaxProvider CreateSyntaxProvider(Type type)
-        {
-            return Activator.CreateInstance(type) as BaseSyntaxProvider;
+        
+            lvXmlFiles.Focus();
         }
     }
 }

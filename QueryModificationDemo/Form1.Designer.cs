@@ -1,4 +1,4 @@
-﻿using ActiveQueryBuilder.View;
+using ActiveQueryBuilder.View;
 
 namespace QueryModificationDemo
 {

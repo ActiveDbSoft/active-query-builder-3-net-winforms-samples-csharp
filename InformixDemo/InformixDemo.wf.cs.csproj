@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>InformixDemo.wf.cs</AssemblyName>
+    <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
+    <Description>Active Query Builder 3 Informix Demo</Description>
+    <RootNamespace>InformixDemo</RootNamespace>
+
+    <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
+    <Platforms>x64</Platforms>
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+
+  <!-- Informix -->
+  <ItemGroup>
+    <Reference Include="IBM.Data.Informix">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(AssetsPath)Third-Party Assemblies\IBM.Data.Informix.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.wf.cs.csproj" />
+  </ItemGroup>
+
+  <!-- database-specific metadata provider -->
+  <ItemGroup Condition="$(UseNugetAqbReferences)">
+    <PackageReference Include="ActiveQueryBuilder.InformixMetadataProvider" Version="$(Version)" />
+  </ItemGroup>
+  <ItemGroup Condition="!$(UseNugetAqbReferences)">
+    <ProjectReference Include="$(SolutionDir)src\_metadata-providers\InformixMetadataProvider\InformixMetadataProvider.csproj" />
+  </ItemGroup>
+
+</Project>

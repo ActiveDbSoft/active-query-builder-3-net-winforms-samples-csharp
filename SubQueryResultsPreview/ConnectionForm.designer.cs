@@ -1,4 +1,4 @@
-﻿namespace SubQueryResultsPreview
+namespace SubQueryResultsPreview
 {
 	partial class ConnectionForm
 	{

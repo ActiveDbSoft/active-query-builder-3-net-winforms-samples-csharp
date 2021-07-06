@@ -1,4 +1,4 @@
-﻿namespace MetadataEditorDemo.Common.LoadingWizardPages
+namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
 	partial class WelcomeWizardPage
 	{

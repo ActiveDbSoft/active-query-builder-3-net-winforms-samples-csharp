@@ -1,4 +1,4 @@
-﻿namespace SybaseDemo
+namespace SybaseDemo
 {
 	partial class SybaseConnectionForm
 	{

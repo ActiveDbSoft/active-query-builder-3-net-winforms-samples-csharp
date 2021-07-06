@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -25,7 +25,6 @@ namespace LoadMetadataDemo
 {
 	public partial class Form1 : Form
 	{
-		private IDbConnection dbConnection;
         private ConnectionInfo _selectedConnection;
 
         public Form1()
@@ -177,7 +176,8 @@ namespace LoadMetadataDemo
 		/// e.g. MySQLSyntaxProver, OracleSyntaxProvider, etc.
 		//////////////////////////////////////////////////////////////////////////
 		private void btn3Way_Click(object sender, EventArgs e)
-		{
+        {
+            var dbConnection = _selectedConnection?.ConnectionDescriptor?.MetadataProvider?.Connection;
 			if (dbConnection != null)
 			{
 				try
@@ -207,6 +207,8 @@ namespace LoadMetadataDemo
 		private void way3EventMetadataProvider_ExecSQL(BaseMetadataProvider metadataProvider, string sql, bool schemaOnly, out IDataReader dataReader)
 		{
 			dataReader = null;
+
+            var dbConnection = _selectedConnection?.ConnectionDescriptor?.MetadataProvider?.Connection;
 
 			if (dbConnection != null)
 			{

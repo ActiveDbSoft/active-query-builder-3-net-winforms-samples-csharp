@@ -1,4 +1,4 @@
-﻿namespace CustomColumnsDemo
+namespace CustomColumnsDemo
 {
 	partial class CustomTextWithButtonColumnDemoFrame
 	{

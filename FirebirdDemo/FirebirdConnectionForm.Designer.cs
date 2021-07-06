@@ -1,4 +1,4 @@
-﻿namespace FirebirdDemo
+namespace FirebirdDemo
 {
 	partial class FirebirdConnectionForm
 	{

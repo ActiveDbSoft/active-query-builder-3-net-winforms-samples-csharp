@@ -1,4 +1,4 @@
-﻿namespace PostgreSQLDemo
+namespace PostgreSQLDemo
 {
 	partial class PostgreSQLConnectionForm
 	{

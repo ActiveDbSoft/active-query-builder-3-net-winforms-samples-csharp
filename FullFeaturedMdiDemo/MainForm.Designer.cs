@@ -1,4 +1,4 @@
-﻿namespace FullFeaturedMdiDemo
+namespace FullFeaturedMdiDemo
 {
 	partial class MainForm
 	{
@@ -886,7 +886,6 @@
             this.Controls.Add(this.toolStripPanel2);
             this.Controls.Add(this.toolStripPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(300, 300);

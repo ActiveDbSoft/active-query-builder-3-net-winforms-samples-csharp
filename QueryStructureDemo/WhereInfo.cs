@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -75,7 +75,18 @@ namespace QueryStructureDemo
 				// right argument of the binary operator
 				DumpExpression(stringBuilder, newIndent, ((SQLExpressionOperatorBinary) expression).RExpression);
 			}
-			else if (expression is SQLExpressionFunction)
+            else if (expression is SQLObjectColumn)
+            {
+                // Expression is actually the "FIELD NAME"
+                // Create a tree node containing the field expression and database object name (if any)
+                var expressionAsObjectColumn = (SQLObjectColumn) expression;
+                string s = expression.GetSQL(expression.SQLContext.SQLGenerationOptionsForServer);
+                var metadataObject = expressionAsObjectColumn.Datasource?.MetadataObject;
+                if (metadataObject != null)
+                    s += $" object: {metadataObject.NameFull}";
+                stringBuilder.AppendLine(indent + s);
+            }
+            else if (expression is SQLExpressionFunction)
 			{
 				// Expression is actually the "FUNCTION CALL" query structure node.
 				// Create a tree node containing the function name and

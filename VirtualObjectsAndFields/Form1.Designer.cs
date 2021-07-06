@@ -1,4 +1,4 @@
-﻿namespace VirtualObjectsAndFields
+namespace VirtualObjectsAndFields
 {
 	partial class Form1
 	{
@@ -144,26 +144,6 @@
             this.queryBuilder.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
             this.queryBuilder.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 5;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 7;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 8;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 6;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 4;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 3;
-            this.queryBuilder.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
             this.queryBuilder.QueryColumnListOptions.Font = null;
             this.queryBuilder.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder.QueryColumnListOptions.NullOrderingInOrderBy = false;
@@ -402,7 +382,6 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

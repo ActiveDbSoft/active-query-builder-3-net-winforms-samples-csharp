@@ -1,19 +1,17 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
 //       RESTRICTIONS.                                               //
 //*******************************************************************//
 
-
-
-
 using System.Text;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using GeneralAssembly;
 
 namespace ExpressionEditorDemo
 {
@@ -22,6 +20,8 @@ namespace ExpressionEditorDemo
         public Form1()
         {
             InitializeComponent();
+
+            Icon = ResourceHelpers.GetResourceIcon("App");
 
             var sqlBuilder = new StringBuilder();
             sqlBuilder.AppendLine("Select Person.Address.AddressLine1,");

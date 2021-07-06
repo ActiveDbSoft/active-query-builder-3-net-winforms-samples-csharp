@@ -1,4 +1,4 @@
-﻿namespace LoadMetadataDemo
+namespace LoadMetadataDemo
 {
 	partial class ConnectionForm
 	{

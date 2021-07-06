@@ -1,4 +1,4 @@
-﻿using ActiveQueryBuilder.View.QueryView;
+using ActiveQueryBuilder.View.QueryView;
 
 namespace CustomExpressionBuilder
 {
@@ -156,7 +156,7 @@ namespace CustomExpressionBuilder
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(793, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "To see the custom expression builder click \"...\" buttons in Expression and Criter" +
+            this.label1.Text = "To see the custom expression builder click the \"pencil\" buttons in Expression and Criter" +
     "ia column cells.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -179,7 +179,6 @@ namespace CustomExpressionBuilder
             this.ClientSize = new System.Drawing.Size(793, 530);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

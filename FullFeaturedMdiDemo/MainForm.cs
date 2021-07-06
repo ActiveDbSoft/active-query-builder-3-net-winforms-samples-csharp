@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -43,6 +43,8 @@ namespace FullFeaturedMdiDemo
         public MainForm()
 		{
 			InitializeComponent();
+
+            Icon = ResourceHelpers.GetResourceIcon("App");
 
             // Options to present the formatted SQL query text to end-user
             // Use names of virtual objects, do not replace them with appropriate derived tables

@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -16,6 +16,7 @@ using Advantage.Data.Provider;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.View.WinForms;
 using AdvantageDemo.QueryInformationForms;
+using GeneralAssembly;
 
 
 namespace AdvantageDemo
@@ -28,6 +29,8 @@ namespace AdvantageDemo
 		public Form1()
 		{
 			InitializeComponent();
+
+			Icon = ResourceHelpers.GetResourceIcon("App");
 
 			// DEMO WARNING
 			Panel trialNoticePanel = new Panel

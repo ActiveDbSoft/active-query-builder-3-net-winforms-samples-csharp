@@ -1,4 +1,4 @@
-﻿namespace MetadataEditorDemo.Common
+namespace MetadataEditorDemo.Common
 {
 	partial class MetadataContainerLoadForm
 	{

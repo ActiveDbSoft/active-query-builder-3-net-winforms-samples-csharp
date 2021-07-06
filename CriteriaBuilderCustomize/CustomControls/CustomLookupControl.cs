@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -68,7 +68,7 @@ namespace CriteriaBuilderCustomize.CustomControls
 			set { _grid.FirstDisplayedScrollingRowIndex = value; }
 		}
 
-		public object Owner
+		public new object Owner
 		{
 			get { return base.Owner; }
 			set { base.Owner = (Form) value; }

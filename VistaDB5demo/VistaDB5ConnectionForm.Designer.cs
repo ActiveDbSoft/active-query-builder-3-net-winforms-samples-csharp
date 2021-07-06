@@ -1,4 +1,4 @@
-﻿namespace VistaDB5demo
+namespace VistaDB5demo
 {
 	partial class VistaDB5ConnectionForm
 	{

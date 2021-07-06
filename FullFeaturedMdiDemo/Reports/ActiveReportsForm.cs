@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -53,7 +53,7 @@ namespace FullFeaturedMdiDemo.Reports
                 var labelHeader = new Label
                 {
                     Text = dataSetColumn.ColumnName,
-                    Alignment = TextAlignment.Left,
+                    Alignment = GrapeCity.ActiveReports.Document.Section.TextAlignment.Left,
                     Location = new PointF(locationX, 0.0F),
                     ShrinkToFit = false,
                     MinCondenseRate = 100,
@@ -69,7 +69,7 @@ namespace FullFeaturedMdiDemo.Reports
                     DataField = dataSetColumn.ColumnName,
                     Location = new PointF(locationX, 0.05F),
                     ShrinkToFit = false,
-                    WrapMode = WrapMode.NoWrap,
+                    WrapMode = GrapeCity.ActiveReports.Document.Section.WrapMode.NoWrap,
                     CanShrink = false,
 
                 };

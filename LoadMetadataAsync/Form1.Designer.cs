@@ -1,4 +1,4 @@
-﻿using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.Core;
 
 namespace LoadMetadataAsync
 {
@@ -60,7 +60,6 @@ namespace LoadMetadataAsync
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(726, 509);
 			this.Controls.Add(this.queryBuilder);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Form1";

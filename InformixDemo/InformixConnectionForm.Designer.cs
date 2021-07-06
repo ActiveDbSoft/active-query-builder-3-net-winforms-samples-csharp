@@ -1,4 +1,4 @@
-﻿namespace InformixDemo
+namespace InformixDemo
 {
 	partial class InformixConnectionForm
 	{

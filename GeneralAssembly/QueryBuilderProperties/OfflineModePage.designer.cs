@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.QueryBuilderProperties
+namespace GeneralAssembly.QueryBuilderProperties
 {
 	partial class OfflineModePage
 	{

@@ -1,4 +1,4 @@
-﻿namespace AdvantageDemo.QueryInformationForms
+namespace AdvantageDemo.QueryInformationForms
 {
 	partial class QueryParametersForm
 	{

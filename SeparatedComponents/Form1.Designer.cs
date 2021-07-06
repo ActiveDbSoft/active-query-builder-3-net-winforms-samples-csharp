@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SeparatedComponents
@@ -41,7 +41,16 @@ namespace SeparatedComponents
             this.mssqlSyntaxProvider1 = new ActiveQueryBuilder.Core.MSSQLSyntaxProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.mainMenu1 = new System.Windows.Forms.MenuStrip();
+            this.sqlQuery1 = new ActiveQueryBuilder.Core.SQLQuery(this.components);
+            this.sqlContext1 = new ActiveQueryBuilder.Core.SQLContext(this.components);
+            this.queryNavigationBar1 = new ActiveQueryBuilder.View.WinForms.NavigationBar.QueryNavigationBar();
+            this.queryView1 = new ActiveQueryBuilder.View.WinForms.QueryView.QueryView();
+            this.addObjectDialog1 = new ActiveQueryBuilder.View.WinForms.QueryView.AddObjectDialog(this.components);
+            this.queryColumnListControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.QueryColumnListControl();
+            this.designPaneControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.databaseSchemaView1 = new ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView();
+            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
             this.menuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshMetadataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editMetadataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,24 +60,14 @@ namespace SeparatedComponents
             this.saveMetadataToXMLMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryStatisticsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sqlQuery1 = new ActiveQueryBuilder.Core.SQLQuery(this.components);
-            this.sqlContext1 = new ActiveQueryBuilder.Core.SQLContext(this.components);
-            this.queryNavigationBar1 = new ActiveQueryBuilder.View.WinForms.NavigationBar.QueryNavigationBar();
-            this.queryView1 = new ActiveQueryBuilder.View.WinForms.QueryView.QueryView();
-            this.addObjectDialog1 = new ActiveQueryBuilder.View.WinForms.QueryView.AddObjectDialog(this.components);
-            this.queryColumnListControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.QueryColumnListControl();
-            this.designPaneControl1 = new ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl();
-            this.expressionEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor(this.components);
-            this.sqlTextEditor1 = new ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor();
-            this.databaseSchemaView1 = new ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView();
-            this.errorBox1 = new GeneralAssembly.Common.SqlErrorBox();
-            this.mainMenu1.SuspendLayout();
+            this.mainMenu1 = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.sqlContext1.SQLGenerationOptionsForServer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1.SQLGenerationOptions)).BeginInit();
             this.queryView1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.queryColumnListControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseSchemaView1)).BeginInit();
+            this.mainMenu1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mssqlSyntaxProvider1
@@ -83,85 +82,6 @@ namespace SeparatedComponents
             // saveFileDialog
             // 
             this.saveFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-            // 
-            // mainMenu1
-            // 
-            this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItem3,
-            this.queryStatisticsMenuItem,
-            this.aboutMenuItem});
-            this.mainMenu1.Location = new System.Drawing.Point(5, 5);
-            this.mainMenu1.Name = "mainMenu1";
-            this.mainMenu1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.mainMenu1.Size = new System.Drawing.Size(1570, 24);
-            this.mainMenu1.TabIndex = 0;
-            // 
-            // menuItem3
-            // 
-            this.menuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshMetadataMenuItem,
-            this.editMetadataMenuItem,
-            this.clearMetadataMenuItem,
-            this.menuItem4,
-            this.loadMetadataFromXMLMenuItem,
-            this.saveMetadataToXMLMenuItem});
-            this.menuItem3.Name = "menuItem3";
-            this.menuItem3.Size = new System.Drawing.Size(69, 20);
-            this.menuItem3.Text = "Metadata";
-            // 
-            // refreshMetadataMenuItem
-            // 
-            this.refreshMetadataMenuItem.Name = "refreshMetadataMenuItem";
-            this.refreshMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.refreshMetadataMenuItem.Text = "Refresh Metadata";
-            this.refreshMetadataMenuItem.Click += new System.EventHandler(this.refreshMetadataMenuItem_Click);
-            // 
-            // editMetadataMenuItem
-            // 
-            this.editMetadataMenuItem.Name = "editMetadataMenuItem";
-            this.editMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.editMetadataMenuItem.Text = "Edit Metadata...";
-            this.editMetadataMenuItem.Click += new System.EventHandler(this.editMetadataMenuItem_Click);
-            // 
-            // clearMetadataMenuItem
-            // 
-            this.clearMetadataMenuItem.Name = "clearMetadataMenuItem";
-            this.clearMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.clearMetadataMenuItem.Text = "Clear Metadata";
-            this.clearMetadataMenuItem.Click += new System.EventHandler(this.clearMetadataMenuItem_Click);
-            // 
-            // menuItem4
-            // 
-            this.menuItem4.Name = "menuItem4";
-            this.menuItem4.Size = new System.Drawing.Size(215, 6);
-            // 
-            // loadMetadataFromXMLMenuItem
-            // 
-            this.loadMetadataFromXMLMenuItem.Name = "loadMetadataFromXMLMenuItem";
-            this.loadMetadataFromXMLMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.loadMetadataFromXMLMenuItem.Text = "Load Metadata from XML...";
-            this.loadMetadataFromXMLMenuItem.Click += new System.EventHandler(this.loadMetadataFromXMLMenuItem_Click);
-            // 
-            // saveMetadataToXMLMenuItem
-            // 
-            this.saveMetadataToXMLMenuItem.Name = "saveMetadataToXMLMenuItem";
-            this.saveMetadataToXMLMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.saveMetadataToXMLMenuItem.Text = "Save Metadata to XML...";
-            this.saveMetadataToXMLMenuItem.Click += new System.EventHandler(this.saveMetadataToXMLMenuItem_Click);
-            // 
-            // queryStatisticsMenuItem
-            // 
-            this.queryStatisticsMenuItem.Name = "queryStatisticsMenuItem";
-            this.queryStatisticsMenuItem.Size = new System.Drawing.Size(109, 20);
-            this.queryStatisticsMenuItem.Text = "Query Statistics...";
-            this.queryStatisticsMenuItem.Click += new System.EventHandler(this.queryStatisticsMenuItem_Click);
-            // 
-            // aboutMenuItem
-            // 
-            this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.aboutMenuItem.Text = "About...";
-            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
             // sqlQuery1
             // 
@@ -231,7 +151,7 @@ namespace SeparatedComponents
             this.queryNavigationBar1.Padding = new System.Windows.Forms.Padding(9);
             this.queryNavigationBar1.Query = this.sqlQuery1;
             this.queryNavigationBar1.QueryView = this.queryView1;
-            this.queryNavigationBar1.Size = new System.Drawing.Size(1281, 47);
+            this.queryNavigationBar1.Size = new System.Drawing.Size(791, 45);
             this.queryNavigationBar1.TabIndex = 3;
             this.queryNavigationBar1.TabStop = false;
             // 
@@ -245,13 +165,12 @@ namespace SeparatedComponents
             this.queryView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.queryView1.Controls.Add(this.queryColumnListControl1);
             this.queryView1.Controls.Add(this.designPaneControl1);
-            this.queryView1.ExpressionEditor = this.expressionEditor1;
-            this.queryView1.Location = new System.Drawing.Point(290, 85);
+            this.queryView1.Location = new System.Drawing.Point(290, 90);
             this.queryView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.queryView1.Name = "queryView1";
             this.queryView1.Padding = new System.Windows.Forms.Padding(5);
             this.queryView1.Query = this.sqlQuery1;
-            this.queryView1.Size = new System.Drawing.Size(1281, 482);
+            this.queryView1.Size = new System.Drawing.Size(791, 477);
             // 
             // 
             // 
@@ -274,35 +193,15 @@ namespace SeparatedComponents
             | System.Windows.Forms.AnchorStyles.Right)));
             this.queryColumnListControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.queryColumnListControl1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.queryColumnListControl1.Location = new System.Drawing.Point(8, 338);
+            this.queryColumnListControl1.Location = new System.Drawing.Point(8, 333);
             this.queryColumnListControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.queryColumnListControl1.Name = "queryColumnListControl1";
-            this.queryColumnListControl1.Options.ColumnsOptions.AggregateColumn.Index = 5;
-            this.queryColumnListControl1.Options.ColumnsOptions.AggregateColumn.Width = 90D;
-            this.queryColumnListControl1.Options.ColumnsOptions.AliasColumn.Index = 2;
-            this.queryColumnListControl1.Options.ColumnsOptions.AliasColumn.Width = 100D;
-            this.queryColumnListControl1.Options.ColumnsOptions.ConditionTypeColumn.Index = 7;
-            this.queryColumnListControl1.Options.ColumnsOptions.ConditionTypeColumn.Width = 140D;
-            this.queryColumnListControl1.Options.ColumnsOptions.CriteriaColumn.Index = 8;
-            this.queryColumnListControl1.Options.ColumnsOptions.CriteriaColumn.Width = 200D;
-            this.queryColumnListControl1.Options.ColumnsOptions.CriteriaOrColumns.Index = 0;
-            this.queryColumnListControl1.Options.ColumnsOptions.CriteriaOrColumns.Width = 60D;
-            this.queryColumnListControl1.Options.ColumnsOptions.ExpressionColumn.Index = 1;
-            this.queryColumnListControl1.Options.ColumnsOptions.ExpressionColumn.Width = 250D;
-            this.queryColumnListControl1.Options.ColumnsOptions.GroupingColumn.Index = 6;
-            this.queryColumnListControl1.Options.ColumnsOptions.GroupingColumn.Width = 100D;
-            this.queryColumnListControl1.Options.ColumnsOptions.OutputColumn.Index = 0;
-            this.queryColumnListControl1.Options.ColumnsOptions.OutputColumn.Width = 55D;
-            this.queryColumnListControl1.Options.ColumnsOptions.SortOrderColumn.Index = 4;
-            this.queryColumnListControl1.Options.ColumnsOptions.SortOrderColumn.Width = 100D;
-            this.queryColumnListControl1.Options.ColumnsOptions.SortTypeColumn.Index = 3;
-            this.queryColumnListControl1.Options.ColumnsOptions.SortTypeColumn.Width = 60D;
             this.queryColumnListControl1.Options.Font = null;
             this.queryColumnListControl1.Options.InitialOrColumnsCount = 2;
             this.queryColumnListControl1.Options.NullOrderingInOrderBy = false;
             this.queryColumnListControl1.Options.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryColumnListControl1.SelectedItems = new int[0];
-            this.queryColumnListControl1.Size = new System.Drawing.Size(1262, 134);
+            this.queryColumnListControl1.Size = new System.Drawing.Size(772, 134);
             this.queryColumnListControl1.TabIndex = 1;
             // 
             // designPaneControl1
@@ -326,33 +225,24 @@ namespace SeparatedComponents
             linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
             this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess1;
             this.designPaneControl1.Options.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
-            this.designPaneControl1.Size = new System.Drawing.Size(1262, 323);
+            this.designPaneControl1.Size = new System.Drawing.Size(772, 318);
             this.designPaneControl1.TabIndex = 0;
             // 
-            // expressionEditor1
+            // textBox1
             // 
-            this.expressionEditor1.SQLFormattingOptions = null;
-            // 
-            // sqlTextEditor1
-            // 
-            this.sqlTextEditor1.AllowShowSuggestionByMouse = false;
-            this.sqlTextEditor1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.sqlTextEditor1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.sqlTextEditor1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sqlTextEditor1.ForeColor = System.Drawing.Color.White;
-            this.sqlTextEditor1.Location = new System.Drawing.Point(8, 575);
-            this.sqlTextEditor1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.sqlTextEditor1.QueryProvider = this.sqlQuery1;
-            this.sqlTextEditor1.Size = new System.Drawing.Size(1563, 107);
-            this.sqlTextEditor1.SQLContext = this.sqlContext1;
-            this.sqlTextEditor1.SqlOptions.KeywordColor = System.Drawing.Color.LightSkyBlue;
-            this.sqlTextEditor1.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
-            this.sqlTextEditor1.TabIndex = 2;
-            this.sqlTextEditor1.Validating += new System.ComponentModel.CancelEventHandler(this.sqlTextEditor1_Validating);
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(8, 575);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1073, 107);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.Text = "textBox1";
+            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
             // databaseSchemaView1
             // 
@@ -365,7 +255,6 @@ namespace SeparatedComponents
             this.databaseSchemaView1.Name = "databaseSchemaView1";
             this.databaseSchemaView1.Options.AllowDrop = true;
             this.databaseSchemaView1.Options.DrawTreeLines = false;
-            this.databaseSchemaView1.Options.ImageIndices.FilterImageIndex = 14;
             this.databaseSchemaView1.Options.ImageList = null;
             this.databaseSchemaView1.QueryView = this.queryView1;
             this.databaseSchemaView1.SelectedItems = new ActiveQueryBuilder.Core.MetadataStructureItem[0];
@@ -381,36 +270,112 @@ namespace SeparatedComponents
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
             this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(1195, 611);
+            this.errorBox1.Location = new System.Drawing.Point(662, 599);
             this.errorBox1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.errorBox1.Name = "errorBox1";
             this.errorBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.errorBox1.Size = new System.Drawing.Size(367, 71);
+            this.errorBox1.Size = new System.Drawing.Size(410, 71);
             this.errorBox1.TabIndex = 4;
             this.errorBox1.Visible = false;
             this.errorBox1.GoToErrorPosition += new System.EventHandler(this.ErrorBox1_GoToErrorPositionEvent);
             this.errorBox1.RevertValidText += new System.EventHandler(this.ErrorBox1_RevertValidTextEvent);
             // 
+            // menuItem3
+            // 
+            this.menuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshMetadataMenuItem,
+            this.editMetadataMenuItem,
+            this.clearMetadataMenuItem,
+            this.menuItem4,
+            this.loadMetadataFromXMLMenuItem,
+            this.saveMetadataToXMLMenuItem});
+            this.menuItem3.Name = "menuItem3";
+            this.menuItem3.Size = new System.Drawing.Size(69, 20);
+            this.menuItem3.Text = "Metadata";
+            // 
+            // refreshMetadataMenuItem
+            // 
+            this.refreshMetadataMenuItem.Name = "refreshMetadataMenuItem";
+            this.refreshMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.refreshMetadataMenuItem.Text = "Refresh Metadata";
+            this.refreshMetadataMenuItem.Click += new System.EventHandler(this.refreshMetadataMenuItem_Click);
+            // 
+            // editMetadataMenuItem
+            // 
+            this.editMetadataMenuItem.Name = "editMetadataMenuItem";
+            this.editMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.editMetadataMenuItem.Text = "Edit Metadata...";
+            this.editMetadataMenuItem.Click += new System.EventHandler(this.editMetadataMenuItem_Click);
+            // 
+            // clearMetadataMenuItem
+            // 
+            this.clearMetadataMenuItem.Name = "clearMetadataMenuItem";
+            this.clearMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.clearMetadataMenuItem.Text = "Clear Metadata";
+            this.clearMetadataMenuItem.Click += new System.EventHandler(this.clearMetadataMenuItem_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Name = "menuItem4";
+            this.menuItem4.Size = new System.Drawing.Size(215, 6);
+            // 
+            // loadMetadataFromXMLMenuItem
+            // 
+            this.loadMetadataFromXMLMenuItem.Name = "loadMetadataFromXMLMenuItem";
+            this.loadMetadataFromXMLMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.loadMetadataFromXMLMenuItem.Text = "Load Metadata from XML...";
+            this.loadMetadataFromXMLMenuItem.Click += new System.EventHandler(this.loadMetadataFromXMLMenuItem_Click);
+            // 
+            // saveMetadataToXMLMenuItem
+            // 
+            this.saveMetadataToXMLMenuItem.Name = "saveMetadataToXMLMenuItem";
+            this.saveMetadataToXMLMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.saveMetadataToXMLMenuItem.Text = "Save Metadata to XML...";
+            this.saveMetadataToXMLMenuItem.Click += new System.EventHandler(this.saveMetadataToXMLMenuItem_Click);
+            // 
+            // queryStatisticsMenuItem
+            // 
+            this.queryStatisticsMenuItem.Name = "queryStatisticsMenuItem";
+            this.queryStatisticsMenuItem.Size = new System.Drawing.Size(109, 20);
+            this.queryStatisticsMenuItem.Text = "Query Statistics...";
+            this.queryStatisticsMenuItem.Click += new System.EventHandler(this.queryStatisticsMenuItem_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.aboutMenuItem.Text = "About...";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
+            // mainMenu1
+            // 
+            this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItem3,
+            this.queryStatisticsMenuItem,
+            this.aboutMenuItem});
+            this.mainMenu1.Location = new System.Drawing.Point(5, 5);
+            this.mainMenu1.Name = "mainMenu1";
+            this.mainMenu1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.mainMenu1.Size = new System.Drawing.Size(1080, 24);
+            this.mainMenu1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1580, 690);
+            this.ClientSize = new System.Drawing.Size(1090, 690);
             this.Controls.Add(this.mainMenu1);
             this.Controls.Add(this.errorBox1);
             this.Controls.Add(this.queryNavigationBar1);
-            this.Controls.Add(this.sqlTextEditor1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.queryView1);
             this.Controls.Add(this.databaseSchemaView1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.mainMenu1.ResumeLayout(false);
-            this.mainMenu1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlContext1.SQLGenerationOptionsForServer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1.SQLGenerationOptions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryView1)).EndInit();
@@ -418,6 +383,8 @@ namespace SeparatedComponents
             this.queryView1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.queryColumnListControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseSchemaView1)).EndInit();
+            this.mainMenu1.ResumeLayout(false);
+            this.mainMenu1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,27 +395,26 @@ namespace SeparatedComponents
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private ActiveQueryBuilder.Core.MSSQLSyntaxProvider mssqlSyntaxProvider1;
-		private System.Windows.Forms.MenuStrip mainMenu1;
-		private System.Windows.Forms.ToolStripMenuItem menuItem3;
-		private System.Windows.Forms.ToolStripMenuItem refreshMetadataMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem editMetadataMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem clearMetadataMenuItem;
-		private System.Windows.Forms.ToolStripSeparator menuItem4;
-		private System.Windows.Forms.ToolStripMenuItem loadMetadataFromXMLMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveMetadataToXMLMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
 		private ActiveQueryBuilder.Core.SQLQuery sqlQuery1;
 		private ActiveQueryBuilder.Core.SQLContext sqlContext1;
 		private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView databaseSchemaView1;
 		private ActiveQueryBuilder.View.WinForms.QueryView.QueryView queryView1;
-		private ActiveQueryBuilder.View.WinForms.ExpressionEditor.SqlTextEditor sqlTextEditor1;
+		private System.Windows.Forms.TextBox textBox1;
 		private ActiveQueryBuilder.View.WinForms.NavigationBar.QueryNavigationBar queryNavigationBar1;
 		private ActiveQueryBuilder.View.WinForms.QueryView.QueryColumnListControl queryColumnListControl1;
 		private ActiveQueryBuilder.View.WinForms.QueryView.DesignPaneControl designPaneControl1;
 		private ActiveQueryBuilder.View.WinForms.QueryView.AddObjectDialog addObjectDialog1;
-		private ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor expressionEditor1;
         private GeneralAssembly.Common.SqlErrorBox errorBox1;
+        private ToolStripMenuItem menuItem3;
+        private ToolStripMenuItem refreshMetadataMenuItem;
+        private ToolStripMenuItem editMetadataMenuItem;
+        private ToolStripMenuItem clearMetadataMenuItem;
+        private ToolStripSeparator menuItem4;
+        private ToolStripMenuItem loadMetadataFromXMLMenuItem;
+        private ToolStripMenuItem saveMetadataToXMLMenuItem;
+        private ToolStripMenuItem queryStatisticsMenuItem;
+        private ToolStripMenuItem aboutMenuItem;
+        private MenuStrip mainMenu1;
     }
 }
 

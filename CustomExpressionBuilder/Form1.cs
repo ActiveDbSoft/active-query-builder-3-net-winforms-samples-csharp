@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -18,6 +18,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
+using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms;
 
 namespace CustomExpressionBuilder
@@ -90,25 +91,14 @@ namespace CustomExpressionBuilder
 			QueryBuilder.ShowAboutDialog();
 		}
 
-        private void queryBuilder_CustomExpressionBuilder(QueryColumnListItem queryColumnListItem, int conditionIndex, string expression)
+        private void queryBuilder_CustomExpressionBuilder(object sender, ExpressionEditorParameters expressionEditorParameters)
 		{
 			using (CustomExpressionEditor f = new CustomExpressionEditor())
 			{
-				f.textBox.Text = expression;
+				f.textBox.Text = expressionEditorParameters.OldExpression;
 
 				if (f.ShowDialog() == DialogResult.OK)
-				{
-					// Update the criteria list with new expression text.
-
-					if (conditionIndex > -1) // it's one of condition columns
-					{
-                        queryColumnListItem.ConditionStrings[conditionIndex] = f.textBox.Text;
-					}
-					else // it's the Expression column
-					{
-                        queryColumnListItem.ExpressionString = f.textBox.Text;
-					}
-				}
+                    expressionEditorParameters.NewExpression = f.textBox.Text;
 			}
 		}
 

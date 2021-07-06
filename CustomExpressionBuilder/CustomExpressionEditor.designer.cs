@@ -1,4 +1,4 @@
-﻿namespace CustomExpressionBuilder
+namespace CustomExpressionBuilder
 {
 	partial class CustomExpressionEditor
 	{

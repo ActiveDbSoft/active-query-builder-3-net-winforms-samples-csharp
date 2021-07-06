@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -20,11 +20,7 @@ using ActiveQueryBuilder.View.EventHandlers.MetadataStructureItems;
 using ActiveQueryBuilder.View.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
-#if NETCOREAPP
-using GeneralAssembly;
-#else
 using GeneralAssembly.Common;
-#endif
 using DragEventArgs = ActiveQueryBuilder.View.EventHandlers.DragEventArgs;
 
 namespace ExpressionEditorDemo

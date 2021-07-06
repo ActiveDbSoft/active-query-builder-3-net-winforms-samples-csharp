@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -9,7 +9,7 @@
 //*******************************************************************//
 
 using System.ComponentModel;
-using System.Data.OleDb;
+using System.Data.SQLite;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 
@@ -35,16 +35,16 @@ namespace LoadMetadataAsync
 		private static void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Create temporary QueryBuilder instance
-            using (SQLContext sqlContext = new SQLContext())
+            using (var sqlContext = new SQLContext())
 			{
 				// Create temporary MetadataProvider
-				using (OLEDBMetadataProvider oledbMetadataProvider = new OLEDBMetadataProvider())
+				using (var metadataProvider = new SQLiteMetadataProvider())
 				{
 					// Create connection to database
-					oledbMetadataProvider.Connection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=demo.mdb");
+					metadataProvider.Connection = new SQLiteConnection("Data Source=northwind.sqlite;Version=3;");
 					// Set up the QueryBuilder
-					sqlContext.MetadataProvider = oledbMetadataProvider;
-					sqlContext.SyntaxProvider = new MSAccessSyntaxProvider();
+					sqlContext.MetadataProvider = metadataProvider;
+					sqlContext.SyntaxProvider = new SQLiteSyntaxProvider();
 					// Load metadata, force fields loading for all metadata objects
 					sqlContext.MetadataContainer.LoadAll(true);
 

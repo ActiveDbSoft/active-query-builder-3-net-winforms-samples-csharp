@@ -1,4 +1,4 @@
-﻿namespace MySQLdemo
+namespace MySqlDemo
 {
 	partial class MySQLConnectionForm
 	{

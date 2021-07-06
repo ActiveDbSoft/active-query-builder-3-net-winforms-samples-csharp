@@ -1,4 +1,4 @@
-﻿namespace CustomColumnsDemo
+namespace CustomColumnsDemo
 {
     partial class Form1
     {
@@ -38,7 +38,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.customTextWithButtonColumnDemoFrame = new CustomColumnsDemo.CustomTextWithButtonColumnDemoFrame();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.customComobBoxWithButtonColumnDemoFrame = new CustomColumnsDemo.CustomComobBoxWithButtonColumnDemoFrame();
+            this.customComobBoxWithButtonColumnDemoFrame = new CustomColumnsDemo.CustomComboBoxWithButtonColumnDemoFrame();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -188,7 +188,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private CustomTextWithButtonColumnDemoFrame customTextWithButtonColumnDemoFrame;
         private System.Windows.Forms.TabPage tabPage5;
-        private CustomComobBoxWithButtonColumnDemoFrame customComobBoxWithButtonColumnDemoFrame;
+        private CustomComboBoxWithButtonColumnDemoFrame customComobBoxWithButtonColumnDemoFrame;
     }
 }
 

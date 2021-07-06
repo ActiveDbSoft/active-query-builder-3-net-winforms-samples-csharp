@@ -1,4 +1,4 @@
-﻿namespace QueryStructureDemo
+namespace QueryStructureDemo
 {
 	partial class Form1
 	{
@@ -474,7 +474,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 604);
             this.Controls.Add(this.splitContainer1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Query Structure Demo";

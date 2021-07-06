@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -41,7 +41,8 @@ namespace MetadataEditorDemo
 
         public MetadataEditor()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
             CreateAndBindCommands();                        
 
             foreach (Type type in ActiveQueryBuilder.Core.Helpers.SyntaxProviderList)
@@ -68,6 +69,9 @@ namespace MetadataEditorDemo
 
             _subscriptions.Add(ActiveQueryBuilder.View.Helpers.Localizer.Subscribe(LocalizerOnLanguageChanged));
 
+            Text = "Metadata Editor - Active Query Builder 3 for .NET";
+            AddAboutMenuItem();
+            Icon = Properties.Resources.App;
 
             UpdateLocalization();
 
@@ -117,8 +121,22 @@ namespace MetadataEditorDemo
             structureToolStripMenuItem.Text = Helpers.Localizer.GetString("strMetadataStructure", LocalizableConstantsInternal.strMetadataStructure);
             toolStripLabel.Text = Helpers.Localizer.GetString("strSyntaxProvider", LocalizableConstantsInternal.strSyntaxProvider);
 
+            if (_aboutMenuItem != null)
+                _aboutMenuItem.Text = Helpers.Localizer.GetString("strAboutShort", LocalizableConstantsUI.strAboutShort);
         }
 
+        private ToolStripMenuItem _aboutMenuItem;
+        private void AddAboutMenuItem()
+        {
+            _aboutMenuItem = new ToolStripMenuItem(Helpers.Localizer.GetString("strAboutShort", LocalizableConstantsUI.strAboutShort));
+            _aboutMenuItem.Click += AboutOnClick;
+            menuStrip1.Items.Add(_aboutMenuItem);
+        }
+
+        private void AboutOnClick(object sender, EventArgs e)
+        {
+            QueryBuilder.ShowAboutDialog();
+        }
 
         private void CreateAndBindCommands()
         {

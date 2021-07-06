@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -44,17 +44,26 @@ namespace FullFeaturedDemo
 			{
 				Connections = Program.Settings.Connections;
             }
+            else
+            {
+                Settings.Connections = Connections;
+            }
 
 			if (Program.Settings.XmlFiles != null)
 			{
 				XmlFiles = Program.Settings.XmlFiles;
 			}
+            else
+            {
+                Settings.XmlFiles = XmlFiles;
+            }
 
             Connections.RestoreData();
             XmlFiles.RestoreData();
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+
 			Application.Run(new MainForm());
             
 			Program.Settings.Connections = Connections;

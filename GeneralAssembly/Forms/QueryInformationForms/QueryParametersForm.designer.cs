@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.Forms.QueryInformationForms
+namespace GeneralAssembly.Forms.QueryInformationForms
 {
 	partial class QueryParametersForm
 	{

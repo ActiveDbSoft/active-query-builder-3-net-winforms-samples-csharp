@@ -1,4 +1,4 @@
-ï»¿namespace GeneralAssembly.Forms
+namespace GeneralAssembly.Forms
 {
 	partial class AboutForm
 	{
@@ -60,7 +60,7 @@
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(336, 13);
 			this.label3.TabIndex = 7;
-			this.label3.Text = "Copyright ï¿½ 2008-2021 Active Database Software. All rights reserved.";
+			this.label3.Text = "Copyright © 2008-2021 Active Database Software. All rights reserved.";
 			// 
 			// bClose
 			// 

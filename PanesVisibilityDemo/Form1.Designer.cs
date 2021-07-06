@@ -1,4 +1,4 @@
-﻿using ActiveQueryBuilder.View.QueryView;
+using ActiveQueryBuilder.View.QueryView;
 
 namespace PanesVisibilityDemo
 {
@@ -157,7 +157,6 @@ namespace PanesVisibilityDemo
             this.ClientSize = new System.Drawing.Size(793, 530);
             this.Controls.Add(this.queryBuilder);
             this.Controls.Add(this.panel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

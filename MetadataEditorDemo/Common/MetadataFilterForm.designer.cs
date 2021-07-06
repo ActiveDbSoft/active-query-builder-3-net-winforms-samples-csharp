@@ -96,7 +96,6 @@
             this.Controls.Add(this.filterControl);
             this.Controls.Add(this.pnlInfo);
             this.Controls.Add(this.pnlBottom);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MetadataFilterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Advanced Metadata Filtration";

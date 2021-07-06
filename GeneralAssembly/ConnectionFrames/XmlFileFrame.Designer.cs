@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.ConnectionFrames
+namespace GeneralAssembly.ConnectionFrames
 {
 	partial class XmlFileFrame
 	{

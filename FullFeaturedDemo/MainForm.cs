@@ -1,7 +1,7 @@
-﻿//*******************************************************************//
+//*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2019 Active Database Software              //
+//       Copyright © 2006-2021 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -47,6 +47,8 @@ namespace FullFeaturedDemo
         public MainForm()
         {
             InitializeComponent();
+
+            Icon = ResourceHelpers.GetResourceIcon("App");
 
             // DEMO WARNING
             if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)

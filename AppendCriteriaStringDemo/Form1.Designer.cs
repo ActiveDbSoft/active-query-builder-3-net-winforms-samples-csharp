@@ -1,4 +1,4 @@
-﻿namespace AppendCriteriaStringDemo
+namespace AppendCriteriaStringDemo
 {
 	partial class Form1
 	{

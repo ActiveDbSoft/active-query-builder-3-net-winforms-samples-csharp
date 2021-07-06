@@ -1,4 +1,4 @@
-﻿namespace CriteriaBuilderCustomize
+namespace CriteriaBuilderCustomize
 {
 	partial class ConnectionForm
 	{
