@@ -6,6 +6,10 @@
 
   <!-- common props -->
   <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <AssetsPath>$(SolutionDir)assets\</AssetsPath>
 
     <Version>$([System.IO.File]::ReadAllText("$(SolutionDir)version"))</Version>
@@ -28,8 +32,13 @@
   <PropertyGroup>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+	
+	<PackageReference Include="ActiveQueryBuilder.Core" Version="$(Version)" />
+    <PackageReference Include="ActiveQueryBuilder.View" Version="$(Version)" />
+    <PackageReference Include="ActiveQueryBuilder.View.WinForms" Version="$(Version)" />
   </ItemGroup>
 
   <!-- use nuget ActiveQueryBuilder references instead of ProjectReference -->
