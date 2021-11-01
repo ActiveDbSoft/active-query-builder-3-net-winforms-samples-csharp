@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -30,7 +31,6 @@ using FullFeaturedMdiDemo.Reports;
 using GeneralAssembly;
 using GeneralAssembly.Dailogs;
 using GeneralAssembly.Forms.QueryInformationForms;
-using NPOI.OpenXmlFormats.Shared;
 using SqlHelpers = GeneralAssembly.SqlHelpers;
 using Timer = System.Threading.Timer;
 
@@ -1172,9 +1172,6 @@ Do you want to load database structure from cache?";
             return !args.Cancel;
         }
 
-       
-      
-
         private void RefreshNoConnectionLabel()
         {
             if (_connectionInfo != null)
@@ -1232,7 +1229,9 @@ Do you want to load database structure from cache?";
                 errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
                 return;
             }
-            
+
+            if (checkBoxAutoRefresh.Checked != true) return;
+
             FillFastViewDataGrid();
         }
 
@@ -1255,7 +1254,7 @@ Do you want to load database structure from cache?";
 
         private void tabControl2_Selected(object sender, TabControlEventArgs e)
         {
-            if (e.Action == TabControlAction.Selected && e.TabPage == tabPageFastResult)
+            if (e.Action == TabControlAction.Selected && e.TabPage == tabPageFastResult && checkBoxAutoRefresh.Checked)
             {
                 FillFastViewDataGrid();
             }
@@ -1350,11 +1349,13 @@ Do you want to load database structure from cache?";
         {
             if (dataTable == null)
                 throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
-
-            var reportWindow =
-                new ActiveReportsForm(dataTable) { Owner = this };
-
-            reportWindow.ShowDialog();
+#if ENABLE_ACTIVEREPORTS_SUPPORT
+            GrapeCityExtension.ActiveReportsForm reportForm = new GrapeCityExtension.ActiveReportsForm(dataTable);
+            reportForm.ShowDialog(this);
+#else
+            MessageBox.Show("To test the integration with GrapeCity ActiveReports, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableActiveReportsSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
+            "You may also need to activate the trial version of ActiveReports on the GrapeCity website.", "ActiveReports support", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
         }
 
         private void buttonGenerateReport_Click(object sender, EventArgs e)
@@ -1401,5 +1402,9 @@ Do you want to load database structure from cache?";
             var dt = SqlHelpers.GetDataTable(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions), SqlQuery);
             ExportHelpers.ExportToCSV(dt, saveDialog.FileName);
         }
+
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e) => buttonRefresh.Enabled = checkBoxAutoRefresh.Checked == false;
+
+        private void buttonRefresh_Click(object sender, EventArgs e) => FillFastViewDataGrid();
     }
 }

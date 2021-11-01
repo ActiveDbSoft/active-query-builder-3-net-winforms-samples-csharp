@@ -87,10 +87,9 @@ namespace BasicDemo
             this.tabControl1.Controls.Add(this.tabPageData);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1032, 151);
+            this.tabControl1.Size = new System.Drawing.Size(885, 131);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -98,11 +97,10 @@ namespace BasicDemo
             // 
             this.tabPageSQL.Controls.Add(this.errorBox1);
             this.tabPageSQL.Controls.Add(this.textBox1);
-            this.tabPageSQL.Location = new System.Drawing.Point(4, 24);
-            this.tabPageSQL.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageSQL.Location = new System.Drawing.Point(4, 22);
             this.tabPageSQL.Name = "tabPageSQL";
-            this.tabPageSQL.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageSQL.Size = new System.Drawing.Size(1024, 123);
+            this.tabPageSQL.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageSQL.Size = new System.Drawing.Size(877, 105);
             this.tabPageSQL.TabIndex = 0;
             this.tabPageSQL.Text = "SQL";
             this.tabPageSQL.UseVisualStyleBackColor = true;
@@ -114,12 +112,12 @@ namespace BasicDemo
             this.errorBox1.BackColor = System.Drawing.Color.LightPink;
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
-            this.errorBox1.IsVisibleCheckSyntaxPanel = true;
-            this.errorBox1.Location = new System.Drawing.Point(615, -53);
-            this.errorBox1.Margin = new System.Windows.Forms.Padding(7);
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
+            this.errorBox1.Location = new System.Drawing.Point(527, -46);
+            this.errorBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.errorBox1.Name = "errorBox1";
-            this.errorBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.errorBox1.Size = new System.Drawing.Size(377, 164);
+            this.errorBox1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.errorBox1.Size = new System.Drawing.Size(323, 142);
             this.errorBox1.TabIndex = 1;
             this.errorBox1.Visible = false;
             this.errorBox1.SyntaxProviderChanged += new System.EventHandler(this.errorBox1_SyntaxProviderChanged);
@@ -130,14 +128,13 @@ namespace BasicDemo
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(4, 4);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(1016, 115);
+            this.textBox1.Size = new System.Drawing.Size(871, 99);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
@@ -145,11 +142,10 @@ namespace BasicDemo
             // tabPageData
             // 
             this.tabPageData.Controls.Add(this.dataGridView1);
-            this.tabPageData.Location = new System.Drawing.Point(4, 24);
-            this.tabPageData.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageData.Location = new System.Drawing.Point(4, 22);
             this.tabPageData.Name = "tabPageData";
-            this.tabPageData.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageData.Size = new System.Drawing.Size(1024, 123);
+            this.tabPageData.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageData.Size = new System.Drawing.Size(877, 105);
             this.tabPageData.TabIndex = 1;
             this.tabPageData.Text = "Data";
             this.tabPageData.UseVisualStyleBackColor = true;
@@ -158,11 +154,12 @@ namespace BasicDemo
             // 
             this.dataGridView1.AutoSize = true;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 4);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(7);
+            this.dataGridView1.IsVisiblePaginationPanel = true;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.QueryTransformer = null;
-            this.dataGridView1.Size = new System.Drawing.Size(1016, 115);
+            this.dataGridView1.Size = new System.Drawing.Size(871, 99);
             this.dataGridView1.SqlQuery = null;
             this.dataGridView1.TabIndex = 0;
             // 
@@ -172,11 +169,11 @@ namespace BasicDemo
             this.labelSleepMode.BackColor = System.Drawing.Color.Bisque;
             this.labelSleepMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelSleepMode.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelSleepMode.Location = new System.Drawing.Point(0, 278);
-            this.labelSleepMode.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelSleepMode.Location = new System.Drawing.Point(0, 240);
+            this.labelSleepMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelSleepMode.Name = "labelSleepMode";
-            this.labelSleepMode.Padding = new System.Windows.Forms.Padding(11);
-            this.labelSleepMode.Size = new System.Drawing.Size(1032, 39);
+            this.labelSleepMode.Padding = new System.Windows.Forms.Padding(9, 10, 9, 10);
+            this.labelSleepMode.Size = new System.Drawing.Size(885, 34);
             this.labelSleepMode.TabIndex = 1;
             this.labelSleepMode.Text = "Unsupported SQL statement. Visual Query Builder has been disabled. Either type a " +
     "SELECT statement or start building a query visually to turn this mode off.";
@@ -224,8 +221,8 @@ namespace BasicDemo
             this.aboutMenuItem});
             this.mainMenu1.Location = new System.Drawing.Point(0, 0);
             this.mainMenu1.Name = "mainMenu1";
-            this.mainMenu1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.mainMenu1.Size = new System.Drawing.Size(1032, 24);
+            this.mainMenu1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.mainMenu1.Size = new System.Drawing.Size(885, 24);
             this.mainMenu1.TabIndex = 5;
             // 
             // menuItem1
@@ -340,10 +337,9 @@ namespace BasicDemo
             this.panel1.Controls.Add(this.linkLabel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(7, 6, 4, 0);
-            this.panel1.Size = new System.Drawing.Size(1032, 45);
+            this.panel1.Padding = new System.Windows.Forms.Padding(6, 5, 3, 0);
+            this.panel1.Size = new System.Drawing.Size(885, 37);
             this.panel1.TabIndex = 3;
             this.panel1.Visible = false;
             // 
@@ -353,10 +349,9 @@ namespace BasicDemo
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(269, 22);
-            this.linkLabel1.Location = new System.Drawing.Point(7, 6);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(6, 5);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(836, 37);
+            this.linkLabel1.Size = new System.Drawing.Size(773, 30);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.Text = resources.GetString("linkLabel1.Text");
             this.linkLabel1.UseCompatibleTextRendering = true;
@@ -364,8 +359,7 @@ namespace BasicDemo
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 69);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer2.Location = new System.Drawing.Point(0, 61);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -377,8 +371,9 @@ namespace BasicDemo
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(1032, 472);
-            this.splitContainer2.SplitterDistance = 317;
+            this.splitContainer2.Size = new System.Drawing.Size(885, 408);
+            this.splitContainer2.SplitterDistance = 274;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 4;
             // 
             // queryBuilder1
@@ -403,17 +398,39 @@ namespace BasicDemo
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
-            this.queryBuilder1.Margin = new System.Windows.Forms.Padding(4);
             this.queryBuilder1.Name = "queryBuilder1";
-            this.queryBuilder1.Padding = new System.Windows.Forms.Padding(4);
             this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewDock = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Right;
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarEnabled = true;
-            this.queryBuilder1.PanesConfigurationOptions.QueryColumnsPaneHeight = 121;
+            this.queryBuilder1.PanesConfigurationOptions.QueryColumnsPaneHeight = 120;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 5;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 6;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Index = 4;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Index = 3;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Width = 150D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
             this.queryBuilder1.QueryColumnListOptions.Font = null;
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
@@ -429,7 +446,7 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -442,7 +459,7 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.Size = new System.Drawing.Size(1032, 278);
+            this.queryBuilder1.Size = new System.Drawing.Size(885, 240);
             // 
             // 
             // 
@@ -482,7 +499,7 @@ namespace BasicDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
             this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
@@ -490,14 +507,13 @@ namespace BasicDemo
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 541);
+            this.ClientSize = new System.Drawing.Size(885, 469);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainMenu1);
             this.MainMenuStrip = this.mainMenu1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Active Query Builder for .NET WinForms Edition - Basic Demo (C#)";

@@ -17,9 +17,10 @@ namespace FullFeaturedDemo
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
-            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -118,7 +119,7 @@ namespace FullFeaturedDemo
             this.dataViewer = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.teResultSql = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripForRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -863,7 +864,7 @@ namespace FullFeaturedDemo
             this.splitContainer1.Panel2.Controls.Add(this.errorBox1);
             this.splitContainer1.Panel2.Controls.Add(this.teSql);
             this.splitContainer1.Size = new System.Drawing.Size(819, 503);
-            this.splitContainer1.SplitterDistance = 408;
+            this.splitContainer1.SplitterDistance = 460;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -874,7 +875,7 @@ namespace FullFeaturedDemo
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(819, 408);
+            this.panel1.Size = new System.Drawing.Size(819, 460);
             this.panel1.TabIndex = 0;
             // 
             // queryBuilder1
@@ -882,6 +883,8 @@ namespace FullFeaturedDemo
             this.queryBuilder1.AddObjectDialogOptions.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder1.AddObjectDialogOptions.Size = new System.Drawing.Size(430, 430);
             this.queryBuilder1.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.queryBuilder1.AddObjectDialogOptions.StartWithDefaultNamespaceType = ActiveQueryBuilder.Core.MetadataType.Database;
+            this.queryBuilder1.AddObjectDialogOptions.StartWithMetadataStructurePath = null;
             this.queryBuilder1.BehaviorOptions.ResolveColumnNamingConflictsAutomatically = false;
             this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
@@ -906,6 +909,30 @@ namespace FullFeaturedDemo
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.AutoHide = true;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 5;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 6;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Index = 4;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Index = 3;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Width = 150D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
             this.queryBuilder1.QueryColumnListOptions.Font = null;
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
@@ -934,7 +961,7 @@ namespace FullFeaturedDemo
             this.queryBuilder1.QueryNavBarOptions.SubQueryMarkerColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.Size = new System.Drawing.Size(819, 344);
+            this.queryBuilder1.Size = new System.Drawing.Size(819, 396);
             // 
             // 
             // 
@@ -984,7 +1011,7 @@ namespace FullFeaturedDemo
             this.panelSleepMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSleepMode.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelSleepMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.panelSleepMode.Location = new System.Drawing.Point(0, 369);
+            this.panelSleepMode.Location = new System.Drawing.Point(0, 421);
             this.panelSleepMode.Name = "panelSleepMode";
             this.panelSleepMode.Padding = new System.Windows.Forms.Padding(10);
             this.panelSleepMode.Size = new System.Drawing.Size(819, 39);
@@ -1078,7 +1105,7 @@ namespace FullFeaturedDemo
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
             this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(499, 25);
+            this.errorBox1.Location = new System.Drawing.Point(499, -27);
             this.errorBox1.Name = "errorBox1";
             this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
             this.errorBox1.Size = new System.Drawing.Size(315, 61);
@@ -1093,7 +1120,7 @@ namespace FullFeaturedDemo
             this.teSql.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.teSql.Location = new System.Drawing.Point(0, 0);
             this.teSql.Name = "teSql";
-            this.teSql.Size = new System.Drawing.Size(819, 91);
+            this.teSql.Size = new System.Drawing.Size(819, 39);
             this.teSql.TabIndex = 0;
             this.teSql.Text = "";
             this.teSql.Validating += new System.ComponentModel.CancelEventHandler(this.teQbSql_Validating);
@@ -1127,17 +1154,18 @@ namespace FullFeaturedDemo
             // 
             this.splitContainer2.Panel2.Controls.Add(this.teResultSql);
             this.splitContainer2.Size = new System.Drawing.Size(819, 503);
-            this.splitContainer2.SplitterDistance = 408;
+            this.splitContainer2.SplitterDistance = 460;
             this.splitContainer2.TabIndex = 0;
             // 
             // dataViewer
             // 
             this.dataViewer.AutoSize = true;
             this.dataViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataViewer.IsVisiblePaginationPanel = true;
             this.dataViewer.Location = new System.Drawing.Point(0, 51);
             this.dataViewer.Name = "dataViewer";
             this.dataViewer.QueryTransformer = null;
-            this.dataViewer.Size = new System.Drawing.Size(819, 357);
+            this.dataViewer.Size = new System.Drawing.Size(819, 409);
             this.dataViewer.SqlQuery = null;
             this.dataViewer.TabIndex = 0;
             // 
@@ -1164,7 +1192,7 @@ namespace FullFeaturedDemo
             this.teResultSql.Location = new System.Drawing.Point(0, 0);
             this.teResultSql.Name = "teResultSql";
             this.teResultSql.ReadOnly = true;
-            this.teResultSql.Size = new System.Drawing.Size(819, 91);
+            this.teResultSql.Size = new System.Drawing.Size(819, 39);
             this.teResultSql.TabIndex = 0;
             this.teResultSql.Text = "";
             // 

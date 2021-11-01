@@ -24,6 +24,7 @@ namespace GeneralAssembly.DataViewerControl
 {
     public partial class DataViewer : UserControl
     {
+        private string _textLoadedRows = "Query executed successfully. Loaded {0} rows.";
         public class ParameterInfo
         {
             public string Name { get; set; }
@@ -39,6 +40,18 @@ namespace GeneralAssembly.DataViewerControl
         private Task<DataTable> _nextTask;
         private QueryTransformer _queryTransformer;
         private SQLQuery _sqlQuery;
+
+        private bool _IsVisiblePaginationPanel;
+
+        public bool IsVisiblePaginationPanel
+        {
+            get => _IsVisiblePaginationPanel;
+            set 
+            {
+                _IsVisiblePaginationPanel = value;
+                paginationPanel1.Visible = value;
+            }
+        }
 
         public QueryTransformer QueryTransformer
         {
@@ -169,7 +182,7 @@ namespace GeneralAssembly.DataViewerControl
             }
         }
 
-        private bool ApplyParamsFromCache(DbCommand command, SQLQuery query)
+        private static bool ApplyParamsFromCache(DbCommand command, SQLQuery query)
         {
             var result = true;
             foreach (var parameter in query.QueryParameters)
@@ -196,14 +209,10 @@ namespace GeneralAssembly.DataViewerControl
             if (string.IsNullOrEmpty(sqlCommand)) return null;
 
             if (SqlQuery.SQLContext.MetadataProvider == null)
-            {
                 return null;
-            }
 
             if (!SqlQuery.SQLContext.MetadataProvider.Connected)
-            {
                 SqlQuery.SQLContext.MetadataProvider.Connect();
-            }
 
             if (string.IsNullOrEmpty(sqlCommand)) return null;
 
@@ -214,29 +223,37 @@ namespace GeneralAssembly.DataViewerControl
             if (command == null)
                 return null;
 
-            DataTable table = new DataTable("result");
+            var table = new DataTable("result");
 
             try
             {
                 using (var dbReader = command.ExecuteReader())
                 {
-                    for (int i = 0; i < dbReader.FieldCount; i++)
-                    {
+                    for (var i = 0; i < dbReader.FieldCount; i++)
                         table.Columns.Add(dbReader.GetName(i));
-                    }
 
                     while (dbReader.Read() && !_needCancelOperation)
                     {
-                        object[] values = new object[dbReader.FieldCount];
+                        var values = new object[dbReader.FieldCount];
                         dbReader.GetValues(values);
                         table.Rows.Add(values);
                     }
 
+                    Invoke((Action) delegate
+                    {
+                        lQueryExecuted.Text = string.Format(_textLoadedRows, table.Rows.Count);
+                        pRowCounter.Visible = true;
+                    });
+                    
                     return table;
                 }
             }
             catch (Exception ex)
             {
+                Invoke((Action) delegate
+                {
+                    pRowCounter.Visible = false;
+                });
                 Misc.ParamsCache.Clear();
                 ShowException(ex);
             }
@@ -313,7 +330,7 @@ namespace GeneralAssembly.DataViewerControl
 
             if (_currentTask != null)
             {
-                Invoke((Action)delegate
+                Invoke((Action) delegate
                 {
                     pLoading.Visible = true;
                 });
@@ -385,7 +402,10 @@ namespace GeneralAssembly.DataViewerControl
                     ? DataGridViewColumnSortMode.Programmatic
                     : DataGridViewColumnSortMode.NotSortable;
             }
-            if (RowsLoaded != null) RowsLoaded(this, EventArgs.Empty);
+
+            RowsLoaded?.Invoke(this, EventArgs.Empty);
+
+            AdjustRowCounter();
         }
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -417,7 +437,7 @@ namespace GeneralAssembly.DataViewerControl
 
             e.Paint(e.ClipBounds, e.PaintParts);
             int sortIndex = QueryTransformer.Sortings.IndexOf(sorting) + 1;
-            StringFormat format = new StringFormat
+            var format = new StringFormat
             {
                 LineAlignment = StringAlignment.Center
             };
@@ -458,12 +478,6 @@ namespace GeneralAssembly.DataViewerControl
             FillDataGrid(QueryTransformer.SQL);
         }
 
-        //private void RowsLoaded(object sender, EventArgs e)
-        //{
-        //    if (!paginationPanel1.Enabled)
-        //        paginationPanel1.RowsCount = resultGrid1.RowCount;
-        //}
-
         private void paginationPanel1_EnabledPaginationChanged(object sender, EventArgs e)
         {
             // Turn paging on and off
@@ -489,12 +503,37 @@ namespace GeneralAssembly.DataViewerControl
             }
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            AdjustRowCounter();
+        }
+
+        private void AdjustRowCounter()
+        {
+            var vScroll = dataGridView1.Controls.OfType<VScrollBar>().FirstOrDefault();
+            var hScroll = dataGridView1.Controls.OfType<HScrollBar>().FirstOrDefault();
+
+            var x = dataGridView1.ClientSize.Width - pRowCounter.Width - 5;
+            var x1 = (vScroll != null && vScroll.Visible) ? SystemInformation.VerticalScrollBarWidth : 0;
+            var xResult = x - x1;
+
+            var y = dataGridView1.ClientSize.Height - pRowCounter.Height - 5;
+            var y1 = (hScroll != null && hScroll.Visible) ? SystemInformation.HorizontalScrollBarHeight : 0;
+            var yResult = y - y1;
+
+            pRowCounter.Location = new Point(xResult, yResult);
+        }
 
         private void RefreshPaginationPanel()
         {
-            paginationPanel1.Visible = QueryTransformer.IsSupportLimitCount || QueryTransformer.IsSupportLimitOffset;
+            paginationPanel1.Enabled =
+                (QueryTransformer.IsSupportLimitCount || QueryTransformer.IsSupportLimitOffset) && IsVisiblePaginationPanel;
             paginationPanel1.IsSupportLimitCount = QueryTransformer.IsSupportLimitCount;
             paginationPanel1.IsSupportLimitOffset = QueryTransformer.IsSupportLimitOffset;
+
+            AdjustRowCounter();
         }
 
         private void paginationPanel1_CurrentPageChanged(object sender, EventArgs e)
@@ -517,6 +556,14 @@ namespace GeneralAssembly.DataViewerControl
             {
                 QueryTransformer.Skip((paginationPanel1.PageSize * (paginationPanel1.CurrentPage - 1)).ToString());
             }
+        }
+
+        private void linkLabelClose_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Invoke((Action)delegate
+            {
+                pRowCounter.Visible = false;   
+            });
         }
     }
 }

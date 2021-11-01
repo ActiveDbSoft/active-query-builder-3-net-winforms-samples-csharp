@@ -10,13 +10,13 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <AssetsPath>$(SolutionDir)assets\</AssetsPath>
+    <AssetsPath>$(MSBuildThisFileDirectory)assets\</AssetsPath>
 
-    <Version>$([System.IO.File]::ReadAllText("$(SolutionDir)version"))</Version>
+    <Version>$([System.IO.File]::ReadAllText("$(MSBuildThisFileDirectory)version"))</Version>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
 
-    <Edition>$([System.IO.File]::ReadAllText("$(SolutionDir)edition"))</Edition>
+    <Edition>$([System.IO.File]::ReadAllText("$(MSBuildThisFileDirectory)edition"))</Edition>
 
     <Product>Active Query Builder 3 .NET $(Edition) Edition</Product>
     <Company>Active Database Software</Company>
@@ -27,7 +27,7 @@
   <PropertyGroup>
     <NoWarn>$(NoWarn);1591;1574</NoWarn>
   </PropertyGroup>
-
+  
   <!-- resources -->
   <PropertyGroup>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
@@ -44,6 +44,11 @@
   <!-- use nuget ActiveQueryBuilder references instead of ProjectReference -->
   <PropertyGroup>
     <UseNugetAqbReferences>true</UseNugetAqbReferences>
+  </PropertyGroup>
+
+  <!-- enable GrapeCity's ActiveReports support in Demos -->
+  <PropertyGroup>
+    <EnableActiveReportsSupport>false</EnableActiveReportsSupport>
   </PropertyGroup>
 
 </Project>

@@ -465,7 +465,7 @@ namespace FullFeaturedMdiDemo
 		}
 
 		private void MainForm_SizeChanged(object sender, EventArgs e)
-		{
+        {
 			if (Program.Settings.IsMaximized != (WindowState == FormWindowState.Maximized))
 			{
 				Program.Settings.IsMaximized = (WindowState == FormWindowState.Maximized);

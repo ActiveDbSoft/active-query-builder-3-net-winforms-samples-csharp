@@ -314,7 +314,6 @@ namespace BasicDemo
             this.queryBuilder1.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder1.DatabaseSchemaViewOptions.ImageList = null;
             this.queryBuilder1.DataSourceOptions.ColumnsOptions.InformationButtonsColumnOptions.Color = System.Drawing.Color.Black;
-            this.queryBuilder1.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
             this.queryBuilder1.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
             linkPainterAccess1.LinkColor = System.Drawing.Color.Black;
             linkPainterAccess1.LinkColorFocused = System.Drawing.Color.Black;
@@ -338,7 +337,31 @@ namespace BasicDemo
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
             this.queryBuilder1.QueryColumnListOptions.AlternateRowColor = System.Drawing.SystemColors.Highlight;
-            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AggregateColumn.Width = 90D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Index = 2;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.AliasColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Index = 5;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ConditionTypeColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Index = 6;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaColumn.Width = 200D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.CriteriaOrColumns.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Index = 1;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.ExpressionColumn.Width = 250D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Index = 4;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingAndAggregateColumn.Width = 140D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.GroupingColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.OutputColumn.Width = 55D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Index = 3;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortColumn.Width = 150D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 0;
+            this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
+            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder1.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
@@ -354,7 +377,7 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -407,7 +430,7 @@ namespace BasicDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
             this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
@@ -461,7 +484,7 @@ namespace BasicDemo
             this.errorBox1.BackColor = System.Drawing.Color.LightPink;
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
-            this.errorBox1.IsVisibleCheckSyntaxPanel = true;
+            this.errorBox1.IsVisibleCheckSyntaxPanel = false;
             this.errorBox1.Location = new System.Drawing.Point(531, 2);
             this.errorBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.errorBox1.Name = "errorBox1";
@@ -482,7 +505,7 @@ namespace BasicDemo
             this.sqlTextEditor1.Location = new System.Drawing.Point(3, 3);
             this.sqlTextEditor1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F);
             this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.sqlTextEditor1.QueryProvider = this.queryBuilder1;
             this.sqlTextEditor1.Size = new System.Drawing.Size(887, 113);
@@ -493,10 +516,10 @@ namespace BasicDemo
             // tabPageData
             // 
             this.tabPageData.Controls.Add(this.dataViewer1);
-            this.tabPageData.Location = new System.Drawing.Point(4, 24);
+            this.tabPageData.Location = new System.Drawing.Point(4, 22);
             this.tabPageData.Name = "tabPageData";
             this.tabPageData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageData.Size = new System.Drawing.Size(893, 117);
+            this.tabPageData.Size = new System.Drawing.Size(893, 119);
             this.tabPageData.TabIndex = 1;
             this.tabPageData.Text = "Data";
             this.tabPageData.UseVisualStyleBackColor = true;
@@ -505,11 +528,12 @@ namespace BasicDemo
             // 
             this.dataViewer1.AutoSize = true;
             this.dataViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataViewer1.IsVisiblePaginationPanel = false;
             this.dataViewer1.Location = new System.Drawing.Point(3, 3);
             this.dataViewer1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataViewer1.Name = "dataViewer1";
             this.dataViewer1.QueryTransformer = null;
-            this.dataViewer1.Size = new System.Drawing.Size(887, 111);
+            this.dataViewer1.Size = new System.Drawing.Size(887, 113);
             this.dataViewer1.SqlQuery = null;
             this.dataViewer1.TabIndex = 0;
             // 
@@ -521,7 +545,7 @@ namespace BasicDemo
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainMenu1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.mainMenu1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

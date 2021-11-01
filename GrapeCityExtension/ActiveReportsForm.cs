@@ -13,11 +13,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using GrapeCity.ActiveReports;
 using GrapeCity.ActiveReports.Document.Section;
-using GrapeCity.ActiveReports.Drawing;
 using Label = GrapeCity.ActiveReports.SectionReportModel.Label;
 using TextBox = GrapeCity.ActiveReports.SectionReportModel.TextBox;
 
-namespace FullFeaturedMdiDemo.Reports
+namespace GrapeCityExtension
 {
     public partial class ActiveReportsForm : Form
     {
