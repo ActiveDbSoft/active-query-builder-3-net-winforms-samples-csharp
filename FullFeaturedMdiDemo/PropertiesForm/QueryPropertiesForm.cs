@@ -19,6 +19,7 @@ using ActiveQueryBuilder.View.PropertiesEditors;
 using ActiveQueryBuilder.View.WinForms.DatabaseSchemaView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
+using GeneralAssembly;
 
 namespace FullFeaturedMdiDemo.PropertiesForm
 {
@@ -46,8 +47,8 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             {
                 EditorsOptions =
                 {
-                    WideEditControlsMaxWidth = 225,
-                    WideEditControlsMinWidth = 100,
+                    WideEditControlsMaxWidth = ScreenHelpers.ScaleByCurrentDPI(225),
+                    WideEditControlsMinWidth = ScreenHelpers.ScaleByCurrentDPI(100),
                     ShowDescriptions = true
                 }
             };

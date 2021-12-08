@@ -81,7 +81,6 @@ namespace PanesVisibilityDemo
             this.cbRightPane.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbRightPane.Checked = true;
             this.cbRightPane.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRightPane.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbRightPane.Location = new System.Drawing.Point(492, 12);
             this.cbRightPane.Name = "cbRightPane";
             this.cbRightPane.Size = new System.Drawing.Size(112, 86);
@@ -96,7 +95,6 @@ namespace PanesVisibilityDemo
             this.cbQueryColumnsPane.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbQueryColumnsPane.Checked = true;
             this.cbQueryColumnsPane.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbQueryColumnsPane.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbQueryColumnsPane.Location = new System.Drawing.Point(320, 58);
             this.cbQueryColumnsPane.Name = "cbQueryColumnsPane";
             this.cbQueryColumnsPane.Size = new System.Drawing.Size(166, 40);
@@ -111,7 +109,6 @@ namespace PanesVisibilityDemo
             this.cbDesignPane.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbDesignPane.Checked = true;
             this.cbDesignPane.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbDesignPane.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbDesignPane.Location = new System.Drawing.Point(320, 12);
             this.cbDesignPane.Name = "cbDesignPane";
             this.cbDesignPane.Size = new System.Drawing.Size(166, 40);
@@ -124,12 +121,9 @@ namespace PanesVisibilityDemo
             // queryBuilder
             // 
             this.queryBuilder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.queryBuilder.DatabaseSchemaViewOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.queryBuilder.DataSourceOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Bitmap)(resources.GetObject("resource.PrimaryKeyIcon")));
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryBuilder.Location = new System.Drawing.Point(0, 108);
             this.queryBuilder.MetadataStructureOptions.ProceduresFolderText = null;
             this.queryBuilder.MetadataStructureOptions.SynonymsFolderText = null;

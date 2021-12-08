@@ -1,4 +1,4 @@
-﻿namespace CriteriaBuilderCustomize
+namespace CriteriaBuilderCustomize
 {
     partial class Form1
     {
@@ -101,7 +101,6 @@
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder1.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
             this.queryBuilder1.QueryColumnListOptions.AlternateRowColor = System.Drawing.SystemColors.Highlight;
-            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder1.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
@@ -117,7 +116,6 @@
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -170,7 +168,6 @@
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder1_SQLUpdated);
             // 
@@ -222,12 +219,10 @@
             // criteriaBuilder1
             // 
             this.criteriaBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.criteriaBuilder1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.criteriaBuilder1.Location = new System.Drawing.Point(3, 26);
             this.criteriaBuilder1.MinimumSize = new System.Drawing.Size(355, 51);
             this.criteriaBuilder1.Name = "criteriaBuilder1";
             this.criteriaBuilder1.QueryTransformer = null;
-            this.criteriaBuilder1.RootItemFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.criteriaBuilder1.RootJunctionPrefix = null;
             this.criteriaBuilder1.Size = new System.Drawing.Size(838, 468);
             this.criteriaBuilder1.TabIndex = 1;

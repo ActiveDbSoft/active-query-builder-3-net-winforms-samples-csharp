@@ -1,4 +1,4 @@
-﻿namespace DatasourceFieldsLinkingDragnDropDemo
+namespace DatasourceFieldsLinkingDragnDropDemo
 {
     partial class Form1
     {
@@ -121,7 +121,6 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
@@ -166,7 +165,6 @@
             this.QBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.QBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.QBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.QBuilder.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.QBuilder.Location = new System.Drawing.Point(0, 0);
             this.QBuilder.Name = "QBuilder";
             this.QBuilder.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
@@ -181,7 +179,6 @@
             this.QBuilder.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.QBuilder.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.QBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
-            this.QBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.QBuilder.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.QBuilder.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.QBuilder.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
@@ -224,7 +221,6 @@
             this.QBuilder.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.QBuilder.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.QBuilder.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.QBuilder.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.QBuilder.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.QBuilder.LinkDragOver += new ActiveQueryBuilder.View.QueryView.LinkDragOverEventhandler(this.QBuilder_LinkDragOver);
             this.QBuilder.BeforeDatasourceFieldDrag += new ActiveQueryBuilder.View.QueryView.BeforeDataSourceFieldDragEventHandler(this.QBuilder_BeforeDatasourceFieldDrag);

@@ -1,4 +1,4 @@
-﻿namespace QueryTransformerCoreDemo
+namespace QueryTransformerCoreDemo
 {
     partial class Form1
     {
@@ -100,7 +100,6 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 13);
@@ -164,7 +163,6 @@
             // CounterVisibleColumns
             // 
             this.CounterVisibleColumns.AutoSize = true;
-            this.CounterVisibleColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CounterVisibleColumns.Location = new System.Drawing.Point(79, 252);
             this.CounterVisibleColumns.Name = "CounterVisibleColumns";
             this.CounterVisibleColumns.Size = new System.Drawing.Size(14, 13);
@@ -323,7 +321,6 @@
             // CounterFilters
             // 
             this.CounterFilters.AutoSize = true;
-            this.CounterFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CounterFilters.Location = new System.Drawing.Point(106, 0);
             this.CounterFilters.Name = "CounterFilters";
             this.CounterFilters.Size = new System.Drawing.Size(14, 13);
@@ -488,7 +485,6 @@
             // CounterAggregations
             // 
             this.CounterAggregations.AutoSize = true;
-            this.CounterAggregations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CounterAggregations.Location = new System.Drawing.Point(106, 0);
             this.CounterAggregations.Name = "CounterAggregations";
             this.CounterAggregations.Size = new System.Drawing.Size(14, 13);
@@ -632,7 +628,6 @@
             // CounterSortings
             // 
             this.CounterSortings.AutoSize = true;
-            this.CounterSortings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CounterSortings.Location = new System.Drawing.Point(106, 0);
             this.CounterSortings.Name = "CounterSortings";
             this.CounterSortings.Size = new System.Drawing.Size(14, 13);
@@ -706,7 +701,6 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(10, 408);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 13);

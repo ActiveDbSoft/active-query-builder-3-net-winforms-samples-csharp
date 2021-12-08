@@ -299,6 +299,11 @@ namespace FullFeaturedMdiDemo
             rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;
             TextBoxCurrentSubQuerySql.ExpressionContext = QView.ActiveUnionSubQuery;
             QueryNavBarOptions.Updated += QueryNavBarOptions_Updated;
+
+#if NETFRAMEWORK
+            toolStrip1.ImageScalingSize = new Size(ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Width),
+                ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Height));
+#endif
         }
 
         private void QueryNavBarOptions_Updated(object sender, EventArgs e)

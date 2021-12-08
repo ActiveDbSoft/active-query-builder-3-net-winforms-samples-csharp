@@ -252,7 +252,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel6.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel6.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel6.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel6.Location = new System.Drawing.Point(3, 365);
 			this.groupLabel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
@@ -266,7 +265,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel5.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel5.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel5.Location = new System.Drawing.Point(3, 318);
 			this.groupLabel5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
@@ -280,7 +278,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel4.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel4.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel4.Location = new System.Drawing.Point(3, 229);
 			this.groupLabel4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
@@ -294,7 +291,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel2.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel2.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel2.Location = new System.Drawing.Point(3, 162);
 			this.groupLabel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
@@ -308,7 +304,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel1.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel1.Location = new System.Drawing.Point(3, 115);
 			this.groupLabel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
@@ -322,7 +317,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			//
 			this.groupLabel3.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupLabel3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
 			this.groupLabel3.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.groupLabel3.Location = new System.Drawing.Point(3, 0);
 			this.groupLabel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);

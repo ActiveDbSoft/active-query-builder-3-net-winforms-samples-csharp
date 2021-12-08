@@ -25,7 +25,6 @@ namespace MetadataEditorDemo.Common.LoadingWizardPages
 			// 
 			this.label1.BackColor = System.Drawing.SystemColors.Window;
 			this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
 			this.label1.Location = new System.Drawing.Point(0, 0);
 			this.label1.Name = "label1";
 			this.label1.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);

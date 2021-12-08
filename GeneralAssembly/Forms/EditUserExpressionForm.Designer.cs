@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.Forms
+namespace GeneralAssembly.Forms
 {
     partial class EditUserExpressionForm
     {
@@ -132,7 +132,6 @@
             // 
             this.labelSaveInform.AutoSize = true;
             this.labelSaveInform.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelSaveInform.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelSaveInform.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelSaveInform.Location = new System.Drawing.Point(82, 196);
             this.labelSaveInform.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);

@@ -40,7 +40,6 @@ namespace MetadataEditorDemo.Common.LoadingWizardPages
 			// 
 			this.lSyntax.BackColor = System.Drawing.SystemColors.Window;
 			this.lSyntax.Dock = System.Windows.Forms.DockStyle.Top;
-			this.lSyntax.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
 			this.lSyntax.Location = new System.Drawing.Point(0, 0);
 			this.lSyntax.Name = "lSyntax";
 			this.lSyntax.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);

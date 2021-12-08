@@ -129,7 +129,6 @@ namespace AdvantageDemo
             this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.queryBuilder.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder.MetadataProvider = this.advantageMetadataProvider1;
             this.queryBuilder.Name = "queryBuilder";
@@ -145,7 +144,6 @@ namespace AdvantageDemo
             this.queryBuilder.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryBuilder.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.queryBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
-            this.queryBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.queryBuilder.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.queryBuilder.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
@@ -186,7 +184,6 @@ namespace AdvantageDemo
             this.queryBuilder.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
             // 

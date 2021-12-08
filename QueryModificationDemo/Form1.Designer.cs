@@ -84,7 +84,6 @@ namespace QueryModificationDemo
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnApply.Location = new System.Drawing.Point(782, 137);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(141, 23);
@@ -279,7 +278,6 @@ namespace QueryModificationDemo
             this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder1.Location = new System.Drawing.Point(3, 3);
             this.queryBuilder1.MetadataStructureOptions.ProceduresFolderText = "Procedures";
             this.queryBuilder1.MetadataStructureOptions.SynonymsFolderText = "Synonyms";

@@ -1,4 +1,4 @@
-﻿using ActiveQueryBuilder.View.WinForms.QueryView;
+using ActiveQueryBuilder.View.WinForms.QueryView;
 using ActiveQueryBuilder.View.WinForms.DatabaseSchemaView;
 namespace BasicDemo
 {
@@ -90,7 +90,6 @@ namespace BasicDemo
             // 
             // lbMenu
             // 
-            this.lbMenu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMenu.FormattingEnabled = true;
             this.lbMenu.ItemHeight = 16;
             this.lbMenu.Items.AddRange(new object[] {
@@ -184,7 +183,6 @@ namespace BasicDemo
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(9, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
@@ -206,7 +204,6 @@ namespace BasicDemo
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(9, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 13);

@@ -492,7 +492,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             this.labelSqlFormatting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSqlFormatting.AutoSize = true;
-            this.labelSqlFormatting.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelSqlFormatting.Location = new System.Drawing.Point(0, 10);
             this.labelSqlFormatting.Margin = new System.Windows.Forms.Padding(0);
             this.labelSqlFormatting.Name = "labelSqlFormatting";
@@ -505,7 +504,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // linkMain
             // 
             this.linkMain.AutoSize = true;
-            this.linkMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkMain.ForeColor = System.Drawing.Color.Black;
             this.linkMain.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkMain.LinkColor = System.Drawing.Color.Black;
@@ -560,7 +558,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // linkCte
             // 
             this.linkCte.AutoSize = true;
-            this.linkCte.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkCte.ForeColor = System.Drawing.Color.Black;
             this.linkCte.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkCte.LinkColor = System.Drawing.Color.Black;
@@ -615,7 +612,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // linkDerived
             // 
             this.linkDerived.AutoSize = true;
-            this.linkDerived.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkDerived.ForeColor = System.Drawing.Color.Black;
             this.linkDerived.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkDerived.LinkColor = System.Drawing.Color.Black;
@@ -670,7 +666,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // linkExpression
             // 
             this.linkExpression.AutoSize = true;
-            this.linkExpression.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkExpression.ForeColor = System.Drawing.Color.Black;
             this.linkExpression.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkExpression.LinkColor = System.Drawing.Color.Black;

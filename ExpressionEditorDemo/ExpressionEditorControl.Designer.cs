@@ -1,4 +1,4 @@
-﻿namespace ExpressionEditorDemo
+namespace ExpressionEditorDemo
 {
     partial class ExpressionEditorControl
     {
@@ -78,7 +78,6 @@
             this.dockManager1.Options.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.dockManager1.Options.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.dockManager1.Options.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.dockManager1.Options.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dockManager1.Options.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.dockManager1.Size = new System.Drawing.Size(764, 505);
             this.dockManager1.TabIndex = 4;
@@ -118,7 +117,6 @@
             this.dockPanelSqlContext.AutoHide = false;
             this.dockPanelSqlContext.Controls.Add(this.tableLayoutPanel1);
             this.dockPanelSqlContext.Docking = ActiveQueryBuilder.View.Docking.Left;
-            this.dockPanelSqlContext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dockPanelSqlContext.Location = new System.Drawing.Point(0, 0);
             this.dockPanelSqlContext.Name = "dockPanelSqlContext";
             this.dockPanelSqlContext.Size = new System.Drawing.Size(200, 505);
@@ -250,7 +248,6 @@
             // 
             this.dockPanelDatabaseSchema.Controls.Add(this.treeObjects);
             this.dockPanelDatabaseSchema.Docking = ActiveQueryBuilder.View.Docking.Left;
-            this.dockPanelDatabaseSchema.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dockPanelDatabaseSchema.Location = new System.Drawing.Point(34, 0);
             this.dockPanelDatabaseSchema.Name = "dockPanelDatabaseSchema";
             this.dockPanelDatabaseSchema.Size = new System.Drawing.Size(200, 252);

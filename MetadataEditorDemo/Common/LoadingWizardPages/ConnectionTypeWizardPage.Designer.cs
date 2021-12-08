@@ -1,4 +1,4 @@
-﻿namespace MetadataEditorDemo.Common.LoadingWizardPages
+namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
     partial class ConnectionTypeWizardPage
     {
@@ -29,7 +29,6 @@
             // 
             this.lbType.BackColor = System.Drawing.SystemColors.Window;
             this.lbType.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbType.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbType.Location = new System.Drawing.Point(0, 0);
             this.lbType.Name = "lbType";
             this.lbType.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);

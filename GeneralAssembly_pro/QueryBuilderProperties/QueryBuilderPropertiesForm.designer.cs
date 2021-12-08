@@ -345,7 +345,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			this.labelNonVisual.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelNonVisual.AutoSize = true;
-			this.labelNonVisual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.labelNonVisual.Location = new System.Drawing.Point(0, 10);
 			this.labelNonVisual.Margin = new System.Windows.Forms.Padding(0);
 			this.labelNonVisual.Name = "labelNonVisual";
@@ -396,7 +395,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			this.labelVisual.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelVisual.AutoSize = true;
-			this.labelVisual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.labelVisual.Location = new System.Drawing.Point(0, 80);
 			this.labelVisual.Margin = new System.Windows.Forms.Padding(0);
 			this.labelVisual.Name = "labelVisual";
@@ -465,7 +463,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			this.labelSqlBuilder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.labelSqlBuilder.AutoSize = true;
-			this.labelSqlBuilder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.labelSqlBuilder.Location = new System.Drawing.Point(0, 173);
 			this.labelSqlBuilder.Margin = new System.Windows.Forms.Padding(0);
 			this.labelSqlBuilder.Name = "labelSqlBuilder";
@@ -561,7 +558,6 @@ namespace GeneralAssembly.QueryBuilderProperties
 			// labelHeader
 			//
 			this.labelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelHeader.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.labelHeader.ForeColor = System.Drawing.Color.CornflowerBlue;
 			this.labelHeader.Location = new System.Drawing.Point(0, 0);
 			this.labelHeader.Margin = new System.Windows.Forms.Padding(0);

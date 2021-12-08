@@ -1,4 +1,4 @@
-﻿namespace CriteriaBuilderCustomize.CustomControls
+namespace CriteriaBuilderCustomize.CustomControls
 {
     partial class CustomEditor
     {
@@ -22,7 +22,6 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(5, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 23);

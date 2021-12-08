@@ -135,7 +135,6 @@ namespace SeparatedComponents
             this.queryNavigationBar1.Options.DisableQueryNavigationBarPopup = false;
             this.queryNavigationBar1.Options.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryNavigationBar1.Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryNavigationBar1.Options.ForeColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.GraphLineColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.GroupBackColor = System.Drawing.Color.Empty;
@@ -233,7 +232,6 @@ namespace SeparatedComponents
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox1.Location = new System.Drawing.Point(8, 575);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Multiline = true;

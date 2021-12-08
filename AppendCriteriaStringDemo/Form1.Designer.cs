@@ -55,7 +55,6 @@ namespace AppendCriteriaStringDemo
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.queryBuilder1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
-			this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.queryBuilder1.Location = new System.Drawing.Point(13, 13);
 			this.queryBuilder1.Name = "queryBuilder1";
 			this.queryBuilder1.PanesConfigurationOptions.DatabaseSchemaViewWidth = 230;
@@ -82,7 +81,6 @@ namespace AppendCriteriaStringDemo
 			// 
 			this.textBoxQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxQuery.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBoxQuery.Location = new System.Drawing.Point(98, 464);
 			this.textBoxQuery.Multiline = true;
 			this.textBoxQuery.Name = "textBoxQuery";
@@ -102,7 +100,6 @@ namespace AppendCriteriaStringDemo
 			// textBoxNewWhere
 			// 
 			this.textBoxNewWhere.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBoxNewWhere.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBoxNewWhere.Location = new System.Drawing.Point(98, 362);
 			this.textBoxNewWhere.Multiline = true;
 			this.textBoxNewWhere.Name = "textBoxNewWhere";
@@ -211,7 +208,6 @@ namespace AppendCriteriaStringDemo
 			// textBoxNewWhereAccess
 			// 
 			this.textBoxNewWhereAccess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBoxNewWhereAccess.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBoxNewWhereAccess.Location = new System.Drawing.Point(98, 412);
 			this.textBoxNewWhereAccess.Multiline = true;
 			this.textBoxNewWhereAccess.Name = "textBoxNewWhereAccess";

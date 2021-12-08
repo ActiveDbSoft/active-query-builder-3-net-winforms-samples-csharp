@@ -160,7 +160,6 @@ namespace SubQueryTextEditingDemo
             this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
     
@@ -189,7 +188,6 @@ namespace SubQueryTextEditingDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -242,7 +240,6 @@ namespace SubQueryTextEditingDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
             // 
@@ -268,7 +265,6 @@ namespace SubQueryTextEditingDemo
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox1.HideSelection = false;
             this.textBox1.Location = new System.Drawing.Point(0, 30);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

@@ -385,7 +385,6 @@ namespace FullFeaturedMdiDemo
             this.dockManager1.Options.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.dockManager1.Options.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.dockManager1.Options.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.dockManager1.Options.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dockManager1.Options.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.dockManager1.Size = new System.Drawing.Size(1173, 215);
             this.dockManager1.TabIndex = 0;
@@ -415,7 +414,6 @@ namespace FullFeaturedMdiDemo
             this.dockPanelProperties.AutoHide = false;
             this.dockPanelProperties.Controls.Add(this.propertiesBar1);
             this.dockPanelProperties.Docking = ActiveQueryBuilder.View.Docking.Right;
-            this.dockPanelProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dockPanelProperties.Location = new System.Drawing.Point(0, 0);
             this.dockPanelProperties.Name = "dockPanelProperties";
             this.dockPanelProperties.Size = new System.Drawing.Size(200, 213);
@@ -440,7 +438,6 @@ namespace FullFeaturedMdiDemo
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dockPanelSubquery.Controls.Add(this.subQueryNavBar1);
             this.dockPanelSubquery.Docking = ActiveQueryBuilder.View.Docking.Left;
-            this.dockPanelSubquery.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dockPanelSubquery.Location = new System.Drawing.Point(630, 0);
             this.dockPanelSubquery.Name = "dockPanelSubquery";
             this.dockPanelSubquery.Size = new System.Drawing.Size(200, 251);
@@ -628,7 +625,6 @@ namespace FullFeaturedMdiDemo
             this.rtbQueryText.Location = new System.Drawing.Point(0, 0);
             this.rtbQueryText.Margin = new System.Windows.Forms.Padding(4);
             this.rtbQueryText.Name = "rtbQueryText";
-            this.rtbQueryText.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQueryText.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.rtbQueryText.QueryProvider = null;
             this.rtbQueryText.Size = new System.Drawing.Size(1147, 160);
@@ -700,7 +696,6 @@ namespace FullFeaturedMdiDemo
             this.TextBoxCurrentSubQuerySql.Location = new System.Drawing.Point(0, 0);
             this.TextBoxCurrentSubQuerySql.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxCurrentSubQuerySql.Name = "TextBoxCurrentSubQuerySql";
-            this.TextBoxCurrentSubQuerySql.Options.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCurrentSubQuerySql.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.TextBoxCurrentSubQuerySql.QueryProvider = null;
             this.TextBoxCurrentSubQuerySql.Size = new System.Drawing.Size(1147, 160);
@@ -843,7 +838,6 @@ namespace FullFeaturedMdiDemo
             this.NavBar.Options.DisableQueryNavigationBarPopup = false;
             this.NavBar.Options.DragIndicatorColor = System.Drawing.Color.Empty;
             this.NavBar.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.NavBar.Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NavBar.Options.ForeColor = System.Drawing.Color.Empty;
             this.NavBar.Options.GraphLineColor = System.Drawing.Color.Empty;
             this.NavBar.Options.GroupBackColor = System.Drawing.Color.Empty;
@@ -1064,12 +1058,10 @@ namespace FullFeaturedMdiDemo
             this.CBuilder.AutoSize = true;
             this.CBuilder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CBuilder.Dock = System.Windows.Forms.DockStyle.Top;
-            this.CBuilder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CBuilder.Location = new System.Drawing.Point(3, 3);
             this.CBuilder.MinimumSize = new System.Drawing.Size(188, 51);
             this.CBuilder.Name = "CBuilder";
             this.CBuilder.QueryTransformer = null;
-            this.CBuilder.RootItemFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CBuilder.RootJunctionPrefix = null;
             this.CBuilder.Size = new System.Drawing.Size(1173, 51);
             this.CBuilder.TabIndex = 1;
@@ -1078,7 +1070,6 @@ namespace FullFeaturedMdiDemo
             // 
             this.richTextBox1.BackColor = System.Drawing.Color.LemonChiffon;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBox1.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 509);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;

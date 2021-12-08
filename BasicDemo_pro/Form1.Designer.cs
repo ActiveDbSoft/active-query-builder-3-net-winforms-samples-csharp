@@ -361,7 +361,6 @@ namespace BasicDemo
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortOrderColumn.Width = 100D;
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Index = 0;
             this.queryBuilder1.QueryColumnListOptions.ColumnsOptions.SortTypeColumn.Width = 60D;
-            this.queryBuilder1.QueryColumnListOptions.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.queryBuilder1.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder1.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder1.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
@@ -377,7 +376,6 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -430,7 +428,6 @@ namespace BasicDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
             this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
@@ -505,7 +502,6 @@ namespace BasicDemo
             this.sqlTextEditor1.Location = new System.Drawing.Point(3, 3);
             this.sqlTextEditor1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F);
             this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.sqlTextEditor1.QueryProvider = this.queryBuilder1;
             this.sqlTextEditor1.Size = new System.Drawing.Size(887, 113);
@@ -545,7 +541,6 @@ namespace BasicDemo
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainMenu1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.mainMenu1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

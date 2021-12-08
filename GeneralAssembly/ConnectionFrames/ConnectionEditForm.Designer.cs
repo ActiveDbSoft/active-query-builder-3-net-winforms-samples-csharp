@@ -73,7 +73,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbODBC
             // 
             this.rbODBC.AutoSize = true;
-            this.rbODBC.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbODBC.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbODBC.Location = new System.Drawing.Point(10, 166);
             this.rbODBC.Name = "rbODBC";
@@ -85,7 +84,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbOLEDB
             // 
             this.rbOLEDB.AutoSize = true;
-            this.rbOLEDB.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbOLEDB.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbOLEDB.Location = new System.Drawing.Point(10, 143);
             this.rbOLEDB.Name = "rbOLEDB";
@@ -97,7 +95,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbPostrgeSQL
             // 
             this.rbPostrgeSQL.AutoSize = true;
-            this.rbPostrgeSQL.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbPostrgeSQL.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbPostrgeSQL.Location = new System.Drawing.Point(10, 97);
             this.rbPostrgeSQL.Name = "rbPostrgeSQL";
@@ -119,7 +116,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbMySQL
             // 
             this.rbMySQL.AutoSize = true;
-            this.rbMySQL.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbMySQL.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbMySQL.Location = new System.Drawing.Point(10, 74);
             this.rbMySQL.Name = "rbMySQL";
@@ -131,7 +127,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbOracle
             // 
             this.rbOracle.AutoSize = true;
-            this.rbOracle.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbOracle.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbOracle.Location = new System.Drawing.Point(10, 51);
             this.rbOracle.Name = "rbOracle";
@@ -143,7 +138,6 @@ namespace GeneralAssembly.ConnectionFrames
             // rbMSAccess
             // 
             this.rbMSAccess.AutoSize = true;
-            this.rbMSAccess.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbMSAccess.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbMSAccess.Location = new System.Drawing.Point(10, 28);
             this.rbMSAccess.Name = "rbMSAccess";
@@ -156,7 +150,6 @@ namespace GeneralAssembly.ConnectionFrames
             // 
             this.rbMSSQL.AutoSize = true;
             this.rbMSSQL.Checked = true;
-            this.rbMSSQL.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbMSSQL.ForeColor = System.Drawing.Color.SteelBlue;
             this.rbMSSQL.Location = new System.Drawing.Point(10, 5);
             this.rbMSSQL.Margin = new System.Windows.Forms.Padding(10, 5, 10, 3);
@@ -234,7 +227,6 @@ namespace GeneralAssembly.ConnectionFrames
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(9, 66);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
@@ -244,7 +236,6 @@ namespace GeneralAssembly.ConnectionFrames
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(9, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
@@ -254,7 +245,6 @@ namespace GeneralAssembly.ConnectionFrames
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(9, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 13);

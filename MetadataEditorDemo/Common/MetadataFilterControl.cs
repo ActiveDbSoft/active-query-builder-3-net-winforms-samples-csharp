@@ -115,6 +115,9 @@ namespace MetadataEditorDemo.Common
 		    BindLocalization();
 
             _subscriptions.Add(Helpers.Localizer.Subscribe(Localizer_LanguageChanged));
+
+            lbExclude.ItemHeight = Font.Height;
+            lbInclude.ItemHeight = Font.Height;
 		}
 
 	    private void ItemControlCancelClicked(object sender, EventArgs e)

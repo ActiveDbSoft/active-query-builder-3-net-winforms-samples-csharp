@@ -346,14 +346,12 @@ namespace FullFeaturedMdiDemo
             this.toolStripSeparator5,
             this.tsmiQueryStatistics,
             this.queryPropertiesToolStripMenuItem});
-            this.tsmiQuery.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tsmiQuery.Name = "tsmiQuery";
             this.tsmiQuery.Size = new System.Drawing.Size(53, 20);
             this.tsmiQuery.Text = "&Query";
             // 
             // tsmiParseQuery
             // 
-            this.tsmiParseQuery.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tsmiParseQuery.Name = "tsmiParseQuery";
             this.tsmiParseQuery.ShortcutKeyDisplayString = "";
             this.tsmiParseQuery.ShortcutKeys = System.Windows.Forms.Keys.F5;
@@ -368,7 +366,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiBuildQuery
             // 
-            this.tsmiBuildQuery.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tsmiBuildQuery.Image = global::FullFeaturedMdiDemo.Properties.Resources.bricks;
             this.tsmiBuildQuery.Name = "tsmiBuildQuery";
             this.tsmiBuildQuery.ShortcutKeyDisplayString = "";
@@ -379,7 +376,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiRunQuery
             // 
-            this.tsmiRunQuery.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tsmiRunQuery.Image = global::FullFeaturedMdiDemo.Properties.Resources.database_go;
             this.tsmiRunQuery.Name = "tsmiRunQuery";
             this.tsmiRunQuery.ShortcutKeyDisplayString = "";
@@ -395,7 +391,6 @@ namespace FullFeaturedMdiDemo
             // 
             // addObjectToolStripMenuItem
             // 
-            this.addObjectToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addObjectToolStripMenuItem.Image = global::FullFeaturedMdiDemo.Properties.Resources.new_object;
             this.addObjectToolStripMenuItem.Name = "addObjectToolStripMenuItem";
             this.addObjectToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
@@ -404,7 +399,6 @@ namespace FullFeaturedMdiDemo
             // 
             // addDerivedTableToolStripMenuItem
             // 
-            this.addDerivedTableToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addDerivedTableToolStripMenuItem.Image = global::FullFeaturedMdiDemo.Properties.Resources.add_derived_table;
             this.addDerivedTableToolStripMenuItem.Name = "addDerivedTableToolStripMenuItem";
             this.addDerivedTableToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
@@ -413,7 +407,6 @@ namespace FullFeaturedMdiDemo
             // 
             // addUnionSubqueryToolStripMenuItem
             // 
-            this.addUnionSubqueryToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addUnionSubqueryToolStripMenuItem.Image = global::FullFeaturedMdiDemo.Properties.Resources.add_union_subquery;
             this.addUnionSubqueryToolStripMenuItem.Name = "addUnionSubqueryToolStripMenuItem";
             this.addUnionSubqueryToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
@@ -422,7 +415,6 @@ namespace FullFeaturedMdiDemo
             // 
             // copyUnionSubwueryToolStripMenuItem
             // 
-            this.copyUnionSubwueryToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.copyUnionSubwueryToolStripMenuItem.Image = global::FullFeaturedMdiDemo.Properties.Resources.copy_union_subquery;
             this.copyUnionSubwueryToolStripMenuItem.Name = "copyUnionSubwueryToolStripMenuItem";
             this.copyUnionSubwueryToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
@@ -436,7 +428,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiQueryStatistics
             // 
-            this.tsmiQueryStatistics.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tsmiQueryStatistics.Name = "tsmiQueryStatistics";
             this.tsmiQueryStatistics.ShortcutKeyDisplayString = "";
             this.tsmiQueryStatistics.ShortcutKeys = System.Windows.Forms.Keys.F7;
@@ -446,7 +437,6 @@ namespace FullFeaturedMdiDemo
             // 
             // queryPropertiesToolStripMenuItem
             // 
-            this.queryPropertiesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryPropertiesToolStripMenuItem.Name = "queryPropertiesToolStripMenuItem";
             this.queryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.queryPropertiesToolStripMenuItem.Text = "Query Properties";
@@ -463,14 +453,12 @@ namespace FullFeaturedMdiDemo
             this.toolStripSeparator10,
             this.tsmiLoadMetadataFromXML,
             this.tsmiSaveMetadataToXML});
-            this.metadataToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.metadataToolStripMenuItem.Name = "metadataToolStripMenuItem";
             this.metadataToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.metadataToolStripMenuItem.Text = "Metadata";
             // 
             // tsmiOfflineMode
             // 
-            this.tsmiOfflineMode.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiOfflineMode.Name = "tsmiOfflineMode";
             this.tsmiOfflineMode.Size = new System.Drawing.Size(218, 22);
             this.tsmiOfflineMode.Text = "Offline Mode";
@@ -483,7 +471,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiRefreshMetadata
             // 
-            this.tsmiRefreshMetadata.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiRefreshMetadata.Name = "tsmiRefreshMetadata";
             this.tsmiRefreshMetadata.Size = new System.Drawing.Size(218, 22);
             this.tsmiRefreshMetadata.Text = "Refresh Metadata";
@@ -491,7 +478,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiEditMetadata
             // 
-            this.tsmiEditMetadata.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiEditMetadata.Name = "tsmiEditMetadata";
             this.tsmiEditMetadata.Size = new System.Drawing.Size(218, 22);
             this.tsmiEditMetadata.Text = "Edit Metadata";
@@ -499,7 +485,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiClearMetadata
             // 
-            this.tsmiClearMetadata.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiClearMetadata.Name = "tsmiClearMetadata";
             this.tsmiClearMetadata.Size = new System.Drawing.Size(218, 22);
             this.tsmiClearMetadata.Text = "Clear Metadata";
@@ -512,7 +497,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiLoadMetadataFromXML
             // 
-            this.tsmiLoadMetadataFromXML.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiLoadMetadataFromXML.Name = "tsmiLoadMetadataFromXML";
             this.tsmiLoadMetadataFromXML.Size = new System.Drawing.Size(218, 22);
             this.tsmiLoadMetadataFromXML.Text = "Load Metadata from XML...";
@@ -520,7 +504,6 @@ namespace FullFeaturedMdiDemo
             // 
             // tsmiSaveMetadataToXML
             // 
-            this.tsmiSaveMetadataToXML.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsmiSaveMetadataToXML.Name = "tsmiSaveMetadataToXML";
             this.tsmiSaveMetadataToXML.Size = new System.Drawing.Size(218, 22);
             this.tsmiSaveMetadataToXML.Text = "Save Metadata to XML...";
@@ -811,7 +794,6 @@ namespace FullFeaturedMdiDemo
             // 
             this.CaptionConnection.AutoSize = true;
             this.CaptionConnection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CaptionConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.CaptionConnection.Location = new System.Drawing.Point(3, 3);
             this.CaptionConnection.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.CaptionConnection.Name = "CaptionConnection";
@@ -885,7 +867,6 @@ namespace FullFeaturedMdiDemo
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStripPanel2);
             this.Controls.Add(this.toolStripPanel1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(300, 300);

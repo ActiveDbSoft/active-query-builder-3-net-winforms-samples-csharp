@@ -128,7 +128,6 @@ namespace BasicDemo
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.textBox1.HideSelection = false;
             this.textBox1.Location = new System.Drawing.Point(3, 3);
             this.textBox1.Multiline = true;
@@ -446,7 +445,6 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -499,7 +497,6 @@ namespace BasicDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
             this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);

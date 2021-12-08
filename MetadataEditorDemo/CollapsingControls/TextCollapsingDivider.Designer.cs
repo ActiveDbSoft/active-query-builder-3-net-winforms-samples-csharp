@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace MetadataEditorDemo.CollapsingControls {
@@ -38,7 +38,6 @@ namespace MetadataEditorDemo.CollapsingControls {
             // lblHeader
             // 
             this.lblHeader.AutoSize = true;
-            this.lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHeader.Location = new System.Drawing.Point(54, 0);
             this.lblHeader.Margin = new System.Windows.Forms.Padding(0);
             this.lblHeader.Name = "lblHeader";

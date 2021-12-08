@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace MetadataEditorDemo.Common
 {
@@ -565,7 +565,6 @@ namespace MetadataEditorDemo.Common
             // 
             this.label1.BackColor = System.Drawing.Color.Snow;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(2, 2);
             this.label1.Name = "label1";
@@ -783,7 +782,6 @@ namespace MetadataEditorDemo.Common
             // 
             this.label2.BackColor = System.Drawing.Color.Ivory;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(2, 2);
             this.label2.Name = "label2";
@@ -837,7 +835,6 @@ namespace MetadataEditorDemo.Common
             // 
             this.lblHeader.BackColor = System.Drawing.Color.Silver;
             this.lblHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblHeader.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHeader.ForeColor = System.Drawing.Color.Transparent;
             this.lblHeader.Location = new System.Drawing.Point(0, 0);
             this.lblHeader.Name = "lblHeader";

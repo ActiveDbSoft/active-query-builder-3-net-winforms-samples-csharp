@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace FormattingOptionsDemo.OptionsControls
 {
@@ -53,7 +53,6 @@ namespace FormattingOptionsDemo.OptionsControls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sqlTextEditor1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.sqlTextEditor1.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.sqlTextEditor1.Location = new System.Drawing.Point(220, 338);
             this.sqlTextEditor1.Name = "sqlTextEditor1";
             this.sqlTextEditor1.Size = new System.Drawing.Size(856, 332);
@@ -66,7 +65,6 @@ namespace FormattingOptionsDemo.OptionsControls
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.IntegralHeight = false;
             this.listBox1.ItemHeight = 15;

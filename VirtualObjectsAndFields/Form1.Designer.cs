@@ -121,7 +121,6 @@ namespace VirtualObjectsAndFields
             this.queryBuilder.DatabaseSchemaViewOptions.DrawTreeLines = false;
             this.queryBuilder.DatabaseSchemaViewOptions.ImageList = null;
             this.queryBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Image)(resources.GetObject("resource.PrimaryKeyIcon")));
-            this.queryBuilder.DataSourceOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.DesignPaneOptions.Background = System.Drawing.SystemColors.Window;
             linkPainterAccess2.LinkColor = System.Drawing.Color.Black;
             linkPainterAccess2.LinkColorFocused = System.Drawing.Color.Black;
@@ -131,7 +130,6 @@ namespace VirtualObjectsAndFields
             this.queryBuilder.DesignPaneOptions.LinkPainterOptions = linkPainterAccess2;
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder.MetadataStructureOptions.ProceduresFolderText = null;
             this.queryBuilder.MetadataStructureOptions.SynonymsFolderText = null;
@@ -150,7 +148,6 @@ namespace VirtualObjectsAndFields
             this.queryBuilder.QueryColumnListOptions.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryBuilder.QueryNavBarOptions.CTEButtonBaseColor = System.Drawing.Color.Green;
             this.queryBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
-            this.queryBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.QueryNavBarOptions.OverflowButtonBaseColor = System.Drawing.Color.DarkRed;
             this.queryBuilder.QueryNavBarOptions.RootQueryButtonBaseColor = System.Drawing.Color.Black;
             this.queryBuilder.QueryNavBarOptions.SubQueryButtonBaseColor = System.Drawing.Color.Blue;
@@ -190,7 +187,6 @@ namespace VirtualObjectsAndFields
             this.queryBuilder.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
             // 
@@ -290,7 +286,6 @@ namespace VirtualObjectsAndFields
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(2, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(669, 52);

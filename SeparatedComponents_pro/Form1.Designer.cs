@@ -215,7 +215,6 @@ namespace SeparatedComponents
             this.queryNavigationBar1.Options.DisableQueryNavigationBarPopup = false;
             this.queryNavigationBar1.Options.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryNavigationBar1.Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.queryNavigationBar1.Options.ForeColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.GraphLineColor = System.Drawing.Color.Empty;
             this.queryNavigationBar1.Options.GroupBackColor = System.Drawing.Color.Empty;
@@ -324,7 +323,6 @@ namespace SeparatedComponents
             this.sqlTextEditor1.Location = new System.Drawing.Point(8, 575);
             this.sqlTextEditor1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.sqlTextEditor1.Name = "sqlTextEditor1";
-            this.sqlTextEditor1.Options.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.sqlTextEditor1.Options.Padding = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.sqlTextEditor1.QueryProvider = this.sqlQuery1;
             this.sqlTextEditor1.Size = new System.Drawing.Size(1563, 107);

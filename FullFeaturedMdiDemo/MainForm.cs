@@ -72,6 +72,11 @@ namespace FullFeaturedMdiDemo
 
             TryToLoadOptions();
 
+#if NETFRAMEWORK
+            toolStrip1.ImageScalingSize = new Size(ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Width),
+                ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Height));
+#endif
+
 		    // DEMO WARNING
 
 		    if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)

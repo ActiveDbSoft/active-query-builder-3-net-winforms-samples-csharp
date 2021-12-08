@@ -148,7 +148,6 @@ namespace LoadMetadataDemo
             this.queryBuilder1.DesignPaneOptions.LinkPainterOptions = linkPainterAccess1;
             this.queryBuilder1.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.queryBuilder1.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder1.Name = "queryBuilder1";
             this.queryBuilder1.PanesConfigurationOptions.PropertiesBarDockOptions.AutoHide = true;
@@ -172,7 +171,6 @@ namespace LoadMetadataDemo
             this.queryBuilder1.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder1.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -223,7 +221,6 @@ namespace LoadMetadataDemo
             this.queryBuilder1.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder1.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder1.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder1.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder1_SQLUpdated);
             // 
@@ -273,7 +270,6 @@ namespace LoadMetadataDemo
             // btnFourthWay
             // 
             this.btnFourthWay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFourthWay.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFourthWay.Location = new System.Drawing.Point(613, 94);
             this.btnFourthWay.Name = "btnFourthWay";
             this.btnFourthWay.Size = new System.Drawing.Size(137, 23);
@@ -312,7 +308,6 @@ namespace LoadMetadataDemo
             // btnThirdWay
             // 
             this.btnThirdWay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThirdWay.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnThirdWay.Location = new System.Drawing.Point(611, 94);
             this.btnThirdWay.Name = "btnThirdWay";
             this.btnThirdWay.Size = new System.Drawing.Size(137, 23);
@@ -352,7 +347,6 @@ namespace LoadMetadataDemo
             // btnFirstWay
             // 
             this.btnFirstWay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFirstWay.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFirstWay.Location = new System.Drawing.Point(611, 94);
             this.btnFirstWay.Name = "btnFirstWay";
             this.btnFirstWay.Size = new System.Drawing.Size(137, 23);
@@ -401,7 +395,6 @@ namespace LoadMetadataDemo
             // btnFifthWay
             // 
             this.btnFifthWay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFifthWay.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFifthWay.Location = new System.Drawing.Point(613, 94);
             this.btnFifthWay.Name = "btnFifthWay";
             this.btnFifthWay.Size = new System.Drawing.Size(137, 23);

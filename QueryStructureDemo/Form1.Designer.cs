@@ -106,14 +106,11 @@ namespace QueryStructureDemo
             // queryBuilder
             // 
             this.queryBuilder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.queryBuilder.DataSourceOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.DataSourceOptions.ColumnsOptions.MarkColumnOptions.PrimaryKeyIcon = ((System.Drawing.Bitmap)(resources.GetObject("resource.PrimaryKeyIcon")));
             this.queryBuilder.DesignPaneOptions.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
             this.queryBuilder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.queryBuilder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.queryBuilder.Location = new System.Drawing.Point(0, 46);
             this.queryBuilder.Name = "queryBuilder";
-            this.queryBuilder.QueryColumnListOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.Size = new System.Drawing.Size(924, 381);
             // 
             // 

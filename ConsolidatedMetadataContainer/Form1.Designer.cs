@@ -1,4 +1,4 @@
-﻿namespace ConsolidatedMetadataContainer
+namespace ConsolidatedMetadataContainer
 {
     partial class Form1
     {
@@ -94,7 +94,6 @@
             this.queryBuilder.PanesConfigurationOptions.SubQueryNavBarDockOptions.Position = ActiveQueryBuilder.View.SidePanelDockStyle.Left;
             this.queryBuilder.PanesConfigurationOptions.SubQueryNavBarEnabled = true;
             this.queryBuilder.QueryColumnListOptions.AlternateRowColor = System.Drawing.SystemColors.Highlight;
-            this.queryBuilder.QueryColumnListOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.QueryColumnListOptions.InitialOrColumnsCount = 2;
             this.queryBuilder.QueryColumnListOptions.NullOrderingInOrderBy = false;
             this.queryBuilder.QueryColumnListOptions.TextColor = System.Drawing.SystemColors.ControlText;
@@ -110,7 +109,6 @@
             this.queryBuilder.QueryNavBarOptions.DisableQueryNavigationBarPopup = false;
             this.queryBuilder.QueryNavBarOptions.DragIndicatorColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.DragIndicatorHoverColor = System.Drawing.Color.Empty;
-            this.queryBuilder.QueryNavBarOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.QueryNavBarOptions.ForeColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.GraphLineColor = System.Drawing.Color.Empty;
             this.queryBuilder.QueryNavBarOptions.GroupBackColor = System.Drawing.Color.Empty;
@@ -164,7 +162,6 @@
             this.queryBuilder.VisualOptions.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.queryBuilder.VisualOptions.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
-            this.queryBuilder.VisualOptions.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.queryBuilder.VisualOptions.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             // 
             // syntaxProviderSql2003
