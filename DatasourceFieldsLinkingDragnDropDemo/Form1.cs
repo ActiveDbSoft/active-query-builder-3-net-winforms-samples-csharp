@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -35,9 +35,9 @@ namespace DatasourceFieldsLinkingDragnDropDemo
                 QBuilder.InitializeDatabaseSchemaTree();
 
                 QBuilder.SQL = @"SELECT Orders.OrderID, Orders.CustomerID, Orders.OrderDate, [Order Details].ProductID,
-										[Order Details].UnitPrice, [Order Details].Quantity, [Order Details].Discount
-									  FROM Orders INNER JOIN [Order Details] ON Orders.OrderID = [Order Details].OrderID
-									  WHERE Orders.OrderID > 0 AND [Order Details].Discount > 0";
+                                        [Order Details].UnitPrice, [Order Details].Quantity, [Order Details].Discount
+                                      FROM Orders INNER JOIN [Order Details] ON Orders.OrderID = [Order Details].OrderID
+                                      WHERE Orders.OrderID > 0 AND [Order Details].Discount > 0";
             }
             catch (Exception ex)
             {
@@ -47,18 +47,18 @@ namespace DatasourceFieldsLinkingDragnDropDemo
 
         private void queryBuilder1_SQLUpdated(object sender, EventArgs e)
         {
-			// Update the text of SQL query when it's changed in the query builder.
+            // Update the text of SQL query when it's changed in the query builder.
             _lastValidSql = TextBoxSQL.Text = QBuilder.FormattedSQL;
         }
 
-		/// <summary>
+        /// <summary>
         /// The handler checks if the dragged field is a part of the primary key and denies dragging if it's not the case.
         /// </summary>
         private void QBuilder_BeforeDatasourceFieldDrag(DataSource dataSource, MetadataField field, ref bool abort)
         {
             if (CheckBoxBeforeDsFieldDrag.Checked != true) return;
 
-			// deny dragging if a field isn't a part of the primary key
+            // deny dragging if a field isn't a part of the primary key
             if (!field.PrimaryKey)
             {
                 TextBoxReport.Text = "OnBeforeDatasourceFieldDrag for field \"" + field.Name + " \" deny" +
@@ -71,7 +71,7 @@ namespace DatasourceFieldsLinkingDragnDropDemo
                                 Environment.NewLine + TextBoxReport.Text;
         }
 
-		/// <summary>
+        /// <summary>
         /// Checking the feasibility of creating a link between the given fields.
         /// </summary>
         private void QBuilder_LinkDragOver(DataSource fromDataSource, MetadataField fromField, DataSource toDataSource, MetadataField toField, 
@@ -79,7 +79,7 @@ namespace DatasourceFieldsLinkingDragnDropDemo
         {
             if (CheckBoxLinkDragOver.Checked != true) return;
 
-			// Allow creation of links between fields of the same data type.
+            // Allow creation of links between fields of the same data type.
             if (fromField.FieldType == toField.FieldType)
             {
                 TextBoxReport.Text = "OnLinkDragOver from field \"" + fromField.Name + "\" to field \"" + toField.Name +

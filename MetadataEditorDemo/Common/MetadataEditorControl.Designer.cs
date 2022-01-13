@@ -2,22 +2,22 @@ using System.Windows.Forms;
 
 namespace MetadataEditorDemo.Common
 {
-	public sealed partial class MetadataEditorControl
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    public sealed partial class MetadataEditorControl
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             this.menuMetadata = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miAddLinkedServer = new System.Windows.Forms.ToolStripMenuItem();
@@ -978,44 +978,44 @@ namespace MetadataEditorDemo.Common
             this.popupFillStructure.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ContextMenuStrip menuMetadata;
-		private System.Windows.Forms.ToolStripMenuItem miAddDatabase;
-		private System.Windows.Forms.ToolStripMenuItem miAddSchema;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-		private System.Windows.Forms.ToolStripMenuItem miAddTable;
-		private System.Windows.Forms.ToolStripMenuItem miAddView;
-		private System.Windows.Forms.ToolStripMenuItem miAddProcedure;
-		private System.Windows.Forms.ToolStripMenuItem miAddSynonym;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-		private System.Windows.Forms.ToolStripMenuItem miAddField;
-		private System.Windows.Forms.ToolStripMenuItem miAddForeignKey;
-		private System.Windows.Forms.ToolStripDropDownButton tsddbAdd;
-		private SplitContainerWithButton splitContainerOuter;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Panel panel6;
-		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.ToolStrip toolStrip2;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-		private System.Windows.Forms.ToolStripButton tsbMetadataDelete;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		public System.Windows.Forms.SplitContainer splitContainerInner;
-		private System.Windows.Forms.Panel panel4;
-		private System.Windows.Forms.Panel panel7;
-		private System.Windows.Forms.Panel panel8;
-		private System.Windows.Forms.ToolStrip toolStrip4;
-		private System.Windows.Forms.ToolStripButton tsbStructureDelete;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
-		private System.Windows.Forms.Panel panel3;
-		private System.Windows.Forms.Panel panel5;
-		private System.Windows.Forms.Label lblHeader;
-		private System.Windows.Forms.Panel panel9;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Panel panel10;
-		private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ContextMenuStrip menuMetadata;
+        private System.Windows.Forms.ToolStripMenuItem miAddDatabase;
+        private System.Windows.Forms.ToolStripMenuItem miAddSchema;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem miAddTable;
+        private System.Windows.Forms.ToolStripMenuItem miAddView;
+        private System.Windows.Forms.ToolStripMenuItem miAddProcedure;
+        private System.Windows.Forms.ToolStripMenuItem miAddSynonym;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem miAddField;
+        private System.Windows.Forms.ToolStripMenuItem miAddForeignKey;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbAdd;
+        private SplitContainerWithButton splitContainerOuter;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton tsbMetadataDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        public System.Windows.Forms.SplitContainer splitContainerInner;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.ToolStrip toolStrip4;
+        private System.Windows.Forms.ToolStripButton tsbStructureDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblHeader;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label2;
         private ActiveQueryBuilder.View.WinForms.QueryView.PropertiesBar propertiesBar;
         private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView treeDatabaseSchema;
         private ActiveQueryBuilder.View.WinForms.DatabaseSchemaView.DatabaseSchemaView treeStructure;

@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -20,26 +20,26 @@ using Npgsql;
 
 namespace PostgreSQLDemo
 {
-	public partial class PostgreSQLConnectionForm : Form
-	{
-		public string ConnectionString = "";
+    public partial class PostgreSQLConnectionForm : Form
+    {
+        public string ConnectionString = "";
 
 
-		public PostgreSQLConnectionForm()
-		{
-			InitializeComponent();
-		}
+        public PostgreSQLConnectionForm()
+        {
+            InitializeComponent();
+        }
 
-		private void buttonConnect_Click(object sender, EventArgs e)
-		{
-			string connectionString =
-				"Server=" + tbServer.Text +
-				";Port=" + tbPort.Text +
-				";Database=" + tbDatabase.Text +
-				";Userid=" + tbLogin.Text +
-				";Password=" + tbPassword.Text;
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            string connectionString =
+                "Server=" + tbServer.Text +
+                ";Port=" + tbPort.Text +
+                ";Database=" + tbDatabase.Text +
+                ";Userid=" + tbLogin.Text +
+                ";Password=" + tbPassword.Text;
 
-			this.ConnectionString = connectionString;
-		}
-	}
+            this.ConnectionString = connectionString;
+        }
+    }
 }

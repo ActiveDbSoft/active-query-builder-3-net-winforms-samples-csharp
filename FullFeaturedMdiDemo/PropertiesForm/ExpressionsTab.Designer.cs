@@ -1,4 +1,4 @@
-﻿namespace FullFeaturedMdiDemo.PropertiesForm
+namespace FullFeaturedMdiDemo.PropertiesForm
 {
     partial class ExpressionsTab
     {

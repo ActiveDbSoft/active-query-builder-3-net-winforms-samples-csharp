@@ -1,4 +1,4 @@
-﻿namespace FullFeaturedMdiDemo.Common
+namespace FullFeaturedMdiDemo.Common
 {
     partial class CreateReportForm
     {

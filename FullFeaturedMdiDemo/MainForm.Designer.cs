@@ -1,20 +1,20 @@
 namespace FullFeaturedMdiDemo
 {
-	partial class MainForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -888,77 +888,77 @@ namespace FullFeaturedMdiDemo
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-		private System.Windows.Forms.ToolStripMenuItem tsmiLanguageDefault;
-		private System.Windows.Forms.ToolStripMenuItem tsmiLanguageAuto;
-		private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        }
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLanguageDefault;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLanguageAuto;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
-		private System.Windows.Forms.ToolStripButton toolStripButton4;
-		private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
-		private System.Windows.Forms.ToolStripPanel TopToolStripPanel;
-		private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
-		private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
-		private System.Windows.Forms.ToolStripContentPanel ContentPanel;
-		private System.Windows.Forms.ToolStripPanel toolStripPanel1;
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
-		private System.Windows.Forms.ToolStripMenuItem tsmiNew;
-		private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-		private System.Windows.Forms.ToolStripMenuItem tsmiSave;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripMenuItem tsmiExit;
-		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem tsmiUndo;
-		private System.Windows.Forms.ToolStripMenuItem tsmiRedo;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-		private System.Windows.Forms.ToolStripMenuItem tsmiCut;
-		private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
-		private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-		private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
+        private System.Windows.Forms.ToolStripPanel TopToolStripPanel;
+        private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
+        private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
+        private System.Windows.Forms.ToolStripContentPanel ContentPanel;
+        private System.Windows.Forms.ToolStripPanel toolStripPanel1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiNew;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUndo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRedo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCut;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
-		private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
+        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbNew;
-		private System.Windows.Forms.ToolStripPanel toolStripPanel2;
-		private System.Windows.Forms.ToolStripButton tsbOpen;
-		private System.Windows.Forms.ToolStripButton tsbSave;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-		private System.Windows.Forms.ToolStripButton tsbCut;
-		private System.Windows.Forms.ToolStripButton tsbCopy;
-		private System.Windows.Forms.ToolStripButton tsbPaste;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-		private System.Windows.Forms.ToolStripButton tsbCascade;
-		private System.Windows.Forms.ToolStripButton tsbTileHorizontally;
-		private System.Windows.Forms.ToolStripButton tsbTileVertically;
+        private System.Windows.Forms.ToolStripPanel toolStripPanel2;
+        private System.Windows.Forms.ToolStripButton tsbOpen;
+        private System.Windows.Forms.ToolStripButton tsbSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton tsbCut;
+        private System.Windows.Forms.ToolStripButton tsbCopy;
+        private System.Windows.Forms.ToolStripButton tsbPaste;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton tsbCascade;
+        private System.Windows.Forms.ToolStripButton tsbTileHorizontally;
+        private System.Windows.Forms.ToolStripButton tsbTileVertically;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripButton tsbAbout;
-		private System.Windows.Forms.ToolStripMenuItem tsmiQuery;
-		private System.Windows.Forms.ToolStripMenuItem tsmiParseQuery;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-		private System.Windows.Forms.ToolStripMenuItem tsmiBuildQuery;
-		private System.Windows.Forms.ToolStripMenuItem tsmiRunQuery;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-		private System.Windows.Forms.ToolStripMenuItem tsmiQueryStatistics;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-		private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem tsmiRefreshMetadata;
-		private System.Windows.Forms.ToolStripMenuItem tsmiEditMetadata;
-		private System.Windows.Forms.ToolStripMenuItem tsmiClearMetadata;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
-		private System.Windows.Forms.ToolStripMenuItem tsmiOfflineMode;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
-		private System.Windows.Forms.ToolStripMenuItem tsmiLoadMetadataFromXML;
-		private System.Windows.Forms.ToolStripMenuItem tsmiSaveMetadataToXML;
+        private System.Windows.Forms.ToolStripMenuItem tsmiQuery;
+        private System.Windows.Forms.ToolStripMenuItem tsmiParseQuery;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem tsmiBuildQuery;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRunQuery;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem tsmiQueryStatistics;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRefreshMetadata;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditMetadata;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClearMetadata;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOfflineMode;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLoadMetadataFromXML;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveMetadataToXML;
         private System.Windows.Forms.ToolStripMenuItem addDerivedTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addUnionSubqueryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyUnionSubwueryToolStripMenuItem;

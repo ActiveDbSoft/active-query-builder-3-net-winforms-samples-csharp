@@ -1,33 +1,33 @@
 namespace GeneralAssembly.ConnectionFrames
 {
-	partial class ConnectionEditForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ConnectionEditForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.panel1 = new System.Windows.Forms.Panel();
             this.rbODBC = new System.Windows.Forms.RadioButton();
             this.rbOLEDB = new System.Windows.Forms.RadioButton();
@@ -298,28 +298,28 @@ namespace GeneralAssembly.ConnectionFrames
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Panel pnlFrames;
-		private System.Windows.Forms.Button btnOk;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.RadioButton rbMSAccess;
-		private System.Windows.Forms.RadioButton rbMSSQL;
-		private System.Windows.Forms.RadioButton rbODBC;
-		private System.Windows.Forms.RadioButton rbOLEDB;
-		private System.Windows.Forms.RadioButton rbPostrgeSQL;
-		private System.Windows.Forms.RadioButton rbMySQL;
-		private System.Windows.Forms.RadioButton rbOracle;
-		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox tbConnectionName;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel pnlFrames;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.RadioButton rbMSAccess;
+        private System.Windows.Forms.RadioButton rbMSSQL;
+        private System.Windows.Forms.RadioButton rbODBC;
+        private System.Windows.Forms.RadioButton rbOLEDB;
+        private System.Windows.Forms.RadioButton rbPostrgeSQL;
+        private System.Windows.Forms.RadioButton rbMySQL;
+        private System.Windows.Forms.RadioButton rbOracle;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbConnectionName;
         private System.Windows.Forms.ComboBox BoxSyntaxProvider;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox BoxServerVersion;
-	}
+    }
 }

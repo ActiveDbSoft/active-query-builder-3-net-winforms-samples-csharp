@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -14,17 +14,17 @@ using ActiveQueryBuilder.Core;
 
 namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
-	[ToolboxItem(false)]
-	internal partial class LoadOptsWizardPage : UserControl
-	{
-	    private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
+    [ToolboxItem(false)]
+    internal partial class LoadOptsWizardPage : UserControl
+    {
+        private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
 
         public LoadOptsWizardPage()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
             Load += LoadOptsWizardPage_Load;
-		}
+        }
 
         protected override void Dispose(bool disposing)
         {

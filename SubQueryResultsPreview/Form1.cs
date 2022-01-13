@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -23,263 +23,263 @@ using GeneralAssembly.Forms.QueryInformationForms;
 
 namespace SubQueryResultsPreview
 {
-	public partial class Form1 : Form
-	{
+    public partial class Form1 : Form
+    {
         private int _errorPosition = -1;
         private string _lastValidSql;
         private ConnectionInfo _selectedConnection;
 
         public Form1()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
-			queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
+            queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
 
-			// Set a demo query
-			queryBuilder.SQL = "Select Orders.OrderID, Orders.CustomerID, Orders.EmployeeID, Query1.Subtotal From Orders Inner Join (Select [Order Subtotals].Subtotal, [Order Subtotals].OrderID From [Order Subtotals]) Query1 On Query1.OrderID = Orders.OrderID Union Select [Orders Qry].OrderID, [Orders Qry].CustomerID, [Orders Qry].EmployeeID, Query2.Quantity * Query2.UnitPrice From [Orders Qry] Inner Join (Select [Order Details].OrderID, [Order Details].Quantity, [Order Details].UnitPrice From [Order Details]) Query2 On Query2.OrderID = [Orders Qry].OrderID Where ([Orders Qry].OrderID > 100) Or ([Orders Qry].OrderID < 1000)";
-		}
+            // Set a demo query
+            queryBuilder.SQL = "Select Orders.OrderID, Orders.CustomerID, Orders.EmployeeID, Query1.Subtotal From Orders Inner Join (Select [Order Subtotals].Subtotal, [Order Subtotals].OrderID From [Order Subtotals]) Query1 On Query1.OrderID = Orders.OrderID Union Select [Orders Qry].OrderID, [Orders Qry].CustomerID, [Orders Qry].EmployeeID, Query2.Quantity * Query2.UnitPrice From [Orders Qry] Inner Join (Select [Order Details].OrderID, [Order Details].Quantity, [Order Details].UnitPrice From [Order Details]) Query2 On Query2.OrderID = [Orders Qry].OrderID Where ([Orders Qry].OrderID > 100) Or ([Orders Qry].OrderID < 1000)";
+        }
 
         private void queryBuilder_SQLUpdated(object sender, EventArgs e)
-		{
-			// Hide error banner if any
-			errorBox1.Show(null, queryBuilder.SyntaxProvider);
+        {
+            // Hide error banner if any
+            errorBox1.Show(null, queryBuilder.SyntaxProvider);
 
-		    QueryPartChanged(sender, e);
-			//textBox1.Text =  queryBuilder.FormattedSQL;
+            QueryPartChanged(sender, e);
+            //textBox1.Text =  queryBuilder.FormattedSQL;
 
-			if (tabControl1.SelectedTab == tabPageResultsPreview)
-				UpdateResultsGrid();
-		}
+            if (tabControl1.SelectedTab == tabPageResultsPreview)
+                UpdateResultsGrid();
+        }
 
-		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
-				// Update the target query part with manually edited query text:
-				queryBuilder.SQL = textBox1.Text;
+        private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Update the target query part with manually edited query text:
+                queryBuilder.SQL = textBox1.Text;
 
-				// Hide error banner if any
+                // Hide error banner if any
                 errorBox1.Show(null, queryBuilder.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				_errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                _errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBox1.Show(ex.Message, queryBuilder.SyntaxProvider);
             }
-		}
+        }
 
-		private void QueryPartChanged(object sender, EventArgs e)
+        private void QueryPartChanged(object sender, EventArgs e)
         {
             if (Disposing || queryBuilder.ActiveUnionSubQuery == null) return;
 
-			if (rbQuery.Checked)
-			{
+            if (rbQuery.Checked)
+            {
                 _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
-			}
-			else if (rbSubQuery.Checked)
-			{
+            }
+            else if (rbSubQuery.Checked)
+            {
                 _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.ParentSubQuery);
-			}
-			else if (rbUnionSubQuery.Checked)
+            }
+            else if (rbUnionSubQuery.Checked)
             {
                 _lastValidSql = textBox1.Text = new SQLFormattingOptions(new SQLGenerationOptions()).GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery);
-			}
-		}
+            }
+        }
 
-		public void ResetQueryBuilder()
-		{
-			queryBuilder.Clear();
-			queryBuilder.MetadataProvider = null;
-			queryBuilder.SyntaxProvider = null;
-			queryBuilder.MetadataLoadingOptions.OfflineMode = false;
-		}
+        public void ResetQueryBuilder()
+        {
+            queryBuilder.Clear();
+            queryBuilder.MetadataProvider = null;
+            queryBuilder.SyntaxProvider = null;
+            queryBuilder.MetadataLoadingOptions.OfflineMode = false;
+        }
 
 
-		private void tabControl1_Selected(object sender, TabControlEventArgs e)
-		{
-			// Move the input focus to the query builder.
-			// This will cause the validation in the text box and update the query builder with modified query text.
-			queryBuilder.Focus();
-			Application.DoEvents();
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            // Move the input focus to the query builder.
+            // This will cause the validation in the text box and update the query builder with modified query text.
+            queryBuilder.Focus();
+            Application.DoEvents();
 
-			UpdateResultsGrid();
-		}
+            UpdateResultsGrid();
+        }
 
-		private void UpdateResultsGrid()
-		{
-			// Check database connection
-			if (queryBuilder.MetadataProvider == null || queryBuilder.MetadataProvider.Connection == null)
-			{
-				Label label = new Label();
-				label.Text = "You should connect a database";
-				label.TextAlign = ContentAlignment.MiddleCenter;
-				label.Dock = DockStyle.Fill;
-				dataGridView1.Controls.Add(label);
-			}
-			else if (queryBuilder.SQL.Length == 0) // check the query text is not empty
-			{
-				Label label = new Label();
-				label.Text = "No query to execute";
-				label.TextAlign = ContentAlignment.MiddleCenter;
-				label.Dock = DockStyle.Fill;
-				dataGridView1.Controls.Add(label);
-			}
-			else
-				dataGridView1.Controls.Clear();
+        private void UpdateResultsGrid()
+        {
+            // Check database connection
+            if (queryBuilder.MetadataProvider == null || queryBuilder.MetadataProvider.Connection == null)
+            {
+                Label label = new Label();
+                label.Text = "You should connect a database";
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Dock = DockStyle.Fill;
+                dataGridView1.Controls.Add(label);
+            }
+            else if (queryBuilder.SQL.Length == 0) // check the query text is not empty
+            {
+                Label label = new Label();
+                label.Text = "No query to execute";
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Dock = DockStyle.Fill;
+                dataGridView1.Controls.Add(label);
+            }
+            else
+                dataGridView1.Controls.Clear();
 
             var queryToExecute = "";
 
-			// Limit query results to 10 rows for preview purposes
-			
-				//queryBuilder.SQLContext.LoadingOptions.OfflineMode = true;
+            // Limit query results to 10 rows for preview purposes
+            
+                //queryBuilder.SQLContext.LoadingOptions.OfflineMode = true;
                 //queryBuilder.SQLContext.SyntaxProvider = queryBuilder.SyntaxProvider;
                 //queryBuilder.SQLContext.MetadataProvider = queryBuilder.MetadataProvider;
 
-			    //var query = new SQLQuery(sqlContext) {SQL = queryToExecute};
+                //var query = new SQLQuery(sqlContext) {SQL = queryToExecute};
 
-			    //tempQueryBuilder.SQL = queryToExecute;
+                //tempQueryBuilder.SQL = queryToExecute;
 
-				using (QueryTransformer queryTransformer = new QueryTransformer())
-				{
-					queryTransformer.Query = queryBuilder.QueryView.Query;
-					queryTransformer.ResultCount = "10"; // select top 10 rows only
-					queryToExecute = queryTransformer.SQL;
-				}
-			
-			// Try to execute the query using current database connection:
+                using (QueryTransformer queryTransformer = new QueryTransformer())
+                {
+                    queryTransformer.Query = queryBuilder.QueryView.Query;
+                    queryTransformer.ResultCount = "10"; // select top 10 rows only
+                    queryToExecute = queryTransformer.SQL;
+                }
+            
+            // Try to execute the query using current database connection:
 
-			if (tabControl1.SelectedTab == tabPageResultsPreview)
-			{
-				dataGridView1.DataSource = null;
+            if (tabControl1.SelectedTab == tabPageResultsPreview)
+            {
+                dataGridView1.DataSource = null;
 
-				if (queryBuilder.MetadataProvider != null && queryBuilder.MetadataProvider.Connected)
-				{
-					if (queryBuilder.MetadataProvider is MSSQLMetadataProvider)
-					{
-						SqlCommand command = (SqlCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryToExecute;
+                if (queryBuilder.MetadataProvider != null && queryBuilder.MetadataProvider.Connected)
+                {
+                    if (queryBuilder.MetadataProvider is MSSQLMetadataProvider)
+                    {
+                        SqlCommand command = (SqlCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
+                        command.CommandText = queryToExecute;
 
-						// handle the query parameters
-						if (queryBuilder.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
-								{
-									SqlParameter parameter = new SqlParameter();
-									parameter.ParameterName = queryBuilder.Parameters[i].FullName;
-									parameter.DbType = queryBuilder.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
+                        // handle the query parameters
+                        if (queryBuilder.Parameters.Count > 0)
+                        {
+                            for (int i = 0; i < queryBuilder.Parameters.Count; i++)
+                            {
+                                if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
+                                {
+                                    SqlParameter parameter = new SqlParameter();
+                                    parameter.ParameterName = queryBuilder.Parameters[i].FullName;
+                                    parameter.DbType = queryBuilder.Parameters[i].DataType;
+                                    command.Parameters.Add(parameter);
+                                }
+                            }
 
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
+                            using (QueryParametersForm qpf = new QueryParametersForm(command))
+                            {
+                                qpf.ShowDialog();
+                            }
+                        }
 
-						SqlDataAdapter adapter = new SqlDataAdapter(command);
-						DataSet dataset = new DataSet();
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        DataSet dataset = new DataSet();
 
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder.MetadataProvider is OLEDBMetadataProvider)
-					{
-						OleDbCommand command = (OleDbCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryToExecute;
+                        try
+                        {
+                            adapter.Fill(dataset, "QueryResult");
+                            dataGridView1.DataSource = dataset.Tables["QueryResult"];
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "SQL query error");
+                        }
+                    }
+                    else if (queryBuilder.MetadataProvider is OLEDBMetadataProvider)
+                    {
+                        OleDbCommand command = (OleDbCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
+                        command.CommandText = queryToExecute;
 
-						// handle the query parameters
-						if (queryBuilder.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
-								{
-									OleDbParameter parameter = new OleDbParameter();
-									parameter.ParameterName = queryBuilder.Parameters[i].FullName;
-									parameter.DbType = queryBuilder.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
+                        // handle the query parameters
+                        if (queryBuilder.Parameters.Count > 0)
+                        {
+                            for (int i = 0; i < queryBuilder.Parameters.Count; i++)
+                            {
+                                if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
+                                {
+                                    OleDbParameter parameter = new OleDbParameter();
+                                    parameter.ParameterName = queryBuilder.Parameters[i].FullName;
+                                    parameter.DbType = queryBuilder.Parameters[i].DataType;
+                                    command.Parameters.Add(parameter);
+                                }
+                            }
 
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
+                            using (QueryParametersForm qpf = new QueryParametersForm(command))
+                            {
+                                qpf.ShowDialog();
+                            }
+                        }
 
-						OleDbDataAdapter adapter = new OleDbDataAdapter(command);
-						DataSet dataset = new DataSet();
+                        OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+                        DataSet dataset = new DataSet();
 
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
-					else if (queryBuilder.MetadataProvider is ODBCMetadataProvider)
-					{
-						OdbcCommand command = (OdbcCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
-						command.CommandText = queryToExecute;
+                        try
+                        {
+                            adapter.Fill(dataset, "QueryResult");
+                            dataGridView1.DataSource = dataset.Tables["QueryResult"];
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "SQL query error");
+                        }
+                    }
+                    else if (queryBuilder.MetadataProvider is ODBCMetadataProvider)
+                    {
+                        OdbcCommand command = (OdbcCommand) queryBuilder.MetadataProvider.Connection.CreateCommand();
+                        command.CommandText = queryToExecute;
 
-						// handle the query parameters
-						if (queryBuilder.Parameters.Count > 0)
-						{
-							for (int i = 0; i < queryBuilder.Parameters.Count; i++)
-							{
-								if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
-								{
-									OdbcParameter parameter = new OdbcParameter();
-									parameter.ParameterName = queryBuilder.Parameters[i].FullName;
-									parameter.DbType = queryBuilder.Parameters[i].DataType;
-									command.Parameters.Add(parameter);
-								}
-							}
+                        // handle the query parameters
+                        if (queryBuilder.Parameters.Count > 0)
+                        {
+                            for (int i = 0; i < queryBuilder.Parameters.Count; i++)
+                            {
+                                if (!command.Parameters.Contains(queryBuilder.Parameters[i].FullName))
+                                {
+                                    OdbcParameter parameter = new OdbcParameter();
+                                    parameter.ParameterName = queryBuilder.Parameters[i].FullName;
+                                    parameter.DbType = queryBuilder.Parameters[i].DataType;
+                                    command.Parameters.Add(parameter);
+                                }
+                            }
 
-							using (QueryParametersForm qpf = new QueryParametersForm(command))
-							{
-								qpf.ShowDialog();
-							}
-						}
+                            using (QueryParametersForm qpf = new QueryParametersForm(command))
+                            {
+                                qpf.ShowDialog();
+                            }
+                        }
 
-						OdbcDataAdapter adapter = new OdbcDataAdapter(command);
-						DataSet dataset = new DataSet();
+                        OdbcDataAdapter adapter = new OdbcDataAdapter(command);
+                        DataSet dataset = new DataSet();
 
-						try
-						{
-							adapter.Fill(dataset, "QueryResult");
-							dataGridView1.DataSource = dataset.Tables["QueryResult"];
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.Message, "SQL query error");
-						}
-					}
+                        try
+                        {
+                            adapter.Fill(dataset, "QueryResult");
+                            dataGridView1.DataSource = dataset.Tables["QueryResult"];
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "SQL query error");
+                        }
+                    }
 
-					// enable sorting
-					foreach (DataGridViewColumn column in dataGridView1.Columns)
-					{
-						column.SortMode = DataGridViewColumnSortMode.Automatic;
-					}
-				}
-			}
-		}
+                    // enable sorting
+                    foreach (DataGridViewColumn column in dataGridView1.Columns)
+                    {
+                        column.SortMode = DataGridViewColumnSortMode.Automatic;
+                    }
+                }
+            }
+        }
 
         private void queryBuilder_ActiveUnionSubQueryChanged(object sender, EventArgs e)
         {

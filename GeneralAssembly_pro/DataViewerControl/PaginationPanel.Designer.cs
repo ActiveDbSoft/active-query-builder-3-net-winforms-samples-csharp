@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.DataViewerControl
+namespace GeneralAssembly.DataViewerControl
 {
     partial class PaginationPanel
     {

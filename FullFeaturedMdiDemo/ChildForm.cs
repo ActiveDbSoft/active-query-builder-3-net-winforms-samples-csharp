@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -372,222 +372,222 @@ namespace FullFeaturedMdiDemo
             return true;
         }
 
-	    private string _oldSql;
+        private string _oldSql;
         private bool _hasError;
 
-	    private void _sqlFormattingOptions_Updated(object sender, EventArgs e)
-	    {
-	        rtbQueryText.Text = FormattedQueryText;
+        private void _sqlFormattingOptions_Updated(object sender, EventArgs e)
+        {
+            rtbQueryText.Text = FormattedQueryText;
         }
 
-	    protected override void OnClosing(CancelEventArgs e)
-	    {
-	        if (_sqlContext.MetadataProvider != null && _sqlContext.MetadataProvider.Connection != null)
-	        {
-	            _sqlContext.MetadataProvider.Connection.Close();
-	        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (_sqlContext.MetadataProvider != null && _sqlContext.MetadataProvider.Connection != null)
+            {
+                _sqlContext.MetadataProvider.Connection.Close();
+            }
 
-	        base.OnClosing(e);
-	    }
+            base.OnClosing(e);
+        }
 
-	    protected override void OnClosed(EventArgs e)
-	    {
-	        base.OnClosed(e);
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
             
             Dispose();
-	    }
+        }
 
-	    protected override void OnLoad(EventArgs e)
-	    {
-	        Application.DoEvents();
+        protected override void OnLoad(EventArgs e)
+        {
+            Application.DoEvents();
 
-	        // Expand form to client rectangle of main form
-	        MdiClient mdiClient = MdiParent.Controls.OfType<MdiClient>().FirstOrDefault();
+            // Expand form to client rectangle of main form
+            MdiClient mdiClient = MdiParent.Controls.OfType<MdiClient>().FirstOrDefault();
 
             if(mdiClient == null) return;
 
-	        Bounds = mdiClient.ClientRectangle;	        
+            Bounds = mdiClient.ClientRectangle;            
 
-	        if (_sqlContext.MetadataProvider != null)
-	        {
-	            // load from cache
+            if (_sqlContext.MetadataProvider != null)
+            {
+                // load from cache
 
-	            if (!String.IsNullOrEmpty(_connectionInfo.CacheFile) && File.Exists(_connectionInfo.CacheFile))
-	            {
-	                String message = @"Cached metadata is found.
+                if (!String.IsNullOrEmpty(_connectionInfo.CacheFile) && File.Exists(_connectionInfo.CacheFile))
+                {
+                    String message = @"Cached metadata is found.
 Do you want to load database structure from cache?";
 
-	                if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-	                {
-	                    Cursor = Cursors.WaitCursor;
+                    if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        Cursor = Cursors.WaitCursor;
 
-	                    try
-	                    {
-	                        _sqlContext.MetadataContainer.ImportFromXML(_connectionInfo.CacheFile);
-	                    }
-	                    catch (Exception ex)
-	                    {
-	                        MessageBox.Show("Invalid cache file: \n" + ex.Message);
-	                    }
-	                    finally
-	                    {
-	                        Cursor = Cursors.Default;
-	                    }
+                        try
+                        {
+                            _sqlContext.MetadataContainer.ImportFromXML(_connectionInfo.CacheFile);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Invalid cache file: \n" + ex.Message);
+                        }
+                        finally
+                        {
+                            Cursor = Cursors.Default;
+                        }
 
-	                    return;
-	                }
+                        return;
+                    }
 
-	                if (MessageBox.Show(@"Delete cached data?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-	                {
-	                    try
-	                    {
-	                        File.Delete(_connectionInfo.CacheFile);
-	                    }
-	                    catch
-	                    {
+                    if (MessageBox.Show(@"Delete cached data?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            File.Delete(_connectionInfo.CacheFile);
+                        }
+                        catch
+                        {
                             //ignore
-	                    }
-	                }
-	            }
+                        }
+                    }
+                }
 
-	            //load from database server
+                //load from database server
 
-	            Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
 
-	            try
-	            {
-	                DateTime start = DateTime.Now;
+                try
+                {
+                    DateTime start = DateTime.Now;
 
-	                // ask for caching
-	                if ((DateTime.Now - start).TotalSeconds > 60)
-	                {
-	                    String message = "Do you want to cache the database structure to quicken further loading?";
+                    // ask for caching
+                    if ((DateTime.Now - start).TotalSeconds > 60)
+                    {
+                        String message = "Do you want to cache the database structure to quicken further loading?";
 
-	                    if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-	                    {
-	                        String dir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\FullFeaturedMdiDemo\";
-	                        String cacheFile = dir + _connectionInfo.GetHashCode().ToString() + ".xml";
+                        if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            String dir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\FullFeaturedMdiDemo\";
+                            String cacheFile = dir + _connectionInfo.GetHashCode().ToString() + ".xml";
 
-	                        if (!Directory.Exists(dir))
-	                        {
-	                            Directory.CreateDirectory(dir);
-	                        }
+                            if (!Directory.Exists(dir))
+                            {
+                                Directory.CreateDirectory(dir);
+                            }
 
-	                        // pre-load database databases/schemas/objects for export, but skip params/fields/foreign keys
-	                        _sqlContext.MetadataContainer.LoadAll(false);
-	                        _sqlContext.MetadataContainer.ExportToXML(cacheFile);
-	                        _connectionInfo.CacheFile = cacheFile;
-	                    }
-	                }
-	            }
-	            catch (Exception ex)
-	            {
-	                MessageBox.Show(ex.Message);
-	            }
-	            finally
-	            {
-	                Cursor = Cursors.Default;
-	            }
-	        }
+                            // pre-load database databases/schemas/objects for export, but skip params/fields/foreign keys
+                            _sqlContext.MetadataContainer.LoadAll(false);
+                            _sqlContext.MetadataContainer.ExportToXML(cacheFile);
+                            _connectionInfo.CacheFile = cacheFile;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Cursor = Cursors.Default;
+                }
+            }
 
-	        base.OnLoad(e);
-	    }
+            base.OnLoad(e);
+        }
 
-	    protected override void Dispose(bool disposing)
-	    {
-	        if (disposing)
-	        {
-	            Application.Idle -= Application_Idle;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Application.Idle -= Application_Idle;
 
                 components?.Dispose();
             }
 
-	        base.Dispose(disposing);
-	    }
+            base.Dispose(disposing);
+        }
 
-	    public bool CanCopy()
-	    {
-	        if (rtbQueryText.ContainsFocus)
-	        {
-	            if (rtbQueryText.SelectionLength > 0)
-	            {
-	                return true;
-	            }
-	        }
+        public bool CanCopy()
+        {
+            if (rtbQueryText.ContainsFocus)
+            {
+                if (rtbQueryText.SelectionLength > 0)
+                {
+                    return true;
+                }
+            }
 
-	        return false;
-	    }
+            return false;
+        }
 
-	    public bool CanCut()
-	    {
-	        if (rtbQueryText.ContainsFocus)
-	        {
-	            if (!String.IsNullOrEmpty(rtbQueryText.SelectedText))
-	            {
-	                return true;
-	            }
-	        }
+        public bool CanCut()
+        {
+            if (rtbQueryText.ContainsFocus)
+            {
+                if (!String.IsNullOrEmpty(rtbQueryText.SelectedText))
+                {
+                    return true;
+                }
+            }
 
-	        return false;
-	    }
+            return false;
+        }
 
-	    public bool CanPaste()
-	    {
-	        if (rtbQueryText.ContainsFocus)
-	        {
-	            return Clipboard.ContainsText();
-	        }
+        public bool CanPaste()
+        {
+            if (rtbQueryText.ContainsFocus)
+            {
+                return Clipboard.ContainsText();
+            }
 
-	        return false;
-	    }
+            return false;
+        }
 
-	    public bool CanUndo()
-	    {
-	        if (rtbQueryText.ContainsFocus)
-	        {
-	            return rtbQueryText.CanUndo;
-	        }
+        public bool CanUndo()
+        {
+            if (rtbQueryText.ContainsFocus)
+            {
+                return rtbQueryText.CanUndo;
+            }
 
-	        return false;
-	    }
+            return false;
+        }
 
-	    public bool CanRedo()
-	    {
-	        if (rtbQueryText.ContainsFocus)
-	        {
-	            return rtbQueryText.CanRedo;
-	        }
+        public bool CanRedo()
+        {
+            if (rtbQueryText.ContainsFocus)
+            {
+                return rtbQueryText.CanRedo;
+            }
 
-	        return false;
-	    }
+            return false;
+        }
 
-	    public bool CanSelectAll()
-	    {
-	        return (rtbQueryText.ContainsFocus && rtbQueryText.TextLength > 0);
-	    }
+        public bool CanSelectAll()
+        {
+            return (rtbQueryText.ContainsFocus && rtbQueryText.TextLength > 0);
+        }
 
-	    public bool CanShowProperties()
-	    {
-	        return NavBar.ActiveUnionSubQuery != null;
-	    }
+        public bool CanShowProperties()
+        {
+            return NavBar.ActiveUnionSubQuery != null;
+        }
 
-	    public bool CanAddUnionSubQuery()
-	    {
-	        if (NavBar.ActiveUnionSubQuery == null)
-	            return false;
+        public bool CanAddUnionSubQuery()
+        {
+            if (NavBar.ActiveUnionSubQuery == null)
+                return false;
 
-	        if (NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery)
-	        {
-	            return _sqlContext.SyntaxProvider.IsSupportSubQueryUnions();
-	        }
+            if (NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery)
+            {
+                return _sqlContext.SyntaxProvider.IsSupportSubQueryUnions();
+            }
 
-	        return _sqlContext.SyntaxProvider.IsSupportUnions();
-	    }
+            return _sqlContext.SyntaxProvider.IsSupportUnions();
+        }
 
-	    public bool CanCopyUnionSubQuery()
-	    {
-	        return CanAddUnionSubQuery();
-	    }
+        public bool CanCopyUnionSubQuery()
+        {
+            return CanAddUnionSubQuery();
+        }
 
         public bool CanAddDerivedTable()
         {
@@ -600,107 +600,107 @@ Do you want to load database structure from cache?";
         }
 
         public bool CanAddObject()
-	    {
-	        return QView.AddObjectDialog != null;
-	    }
+        {
+            return QView.AddObjectDialog != null;
+        }
 
-	    public void UpdateLanguage()
-	    {
-	        QView.Language = Program.Settings.Language;
+        public void UpdateLanguage()
+        {
+            QView.Language = Program.Settings.Language;
 
-	        tsbQueryProperties.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strEdit", "Properties");
-	        tsbAddObject.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddObject", "Add object");
-	        tsbAddDerivedTable.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddSubQuery", "Add derived table");
-	        tsbAddUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strNewUnionSubQuery", "New union sub-query");
-	        tsbCopyUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strCopyToNewUnionSubQuery", "Copy union sub-query");
+            tsbQueryProperties.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strEdit", "Properties");
+            tsbAddObject.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddObject", "Add object");
+            tsbAddDerivedTable.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strAddSubQuery", "Add derived table");
+            tsbAddUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strNewUnionSubQuery", "New union sub-query");
+            tsbCopyUnionSubquery.ToolTipText = ActiveQueryBuilder.View.Helpers.Localizer.GetString("strCopyToNewUnionSubQuery", "Copy union sub-query");
 
             dockPanelProperties.Text = ActiveQueryBuilder.Core.Helpers.Localizer.GetString(nameof(LocalizableConstantsUI.strProperties), LocalizableConstantsUI.strProperties);
             dockPanelSubquery.Text = ActiveQueryBuilder.Core.Helpers.Localizer.GetString("strSubQueryStructureBarCaption", LocalizableConstantsUI.strSubQueryStructureBarCaption);
         }
 
-	    public void ParseQuery()
-	    {
-	        try
-	        {
-	            SqlQuery.SQL = rtbQueryText.Text;
+        public void ParseQuery()
+        {
+            try
+            {
+                SqlQuery.SQL = rtbQueryText.Text;
                 _hasError = false;
 
             }
-	        catch (Exception ex)
+            catch (Exception ex)
             {
                 _hasError = true;
-	            MessageBox.Show(ex.Message);
-	        }
-	    }
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-	    public void ActivateBuildQueryTab()
-	    {
-	        tabControl1.SelectTab(0);
-	        rtbQueryText.Focus();
-	    }
+        public void ActivateBuildQueryTab()
+        {
+            tabControl1.SelectTab(0);
+            rtbQueryText.Focus();
+        }
 
-	    public void ActivateRunQueryTab()
-	    {
-	        tabControl1.SelectTab(1);
-	    }
+        public void ActivateRunQueryTab()
+        {
+            tabControl1.SelectTab(1);
+        }
 
-	    public void ShowQueryStatistics()
-	    {
-	        QueryStatistics qs = SqlQuery.QueryStatistics;
+        public void ShowQueryStatistics()
+        {
+            QueryStatistics qs = SqlQuery.QueryStatistics;
 
-	        var stats = "Used Objects (" + qs.UsedDatabaseObjects.Count + "):\r\n";
-	        stats = qs.UsedDatabaseObjects.Aggregate(stats, (current, t) => current + ("\r\n" + t.ObjectName.QualifiedName));
+            var stats = "Used Objects (" + qs.UsedDatabaseObjects.Count + "):\r\n";
+            stats = qs.UsedDatabaseObjects.Aggregate(stats, (current, t) => current + ("\r\n" + t.ObjectName.QualifiedName));
 
-	        stats += "\r\n\r\n" + "Used Columns (" + qs.UsedDatabaseObjectFields.Count + "):\r\n";
-	        stats = qs.UsedDatabaseObjectFields.Aggregate(stats, (current, t) => current + ("\r\n" + t.ObjectName.QualifiedName));
+            stats += "\r\n\r\n" + "Used Columns (" + qs.UsedDatabaseObjectFields.Count + "):\r\n";
+            stats = qs.UsedDatabaseObjectFields.Aggregate(stats, (current, t) => current + ("\r\n" + t.ObjectName.QualifiedName));
 
-	        stats += "\r\n\r\n" + "Output Expressions (" + qs.OutputColumns.Count + "):\r\n";
-	        stats = qs.OutputColumns.Aggregate(stats, (current, t) => current + ("\r\n" + t.Expression));
+            stats += "\r\n\r\n" + "Output Expressions (" + qs.OutputColumns.Count + "):\r\n";
+            stats = qs.OutputColumns.Aggregate(stats, (current, t) => current + ("\r\n" + t.Expression));
 
-	        using (QueryStatisticsForm f = new QueryStatisticsForm())
-	        {
-	            f.textBox.Text = stats;
-	            f.ShowDialog();
-	        }
-	    }
+            using (QueryStatisticsForm f = new QueryStatisticsForm())
+            {
+                f.textBox.Text = stats;
+                f.ShowDialog();
+            }
+        }
 
-	    public void Undo()
-	    {
-	        rtbQueryText.Undo();
-	    }
+        public void Undo()
+        {
+            rtbQueryText.Undo();
+        }
 
-	    public void Redo()
-	    {
-	        rtbQueryText.Undo();
-	    }
+        public void Redo()
+        {
+            rtbQueryText.Undo();
+        }
 
-	    public void Cut()
-	    {
-	        rtbQueryText.Cut();
-	    }
+        public void Cut()
+        {
+            rtbQueryText.Cut();
+        }
 
-	    public void Copy()
-	    {
-	        rtbQueryText.Copy();
-	    }
+        public void Copy()
+        {
+            rtbQueryText.Copy();
+        }
 
-	    public void Paste()
-	    {
-	        rtbQueryText.Paste();
-	    }
+        public void Paste()
+        {
+            rtbQueryText.Paste();
+        }
 
-	    public void SelectAll()
-	    {
-	        rtbQueryText.SelectAll();
-	    }
+        public void SelectAll()
+        {
+            rtbQueryText.SelectAll();
+        }
 
-	    public void AddObject()
+        public void AddObject()
         {
             QView.AddObjectDialog?.ShowModal();
         }
 
-	    public void AddDerivedTable()
-	    {
+        public void AddDerivedTable()
+        {
             using (new UpdateRegion(NavBar.ActiveUnionSubQuery.FromClause))
             {
                 var sqlContext = NavBar.ActiveUnionSubQuery.SQLContext;
@@ -723,13 +723,13 @@ Do you want to load database structure from cache?";
             }
         }
 
-	    public void AddUnionSubQuery()
-	    {
+        public void AddUnionSubQuery()
+        {
             NavBar.ActiveUnionSubQuery = QView.ActiveUnionSubQuery.ParentGroup.Add();
         }
 
-	    public void CopyUnionSubQuery()
-	    {
+        public void CopyUnionSubQuery()
+        {
             // add empty UnionSubQuery
             var usq = QView.ActiveUnionSubQuery.ParentGroup.Add();
 
@@ -746,138 +746,138 @@ Do you want to load database structure from cache?";
             NavBar.ActiveUnionSubQuery = usq;
         }
 
-	    public void PropertiesQuery()
-	    {
+        public void PropertiesQuery()
+        {
             QView.ShowActiveUnionSubQueryProperties();
-	    }
+        }
 
-	    public void RefreshMetadata()
-	    {
-	        if (_sqlContext.MetadataProvider != null && _sqlContext.MetadataProvider.Connected)
-	        {
-	            // to refresh metadata, just clear already loaded items
-	            _sqlContext.MetadataContainer.Clear();
+        public void RefreshMetadata()
+        {
+            if (_sqlContext.MetadataProvider != null && _sqlContext.MetadataProvider.Connected)
+            {
+                // to refresh metadata, just clear already loaded items
+                _sqlContext.MetadataContainer.Clear();
                 _sqlContext.MetadataContainer.LoadAll(true);
-	        }
-	    }
+            }
+        }
 
-	    public void EditMetadata()
-	    {
-	        QueryBuilder.EditMetadataContainer(_sqlContext);
-	    }
+        public void EditMetadata()
+        {
+            QueryBuilder.EditMetadataContainer(_sqlContext);
+        }
 
-	    public void ClearMetadata()
-	    {
-	        _sqlContext.MetadataContainer.Clear();
-	    }
+        public void ClearMetadata()
+        {
+            _sqlContext.MetadataContainer.Clear();
+        }
 
-	    public void LoadMetadataFromXml()
-	    {
-	        OpenFileDialog fileDialog = new OpenFileDialog
-	        {
-	            Filter = @"XML files (*.xml)|*.xml|All files (*.*)|*.*"
-	        };
+        public void LoadMetadataFromXml()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = @"XML files (*.xml)|*.xml|All files (*.*)|*.*"
+            };
 
-	        if (fileDialog.ShowDialog() == DialogResult.OK)
-	        {
-	            _sqlContext.MetadataContainer.LoadingOptions.OfflineMode = true;
-	            _sqlContext.MetadataContainer.ImportFromXML(fileDialog.FileName);
-	        }
-	    }
-
-	    public void SaveMetadataToXml()
-	    {
-	        SaveFileDialog fileDialog = new SaveFileDialog
-	        {
-	            Filter = @"XML files (*.xml)|*.xml|All files (*.*)|*.*",
-	            FileName = "Metadata.xml"
-	        };
             if (fileDialog.ShowDialog() == DialogResult.OK)
-	        {
-	            _sqlContext.MetadataContainer.LoadAll(true);
-	            _sqlContext.MetadataContainer.ExportToXML(fileDialog.FileName);
-	        }
-	    }
+            {
+                _sqlContext.MetadataContainer.LoadingOptions.OfflineMode = true;
+                _sqlContext.MetadataContainer.ImportFromXML(fileDialog.FileName);
+            }
+        }
+
+        public void SaveMetadataToXml()
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog
+            {
+                Filter = @"XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                FileName = "Metadata.xml"
+            };
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                _sqlContext.MetadataContainer.LoadAll(true);
+                _sqlContext.MetadataContainer.ExportToXML(fileDialog.FileName);
+            }
+        }
 
         private void SqlQuery_QueryAwake(QueryRoot sender, ref bool abort)
-	    {
-	        if (MessageBox.Show(@"You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
+        {
+            if (MessageBox.Show(@"You had typed something that is not a SELECT statement in the text editor and continued with visual query building." +
                                 @"Whatever the text in the editor is, it will be replaced with the SQL generated by the component. Is it right?", @"Active Query Builder .NET Demo", MessageBoxButtons.YesNo) == DialogResult.No)
-	        {
-	            abort = true;
-	        }
-	    }
+            {
+                abort = true;
+            }
+        }
 
         private TabPage _tempTabCurrentSubquery;
         private TabPage _tempTabPreviewResult;
 
         private void SqlQuery_SleepModeChanged(object sender, EventArgs e)
-	    {
-	        labelSleepMode.Visible = SqlQuery.SleepMode;
+        {
+            labelSleepMode.Visible = SqlQuery.SleepMode;
 
-	        if (SqlQuery.SleepMode)
-	        {
-	            _tempTabCurrentSubquery = tabControl2.TabPages[1];
-	            _tempTabPreviewResult = tabControl2.TabPages[2];
+            if (SqlQuery.SleepMode)
+            {
+                _tempTabCurrentSubquery = tabControl2.TabPages[1];
+                _tempTabPreviewResult = tabControl2.TabPages[2];
 
-	            tabControl2.TabPages.Remove(_tempTabCurrentSubquery);
-	            tabControl2.TabPages.Remove(_tempTabPreviewResult);
-	        }
-	        else
-	        {
-	            tabControl2.TabPages.Add(_tempTabCurrentSubquery);
-	            tabControl2.TabPages.Add(_tempTabPreviewResult);
-	        }
+                tabControl2.TabPages.Remove(_tempTabCurrentSubquery);
+                tabControl2.TabPages.Remove(_tempTabPreviewResult);
+            }
+            else
+            {
+                tabControl2.TabPages.Add(_tempTabCurrentSubquery);
+                tabControl2.TabPages.Add(_tempTabPreviewResult);
+            }
 
             //  panelTextInfo.Height = SqlQuery.SleepMode ? 60 : 0;
             toolStripStatusLabel1.Text = @"Query builder state: " + ((SqlQuery.SleepMode) ? "Inactive" : "Active");
-	    }
+        }
 
-	    // Workaround for the old Microsoft's bug: ImageList damages the alpha channel of 32-bit ICO and PNG files.
-	    // Clear all images from designed image lists and reload all images manually.
-	    private void RepairImageLists()
-	    {
-	        imageList1.Images.Clear();
-	        imageList1.Images.Add(Properties.Resources.bricks);
-	        imageList1.Images.Add(Properties.Resources.database_go);
+        // Workaround for the old Microsoft's bug: ImageList damages the alpha channel of 32-bit ICO and PNG files.
+        // Clear all images from designed image lists and reload all images manually.
+        private void RepairImageLists()
+        {
+            imageList1.Images.Clear();
+            imageList1.Images.Add(Properties.Resources.bricks);
+            imageList1.Images.Add(Properties.Resources.database_go);
 
-	        imageList2.Images.Clear();
-	        imageList2.Images.Add(Properties.Resources.table);
-	        imageList2.Images.Add(Properties.Resources.table_lightning);
-	        imageList2.Images.Add(Properties.Resources.table_gear);
-	        imageList2.Images.Add(Properties.Resources.table_sort);
-	        imageList2.Images.Add(Properties.Resources.folder);
-	        imageList2.Images.Add(Properties.Resources.table_multiple);
-	        imageList2.Images.Add(Properties.Resources.database);
+            imageList2.Images.Clear();
+            imageList2.Images.Add(Properties.Resources.table);
+            imageList2.Images.Add(Properties.Resources.table_lightning);
+            imageList2.Images.Add(Properties.Resources.table_gear);
+            imageList2.Images.Add(Properties.Resources.table_sort);
+            imageList2.Images.Add(Properties.Resources.folder);
+            imageList2.Images.Add(Properties.Resources.table_multiple);
+            imageList2.Images.Add(Properties.Resources.database);
 
-	        imageList3.Images.Clear();
-	        imageList3.Images.Add(Properties.Resources.chart_organisation);
-	        imageList3.Images.Add(Properties.Resources.folder_table);
-	        imageList3.Images.Add(Properties.Resources.database_table);
-	        imageList3.Images.Add(Properties.Resources.folder_bullet_green);
-	        imageList3.Images.Add(Properties.Resources.bullet_green);
-	    }
+            imageList3.Images.Clear();
+            imageList3.Images.Add(Properties.Resources.chart_organisation);
+            imageList3.Images.Add(Properties.Resources.folder_table);
+            imageList3.Images.Add(Properties.Resources.database_table);
+            imageList3.Images.Add(Properties.Resources.folder_bullet_green);
+            imageList3.Images.Add(Properties.Resources.bullet_green);
+        }
 
-	    private void query_SQLUpdated(object sender, EventArgs e)
-	    {
-	        errorBox1.Show(null, _sqlContext.SyntaxProvider);
-	        errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
+        private void query_SQLUpdated(object sender, EventArgs e)
+        {
+            errorBox1.Show(null, _sqlContext.SyntaxProvider);
+            errorBoxCurrent.Show(null, _sqlContext.SyntaxProvider);
 
             _lastValidSql = rtbQueryText.Text = SqlQuery.SleepMode
-	            ? SqlQuery.SQL
-	            : FormattedQueryText;
-	        if(_oldSql == null)
-	        {
-	            _oldSql = rtbQueryText.Text;
-	        }
+                ? SqlQuery.SQL
+                : FormattedQueryText;
+            if(_oldSql == null)
+            {
+                _oldSql = rtbQueryText.Text;
+            }
 
             buttonExportCsv.Enabled = buttonExportExcel.Enabled = buttonGenerateReport.Enabled =
                 !string.IsNullOrEmpty(FormattedQueryText) && _sqlContext.MetadataProvider != null;
 
-	        if (QueryView.ActiveUnionSubQuery == null || SqlQuery.SleepMode) return;
-	        _lastValidSqlCurrent = TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
-	        CheckParameters();
-	    }
+            if (QueryView.ActiveUnionSubQuery == null || SqlQuery.SleepMode) return;
+            _lastValidSqlCurrent = TextBoxCurrentSubQuerySql.Text = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetResultSQL(_sqlFormattingOptions);
+            CheckParameters();
+        }
 
         private void CheckParameters()
         {
@@ -950,11 +950,11 @@ Do you want to load database structure from cache?";
             }
         }
 
-	    private void rtbQueryText_Validating(object sender, CancelEventArgs e)
-	    {
-			// We need to check that the new text doesn't have references to itself to avoid recursion on generating a query for the server.
-	        try
-	        {
+        private void rtbQueryText_Validating(object sender, CancelEventArgs e)
+        {
+            // We need to check that the new text doesn't have references to itself to avoid recursion on generating a query for the server.
+            try
+            {
                 if (IsRecursionLoopInQueryText(rtbQueryText.Text))
                 {
                     var message = "Recursion loop in virtual objects definition detected for object:\n" +
@@ -967,42 +967,42 @@ Do you want to load database structure from cache?";
                 }
                 // Update the query builder with manually edited query text:
                 SqlQuery.SQL = rtbQueryText.Text;
-	            errorBox1.Show(null, _sqlContext.SyntaxProvider);
-	        }
-	        catch (SQLParsingException ex)
-	        {
-	            // Set caret to error position
-	            _errorPosition= rtbQueryText.SelectionStart = ex.ErrorPos.pos;
+                errorBox1.Show(null, _sqlContext.SyntaxProvider);
+            }
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                _errorPosition= rtbQueryText.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBox1.Show(ex.Message, _sqlContext.SyntaxProvider);
             }
-	    }
+        }
 
-	    private void Application_Idle(object sender, EventArgs e)
-	    {
-	        bool supportsDerivedTable = false;
-	        bool supportsUnion = false;
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            bool supportsDerivedTable = false;
+            bool supportsUnion = false;
 
-	        if (_sqlContext.SyntaxProvider != null  && NavBar.ActiveUnionSubQuery != null)
-	        {
-	            if (NavBar.ActiveUnionSubQuery.QueryRoot.IsMainQuery)
-	            {
-	                supportsDerivedTable = _sqlContext.SyntaxProvider.IsSupportDerivedTables();
-	            }
-	            else
-	            {
-	                supportsDerivedTable = _sqlContext.SyntaxProvider.IsSupportSubQueryDerivedTables();
-	            }
+            if (_sqlContext.SyntaxProvider != null  && NavBar.ActiveUnionSubQuery != null)
+            {
+                if (NavBar.ActiveUnionSubQuery.QueryRoot.IsMainQuery)
+                {
+                    supportsDerivedTable = _sqlContext.SyntaxProvider.IsSupportDerivedTables();
+                }
+                else
+                {
+                    supportsDerivedTable = _sqlContext.SyntaxProvider.IsSupportSubQueryDerivedTables();
+                }
                 supportsUnion = NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery 
                     ? _sqlContext.SyntaxProvider.IsSupportSubQueryUnions() 
                     : _sqlContext.SyntaxProvider.IsSupportUnions();
-	        }
+            }
 
-	        tsbAddDerivedTable.Enabled = supportsDerivedTable;
-	        tsbAddUnionSubquery.Enabled = supportsUnion;
-	        tsbCopyUnionSubquery.Enabled = supportsUnion;
-	    }
+            tsbAddDerivedTable.Enabled = supportsDerivedTable;
+            tsbAddUnionSubquery.Enabled = supportsUnion;
+            tsbCopyUnionSubquery.Enabled = supportsUnion;
+        }
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
@@ -1035,78 +1035,78 @@ Do you want to load database structure from cache?";
         }
 
         private void contextMenuStripForRichTextBox_Opening(object sender, CancelEventArgs e)
-	    {
-	        tsmiUndo.Enabled = CanUndo();
-	        tsmiRedo.Enabled = CanRedo();
-	        tsmiCut.Enabled = CanCut();
-	        tsmiCopy.Enabled = CanCopy();
-	        tsmiPaste.Enabled = CanPaste();
-	        tsmiSelectAll.Enabled = CanSelectAll();
-	    }
+        {
+            tsmiUndo.Enabled = CanUndo();
+            tsmiRedo.Enabled = CanRedo();
+            tsmiCut.Enabled = CanCut();
+            tsmiCopy.Enabled = CanCopy();
+            tsmiPaste.Enabled = CanPaste();
+            tsmiSelectAll.Enabled = CanSelectAll();
+        }
 
-	    private void tsmiUndo_Click(object sender, EventArgs e)
-	    {
-	        Undo();
-	    }
+        private void tsmiUndo_Click(object sender, EventArgs e)
+        {
+            Undo();
+        }
 
-	    private void tsmiRedo_Click(object sender, EventArgs e)
-	    {
-	        Redo();
-	    }
+        private void tsmiRedo_Click(object sender, EventArgs e)
+        {
+            Redo();
+        }
 
-	    private void tsmiCut_Click(object sender, EventArgs e)
-	    {
-	        Cut();
-	    }
+        private void tsmiCut_Click(object sender, EventArgs e)
+        {
+            Cut();
+        }
 
-	    private void tsmiCopy_Click(object sender, EventArgs e)
-	    {
-	        Copy();
-	    }
+        private void tsmiCopy_Click(object sender, EventArgs e)
+        {
+            Copy();
+        }
 
-	    private void tsmiPaste_Click(object sender, EventArgs e)
-	    {
-	        Paste();
-	    }
+        private void tsmiPaste_Click(object sender, EventArgs e)
+        {
+            Paste();
+        }
 
-	    private void tsmiSelectAll_Click(object sender, EventArgs e)
-	    {
-	        SelectAll();
-	    }
+        private void tsmiSelectAll_Click(object sender, EventArgs e)
+        {
+            SelectAll();
+        }
 
-	    internal bool IsOfflineMode()
-	    {
-	        return _sqlContext.MetadataContainer.LoadingOptions.OfflineMode;
-	    }
+        internal bool IsOfflineMode()
+        {
+            return _sqlContext.MetadataContainer.LoadingOptions.OfflineMode;
+        }
 
-	    private void tsbQueryProperties_Click(object sender, EventArgs e)
-	    {
-	        PropertiesQuery();
-	    }
+        private void tsbQueryProperties_Click(object sender, EventArgs e)
+        {
+            PropertiesQuery();
+        }
 
-	    private void tsbAddObject_Click(object sender, EventArgs e)
-	    {
-	        AddObject();
-	    }
+        private void tsbAddObject_Click(object sender, EventArgs e)
+        {
+            AddObject();
+        }
 
-	    private void tsbAddDerivedTable_Click(object sender, EventArgs e)
-	    {
-	        AddDerivedTable();
-	    }
+        private void tsbAddDerivedTable_Click(object sender, EventArgs e)
+        {
+            AddDerivedTable();
+        }
 
-	    private void tsbAddUnionSubquery_Click(object sender, EventArgs e)
-	    {
-	        AddUnionSubQuery();
-	    }
+        private void tsbAddUnionSubquery_Click(object sender, EventArgs e)
+        {
+            AddUnionSubQuery();
+        }
 
-	    private void tsbCopyUnionSubquery_Click(object sender, EventArgs e)
-	    {
-	        CopyUnionSubQuery();
-	    }
+        private void tsbCopyUnionSubquery_Click(object sender, EventArgs e)
+        {
+            CopyUnionSubQuery();
+        }
 
-	    private void CBuilder_SQLUpdated(object sender, EventArgs e)
-	    {
-			 if (Disposing) return;
+        private void CBuilder_SQLUpdated(object sender, EventArgs e)
+        {
+             if (Disposing) return;
 
             // Handle the event raised by Criteria Builder object that the text of SQL query is changed
             // update the text box
@@ -1125,7 +1125,7 @@ Do you want to load database structure from cache?";
             {
                 //ignore
             }
-	    }
+        }
 
         private void tsbSave_Click(object sender, EventArgs e)
         {
@@ -1204,7 +1204,7 @@ Do you want to load database structure from cache?";
             _noConnectionLabel.Location = new Point(x > 0 ? x : 0, y > 0 ? y : 0);
         }
 
-		/// <summary>
+        /// <summary>
         /// Checking for loops on adding an object to the query
         /// </summary>
         private void QView_DataSourceAdding(MetadataObject fromObject, ref bool abort)
@@ -1344,10 +1344,13 @@ Do you want to load database structure from cache?";
             if (dataTable == null)
                 throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
 
-            var reportWindow =
-                new StimulsoftForm(dataTable) { Owner = this };
-
+#if ENABLE_REPORTSNET_SUPPORT
+            var reportWindow = new StimulsoftExtension.StimulsoftForm(dataTable) { Owner = this };
             reportWindow.ShowDialog();
+#else
+            MessageBox.Show("To test the integration with Stimulsoft Reports.NET, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableReportsNetSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
+                            "You may also need to activate the trial version of Reports.NET on the Stimulsoft website.", "Reports.NET support", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
         }
 
         private void CreateActiveReport(DataTable dataTable)
@@ -1411,5 +1414,18 @@ Do you want to load database structure from cache?";
         private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e) => buttonRefresh.Enabled = checkBoxAutoRefresh.Checked == false;
 
         private void buttonRefresh_Click(object sender, EventArgs e) => FillFastViewDataGrid();
+
+        private void buttonExportExcelFlexCel_Click(object sender, EventArgs e)
+        {
+            var dt = SqlHelpers.GetDataTable(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions),
+                SqlQuery);
+
+#if ENABLE_FLEXCEL_SUPPORT
+            TmssoftwareExtension.FlexCelHelper.ExportToExcel(dt);
+#else
+            MessageBox.Show("To test the integration with TMS Software FlexCel, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableFlexCelSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
+                            "You may also need to activate the trial version of TMS Software on the FlexCel website.", "FlexCel support", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+        }
     }
 }

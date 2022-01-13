@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -15,31 +15,31 @@ using ActiveQueryBuilder.View.CriteriaBuilder;
 
 namespace MetadataEditorDemo.Common
 {
-	internal class FocuslessButton : Button, IFocuslessButton
-	{
-		public FocuslessButton()
-		{
-			SetStyle(ControlStyles.Selectable, false);
-		}
+    internal class FocuslessButton : Button, IFocuslessButton
+    {
+        public FocuslessButton()
+        {
+            SetStyle(ControlStyles.Selectable, false);
+        }
 
-		CRectangle IFocuslessButton.Bounds
-		{
-			get
-			{
-				var r = base.Bounds;
-				return new CRectangle(r.X, r.Y, r.Width, r.Height);
-			}
-			set
-			{
-				CRectangle r = value;
-				base.Bounds = new Rectangle((int)r.X, (int)r.Y, (int)r.Width, (int)r.Height);
-			}
-		}
+        CRectangle IFocuslessButton.Bounds
+        {
+            get
+            {
+                var r = base.Bounds;
+                return new CRectangle(r.X, r.Y, r.Width, r.Height);
+            }
+            set
+            {
+                CRectangle r = value;
+                base.Bounds = new Rectangle((int)r.X, (int)r.Y, (int)r.Width, (int)r.Height);
+            }
+        }
 
-		object IFocuslessButton.Image
-		{
-			get { return base.Image; }
-			set { base.Image = (Image) value; }
-		}
-	}
+        object IFocuslessButton.Image
+        {
+            get { return base.Image; }
+            set { base.Image = (Image) value; }
+        }
+    }
 }

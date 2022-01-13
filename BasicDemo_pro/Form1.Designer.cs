@@ -4,34 +4,34 @@ using ActiveQueryBuilder.View;
 
 namespace BasicDemo
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
@@ -564,33 +564,33 @@ namespace BasicDemo
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
-		private System.Windows.Forms.OpenFileDialog openFileDialog;
-		private System.Windows.Forms.SaveFileDialog saveFileDialog;
-		private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
-		private ActiveQueryBuilder.Core.MSSQLSyntaxProvider mssqlSyntaxProvider1;
-		private ActiveQueryBuilder.Core.MSSQLMetadataProvider mssqlMetadataProvider1;
-		private ActiveQueryBuilder.Core.OLEDBMetadataProvider oledbMetadataProvider1;
-		private ActiveQueryBuilder.Core.OracleNativeMetadataProvider oracleMetadataProvider1;
-		private ActiveQueryBuilder.Core.ODBCMetadataProvider odbcMetadataProvider1;
-		private ActiveQueryBuilder.Core.OracleSyntaxProvider oracleSyntaxProvider1;
+        #endregion
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
+        private ActiveQueryBuilder.Core.MSSQLSyntaxProvider mssqlSyntaxProvider1;
+        private ActiveQueryBuilder.Core.MSSQLMetadataProvider mssqlMetadataProvider1;
+        private ActiveQueryBuilder.Core.OLEDBMetadataProvider oledbMetadataProvider1;
+        private ActiveQueryBuilder.Core.OracleNativeMetadataProvider oracleMetadataProvider1;
+        private ActiveQueryBuilder.Core.ODBCMetadataProvider odbcMetadataProvider1;
+        private ActiveQueryBuilder.Core.OracleSyntaxProvider oracleSyntaxProvider1;
         private ActiveQueryBuilder.Core.MSAccessSyntaxProvider msaccessSyntaxProvider1;
-		private System.Windows.Forms.MenuStrip mainMenu1;
-		private System.Windows.Forms.ToolStripMenuItem menuItem1;
-		private System.Windows.Forms.ToolStripSeparator menuItem2;
-		private System.Windows.Forms.ToolStripMenuItem fillProgrammaticallyMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem menuItem3;
-		private System.Windows.Forms.ToolStripMenuItem refreshMetadataMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem editMetadataMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem clearMetadataMenuItem;
-		private System.Windows.Forms.ToolStripSeparator menuItem4;
-		private System.Windows.Forms.ToolStripMenuItem loadMetadataFromXMLMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveMetadataToXMLMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem propertiesMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
+        private System.Windows.Forms.MenuStrip mainMenu1;
+        private System.Windows.Forms.ToolStripMenuItem menuItem1;
+        private System.Windows.Forms.ToolStripSeparator menuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fillProgrammaticallyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItem3;
+        private System.Windows.Forms.ToolStripMenuItem refreshMetadataMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editMetadataMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearMetadataMenuItem;
+        private System.Windows.Forms.ToolStripSeparator menuItem4;
+        private System.Windows.Forms.ToolStripMenuItem loadMetadataFromXMLMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveMetadataToXMLMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem propertiesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
         private ActiveQueryBuilder.View.WinForms.ExpressionEditor.ExpressionEditor expressionEditor1;
         private System.Windows.Forms.ToolStripMenuItem menuItem5;
         private Panel panel1;

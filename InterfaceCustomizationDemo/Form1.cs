@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -42,9 +42,9 @@ namespace InterfaceCustomizationDemo
                 QBuilder.InitializeDatabaseSchemaTree();
 
                 QBuilder.SQL = @"SELECT Orders.OrderID, Orders.CustomerID, Orders.OrderDate, [Order Details].ProductID,
-										[Order Details].UnitPrice, [Order Details].Quantity, [Order Details].Discount
-									  FROM Orders INNER JOIN [Order Details] ON Orders.OrderID = [Order Details].OrderID
-									  WHERE Orders.OrderID > 0 AND [Order Details].Discount > 0";
+                                        [Order Details].UnitPrice, [Order Details].Quantity, [Order Details].Discount
+                                      FROM Orders INNER JOIN [Order Details] ON Orders.OrderID = [Order Details].OrderID
+                                      WHERE Orders.OrderID > 0 AND [Order Details].Discount > 0";
             }
             catch (Exception ex)
             {
@@ -214,7 +214,7 @@ namespace InterfaceCustomizationDemo
 
         private void TextBoxSQL_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-			// Feed the text from text editor to the query builder when user exits the editor.
+            // Feed the text from text editor to the query builder when user exits the editor.
             try
             {
                 // Update the query builder with manually edited query text:

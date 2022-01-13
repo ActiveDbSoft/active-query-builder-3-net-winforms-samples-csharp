@@ -5,21 +5,21 @@ using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 
 namespace FullFeaturedMdiDemo
 {
-	partial class ChildForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ChildForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChildForm));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
@@ -89,6 +89,7 @@ namespace FullFeaturedMdiDemo
             this.buttonGenerateReport = new System.Windows.Forms.Button();
             this.buttonExportExcel = new System.Windows.Forms.Button();
             this.buttonExportCsv = new System.Windows.Forms.Button();
+            this.buttonExportExcelFlexCel = new System.Windows.Forms.Button();
             this.resultGrid1 = new GeneralAssembly.DataViewerControl.DataViewer();
             this.CBuilder = new ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -142,7 +143,7 @@ namespace FullFeaturedMdiDemo
             this.toolStripPanel1.Name = "toolStripPanel1";
             this.toolStripPanel1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.toolStripPanel1.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.toolStripPanel1.Size = new System.Drawing.Size(1187, 0);
+            this.toolStripPanel1.Size = new System.Drawing.Size(1006, 0);
             // 
             // contextMenuStripForRichTextBox
             // 
@@ -254,7 +255,7 @@ namespace FullFeaturedMdiDemo
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1187, 635);
+            this.tabControl1.Size = new System.Drawing.Size(1006, 584);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -265,7 +266,7 @@ namespace FullFeaturedMdiDemo
             this.pageQueryBuilder.Location = new System.Drawing.Point(4, 27);
             this.pageQueryBuilder.Name = "pageQueryBuilder";
             this.pageQueryBuilder.Padding = new System.Windows.Forms.Padding(3);
-            this.pageQueryBuilder.Size = new System.Drawing.Size(1179, 604);
+            this.pageQueryBuilder.Size = new System.Drawing.Size(998, 553);
             this.pageQueryBuilder.TabIndex = 0;
             this.pageQueryBuilder.Text = "Query Builder";
             this.pageQueryBuilder.UseVisualStyleBackColor = true;
@@ -278,7 +279,7 @@ namespace FullFeaturedMdiDemo
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1173, 598);
+            this.panel1.Size = new System.Drawing.Size(992, 547);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -296,8 +297,8 @@ namespace FullFeaturedMdiDemo
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel4);
-            this.splitContainer1.Size = new System.Drawing.Size(1173, 533);
-            this.splitContainer1.SplitterDistance = 302;
+            this.splitContainer1.Size = new System.Drawing.Size(992, 482);
+            this.splitContainer1.SplitterDistance = 251;
             this.splitContainer1.TabIndex = 4;
             // 
             // QView
@@ -310,7 +311,7 @@ namespace FullFeaturedMdiDemo
             this.QView.Location = new System.Drawing.Point(0, 0);
             this.QView.Name = "QView";
             this.QView.Query = null;
-            this.QView.Size = new System.Drawing.Size(1173, 302);
+            this.QView.Size = new System.Drawing.Size(992, 251);
             // 
             // 
             // 
@@ -360,8 +361,8 @@ namespace FullFeaturedMdiDemo
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.queryColumnListControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(1173, 302);
-            this.splitContainer2.SplitterDistance = 215;
+            this.splitContainer2.Size = new System.Drawing.Size(992, 251);
+            this.splitContainer2.SplitterDistance = 178;
             this.splitContainer2.TabIndex = 0;
             // 
             // dockManager1
@@ -385,8 +386,9 @@ namespace FullFeaturedMdiDemo
             this.dockManager1.Options.DockTabIndicatorHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(167)))), ((int)(((byte)(183)))));
             this.dockManager1.Options.InactiveDockPanelCaptionColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(96)))), ((int)(((byte)(130)))));
             this.dockManager1.Options.InactiveDockPanelCaptionFontColor = System.Drawing.Color.White;
+            this.dockManager1.Options.TabFont = null;
             this.dockManager1.Options.TabsStripBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
-            this.dockManager1.Size = new System.Drawing.Size(1173, 215);
+            this.dockManager1.Size = new System.Drawing.Size(992, 178);
             this.dockManager1.TabIndex = 0;
             // 
             // designPaneControl1
@@ -406,7 +408,7 @@ namespace FullFeaturedMdiDemo
             linkPainterAccess1.MarkStyle = ActiveQueryBuilder.View.QueryView.LinkMarkStyle.Access;
             this.designPaneControl1.Options.LinkPainterOptions = linkPainterAccess1;
             this.designPaneControl1.Options.LinkStyle = ActiveQueryBuilder.View.QueryView.LinkStyle.MSAccess;
-            this.designPaneControl1.Size = new System.Drawing.Size(934, 213);
+            this.designPaneControl1.Size = new System.Drawing.Size(753, 176);
             this.designPaneControl1.TabIndex = 1;
             // 
             // dockPanelProperties
@@ -416,7 +418,7 @@ namespace FullFeaturedMdiDemo
             this.dockPanelProperties.Docking = ActiveQueryBuilder.View.Docking.Right;
             this.dockPanelProperties.Location = new System.Drawing.Point(0, 0);
             this.dockPanelProperties.Name = "dockPanelProperties";
-            this.dockPanelProperties.Size = new System.Drawing.Size(200, 213);
+            this.dockPanelProperties.Size = new System.Drawing.Size(200, 176);
             this.dockPanelProperties.TabIndex = 2;
             this.dockPanelProperties.TabStop = false;
             this.dockPanelProperties.Text = "Properties";
@@ -429,7 +431,7 @@ namespace FullFeaturedMdiDemo
             this.propertiesBar1.InformationMessageHost = this.QView;
             this.propertiesBar1.Location = new System.Drawing.Point(0, 21);
             this.propertiesBar1.Name = "propertiesBar1";
-            this.propertiesBar1.Size = new System.Drawing.Size(199, 191);
+            this.propertiesBar1.Size = new System.Drawing.Size(199, 154);
             this.propertiesBar1.TabIndex = 1;
             // 
             // dockPanelSubquery
@@ -512,7 +514,7 @@ namespace FullFeaturedMdiDemo
             this.queryColumnListControl1.Options.NullOrderingInOrderBy = false;
             this.queryColumnListControl1.Options.UseCustomExpressionBuilder = ActiveQueryBuilder.View.QueryView.AffectedColumns.None;
             this.queryColumnListControl1.SelectedItems = new int[0];
-            this.queryColumnListControl1.Size = new System.Drawing.Size(1173, 83);
+            this.queryColumnListControl1.Size = new System.Drawing.Size(992, 69);
             this.queryColumnListControl1.TabIndex = 0;
             // 
             // expressionEditor1
@@ -533,7 +535,7 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1173, 227);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(992, 227);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // labelSleepMode
@@ -544,7 +546,7 @@ namespace FullFeaturedMdiDemo
             this.labelSleepMode.Location = new System.Drawing.Point(3, 0);
             this.labelSleepMode.Name = "labelSleepMode";
             this.labelSleepMode.Padding = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.labelSleepMode.Size = new System.Drawing.Size(1167, 23);
+            this.labelSleepMode.Size = new System.Drawing.Size(986, 23);
             this.labelSleepMode.TabIndex = 3;
             this.labelSleepMode.Text = "Unsupported SQL statement. Visual Query Builder has been disabled. Either type a " +
     "SELECT statement or start building a query visually to turn this mode off";
@@ -559,7 +561,7 @@ namespace FullFeaturedMdiDemo
             this.tabControl2.Location = new System.Drawing.Point(3, 26);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1167, 198);
+            this.tabControl2.Size = new System.Drawing.Size(986, 198);
             this.tabControl2.TabIndex = 1;
             this.tabControl2.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl2_Selected);
             // 
@@ -569,7 +571,7 @@ namespace FullFeaturedMdiDemo
             this.tabPageSQL.Location = new System.Drawing.Point(4, 22);
             this.tabPageSQL.Name = "tabPageSQL";
             this.tabPageSQL.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSQL.Size = new System.Drawing.Size(1159, 172);
+            this.tabPageSQL.Size = new System.Drawing.Size(978, 172);
             this.tabPageSQL.TabIndex = 0;
             this.tabPageSQL.Text = "SQL Query Text";
             this.tabPageSQL.UseVisualStyleBackColor = true;
@@ -586,7 +588,7 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1153, 166);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(972, 166);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel4
@@ -596,7 +598,7 @@ namespace FullFeaturedMdiDemo
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1147, 160);
+            this.panel4.Size = new System.Drawing.Size(966, 160);
             this.panel4.TabIndex = 0;
             // 
             // errorBox1
@@ -607,7 +609,7 @@ namespace FullFeaturedMdiDemo
             this.errorBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBox1.CurrentSyntaxProvider = null;
             this.errorBox1.IsVisibleCheckSyntaxPanel = false;
-            this.errorBox1.Location = new System.Drawing.Point(843, 96);
+            this.errorBox1.Location = new System.Drawing.Point(662, 96);
             this.errorBox1.Name = "errorBox1";
             this.errorBox1.Padding = new System.Windows.Forms.Padding(5);
             this.errorBox1.Size = new System.Drawing.Size(290, 61);
@@ -627,7 +629,7 @@ namespace FullFeaturedMdiDemo
             this.rtbQueryText.Name = "rtbQueryText";
             this.rtbQueryText.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.rtbQueryText.QueryProvider = null;
-            this.rtbQueryText.Size = new System.Drawing.Size(1147, 160);
+            this.rtbQueryText.Size = new System.Drawing.Size(966, 160);
             this.rtbQueryText.SQLContext = null;
             this.rtbQueryText.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.rtbQueryText.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
@@ -640,7 +642,7 @@ namespace FullFeaturedMdiDemo
             this.tabPageCurrentSubQuery.Location = new System.Drawing.Point(4, 22);
             this.tabPageCurrentSubQuery.Name = "tabPageCurrentSubQuery";
             this.tabPageCurrentSubQuery.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCurrentSubQuery.Size = new System.Drawing.Size(1159, 172);
+            this.tabPageCurrentSubQuery.Size = new System.Drawing.Size(978, 172);
             this.tabPageCurrentSubQuery.TabIndex = 1;
             this.tabPageCurrentSubQuery.Text = "Current SubQuery Text";
             this.tabPageCurrentSubQuery.UseVisualStyleBackColor = true;
@@ -657,7 +659,7 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1153, 166);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(972, 166);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // panel3
@@ -667,7 +669,7 @@ namespace FullFeaturedMdiDemo
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1147, 160);
+            this.panel3.Size = new System.Drawing.Size(966, 160);
             this.panel3.TabIndex = 3;
             // 
             // errorBoxCurrent
@@ -678,7 +680,7 @@ namespace FullFeaturedMdiDemo
             this.errorBoxCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.errorBoxCurrent.CurrentSyntaxProvider = null;
             this.errorBoxCurrent.IsVisibleCheckSyntaxPanel = false;
-            this.errorBoxCurrent.Location = new System.Drawing.Point(799, 96);
+            this.errorBoxCurrent.Location = new System.Drawing.Point(618, 96);
             this.errorBoxCurrent.Name = "errorBoxCurrent";
             this.errorBoxCurrent.Padding = new System.Windows.Forms.Padding(5);
             this.errorBoxCurrent.Size = new System.Drawing.Size(334, 61);
@@ -698,7 +700,7 @@ namespace FullFeaturedMdiDemo
             this.TextBoxCurrentSubQuerySql.Name = "TextBoxCurrentSubQuerySql";
             this.TextBoxCurrentSubQuerySql.Options.Padding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.TextBoxCurrentSubQuerySql.QueryProvider = null;
-            this.TextBoxCurrentSubQuerySql.Size = new System.Drawing.Size(1147, 160);
+            this.TextBoxCurrentSubQuerySql.Size = new System.Drawing.Size(966, 160);
             this.TextBoxCurrentSubQuerySql.SQLContext = null;
             this.TextBoxCurrentSubQuerySql.SqlOptions.ShowSuggestionAfterCharCount = 0;
             this.TextBoxCurrentSubQuerySql.SqlOptions.SuggestionWindowSize = new System.Drawing.Size(200, 200);
@@ -711,7 +713,7 @@ namespace FullFeaturedMdiDemo
             this.tabPageFastResult.Controls.Add(this.tableLayoutPanel3);
             this.tabPageFastResult.Location = new System.Drawing.Point(4, 22);
             this.tabPageFastResult.Name = "tabPageFastResult";
-            this.tabPageFastResult.Size = new System.Drawing.Size(1159, 172);
+            this.tabPageFastResult.Size = new System.Drawing.Size(978, 172);
             this.tabPageFastResult.TabIndex = 2;
             this.tabPageFastResult.Text = "Current SubQuery Results Preview";
             this.tabPageFastResult.UseVisualStyleBackColor = true;
@@ -728,7 +730,7 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1159, 172);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(978, 172);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // panel2
@@ -737,7 +739,7 @@ namespace FullFeaturedMdiDemo
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1153, 166);
+            this.panel2.Size = new System.Drawing.Size(972, 166);
             this.panel2.TabIndex = 3;
             // 
             // tableLayoutPanel6
@@ -752,7 +754,7 @@ namespace FullFeaturedMdiDemo
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1153, 166);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(972, 166);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // resultGrid2
@@ -764,7 +766,7 @@ namespace FullFeaturedMdiDemo
             this.resultGrid2.Location = new System.Drawing.Point(3, 35);
             this.resultGrid2.Name = "resultGrid2";
             this.resultGrid2.QueryTransformer = null;
-            this.resultGrid2.Size = new System.Drawing.Size(1147, 128);
+            this.resultGrid2.Size = new System.Drawing.Size(966, 128);
             this.resultGrid2.SqlQuery = null;
             this.resultGrid2.TabIndex = 0;
             // 
@@ -777,7 +779,7 @@ namespace FullFeaturedMdiDemo
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1147, 26);
+            this.panel5.Size = new System.Drawing.Size(966, 26);
             this.panel5.TabIndex = 1;
             // 
             // label1
@@ -797,7 +799,7 @@ namespace FullFeaturedMdiDemo
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonRefresh.Location = new System.Drawing.Point(1053, 0);
+            this.buttonRefresh.Location = new System.Drawing.Point(872, 0);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(94, 23);
             this.buttonRefresh.TabIndex = 10;
@@ -811,7 +813,7 @@ namespace FullFeaturedMdiDemo
             this.checkBoxAutoRefresh.AutoSize = true;
             this.checkBoxAutoRefresh.Checked = true;
             this.checkBoxAutoRefresh.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(919, 4);
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(738, 4);
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.checkBoxAutoRefresh.Size = new System.Drawing.Size(123, 17);
             this.checkBoxAutoRefresh.TabIndex = 11;
@@ -838,6 +840,7 @@ namespace FullFeaturedMdiDemo
             this.NavBar.Options.DisableQueryNavigationBarPopup = false;
             this.NavBar.Options.DragIndicatorColor = System.Drawing.Color.Empty;
             this.NavBar.Options.DragIndicatorHoverColor = System.Drawing.Color.Empty;
+            this.NavBar.Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.NavBar.Options.ForeColor = System.Drawing.Color.Empty;
             this.NavBar.Options.GraphLineColor = System.Drawing.Color.Empty;
             this.NavBar.Options.GroupBackColor = System.Drawing.Color.Empty;
@@ -852,7 +855,7 @@ namespace FullFeaturedMdiDemo
             this.NavBar.Options.TextHoverColor = System.Drawing.Color.Empty;
             this.NavBar.Query = null;
             this.NavBar.QueryView = null;
-            this.NavBar.Size = new System.Drawing.Size(1173, 40);
+            this.NavBar.Size = new System.Drawing.Size(992, 40);
             this.NavBar.TabIndex = 3;
             this.NavBar.TabStop = false;
             // 
@@ -871,7 +874,7 @@ namespace FullFeaturedMdiDemo
             this.tsbSaveNewUserQuery});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1173, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(992, 25);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 2;
             // 
@@ -968,15 +971,15 @@ namespace FullFeaturedMdiDemo
             // 
             // pageQueryResult
             // 
-            this.pageQueryResult.Controls.Add(this.tableLayoutPanel5);
             this.pageQueryResult.Controls.Add(this.resultGrid1);
+            this.pageQueryResult.Controls.Add(this.tableLayoutPanel5);
             this.pageQueryResult.Controls.Add(this.CBuilder);
             this.pageQueryResult.Controls.Add(this.richTextBox1);
             this.pageQueryResult.ImageIndex = 1;
             this.pageQueryResult.Location = new System.Drawing.Point(4, 27);
             this.pageQueryResult.Name = "pageQueryResult";
             this.pageQueryResult.Padding = new System.Windows.Forms.Padding(3);
-            this.pageQueryResult.Size = new System.Drawing.Size(1179, 604);
+            this.pageQueryResult.Size = new System.Drawing.Size(998, 553);
             this.pageQueryResult.TabIndex = 1;
             this.pageQueryResult.Text = "Query Result";
             this.pageQueryResult.UseVisualStyleBackColor = true;
@@ -985,19 +988,21 @@ namespace FullFeaturedMdiDemo
             // 
             this.tableLayoutPanel5.AutoSize = true;
             this.tableLayoutPanel5.BackColor = System.Drawing.Color.LightGray;
-            this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnCount = 4;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.Controls.Add(this.buttonGenerateReport, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonExportExcel, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonExportCsv, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonExportExcelFlexCel, 3, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 472);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 421);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1173, 37);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(992, 37);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // buttonGenerateReport
@@ -1007,7 +1012,7 @@ namespace FullFeaturedMdiDemo
             this.buttonGenerateReport.Enabled = false;
             this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
             this.buttonGenerateReport.Name = "buttonGenerateReport";
-            this.buttonGenerateReport.Size = new System.Drawing.Size(385, 31);
+            this.buttonGenerateReport.Size = new System.Drawing.Size(242, 31);
             this.buttonGenerateReport.TabIndex = 0;
             this.buttonGenerateReport.Text = "Generate report";
             this.buttonGenerateReport.UseVisualStyleBackColor = true;
@@ -1018,11 +1023,11 @@ namespace FullFeaturedMdiDemo
             this.buttonExportExcel.AutoSize = true;
             this.buttonExportExcel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonExportExcel.Enabled = false;
-            this.buttonExportExcel.Location = new System.Drawing.Point(394, 3);
+            this.buttonExportExcel.Location = new System.Drawing.Point(251, 3);
             this.buttonExportExcel.Name = "buttonExportExcel";
-            this.buttonExportExcel.Size = new System.Drawing.Size(385, 31);
+            this.buttonExportExcel.Size = new System.Drawing.Size(242, 31);
             this.buttonExportExcel.TabIndex = 1;
-            this.buttonExportExcel.Text = "Export to Excel";
+            this.buttonExportExcel.Text = "Export to Excel (NPOI)";
             this.buttonExportExcel.UseVisualStyleBackColor = true;
             this.buttonExportExcel.Click += new System.EventHandler(this.buttonExportExcel_Click);
             // 
@@ -1031,25 +1036,36 @@ namespace FullFeaturedMdiDemo
             this.buttonExportCsv.AutoSize = true;
             this.buttonExportCsv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonExportCsv.Enabled = false;
-            this.buttonExportCsv.Location = new System.Drawing.Point(785, 3);
+            this.buttonExportCsv.Location = new System.Drawing.Point(499, 3);
             this.buttonExportCsv.Name = "buttonExportCsv";
-            this.buttonExportCsv.Size = new System.Drawing.Size(385, 31);
+            this.buttonExportCsv.Size = new System.Drawing.Size(242, 31);
             this.buttonExportCsv.TabIndex = 2;
             this.buttonExportCsv.Text = "Export to CSV";
             this.buttonExportCsv.UseVisualStyleBackColor = true;
             this.buttonExportCsv.Click += new System.EventHandler(this.buttonExportCsv_Click);
             // 
-            // resultGrid1
+            // buttonExportExcelFlexCel
             // 
-            this.resultGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.buttonExportExcelFlexCel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExportExcelFlexCel.Location = new System.Drawing.Point(747, 3);
+            this.buttonExportExcelFlexCel.Name = "buttonExportExcelFlexCel";
+            this.buttonExportExcelFlexCel.Size = new System.Drawing.Size(242, 31);
+            this.buttonExportExcelFlexCel.TabIndex = 3;
+            this.buttonExportExcelFlexCel.Text = "Export to Excel (FlexCel)";
+            this.buttonExportExcelFlexCel.UseVisualStyleBackColor = true;
+            this.buttonExportExcelFlexCel.Click += new System.EventHandler(this.buttonExportExcelFlexCel_Click);
+            // 
+            // resultGrid1
+            // 
             this.resultGrid1.AutoSize = true;
+            this.resultGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultGrid1.IsVisiblePaginationPanel = true;
             this.resultGrid1.Location = new System.Drawing.Point(3, 54);
             this.resultGrid1.Name = "resultGrid1";
             this.resultGrid1.QueryTransformer = null;
-            this.resultGrid1.Size = new System.Drawing.Size(1173, 415);
+            this.resultGrid1.Size = new System.Drawing.Size(992, 367);
             this.resultGrid1.SqlQuery = null;
             this.resultGrid1.TabIndex = 4;
             // 
@@ -1058,22 +1074,24 @@ namespace FullFeaturedMdiDemo
             this.CBuilder.AutoSize = true;
             this.CBuilder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CBuilder.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CBuilder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.CBuilder.Location = new System.Drawing.Point(3, 3);
             this.CBuilder.MinimumSize = new System.Drawing.Size(188, 51);
             this.CBuilder.Name = "CBuilder";
             this.CBuilder.QueryTransformer = null;
+            this.CBuilder.RootItemFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.CBuilder.RootJunctionPrefix = null;
-            this.CBuilder.Size = new System.Drawing.Size(1173, 51);
+            this.CBuilder.Size = new System.Drawing.Size(992, 51);
             this.CBuilder.TabIndex = 1;
             // 
             // richTextBox1
             // 
             this.richTextBox1.BackColor = System.Drawing.Color.LemonChiffon;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 509);
+            this.richTextBox1.Location = new System.Drawing.Point(3, 458);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(1173, 92);
+            this.richTextBox1.Size = new System.Drawing.Size(992, 92);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "SQL";
             // 
@@ -1089,10 +1107,10 @@ namespace FullFeaturedMdiDemo
             this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 635);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 584);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip1.Size = new System.Drawing.Size(1187, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1006, 22);
             this.statusStrip1.TabIndex = 5;
             // 
             // toolStripStatusLabel1
@@ -1118,7 +1136,7 @@ namespace FullFeaturedMdiDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1187, 657);
+            this.ClientSize = new System.Drawing.Size(1006, 606);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStripPanel1);
             this.Controls.Add(this.statusStrip1);
@@ -1178,26 +1196,26 @@ namespace FullFeaturedMdiDemo
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
         #endregion
 
         private System.Windows.Forms.ToolStripPanel toolStripPanel1;
         private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage pageQueryResult;
-		private System.Windows.Forms.ImageList imageList1;
-		private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.TabPage pageQueryResult;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.ImageList imageList3;
-		private System.Windows.Forms.ContextMenuStrip contextMenuStripForRichTextBox;
-		private System.Windows.Forms.ToolStripMenuItem tsmiUndo;
-		private System.Windows.Forms.ToolStripMenuItem tsmiRedo;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-		private System.Windows.Forms.ToolStripMenuItem tsmiCut;
-		private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
-		private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-		private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
-		private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripForRichTextBox;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUndo;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRedo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCut;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
+        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TabPage pageQueryBuilder;
         private ActiveQueryBuilder.View.WinForms.CriteriaBuilder.CriteriaBuilder CBuilder;
@@ -1255,5 +1273,6 @@ namespace FullFeaturedMdiDemo
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.CheckBox checkBoxAutoRefresh;
+        private System.Windows.Forms.Button buttonExportExcelFlexCel;
     }
 }

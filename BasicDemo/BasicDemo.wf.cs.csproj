@@ -1,37 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<AssemblyName>BasicDemo.wf.cs</AssemblyName>
-		<AssemblyTitle>$(AssemblyName)</AssemblyTitle>
-		<Description>Active Query Builder 3 Basic Demo</Description>
-		<RootNamespace>BasicDemo</RootNamespace>
+  <PropertyGroup>
+    <AssemblyName>BasicDemo.wf.cs</AssemblyName>
+    <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
+    <Description>Active Query Builder 3 Basic Demo</Description>
+    <RootNamespace>BasicDemo</RootNamespace>
 
-		<TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
-		<OutputType>WinExe</OutputType>
-		<ApplicationIcon>App.ico</ApplicationIcon>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-	</PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\GeneralAssembly\GeneralAssembly.wf.cs.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.wf.cs.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Update="Northwind.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Update="Northwind.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
-	<ItemGroup>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
-		<None Update="Properties\Settings.settings">
-			<Generator>SettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
 </Project>

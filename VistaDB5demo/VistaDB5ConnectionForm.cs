@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -21,38 +21,38 @@ using VistaDB.Provider;
 
 namespace VistaDB5demo
 {
-	public partial class VistaDB5ConnectionForm : Form
-	{
-		public string ConnectionString = "";
+    public partial class VistaDB5ConnectionForm : Form
+    {
+        public string ConnectionString = "";
 
 
-		public VistaDB5ConnectionForm()
-		{
-			InitializeComponent();
-		}
+        public VistaDB5ConnectionForm()
+        {
+            InitializeComponent();
+        }
 
-		private void buttonBrowse_Click(object sender, EventArgs e)
-		{
-			if (openFileDialog1.ShowDialog() == DialogResult.OK)
-			{
-				textboxDatabase.Text = openFileDialog1.FileName;
-			}
-		}
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textboxDatabase.Text = openFileDialog1.FileName;
+            }
+        }
 
-		private void buttonConnect_Click(object sender, EventArgs e)
-		{
-			
-			VistaDBConnectionStringBuilder builder = new VistaDBConnectionStringBuilder();
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            
+            VistaDBConnectionStringBuilder builder = new VistaDBConnectionStringBuilder();
 
-			builder.DataSource = textboxDatabase.Text;
-			builder.OpenMode = VistaDB.VistaDBDatabaseOpenMode.NonexclusiveReadOnly;
+            builder.DataSource = textboxDatabase.Text;
+            builder.OpenMode = VistaDB.VistaDBDatabaseOpenMode.NonexclusiveReadOnly;
 
-			if (textboxPassword.Text.Length > 0)
-			{
-				builder.Password = textboxPassword.Text;
-			}
+            if (textboxPassword.Text.Length > 0)
+            {
+                builder.Password = textboxPassword.Text;
+            }
 
-			this.ConnectionString = builder.ConnectionString;
-		}
-	}
+            this.ConnectionString = builder.ConnectionString;
+        }
+    }
 }

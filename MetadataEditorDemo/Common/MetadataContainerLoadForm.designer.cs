@@ -1,20 +1,20 @@
 namespace MetadataEditorDemo.Common
 {
-	partial class MetadataContainerLoadForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class MetadataContainerLoadForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.bBack = new System.Windows.Forms.Button();
@@ -99,14 +99,14 @@ namespace MetadataEditorDemo.Common
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-		private System.Windows.Forms.Panel panelBottom;
-		private System.Windows.Forms.Button bBack;
-		private System.Windows.Forms.Button bNext;
-		private System.Windows.Forms.Button bCancel;
-	}
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.Button bBack;
+        private System.Windows.Forms.Button bNext;
+        private System.Windows.Forms.Button bCancel;
+    }
 }

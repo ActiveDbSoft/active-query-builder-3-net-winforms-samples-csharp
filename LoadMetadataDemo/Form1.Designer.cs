@@ -2,34 +2,34 @@ using System.Windows.Forms;
 
 namespace LoadMetadataDemo
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess1 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
@@ -455,36 +455,36 @@ namespace LoadMetadataDemo
             this.tabPageDataset.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.OpenFileDialog openMetadataFileDialog;
-		private System.Windows.Forms.SaveFileDialog saveMetadataFileDialog;
-		private System.Windows.Forms.ImageList imageList16;
+        private System.Windows.Forms.OpenFileDialog openMetadataFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveMetadataFileDialog;
+        private System.Windows.Forms.ImageList imageList16;
 
-		private ActiveQueryBuilder.Core.EventMetadataProvider way3EventMetadataProvider;
-		private System.Windows.Forms.MenuStrip mainMenu1;
-		private System.Windows.Forms.ToolStripMenuItem menuItem1;
-		private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
-		private System.Windows.Forms.SplitContainer splitContainer1;
-		private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPageExecSql;
-		private System.Windows.Forms.TabPage tabPageOnDemand;
-		private System.Windows.Forms.Button btnFirstWay;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.Button btnThirdWay;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.TabPage tabPageDirect;
-		private System.Windows.Forms.Button btnFourthWay;
-		private System.Windows.Forms.TextBox textBox5;
-		private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
-		private System.Windows.Forms.TabPage tabPageDataset;
-		private System.Windows.Forms.Button btnFifthWay;
-		private System.Windows.Forms.TextBox textBox6;
+        private ActiveQueryBuilder.Core.EventMetadataProvider way3EventMetadataProvider;
+        private System.Windows.Forms.MenuStrip mainMenu1;
+        private System.Windows.Forms.ToolStripMenuItem menuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageExecSql;
+        private System.Windows.Forms.TabPage tabPageOnDemand;
+        private System.Windows.Forms.Button btnFirstWay;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnThirdWay;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TabPage tabPageDirect;
+        private System.Windows.Forms.Button btnFourthWay;
+        private System.Windows.Forms.TextBox textBox5;
+        private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
+        private System.Windows.Forms.TabPage tabPageDataset;
+        private System.Windows.Forms.Button btnFifthWay;
+        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.ToolStripMenuItem menuItemConnect;
     }
 }

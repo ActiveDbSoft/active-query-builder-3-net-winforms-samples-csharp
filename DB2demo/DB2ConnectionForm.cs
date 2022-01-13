@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -23,30 +23,30 @@ using IBM.Data.DB2;
 
 namespace DB2demo
 {
-	public partial class DB2ConnectionForm : Form
-	{
-		public string ConnectionString = "";
+    public partial class DB2ConnectionForm : Form
+    {
+        public string ConnectionString = "";
 
 
-		public DB2ConnectionForm()
-		{
-			InitializeComponent();
-		}
+        public DB2ConnectionForm()
+        {
+            InitializeComponent();
+        }
 
-		private void buttonConnect_Click(object sender, EventArgs e)
-		{
-			DB2ConnectionStringBuilder builder = new DB2ConnectionStringBuilder();
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            DB2ConnectionStringBuilder builder = new DB2ConnectionStringBuilder();
 
-			builder.Server = textboxServer.Text;
-			builder.Database = textboxDatabase.Text;
-			builder.UserID = textboxUser.Text;
+            builder.Server = textboxServer.Text;
+            builder.Database = textboxDatabase.Text;
+            builder.UserID = textboxUser.Text;
 
-			if (textboxPassword.Text.Length > 0)
-			{
-				builder.Password = textboxPassword.Text;
-			}
+            if (textboxPassword.Text.Length > 0)
+            {
+                builder.Password = textboxPassword.Text;
+            }
 
-			this.ConnectionString = builder.ConnectionString;
-		}
-	}
+            this.ConnectionString = builder.ConnectionString;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -21,43 +21,43 @@ using FirebirdSql.Data.FirebirdClient;
 
 namespace FirebirdDemo
 {
-	public partial class FirebirdConnectionForm : Form
-	{
-		public string ConnectionString = "";
+    public partial class FirebirdConnectionForm : Form
+    {
+        public string ConnectionString = "";
 
 
-		public FirebirdConnectionForm()
-		{
-			InitializeComponent();
-		}
+        public FirebirdConnectionForm()
+        {
+            InitializeComponent();
+        }
 
-		private void buttonBrowse_Click(object sender, EventArgs e)
-		{
-			if (openFileDialog1.ShowDialog() == DialogResult.OK)
-			{
-				textboxDatabase.Text = openFileDialog1.FileName;
-			}
-		}
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textboxDatabase.Text = openFileDialog1.FileName;
+            }
+        }
 
-		private void buttonConnect_Click(object sender, EventArgs e)
-		{
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
 
-			FbConnectionStringBuilder builder = new FbConnectionStringBuilder();
+            FbConnectionStringBuilder builder = new FbConnectionStringBuilder();
 
-			builder.DataSource = textboxServer.Text;
-			builder.Database = textboxDatabase.Text;
-			
-			if (textboxUser.Text.Length > 0)
-			{
-				builder.UserID = textboxUser.Text;
-			}
+            builder.DataSource = textboxServer.Text;
+            builder.Database = textboxDatabase.Text;
+            
+            if (textboxUser.Text.Length > 0)
+            {
+                builder.UserID = textboxUser.Text;
+            }
 
-			if (textboxPassword.Text.Length > 0)
-			{
-				builder.Password = textboxPassword.Text;
-			}
+            if (textboxPassword.Text.Length > 0)
+            {
+                builder.Password = textboxPassword.Text;
+            }
 
-			this.ConnectionString = builder.ConnectionString;
-		}
-	}
+            this.ConnectionString = builder.ConnectionString;
+        }
+    }
 }

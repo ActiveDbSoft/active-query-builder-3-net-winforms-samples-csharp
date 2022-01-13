@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -92,7 +92,7 @@ namespace CustomColumnsDemo
             if (e.RowIndex < ((DataGridView)sender).RowCount - 1)
             {
                 // Make cell editable
-                e.Cancel = false; // Set true if you need read-only cell.			
+                e.Cancel = false; // Set true if you need read-only cell.
             }
         }
 
@@ -109,7 +109,7 @@ namespace CustomColumnsDemo
                 e.Value = _customValuesProvider[e.RowIndex];
 
                 // If you need to access to the low level data item, use the following:
-                //				QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
+                // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
             }
         }
 
@@ -124,7 +124,7 @@ namespace CustomColumnsDemo
             _customValuesProvider[e.RowIndex] = (string) e.Value;
 
             // If you need to access to the low level data item, use the following:
-            //				QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
+            // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[e.RowIndex];
         }
 
         private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -149,7 +149,7 @@ namespace CustomColumnsDemo
             MessageBox.Show(string.Format("Button at row {0} clicked.", dataGridView.CurrentCell.RowIndex));
 
             // If you need to access to the low level data item, use the following:
-            //			QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[dataGridView.CurrentCell.RowIndex];
+            // QueryColumnListItem item = queryBuilder1.ActiveUnionSubQuery.QueryColumnList[dataGridView.CurrentCell.RowIndex];
         }
     }
 }

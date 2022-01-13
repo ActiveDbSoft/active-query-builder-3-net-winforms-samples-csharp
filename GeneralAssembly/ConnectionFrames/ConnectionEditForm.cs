@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -16,112 +16,112 @@ using ActiveQueryBuilder.Core;
 
 namespace GeneralAssembly.ConnectionFrames
 {
-	public partial class ConnectionEditForm : Form
-	{
-		private readonly ConnectionInfo _connectionInfo;
-		private ConnectionFrameBase _currentConnectionFrame;
+    public partial class ConnectionEditForm : Form
+    {
+        private readonly ConnectionInfo _connectionInfo;
+        private ConnectionFrameBase _currentConnectionFrame;
         private bool _isLockUpdate = false;
 
-		public ConnectionEditForm(ConnectionInfo connectionInfo)
-		{
-			InitializeComponent();
+        public ConnectionEditForm(ConnectionInfo connectionInfo)
+        {
+            InitializeComponent();
 
-			Debug.Assert(connectionInfo != null);
+            Debug.Assert(connectionInfo != null);
 
-			_connectionInfo = connectionInfo;
-			tbConnectionName.Text = connectionInfo.Name;
+            _connectionInfo = connectionInfo;
+            tbConnectionName.Text = connectionInfo.Name;
 
-			if (!String.IsNullOrEmpty(connectionInfo.ConnectionString))
-			{
-				Text = "Edit Connection";
+            if (!String.IsNullOrEmpty(connectionInfo.ConnectionString))
+            {
+                Text = "Edit Connection";
 
-				if (!connectionInfo.IsXmlFile)
-				{
-					rbMSSQL.Enabled = (connectionInfo.Type == ConnectionTypes.MSSQL);
-					rbMSAccess.Enabled = (connectionInfo.Type == ConnectionTypes.MSAccess);
-					rbOracle.Enabled = (connectionInfo.Type == ConnectionTypes.Oracle);
-					rbMySQL.Enabled = (connectionInfo.Type == ConnectionTypes.MySQL);
-					rbPostrgeSQL.Enabled = (connectionInfo.Type == ConnectionTypes.PostgreSQL);
-					rbOLEDB.Enabled = (connectionInfo.Type == ConnectionTypes.OLEDB);
-					rbODBC.Enabled = (connectionInfo.Type == ConnectionTypes.ODBC);
-				}
-			}
+                if (!connectionInfo.IsXmlFile)
+                {
+                    rbMSSQL.Enabled = (connectionInfo.Type == ConnectionTypes.MSSQL);
+                    rbMSAccess.Enabled = (connectionInfo.Type == ConnectionTypes.MSAccess);
+                    rbOracle.Enabled = (connectionInfo.Type == ConnectionTypes.Oracle);
+                    rbMySQL.Enabled = (connectionInfo.Type == ConnectionTypes.MySQL);
+                    rbPostrgeSQL.Enabled = (connectionInfo.Type == ConnectionTypes.PostgreSQL);
+                    rbOLEDB.Enabled = (connectionInfo.Type == ConnectionTypes.OLEDB);
+                    rbODBC.Enabled = (connectionInfo.Type == ConnectionTypes.ODBC);
+                }
+            }
 
-			if (connectionInfo.IsXmlFile)
-			{
-				rbOLEDB.Enabled = false;
-				rbODBC.Enabled = false;
-			}
+            if (connectionInfo.IsXmlFile)
+            {
+                rbOLEDB.Enabled = false;
+                rbODBC.Enabled = false;
+            }
 
-			rbMSSQL.Checked = (connectionInfo.Type == ConnectionTypes.MSSQL);
-			rbMSAccess.Checked = (connectionInfo.Type == ConnectionTypes.MSAccess);
-			rbOracle.Checked = (connectionInfo.Type == ConnectionTypes.Oracle);
-			rbMySQL.Checked = (connectionInfo.Type == ConnectionTypes.MySQL);
-			rbPostrgeSQL.Checked = (connectionInfo.Type == ConnectionTypes.PostgreSQL);
-			rbOLEDB.Checked = (connectionInfo.Type == ConnectionTypes.OLEDB);
-			rbODBC.Checked = (connectionInfo.Type == ConnectionTypes.ODBC);
+            rbMSSQL.Checked = (connectionInfo.Type == ConnectionTypes.MSSQL);
+            rbMSAccess.Checked = (connectionInfo.Type == ConnectionTypes.MSAccess);
+            rbOracle.Checked = (connectionInfo.Type == ConnectionTypes.Oracle);
+            rbMySQL.Checked = (connectionInfo.Type == ConnectionTypes.MySQL);
+            rbPostrgeSQL.Checked = (connectionInfo.Type == ConnectionTypes.PostgreSQL);
+            rbOLEDB.Checked = (connectionInfo.Type == ConnectionTypes.OLEDB);
+            rbODBC.Checked = (connectionInfo.Type == ConnectionTypes.ODBC);
 
-			SetActiveConnectionTypeFrame();
+            SetActiveConnectionTypeFrame();
 
-			rbMSSQL.CheckedChanged += ConnectionTypeChanged;
-			rbMSAccess.CheckedChanged += ConnectionTypeChanged;
-			rbOracle.CheckedChanged += ConnectionTypeChanged;
-			rbMySQL.CheckedChanged += ConnectionTypeChanged;
-			rbPostrgeSQL.CheckedChanged += ConnectionTypeChanged;
-			rbOLEDB.CheckedChanged += ConnectionTypeChanged;
-			rbODBC.CheckedChanged += ConnectionTypeChanged;
+            rbMSSQL.CheckedChanged += ConnectionTypeChanged;
+            rbMSAccess.CheckedChanged += ConnectionTypeChanged;
+            rbOracle.CheckedChanged += ConnectionTypeChanged;
+            rbMySQL.CheckedChanged += ConnectionTypeChanged;
+            rbPostrgeSQL.CheckedChanged += ConnectionTypeChanged;
+            rbOLEDB.CheckedChanged += ConnectionTypeChanged;
+            rbODBC.CheckedChanged += ConnectionTypeChanged;
             FillSyntax();
-			Application.Idle += Application_Idle;
-		}
+            Application.Idle += Application_Idle;
+        }
 
-		private void SetActiveConnectionTypeFrame()
-		{
-			if (_currentConnectionFrame != null)
-			{
-				_currentConnectionFrame.Dispose();
-				_currentConnectionFrame = null;
-			}
+        private void SetActiveConnectionTypeFrame()
+        {
+            if (_currentConnectionFrame != null)
+            {
+                _currentConnectionFrame.Dispose();
+                _currentConnectionFrame = null;
+            }
 
-			if (!_connectionInfo.IsXmlFile)
-			{
-				switch (_connectionInfo.Type)
-				{
-					case ConnectionTypes.MSSQL:
-						_currentConnectionFrame = new MSSQLConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.MSAccess:
-						_currentConnectionFrame = new MSAccessConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.Oracle:
-						_currentConnectionFrame = new OracleConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.MySQL:
-						_currentConnectionFrame = new MySQLConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.PostgreSQL:
-						_currentConnectionFrame = new PostgreSQLConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.OLEDB:
-						_currentConnectionFrame = new OLEDBConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-					case ConnectionTypes.ODBC:
-						_currentConnectionFrame = new ODBCConnectionFrame(_connectionInfo.ConnectionString);
-						break;
-				}
-			}
-			else
-			{
-				_currentConnectionFrame = new XmlFileFrame(_connectionInfo.ConnectionString);
-			}
+            if (!_connectionInfo.IsXmlFile)
+            {
+                switch (_connectionInfo.Type)
+                {
+                    case ConnectionTypes.MSSQL:
+                        _currentConnectionFrame = new MSSQLConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.MSAccess:
+                        _currentConnectionFrame = new MSAccessConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.Oracle:
+                        _currentConnectionFrame = new OracleConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.MySQL:
+                        _currentConnectionFrame = new MySQLConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.PostgreSQL:
+                        _currentConnectionFrame = new PostgreSQLConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.OLEDB:
+                        _currentConnectionFrame = new OLEDBConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                    case ConnectionTypes.ODBC:
+                        _currentConnectionFrame = new ODBCConnectionFrame(_connectionInfo.ConnectionString);
+                        break;
+                }
+            }
+            else
+            {
+                _currentConnectionFrame = new XmlFileFrame(_connectionInfo.ConnectionString);
+            }
 
-			if (_currentConnectionFrame != null)
-			{
-				_currentConnectionFrame.Dock = DockStyle.Fill;
-				_currentConnectionFrame.Parent = pnlFrames;
-			}
-		}
+            if (_currentConnectionFrame != null)
+            {
+                _currentConnectionFrame.Dock = DockStyle.Fill;
+                _currentConnectionFrame.Parent = pnlFrames;
+            }
+        }
 
-		private void ConnectionTypeChanged(object sender, EventArgs e)
+        private void ConnectionTypeChanged(object sender, EventArgs e)
         {
             if (((RadioButton)sender).Checked != true) return;
 
@@ -195,22 +195,22 @@ namespace GeneralAssembly.ConnectionFrames
                                         _connectionInfo.Type == ConnectionTypes.OLEDB;
 
             FillSyntax();
-		}
+        }
 
-		private void Application_Idle(object sender, EventArgs e)
-		{
-			btnOk.Enabled = (tbConnectionName.Text.Length > 0);
-		}
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            btnOk.Enabled = (tbConnectionName.Text.Length > 0);
+        }
 
-		private void ConnectionEditForm_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			if (DialogResult == DialogResult.OK)
-			{
-				if (_currentConnectionFrame != null &&
-				    _currentConnectionFrame.TestConnection())
-				{
-					_connectionInfo.Name = tbConnectionName.Text;
-					_connectionInfo.ConnectionString = _currentConnectionFrame.ConnectionString;
+        private void ConnectionEditForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult == DialogResult.OK)
+            {
+                if (_currentConnectionFrame != null &&
+                    _currentConnectionFrame.TestConnection())
+                {
+                    _connectionInfo.Name = tbConnectionName.Text;
+                    _connectionInfo.ConnectionString = _currentConnectionFrame.ConnectionString;
                     if (!_connectionInfo.IsXmlFile)
                     {
                         //previous version of this demo uses deprecated System.Data.OracleClient
@@ -224,13 +224,13 @@ namespace GeneralAssembly.ConnectionFrames
                     }
 
                     e.Cancel = false;
-				}
-				else
-				{
-					e.Cancel = true;
-				}
-			}
-		}
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
 
         private void FillSyntax()
         {
@@ -874,5 +874,5 @@ namespace GeneralAssembly.ConnectionFrames
             }
         }
 
-	}
+    }
 }

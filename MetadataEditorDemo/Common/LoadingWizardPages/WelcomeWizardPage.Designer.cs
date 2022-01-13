@@ -1,20 +1,20 @@
 namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
-	partial class WelcomeWizardPage
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class WelcomeWizardPage
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lWelcome = new System.Windows.Forms.Label();
@@ -107,15 +107,15 @@ namespace MetadataEditorDemo.Common.LoadingWizardPages
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Label lWelcome;
-		public System.Windows.Forms.CheckBox cbClearBeforeLoading;
-		private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lWelcome;
+        public System.Windows.Forms.CheckBox cbClearBeforeLoading;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNextToContinue;
     }
 }

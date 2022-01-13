@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.Dailogs
+namespace GeneralAssembly.Dailogs
 {
     partial class SaveAsForm
     {

@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -15,83 +15,83 @@ using ActiveQueryBuilder.Core;
 
 namespace GeneralAssembly.QueryBuilderProperties
 {
-	[ToolboxItem(false)]
-	internal partial class GeneralPage : UserControl
-	{
-	    private readonly SQLFormattingOptions _sqlFormattingOptions;
+    [ToolboxItem(false)]
+    internal partial class GeneralPage : UserControl
+    {
+        private readonly SQLFormattingOptions _sqlFormattingOptions;
 
-		public bool Modified { get; set; }
+        public bool Modified { get; set; }
 
 
-	    public GeneralPage(SQLFormattingOptions sqlFormattingOptions)
+        public GeneralPage(SQLFormattingOptions sqlFormattingOptions)
         {
             Modified = false;
             _sqlFormattingOptions = sqlFormattingOptions;
 
-			InitializeComponent();
+            InitializeComponent();
 
-			cbWordWrap.Checked = (_sqlFormattingOptions.RightMargin != 0);
-			updownRightMargin.Enabled = cbWordWrap.Checked;
+            cbWordWrap.Checked = (_sqlFormattingOptions.RightMargin != 0);
+            updownRightMargin.Enabled = cbWordWrap.Checked;
 
-			updownRightMargin.Value = _sqlFormattingOptions.RightMargin == 0 ? 
-				80 : _sqlFormattingOptions.RightMargin;
+            updownRightMargin.Value = _sqlFormattingOptions.RightMargin == 0 ? 
+                80 : _sqlFormattingOptions.RightMargin;
 
-			comboKeywordsCasing.Items.Add("Capitalized");
-			comboKeywordsCasing.Items.Add("Uppercase");
-			comboKeywordsCasing.Items.Add("Lowercase");
+            comboKeywordsCasing.Items.Add("Capitalized");
+            comboKeywordsCasing.Items.Add("Uppercase");
+            comboKeywordsCasing.Items.Add("Lowercase");
 
             comboKeywordsCasing.SelectedIndex = (int) _sqlFormattingOptions.KeywordFormat;
 
-			cbWordWrap.CheckedChanged += checkWordWrap_CheckedChanged;
-			updownRightMargin.ValueChanged += updownRightMargin_ValueChanged;
-			comboKeywordsCasing.SelectedIndexChanged += comboKeywordsCasing_SelectedIndexChanged;
-		}
+            cbWordWrap.CheckedChanged += checkWordWrap_CheckedChanged;
+            updownRightMargin.ValueChanged += updownRightMargin_ValueChanged;
+            comboKeywordsCasing.SelectedIndexChanged += comboKeywordsCasing_SelectedIndexChanged;
+        }
 
-		protected override void Dispose(bool disposing)
-		{
-			cbWordWrap.CheckedChanged -= checkWordWrap_CheckedChanged;
-			updownRightMargin.ValueChanged -= updownRightMargin_ValueChanged;
-			comboKeywordsCasing.SelectedIndexChanged -= comboKeywordsCasing_SelectedIndexChanged;
+        protected override void Dispose(bool disposing)
+        {
+            cbWordWrap.CheckedChanged -= checkWordWrap_CheckedChanged;
+            updownRightMargin.ValueChanged -= updownRightMargin_ValueChanged;
+            comboKeywordsCasing.SelectedIndexChanged -= comboKeywordsCasing_SelectedIndexChanged;
 
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
 
-			base.Dispose(disposing);
-		}
+            base.Dispose(disposing);
+        }
 
-		void comboKeywordsCasing_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			Modified = true;
-		}
+        void comboKeywordsCasing_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Modified = true;
+        }
 
-		private void checkWordWrap_CheckedChanged(object sender, EventArgs e)
-		{
-			updownRightMargin.Enabled = cbWordWrap.Checked;
-			Modified = true;
-		}
+        private void checkWordWrap_CheckedChanged(object sender, EventArgs e)
+        {
+            updownRightMargin.Enabled = cbWordWrap.Checked;
+            Modified = true;
+        }
 
-		private void updownRightMargin_ValueChanged(object sender, EventArgs e)
-		{
-			Modified = true;			
-		}
+        private void updownRightMargin_ValueChanged(object sender, EventArgs e)
+        {
+            Modified = true;            
+        }
 
-		public void ApplyChanges()
-		{
-			if (this.Modified)
-			{
-				if (cbWordWrap.Checked)
-				{
-					_sqlFormattingOptions.RightMargin = (int)updownRightMargin.Value;
-				}
-				else
-				{
-					_sqlFormattingOptions.RightMargin = 0; 
-				}
+        public void ApplyChanges()
+        {
+            if (this.Modified)
+            {
+                if (cbWordWrap.Checked)
+                {
+                    _sqlFormattingOptions.RightMargin = (int)updownRightMargin.Value;
+                }
+                else
+                {
+                    _sqlFormattingOptions.RightMargin = 0; 
+                }
 
-				_sqlFormattingOptions.KeywordFormat = (KeywordFormat) comboKeywordsCasing.SelectedIndex;
-			}
-		}		
-	}
+                _sqlFormattingOptions.KeywordFormat = (KeywordFormat) comboKeywordsCasing.SelectedIndex;
+            }
+        }        
+    }
 }

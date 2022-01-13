@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -23,9 +23,9 @@ namespace AlternateNames
         private int _errorPosition = -1;
         private int _errorPositionReal = -1;
         public Form1()
-		{
-			InitializeComponent();
-		}
+        {
+            InitializeComponent();
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -34,13 +34,19 @@ namespace AlternateNames
 
             try
             {
-				// Load demo metadata from XML file
+                // tune QueryBuilder to normalize tables/fields names mentioned in SQL queries
+                // when this setting is true QueryBuilder replaces all names to "canonical" names returned by the server's database schema
+                // when this setting is false QueryBuilder tries to preserve names as they are written in a query text
+                // to demonstrate AltNames feature turn this setting to true
+                queryBuilder1.SQLFormattingOptions.ObjectNamesNormalization = true;
+
+                // Load demo metadata from XML file
                 queryBuilder1.MetadataLoadingOptions.OfflineMode = true;
                 queryBuilder1.MetadataContainer.ImportFromXML("db2_sample_with_alt_names.xml");
                 queryBuilder1.InitializeDatabaseSchemaTree();
 
-				// set example query text
-	            queryBuilder1.SQL = "Select DEPARTMENT.DEPTNO, DEPARTMENT.DEPTNAME, DEPARTMENT.MGRNO From DEPARTMENT";
+                // set example query text
+                queryBuilder1.SQL = "Select DEPARTMENT.DEPTNO, DEPARTMENT.DEPTNAME, DEPARTMENT.MGRNO From DEPARTMENT";
             }
             catch (QueryBuilderException ex)
             {
@@ -50,76 +56,76 @@ namespace AlternateNames
             base.OnLoad(e);
         }
 
-		private void queryBuilder_SQLUpdated(object sender, EventArgs e)
-		{
-			// Text of SQL query has been updated.
+        private void queryBuilder_SQLUpdated(object sender, EventArgs e)
+        {
+            // Text of SQL query has been updated.
 
-			// To get the formatted query text with alternate object names just use FormattedSQL property
-			_lastValidText = textBox1.Text = queryBuilder1.FormattedSQL;
+            // To get the formatted query text with alternate object names just use FormattedSQL property
+            _lastValidText = textBox1.Text = queryBuilder1.FormattedSQL;
 
-			// To get the query text, ready for execution on SQL server with real object names just use SQL property.
+            // To get the query text, ready for execution on SQL server with real object names just use SQL property.
             _lastValidTextReal = textBox2.Text = queryBuilder1.SQL;
 
             // The query text containing in SQL property is unformatted. If you need the formatted text, but with real object names, 
             // do the following:
-            //			SQLFormattingOptions formattingOptions = new SQLFormattingOptions();
-            //			formattingOptions.Assign(queryBuilder1.SQLFormattingOptions); // copy actual formatting options from the QueryBuilder
-            //			formattingOptions.UseAltNames = false; // disable alt names
-            //			textBox2.Text = FormattedSQLBuilder.GetSQL(queryBuilder1.SQLQuery.QueryRoot, formattingOptions);
+            //            SQLFormattingOptions formattingOptions = new SQLFormattingOptions();
+            //            formattingOptions.Assign(queryBuilder1.SQLFormattingOptions); // copy actual formatting options from the QueryBuilder
+            //            formattingOptions.UseAltNames = false; // disable alt names
+            //            textBox2.Text = FormattedSQLBuilder.GetSQL(queryBuilder1.SQLQuery.QueryRoot, formattingOptions);
         }
-		
-		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
-				// Update the query builder with manually edited query text:
-				queryBuilder1.SQL = textBox1.Text;
+        
+        private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Update the query builder with manually edited query text:
+                queryBuilder1.SQL = textBox1.Text;
 
-				// Hide error banner if any
+                // Hide error banner if any
                 errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				textBox1.SelectionStart = ex.ErrorPos.pos;
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                textBox1.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBox1.Show(ex.Message, queryBuilder1.SyntaxProvider);
                 _errorPosition = ex.ErrorPos.pos;
             }
-		}
+        }
 
-		private void textBox2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
-				// Update the query builder with manually edited query text:
-				queryBuilder1.SQL = textBox2.Text;
+        private void textBox2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Update the query builder with manually edited query text:
+                queryBuilder1.SQL = textBox2.Text;
 
                 // Hide error banner if any
                 errorBox2.Show(null, queryBuilder1.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				textBox2.SelectionStart = ex.ErrorPos.pos;
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                textBox2.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBox2.Show(ex.Message, queryBuilder1.SyntaxProvider);
                 _errorPositionReal = ex.ErrorPos.pos;
             }
-		}
+        }
 
-		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
-		}
+        private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open the metadata container editor
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
+        }
 
-		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			QueryBuilder.ShowAboutDialog();
-		}
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QueryBuilder.ShowAboutDialog();
+        }
 
         private void ErrorBox2_GoToErrorPosition(object sender, EventArgs e)
         {

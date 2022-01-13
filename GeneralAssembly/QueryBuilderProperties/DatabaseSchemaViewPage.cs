@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -19,7 +19,7 @@ using ActiveQueryBuilder.View.WinForms;
 
 namespace GeneralAssembly.QueryBuilderProperties
 {
-	[ToolboxItem(false)]
+    [ToolboxItem(false)]
     internal partial class DatabaseSchemaViewPage : UserControl
     {
         private readonly QueryBuilder _queryBuilder;

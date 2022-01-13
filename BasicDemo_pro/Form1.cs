@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -20,67 +20,67 @@ using BuildInfo = ActiveQueryBuilder.Core.BuildInfo;
 
 namespace BasicDemo
 {
-	public partial class Form1 : Form
-	{
+    public partial class Form1 : Form
+    {
         private string _lastValidSql;
         private int _errorPosition = -1;
 
         public Form1()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
             Icon = GeneralAssembly.ResourceHelpers.GetResourceIcon("App");
 
-		    queryBuilder1.ActiveUnionSubQueryChanged += delegate
-		    {
-		        sqlTextEditor1.ExpressionContext = queryBuilder1.ActiveUnionSubQuery;
-		    };
+            queryBuilder1.ActiveUnionSubQueryChanged += delegate
+            {
+                sqlTextEditor1.ExpressionContext = queryBuilder1.ActiveUnionSubQuery;
+            };
             dataViewer1.SqlQuery = queryBuilder1.SQLQuery;
 
             // DEMO WARNING
-		    if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
-		    {
-		        Panel trialNoticePanel = new Panel
-		        {
-		            AutoSize = true,
-		            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-		            BackColor = Color.LightGreen,
-		            BorderStyle = BorderStyle.FixedSingle,
-		            Dock = DockStyle.Top,
-		            Padding = new Padding(6, 5, 3, 0),
-		        };
+            if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
+            {
+                Panel trialNoticePanel = new Panel
+                {
+                    AutoSize = true,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    BackColor = Color.LightGreen,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Dock = DockStyle.Top,
+                    Padding = new Padding(6, 5, 3, 0),
+                };
 
-		        Label label = new Label
-		        {
-		            AutoSize = true,
-		            Margin = new Padding(0),
-		            Text =
-		                @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
-		            Dock = DockStyle.Fill,
-		            UseCompatibleTextRendering = true
-		        };
+                Label label = new Label
+                {
+                    AutoSize = true,
+                    Margin = new Padding(0),
+                    Text =
+                        @"Generation of random aliases for the query output columns is the limitation of the trial version. The full version is free from this behavior.",
+                    Dock = DockStyle.Fill,
+                    UseCompatibleTextRendering = true
+                };
 
-		        var buttonClose = new PictureBox
-		        {
-		            Image = GeneralAssembly.Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand
-		        };
-		        buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
+                var buttonClose = new PictureBox
+                {
+                    Image = GeneralAssembly.Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand
+                };
+                buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
 
-		        trialNoticePanel.Controls.Add(buttonClose);
+                trialNoticePanel.Controls.Add(buttonClose);
 
-		        trialNoticePanel.Resize += delegate
-		        {
-		            buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10,
-		                trialNoticePanel.Height / 2 - buttonClose.Height / 2);
-		        };
+                trialNoticePanel.Resize += delegate
+                {
+                    buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10,
+                        trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+                };
 
-		        trialNoticePanel.Controls.Add(label);
-		        Controls.Add(trialNoticePanel);
+                trialNoticePanel.Controls.Add(label);
+                Controls.Add(trialNoticePanel);
 
-		        Controls.SetChildIndex(trialNoticePanel, 2);
-		    }
+                Controls.SetChildIndex(trialNoticePanel, 2);
+            }
 
-		    Load += Form1_Load;
+            Load += Form1_Load;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -92,87 +92,87 @@ namespace BasicDemo
         }
 
         private void refreshMetadataMenuItem_Click(object sender, EventArgs e)
-		{
-			// Force the query builder to refresh metadata from current connection
-			// to refresh metadata, just clear MetadataContainer and reinitialize metadata tree
+        {
+            // Force the query builder to refresh metadata from current connection
+            // to refresh metadata, just clear MetadataContainer and reinitialize metadata tree
 
-			if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
-			{
-				queryBuilder1.ClearMetadata();
-				queryBuilder1.InitializeDatabaseSchemaTree();
-			}
-		}
+            if (queryBuilder1.MetadataProvider != null && queryBuilder1.MetadataProvider.Connected)
+            {
+                queryBuilder1.ClearMetadata();
+                queryBuilder1.InitializeDatabaseSchemaTree();
+            }
+        }
 
-		private void editMetadataMenuItem_Click(object sender, EventArgs e)
-		{
-			// Open the metadata container editor
-		    QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
-		}
+        private void editMetadataMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open the metadata container editor
+            QueryBuilder.EditMetadataContainer(queryBuilder1.SQLContext);
+        }
 
-		private void clearMetadataMenuItem_Click(object sender, EventArgs e)
-		{
-			// Clear the metadata
-			if (MessageBox.Show(@"Clear Metadata Container?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
-			{
-				queryBuilder1.ClearMetadata();
-			}
-		}
+        private void clearMetadataMenuItem_Click(object sender, EventArgs e)
+        {
+            // Clear the metadata
+            if (MessageBox.Show(@"Clear Metadata Container?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                queryBuilder1.ClearMetadata();
+            }
+        }
 
-		private void loadMetadataFromXMLMenuItem_Click(object sender, EventArgs e)
-		{
-			// Load metadata from XML file
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				queryBuilder1.MetadataLoadingOptions.OfflineMode = true;
-				queryBuilder1.MetadataContainer.ImportFromXML(openFileDialog.FileName);
-				queryBuilder1.InitializeDatabaseSchemaTree();
-			}
-		}
+        private void loadMetadataFromXMLMenuItem_Click(object sender, EventArgs e)
+        {
+            // Load metadata from XML file
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                queryBuilder1.MetadataLoadingOptions.OfflineMode = true;
+                queryBuilder1.MetadataContainer.ImportFromXML(openFileDialog.FileName);
+                queryBuilder1.InitializeDatabaseSchemaTree();
+            }
+        }
 
-		private void saveMetadataToXMLMenuItem_Click(object sender, EventArgs e)
-		{
-			// Save metadata to XML file
-			saveFileDialog.FileName = "Metadata.xml";
+        private void saveMetadataToXMLMenuItem_Click(object sender, EventArgs e)
+        {
+            // Save metadata to XML file
+            saveFileDialog.FileName = "Metadata.xml";
 
-			if (saveFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				queryBuilder1.MetadataContainer.LoadAll(true);
-				queryBuilder1.MetadataContainer.ExportToXML(saveFileDialog.FileName);
-			}
-		}
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                queryBuilder1.MetadataContainer.LoadAll(true);
+                queryBuilder1.MetadataContainer.ExportToXML(saveFileDialog.FileName);
+            }
+        }
 
-		private void aboutMenuItem_Click(object sender, EventArgs e)
-		{
-			QueryBuilder.ShowAboutDialog();
-		}
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            QueryBuilder.ShowAboutDialog();
+        }
 
-		private void queryBuilder_SQLUpdated(object sender, EventArgs e)
-		{
-			// Handle the event raised by SQL Builder object that the text of SQL query is changed
+        private void queryBuilder_SQLUpdated(object sender, EventArgs e)
+        {
+            // Handle the event raised by SQL Builder object that the text of SQL query is changed
 
-			// Hide error banner if any
+            // Hide error banner if any
             errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             _lastValidSql = queryBuilder1.FormattedSQL;
 
             // update the text box
             sqlTextEditor1.Text = queryBuilder1.FormattedSQL;
-		
+        
             // Try to execute the query using current database connection:
             if (tabControl1.SelectedTab == tabPageData)
                 ExecuteQuery();
         }
 
         public void ResetQueryBuilder()
-		{
-			queryBuilder1.ClearMetadata();
-			queryBuilder1.MetadataProvider = null;
-			queryBuilder1.SyntaxProvider = null;
-			queryBuilder1.MetadataLoadingOptions.OfflineMode = false;
-		}
+        {
+            queryBuilder1.ClearMetadata();
+            queryBuilder1.MetadataProvider = null;
+            queryBuilder1.SyntaxProvider = null;
+            queryBuilder1.MetadataLoadingOptions.OfflineMode = false;
+        }
 
-	    private void menuItem5_Click(object sender, EventArgs e)
-	    {	        
-	        using (var connectionForm = new ConnectionForm())
+        private void menuItem5_Click(object sender, EventArgs e)
+        {            
+            using (var connectionForm = new ConnectionForm())
             {
                 if (connectionForm.ShowDialog() != DialogResult.OK) return;
                 try
@@ -190,62 +190,62 @@ namespace BasicDemo
         }
 
         private void fillProgrammaticallyMenuItem_Click(object sender, EventArgs e)
-		{
-			ResetQueryBuilder();
+        {
+            ResetQueryBuilder();
 
-			// Fill the query builder metadata programmatically
+            // Fill the query builder metadata programmatically
 
-			// setup the query builder with metadata and syntax providers
-			queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
-			queryBuilder1.MetadataLoadingOptions.OfflineMode = true; // prevent querying obejects from database
+            // setup the query builder with metadata and syntax providers
+            queryBuilder1.SyntaxProvider = genericSyntaxProvider1;
+            queryBuilder1.MetadataLoadingOptions.OfflineMode = true; // prevent querying obejects from database
 
-			// create database and schema
-			MetadataNamespace database = queryBuilder1.MetadataContainer.AddDatabase("MyDB");
-			database.Default = true;
-			MetadataNamespace schema = database.AddSchema("MySchema");
-			schema.Default = true;
+            // create database and schema
+            MetadataNamespace database = queryBuilder1.MetadataContainer.AddDatabase("MyDB");
+            database.Default = true;
+            MetadataNamespace schema = database.AddSchema("MySchema");
+            schema.Default = true;
 
-			// create table
-			MetadataObject tableOrders = schema.AddTable("Orders");
-			tableOrders.AddField("OrderID");
-			tableOrders.AddField("OrderDate");
-			tableOrders.AddField("CustomerID");
-			tableOrders.AddField("ResellerID");
+            // create table
+            MetadataObject tableOrders = schema.AddTable("Orders");
+            tableOrders.AddField("OrderID");
+            tableOrders.AddField("OrderDate");
+            tableOrders.AddField("CustomerID");
+            tableOrders.AddField("ResellerID");
 
-			// create another table
-			MetadataObject tableCustomers = schema.AddTable("Customers");
-			tableCustomers.AddField("CustomerID");
-			tableCustomers.AddField("CustomerName");
-			tableCustomers.AddField("CustomerAddress");
+            // create another table
+            MetadataObject tableCustomers = schema.AddTable("Customers");
+            tableCustomers.AddField("CustomerID");
+            tableCustomers.AddField("CustomerName");
+            tableCustomers.AddField("CustomerAddress");
 
-			// add a relation between these two tables
-			MetadataForeignKey relation = tableCustomers.AddForeignKey("FK_CustomerID");
-			relation.Fields.Add("CustomerID");
-			relation.ReferencedObjectName = tableOrders.GetQualifiedName();
-			relation.ReferencedFields.Add("CustomerID");
+            // add a relation between these two tables
+            MetadataForeignKey relation = tableCustomers.AddForeignKey("FK_CustomerID");
+            relation.Fields.Add("CustomerID");
+            relation.ReferencedObjectName = tableOrders.GetQualifiedName();
+            relation.ReferencedFields.Add("CustomerID");
 
-			//create view
-			MetadataObject viewResellers = schema.AddView("Resellers");
-			viewResellers.AddField("ResellerID");
-			viewResellers.AddField("ResellerName");
+            //create view
+            MetadataObject viewResellers = schema.AddView("Resellers");
+            viewResellers.AddField("ResellerID");
+            viewResellers.AddField("ResellerName");
 
-			// kick the query builder to fill metadata tree
-			queryBuilder1.InitializeDatabaseSchemaTree();
+            // kick the query builder to fill metadata tree
+            queryBuilder1.InitializeDatabaseSchemaTree();
 
-			WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
-		}
+            WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
+        }
 
-		private void sqlTextEditor1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
+        private void sqlTextEditor1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
                 // Update the query builder with manually edited query text:
                 queryBuilder1.SQL = sqlTextEditor1.Text;
 
-				// Hide error banner if any
-				errorBox1.Show(null, queryBuilder1.SyntaxProvider);
+                // Hide error banner if any
+                errorBox1.Show(null, queryBuilder1.SyntaxProvider);
             }
-			catch (Exception ex)
+            catch (Exception ex)
             {
                 var parsingException = ex as SQLParsingException;
                 if (parsingException == null) return;
@@ -255,23 +255,23 @@ namespace BasicDemo
                 // Show banner with error text
                 errorBox1.Show(parsingException.Message, queryBuilder1.SyntaxProvider);
             }
-		}
+        }
 
-		private void tabControl1_Selected(object sender, TabControlEventArgs e)
-		{
-			// Move the input focus to the query builder.
-			// This will fire Leave event in the text box and update the query builder
-			// with modified query text.
-			queryBuilder1.Focus();
-			Application.DoEvents();
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            // Move the input focus to the query builder.
+            // This will fire Leave event in the text box and update the query builder
+            // with modified query text.
+            queryBuilder1.Focus();
+            Application.DoEvents();
 
-			// Try to execute the query using current database connection:
+            // Try to execute the query using current database connection:
 
-			if (e.TabPage == tabPageData)
-			{
-			    ExecuteQuery();
-			}
-		}
+            if (e.TabPage == tabPageData)
+            {
+                ExecuteQuery();
+            }
+        }
 
         private void ExecuteQuery()
         {
@@ -279,70 +279,70 @@ namespace BasicDemo
         }
 
         private void propertiesMenuItem_Click(object sender, EventArgs e)
-		{
-			// Show Properties form
-			using (QueryBuilderPropertiesForm f = new QueryBuilderPropertiesForm(queryBuilder1))
-			{
-				f.ShowDialog();
-			}
+        {
+            // Show Properties form
+            using (QueryBuilderPropertiesForm f = new QueryBuilderPropertiesForm(queryBuilder1))
+            {
+                f.ShowDialog();
+            }
 
-			WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
-		}
+            WarnAboutGenericSyntaxProvider(); // show warning (just for demonstration purposes)
+        }
 
-		private void queryStatisticsMenuItem_Click(object sender, EventArgs e)
-		{
-			QueryStatistics queryStatistics = queryBuilder1.QueryStatistics;
-			StringBuilder builder = new StringBuilder();
+        private void queryStatisticsMenuItem_Click(object sender, EventArgs e)
+        {
+            QueryStatistics queryStatistics = queryBuilder1.QueryStatistics;
+            StringBuilder builder = new StringBuilder();
 
-			builder.Append("Used Objects (").Append(queryStatistics.UsedDatabaseObjects.Count).AppendLine("):");
-			builder.AppendLine();
+            builder.Append("Used Objects (").Append(queryStatistics.UsedDatabaseObjects.Count).AppendLine("):");
+            builder.AppendLine();
 
-			for (int i = 0; i < queryStatistics.UsedDatabaseObjects.Count; i++)
-				builder.AppendLine(queryStatistics.UsedDatabaseObjects[i].ObjectName.QualifiedName);
+            for (int i = 0; i < queryStatistics.UsedDatabaseObjects.Count; i++)
+                builder.AppendLine(queryStatistics.UsedDatabaseObjects[i].ObjectName.QualifiedName);
 
-			builder.AppendLine().AppendLine();
-			builder.Append("Used Columns (").Append(queryStatistics.UsedDatabaseObjectFields.Count).AppendLine("):");
-			builder.AppendLine();
+            builder.AppendLine().AppendLine();
+            builder.Append("Used Columns (").Append(queryStatistics.UsedDatabaseObjectFields.Count).AppendLine("):");
+            builder.AppendLine();
 
-			for (int i = 0; i < queryStatistics.UsedDatabaseObjectFields.Count; i++)
-				builder.AppendLine(queryStatistics.UsedDatabaseObjectFields[i].FullName.QualifiedName);
+            for (int i = 0; i < queryStatistics.UsedDatabaseObjectFields.Count; i++)
+                builder.AppendLine(queryStatistics.UsedDatabaseObjectFields[i].FullName.QualifiedName);
 
-			builder.AppendLine().AppendLine();
-			builder.Append("Output Expressions (").Append(queryStatistics.OutputColumns.Count).AppendLine("):");
-			builder.AppendLine();
+            builder.AppendLine().AppendLine();
+            builder.Append("Output Expressions (").Append(queryStatistics.OutputColumns.Count).AppendLine("):");
+            builder.AppendLine();
 
-			for (int i = 0; i < queryStatistics.OutputColumns.Count; i++)
-				builder.AppendLine(queryStatistics.OutputColumns[i].Expression);
+            for (int i = 0; i < queryStatistics.OutputColumns.Count; i++)
+                builder.AppendLine(queryStatistics.OutputColumns[i].Expression);
 
-			using (QueryStatisticsForm f = new QueryStatisticsForm())
-			{
-				f.textBox.Text = builder.ToString();
-				f.ShowDialog();
-			}
-		}
+            using (QueryStatisticsForm f = new QueryStatisticsForm())
+            {
+                f.textBox.Text = builder.ToString();
+                f.ShowDialog();
+            }
+        }
 
-		// show warning (just for demonstration purposes)
+        // show warning (just for demonstration purposes)
 
-		private void WarnAboutGenericSyntaxProvider()
-		{
-			if (queryBuilder1.SyntaxProvider is GenericSyntaxProvider)
-			{
-				panel1.Visible = true;
+        private void WarnAboutGenericSyntaxProvider()
+        {
+            if (queryBuilder1.SyntaxProvider is GenericSyntaxProvider)
+            {
+                panel1.Visible = true;
 
-				// setup the panel to hide automatically
-				Timer timer = new System.Windows.Forms.Timer();
-				timer.Tick += TimerEvent;
-				timer.Interval = 10000;
-				timer.Start();
-			}
-		}
+                // setup the panel to hide automatically
+                Timer timer = new System.Windows.Forms.Timer();
+                timer.Tick += TimerEvent;
+                timer.Interval = 10000;
+                timer.Start();
+            }
+        }
 
-		private void TimerEvent(Object source, EventArgs args)
-		{
-			panel1.Visible = false;
-			((Timer) source).Stop();
-			((Timer) source).Dispose();
-		}
+        private void TimerEvent(Object source, EventArgs args)
+        {
+            panel1.Visible = false;
+            ((Timer) source).Stop();
+            ((Timer) source).Dispose();
+        }
 
         private void queryBuilder1_QueryAwake(QueryRoot sender, ref bool abort)
         {

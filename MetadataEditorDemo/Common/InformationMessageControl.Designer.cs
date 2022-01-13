@@ -1,4 +1,4 @@
-﻿
+
 namespace MetadataEditorDemo.Common
 {
     partial class InformationMessageControl

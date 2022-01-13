@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -27,9 +27,9 @@ namespace QueryTransformerCoreDemo
         private SQLQuery _sqlQuery;
         private QueryTransformer _queryTransformer;
 
-		// List of query output columns of the current SQL query used for turning their visibility on and off
+        // List of query output columns of the current SQL query used for turning their visibility on and off
         private readonly List<string> _sourceCodeTransformer = new List<string>();
-		
+        
         public Form1()
         {
             InitializeComponent();
@@ -87,7 +87,7 @@ namespace QueryTransformerCoreDemo
 
         private void LoadData()
         {
-			// Clear the input fields
+            // Clear the input fields
             ClearFieldsSorting();
             ClearFieldsAggregate();
             ClearFieldsWhere();
@@ -104,15 +104,15 @@ namespace QueryTransformerCoreDemo
             _sourceCodeTransformer.Clear();
             _sourceCodeTransformer.Add("_queryTransformer");
 
-			// Set counter values
+            // Set counter values
             CounterSortings.Text = _queryTransformer.Sortings.Count.ToString();
             CounterAggregations.Text = _queryTransformer.Aggregations.Count.ToString();
             CounterFilters.Text = _queryTransformer.Filters.Count.ToString();
 
-			// Load a query into the SQLQuery object. 
+            // Load a query into the SQLQuery object. 
             _sqlQuery.SQL = BoxSourceSql.Text;
 
-			// Fill the list of output columns to be used as ItemsSource for a combobox
+            // Fill the list of output columns to be used as ItemsSource for a combobox
             foreach (var column in _queryTransformer.Columns)
             {
                 var columnSource = new CustomColumn(column);
@@ -130,7 +130,7 @@ namespace QueryTransformerCoreDemo
 
         private void _queryTransformer_SQLUpdated(object sender, EventArgs e)
         {
-			// Get the transformed SQL query text
+            // Get the transformed SQL query text
             BoxResultSql.Text = _queryTransformer.SQL;
         }
 
@@ -152,7 +152,7 @@ namespace QueryTransformerCoreDemo
 
         private void ButtonLoad_Click(object sender, EventArgs e)
         {
-			// Load a query and updating the form controls
+            // Load a query and updating the form controls
             LoadData();
         }
 
@@ -176,7 +176,7 @@ namespace QueryTransformerCoreDemo
                 _queryTransformer.Columns.IndexOf(column),
                 (ComboBoxSortings.SelectedItem.ToString() == "Asc").ToString().ToLower());
 
-			// Add sorting to the query - the sort order of original query will be overridden.
+            // Add sorting to the query - the sort order of original query will be overridden.
             _queryTransformer.OrderBy(sortedColumn);
 
             CounterSortings.Text = _queryTransformer.Sortings.Count.ToString();
@@ -188,11 +188,11 @@ namespace QueryTransformerCoreDemo
 
         private void ButtonClearSortings_Click(object sender, EventArgs e)
         {
-			// Remove the added sortings from the query - the original sort order will be restored.
+            // Remove the added sortings from the query - the original sort order will be restored.
             _queryTransformer.Sortings.Clear();
-			
+            
             ClearFieldsSorting();
-			
+            
             CounterSortings.Text = _queryTransformer.Sortings.Count.ToString();
 
             for (var i = 0; i < _sourceCodeTransformer.Count; i++)
@@ -231,8 +231,8 @@ namespace QueryTransformerCoreDemo
             var text = string.Format("\t.Select(_queryTransformer.Columns[{0}].{1}())",
                 _queryTransformer.Columns.IndexOf(column), ComboBoxAggregations.SelectedItem);
             _sourceCodeTransformer.Add(text);
-			
-			// Add an aggregate to the query - if any aggregates are added, all other columns will be removed from the query.
+            
+            // Add an aggregate to the query - if any aggregates are added, all other columns will be removed from the query.
             _queryTransformer.Aggregations.Add(aggregatedColumn);
             CounterAggregations.Text = _queryTransformer.Aggregations.Count.ToString();
 
@@ -241,7 +241,7 @@ namespace QueryTransformerCoreDemo
 
         private void ButtonClearAggregates_Click(object sender, EventArgs e)
         {
-			// Clear all aggregates from the query - the columns of original query will be restored.
+            // Clear all aggregates from the query - the columns of original query will be restored.
             ClearFieldsAggregate();
             _queryTransformer.Aggregations.Clear();
             CounterAggregations.Text = _queryTransformer.Aggregations.Count.ToString();
@@ -338,7 +338,7 @@ namespace QueryTransformerCoreDemo
                     break;
             }
 
-			// Add new filter to the query - the filter will be added to the WHERE clause of original query.
+            // Add new filter to the query - the filter will be added to the WHERE clause of original query.
             _queryTransformer.Filters.Add(condition);
             CounterFilters.Text = _queryTransformer.Filters.Count.ToString();
 
@@ -352,10 +352,10 @@ namespace QueryTransformerCoreDemo
         private void ButtonClearWhere_Click(object sender, EventArgs e)
         {
             ClearFieldsWhere();
-			
-			// Remove all additional filters from query - the original WHERE clause will be restored.
+            
+            // Remove all additional filters from query - the original WHERE clause will be restored.
             _queryTransformer.Filters.Clear();
-			
+            
             CounterFilters.Text = _queryTransformer.Filters.Count.ToString();
 
             for (var i = 0; i < _sourceCodeTransformer.Count; i++)

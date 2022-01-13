@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -15,8 +15,8 @@ using GeneralAssembly;
 
 namespace LoadMetadataDemo
 {
-	internal static class Program
-	{
+    internal static class Program
+    {
         public static ConnectionList Connections = new ConnectionList();
         public static ConnectionList XmlFiles = new ConnectionList();
 
@@ -24,16 +24,16 @@ namespace LoadMetadataDemo
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-		private static void Main()
-		{
+        private static void Main()
+        {
             // Catch ungandled exceptions for debugging purposes
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Thread_UnhandledException;
 
             Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
-		}
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

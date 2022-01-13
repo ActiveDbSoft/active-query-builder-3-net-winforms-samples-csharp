@@ -1,4 +1,4 @@
-﻿using ExpressionEditorDemo.Common;
+using ExpressionEditorDemo.Common;
 
 namespace ExpressionEditorDemo
 {

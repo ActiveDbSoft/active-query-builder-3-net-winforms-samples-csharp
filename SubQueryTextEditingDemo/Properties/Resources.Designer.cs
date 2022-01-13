@@ -1,4 +1,4 @@
-﻿namespace SubQueryTextEditingDemo.Properties {
+namespace SubQueryTextEditingDemo.Properties {
     using System;
   
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]

@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.Common
+namespace GeneralAssembly.Common
 {
     partial class SqlErrorBox
     {
@@ -15,7 +15,7 @@
 
         private void InitializeComponent()
         {
-            this.labelMessage = new GrowLabel();
+            this.labelMessage = new GeneralAssembly.Common.GrowLabel();
             this.panelCheckSyntax = new System.Windows.Forms.Panel();
             this.comboBoxSyntaxProvider = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -99,7 +99,7 @@
             this.linkLabelRevert.Text = "Get back to the previous valid query text";
             this.linkLabelRevert.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRevert_LinkClicked);
             // 
-            // ErrorBox
+            // SqlErrorBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,7 +110,7 @@
             this.Controls.Add(this.linkLabelGoTo);
             this.Controls.Add(this.panelCheckSyntax);
             this.Controls.Add(this.labelMessage);
-            this.Name = "ErrorBox";
+            this.Name = "SqlErrorBox";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(354, 87);
             this.panelCheckSyntax.ResumeLayout(false);

@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -79,7 +79,11 @@ namespace GeneralAssembly
             typeof(OLEDBConnectionDescriptor),
             typeof(SQLiteConnectionDescriptor),
             typeof(FirebirdConnectionDescriptor),
+            typeof(VistaDB5ConnectionDescriptor),
+            typeof(DB2ConnectionDescriptor),
+            typeof(AdvantageConnectionDescriptor),
             typeof(SybaseConnectionDescriptor),
+            typeof(InformixConnectionDescriptor),
         };
 
         public static readonly List<string> ConnectionDescriptorNames = new List<string>
@@ -99,8 +103,7 @@ namespace GeneralAssembly
             "DB2",
             "Advantage",
             "Sybase",
-            "Informix",
-            "MSSQLCE"
+            "Informix"
         };
     }
 
@@ -121,8 +124,7 @@ namespace GeneralAssembly
         DB2,
         Advantage,
         Sybase,
-        Informix,
-        MSSQLCE
+        Informix
     }
 
     [Serializable]
@@ -328,7 +330,7 @@ namespace GeneralAssembly
         {
             try
             {
-                switch (Type)
+                 switch (Type)
                 {
                     case ConnectionTypes.MSAccess:
                         ConnectionDescriptor = new MSAccessConnectionDescriptor();
@@ -363,10 +365,21 @@ namespace GeneralAssembly
                     case ConnectionTypes.Excel:
                         ConnectionDescriptor = new ExcelConnectionDescriptor();
                         return;
+                    case ConnectionTypes.Advantage:
+                        ConnectionDescriptor = new AdvantageConnectionDescriptor();
+                        break;
                     case ConnectionTypes.Sybase:
                         ConnectionDescriptor = new SybaseConnectionDescriptor();
                         break;
-
+                    case ConnectionTypes.VistaDB5:
+                        ConnectionDescriptor = new VistaDB5ConnectionDescriptor();
+                        break;
+                    case ConnectionTypes.DB2:
+                        ConnectionDescriptor = new DB2ConnectionDescriptor();
+                        break;
+                    case ConnectionTypes.Informix:
+                        ConnectionDescriptor = new InformixConnectionDescriptor();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -379,29 +392,69 @@ namespace GeneralAssembly
         public ConnectionTypes GetConnectionType(Type descriptorType)
         {
             if (descriptorType == typeof(MSAccessConnectionDescriptor))
+            {
                 return ConnectionTypes.MSAccess;
+            }
             if (descriptorType == typeof(ExcelConnectionDescriptor))
+            {
                 return ConnectionTypes.Excel;
+            }
             if (descriptorType == typeof(PostgreSQLConnectionDescriptor))
+            {
                 return ConnectionTypes.PostgreSQL;
+            }
             if (descriptorType == typeof(MSSQLConnectionDescriptor))
+            {
                 return ConnectionTypes.MSSQL;
+            }
             if (descriptorType == typeof(MSSQLAzureConnectionDescriptor))
+            {
                 return ConnectionTypes.MSSQLAzure;
+            }
             if (descriptorType == typeof(MySQLConnectionDescriptor))
+            {
                 return ConnectionTypes.MySQL;
+            }
             if (descriptorType == typeof(OracleNativeConnectionDescriptor))
+            {
                 return ConnectionTypes.OracleNative;
+            }
             if (descriptorType == typeof(ODBCConnectionDescriptor))
+            {
                 return ConnectionTypes.ODBC;
+            }
             if (descriptorType == typeof(OLEDBConnectionDescriptor))
+            {
                 return ConnectionTypes.OLEDB;
+            }
             if (descriptorType == typeof(FirebirdConnectionDescriptor))
+            {
                 return ConnectionTypes.Firebird;
+            }
             if (descriptorType == typeof(SQLiteConnectionDescriptor))
+            {
                 return ConnectionTypes.SQLite;
+            }
+            if (descriptorType == typeof(AdvantageConnectionDescriptor))
+            {
+                return ConnectionTypes.Advantage;
+            }
             if (descriptorType == typeof(SybaseConnectionDescriptor))
+            {
                 return ConnectionTypes.Sybase;
+            }
+            if (descriptorType == typeof(VistaDB5ConnectionDescriptor))
+            {
+                return ConnectionTypes.VistaDB5;
+            }
+            if (descriptorType == typeof(DB2ConnectionDescriptor))
+            {
+                return ConnectionTypes.DB2;
+            }
+            if (descriptorType == typeof(InformixConnectionDescriptor))
+            {
+                return ConnectionTypes.Informix;
+            }
 
             return ConnectionTypes.MSSQL;
         }

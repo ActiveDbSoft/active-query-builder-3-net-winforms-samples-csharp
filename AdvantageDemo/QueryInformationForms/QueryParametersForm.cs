@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -14,33 +14,33 @@ using System.Windows.Forms;
 
 namespace AdvantageDemo.QueryInformationForms
 {
-	public partial class QueryParametersForm : Form
-	{
-		private readonly DbCommand _command;
+    public partial class QueryParametersForm : Form
+    {
+        private readonly DbCommand _command;
 
-		public QueryParametersForm(DbCommand command)
-		{
-			_command = command;
+        public QueryParametersForm(DbCommand command)
+        {
+            _command = command;
 
-			InitializeComponent();
+            InitializeComponent();
 
-			for (int i = 0; i < _command.Parameters.Count; i++)
-			{
-				DbParameter p = _command.Parameters[i];
+            for (int i = 0; i < _command.Parameters.Count; i++)
+            {
+                DbParameter p = _command.Parameters[i];
 
-				grid.Rows.Add();
-				grid.Rows[i].Cells[0].Value = p.ParameterName;
-				grid.Rows[i].Cells[1].Value = p.DbType;
-			    grid.Rows[i].Cells[2].Value = p.Value;
+                grid.Rows.Add();
+                grid.Rows[i].Cells[0].Value = p.ParameterName;
+                grid.Rows[i].Cells[1].Value = p.DbType;
+                grid.Rows[i].Cells[2].Value = p.Value;
             }
-		}
+        }
 
-		private void buttonOk_Click(object sender, EventArgs e)
-		{
-			for (int i = 0; i < _command.Parameters.Count; i++)
-			{
-				_command.Parameters[i].Value = grid.Rows[i].Cells[2].Value;
-			}
-		}
-	}
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < _command.Parameters.Count; i++)
+            {
+                _command.Parameters[i].Value = grid.Rows[i].Cells[2].Value;
+            }
+        }
+    }
 }

@@ -1,20 +1,20 @@
 namespace GeneralAssembly.QueryBuilderProperties
 {
-	partial class DatabaseSchemaViewPage
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class DatabaseSchemaViewPage
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.lblGroupObjectsBy = new System.Windows.Forms.Label();
             this.cbGroupByServers = new System.Windows.Forms.CheckBox();
             this.cbGroupByDatabases = new System.Windows.Forms.CheckBox();
@@ -154,19 +154,19 @@ namespace GeneralAssembly.QueryBuilderProperties
             this.Size = new System.Drawing.Size(400, 314);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Label lblGroupObjectsBy;
-		private System.Windows.Forms.CheckBox cbGroupByServers;
-		private System.Windows.Forms.CheckBox cbGroupByDatabases;
-		private System.Windows.Forms.CheckBox cbGroupBySchemas;
-		private System.Windows.Forms.CheckBox cbGroupByTypes;
-		private System.Windows.Forms.CheckBox cbShowFields;
-		private System.Windows.Forms.Label lblSortObjectsBy;
-		private System.Windows.Forms.ComboBox cmbSortObjectsBy;
-		private System.Windows.Forms.Label lblDefaultExpandLevel;
+        private System.Windows.Forms.Label lblGroupObjectsBy;
+        private System.Windows.Forms.CheckBox cbGroupByServers;
+        private System.Windows.Forms.CheckBox cbGroupByDatabases;
+        private System.Windows.Forms.CheckBox cbGroupBySchemas;
+        private System.Windows.Forms.CheckBox cbGroupByTypes;
+        private System.Windows.Forms.CheckBox cbShowFields;
+        private System.Windows.Forms.Label lblSortObjectsBy;
+        private System.Windows.Forms.ComboBox cmbSortObjectsBy;
+        private System.Windows.Forms.Label lblDefaultExpandLevel;
         private Common.CheckComboBox cbDefaultExpandType;
     }
 }

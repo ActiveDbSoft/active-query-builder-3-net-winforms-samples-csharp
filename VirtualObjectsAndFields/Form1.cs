@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -16,8 +16,8 @@ using ActiveQueryBuilder.View.WinForms;
 
 namespace VirtualObjectsAndFields
 {
-	public partial class Form1 : Form
-	{
+    public partial class Form1 : Form
+    {
         private int _errorPosition = -1;
         private string _lastValidSql;
 
@@ -25,98 +25,98 @@ namespace VirtualObjectsAndFields
         private string _lastValidSqlReal;
 
         public Form1()
-		{
-			InitializeComponent();
-		}
+        {
+            InitializeComponent();
+        }
 
-		protected override void OnLoad(EventArgs e)
-		{
-			// Set required syntax provider
-			queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
+        protected override void OnLoad(EventArgs e)
+        {
+            // Set required syntax provider
+            queryBuilder.SyntaxProvider = new MSSQLSyntaxProvider();
 
-			try
-			{
-				// Load metadata from XML file (for demonstration purposes)
-				queryBuilder.MetadataLoadingOptions.OfflineMode = true;
-				queryBuilder.MetadataContainer.ImportFromXML("Northwind.xml");
+            try
+            {
+                // Load metadata from XML file (for demonstration purposes)
+                queryBuilder.MetadataLoadingOptions.OfflineMode = true;
+                queryBuilder.MetadataContainer.ImportFromXML("Northwind.xml");
 
-				// ===========================================================================
-				// CREATE VIRTUAL DATABASE OBJECTS AND FIELDS
-				// ===========================================================================
+                // ===========================================================================
+                // CREATE VIRTUAL DATABASE OBJECTS AND FIELDS
+                // ===========================================================================
 
-				queryBuilder.MetadataContainer.BeginUpdate();
+                queryBuilder.MetadataContainer.BeginUpdate();
 
-			    MetadataObject o;
-				MetadataField f;
+                MetadataObject o;
+                MetadataField f;
 
-				// Virtual fields for real object
-				// ===========================================================================
+                // Virtual fields for real object
+                // ===========================================================================
 
-				o = queryBuilder.MetadataContainer.FindItem<MetadataObject>("Orders");
-				Debug.Assert(o != null);
+                o = queryBuilder.MetadataContainer.FindItem<MetadataObject>("Orders");
+                Debug.Assert(o != null);
 
-				// first test field - simple expression
-				f = o.AddField("_OrderId_plus_1");
-				f.Expression = "orders.OrderId + 1";
+                // first test field - simple expression
+                f = o.AddField("_OrderId_plus_1");
+                f.Expression = "orders.OrderId + 1";
 
-				// second test field - correlated sub-query
-				f = o.AddField("_CustomerName");
-				f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = orders.CustomerId)";
+                // second test field - correlated sub-query
+                f = o.AddField("_CustomerName");
+                f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = orders.CustomerId)";
 
-				// Virtual object (table) with virtual fields
-				// ===========================================================================
+                // Virtual object (table) with virtual fields
+                // ===========================================================================
 
                 // find parent "dbo" node 
                 MetadataNamespace dboSchemaNode = queryBuilder.MetadataContainer.FindItem<MetadataNamespace>("dbo", MetadataType.Namespaces);
 
                 o = dboSchemaNode.AddTable("Orders_tbl");
-				o.Expression = "Orders";
+                o.Expression = "Orders";
 
-				// first test field - simple expression
-				f = o.AddField("_tbl_OrderId_plus_1");
-				f.Expression = "Orders_tbl.OrderId + 1";
+                // first test field - simple expression
+                f = o.AddField("_tbl_OrderId_plus_1");
+                f.Expression = "Orders_tbl.OrderId + 1";
 
-				// second test field - correlated sub-query
-				f = o.AddField("_tbl_CustomerName");
-				f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = Orders_tbl.CustomerId)";
+                // second test field - correlated sub-query
+                f = o.AddField("_tbl_CustomerName");
+                f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = Orders_tbl.CustomerId)";
 
-				// Virtual object (sub-query) with virtual fields
-				// ===========================================================================
+                // Virtual object (sub-query) with virtual fields
+                // ===========================================================================
 
                 o = dboSchemaNode.AddTable("Orders_qry");
-				o.Expression = "(select OrderId, CustomerId, OrderDate from Orders) as dummy_alias";
+                o.Expression = "(select OrderId, CustomerId, OrderDate from Orders) as dummy_alias";
 
-				// first test field - simple expression
-				f = o.AddField("_qry_OrderId_plus_1");
-				f.Expression = "Orders_qry.OrderId + 1";
+                // first test field - simple expression
+                f = o.AddField("_qry_OrderId_plus_1");
+                f.Expression = "Orders_qry.OrderId + 1";
 
-				// second test field - correlated sub-query
-				f = o.AddField("_qry_CustomerName");
-				f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = Orders_qry.CustomerId)";
+                // second test field - correlated sub-query
+                f = o.AddField("_qry_CustomerName");
+                f.Expression = "(select c.CompanyName from Customers c where c.CustomerId = Orders_qry.CustomerId)";
 
-				// kick queryBuilder to initialize its metadata tree
-				queryBuilder.InitializeDatabaseSchemaTree();
+                // kick queryBuilder to initialize its metadata tree
+                queryBuilder.InitializeDatabaseSchemaTree();
 
-				queryBuilder.SQL = "SELECT dummy_alias._qry_OrderId_plus_1, dummy_alias._qry_CustomerName FROM Orders_qry dummy_alias";
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-			finally
-			{
-				queryBuilder.MetadataContainer.EndUpdate();
-			}
+                queryBuilder.SQL = "SELECT dummy_alias._qry_OrderId_plus_1, dummy_alias._qry_CustomerName FROM Orders_qry dummy_alias";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                queryBuilder.MetadataContainer.EndUpdate();
+            }
 
-			base.OnLoad(e);
-		}
+            base.OnLoad(e);
+        }
 
         private void queryBuilder_SQLUpdated(object sender, EventArgs e)
-		{
-			// Text of SQL query has been updated.
-			
-			// Hide error banner if any
-			errorBox1.Show(null, queryBuilder.SyntaxProvider);
+        {
+            // Text of SQL query has been updated.
+            
+            // Hide error banner if any
+            errorBox1.Show(null, queryBuilder.SyntaxProvider);
             errorBoxReal.Show(null, queryBuilder.SyntaxProvider);
 
             // has ExpandVirtualFields and ExpandVirtualObjects properties turned off.
@@ -131,58 +131,58 @@ namespace VirtualObjectsAndFields
             // Set the text of the second text box to the query text containing virtual objects expanded to theirs expressions.
             _lastValidSqlReal = textBox2.Text =
                 sqlFormattingOptions2.GetSQLBuilder().GetSQL(queryBuilder.ActiveUnionSubQuery.QueryRoot);
-		}
+        }
 
-		private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
-				// Update the query builder with manually edited query text:
-				queryBuilder.SQL = textBox1.Text;
+        private void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Update the query builder with manually edited query text:
+                queryBuilder.SQL = textBox1.Text;
 
                 // Hide error banner if any
                 errorBox1.Show(null, queryBuilder.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				_errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                _errorPosition = textBox1.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBox1.Show(ex.Message, queryBuilder.SyntaxProvider);
             }
-		}
+        }
 
-		private void textBox2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try
-			{
-				// Update the query builder with manually edited query text:
-				queryBuilder.SQL = textBox2.Text;
+        private void textBox2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Update the query builder with manually edited query text:
+                queryBuilder.SQL = textBox2.Text;
 
                 // Hide error banner if any
                 errorBoxReal.Show(null, queryBuilder.SyntaxProvider);
             }
-			catch (SQLParsingException ex)
-			{
-				// Set caret to error position
-				textBox2.SelectionStart = ex.ErrorPos.pos;
+            catch (SQLParsingException ex)
+            {
+                // Set caret to error position
+                textBox2.SelectionStart = ex.ErrorPos.pos;
 
                 // Show banner with error text
                 errorBoxReal.Show(ex.Message, queryBuilder.SyntaxProvider);
             }
-		}
+        }
 
-		private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			// Open the metadata container editor
-			QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext);
-		}
+        private void editMetadataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open the metadata container editor
+            QueryBuilder.EditMetadataContainer(queryBuilder.SQLContext);
+        }
 
-		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			QueryBuilder.ShowAboutDialog();
-		}
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QueryBuilder.ShowAboutDialog();
+        }
 
         private void ErrorBox1_GoToErrorPosition(object sender, EventArgs e)
         {

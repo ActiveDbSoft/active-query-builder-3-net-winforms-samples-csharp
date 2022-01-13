@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -26,13 +26,13 @@ using Helpers = ActiveQueryBuilder.View.Helpers;
 
 namespace MetadataEditorDemo.Common
 {
-	public sealed partial class MetadataEditorControl : UserControl, IMetadataEditorView
+    public sealed partial class MetadataEditorControl : UserControl, IMetadataEditorView
     {
-		public event EventHandler LoadStart
-		{
-		    add { _controller.LoadStart += value; }
-		    remove { _controller.LoadStart -= value; }
-		}
+        public event EventHandler LoadStart
+        {
+            add { _controller.LoadStart += value; }
+            remove { _controller.LoadStart -= value; }
+        }
 
         public event EventHandler LoadStep
         {
@@ -46,23 +46,23 @@ namespace MetadataEditorDemo.Common
             remove { _controller.LoadFinish -= value; }
         }
 
-		private SQLContext _sqlContext;
+        private SQLContext _sqlContext;
 
-	    public bool IsChanged
-	    {
-	        get { return _controller.IsChanged; }
-	        set { _controller.IsChanged = value; }
-	    }
+        public bool IsChanged
+        {
+            get { return _controller.IsChanged; }
+            set { _controller.IsChanged = value; }
+        }
 
-	    private readonly InformationMessageControl _messageControl;
+        private readonly InformationMessageControl _messageControl;
 
-		private MetadataEditorOptions _metadataEditorOptions = 0;
-	    private ToolStripDropDown _fillDropDown = null;
-	    private bool _structureTreeVisible = true;
+        private MetadataEditorOptions _metadataEditorOptions = 0;
+        private ToolStripDropDown _fillDropDown = null;
+        private bool _structureTreeVisible = true;
 
-	    public bool OpenContainerLoadFormIfNotConnected { get; set; }
+        public bool OpenContainerLoadFormIfNotConnected { get; set; }
 
-	    private Command _fillStructurePopupOpenCommand;	    
+        private Command _fillStructurePopupOpenCommand;        
 
         private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
         private readonly MetadataEditorController _controller;
@@ -150,62 +150,62 @@ namespace MetadataEditorDemo.Common
             set { _controller.HideVirtualObjects = value; }
         }
 
-	    public bool StructureTreeVisible
-	    {
-	        get { return _structureTreeVisible; }
-	        set
-	        {
-	            if (_structureTreeVisible == value)
-	            {
+        public bool StructureTreeVisible
+        {
+            get { return _structureTreeVisible; }
+            set
+            {
+                if (_structureTreeVisible == value)
+                {
                     return;
-	            }
+                }
 
-	            _structureTreeVisible = value;
-	            splitContainerInner.Panel1Collapsed = !_structureTreeVisible;
-	        }
-	    }
+                _structureTreeVisible = value;
+                splitContainerInner.Panel1Collapsed = !_structureTreeVisible;
+            }
+        }
 
         public MetadataEditorOptions MetadataEditorOptions
-		{
-			get { return _metadataEditorOptions; } 
-			set
-			{
-				if ((value & MetadataEditorOptions.DisableStructurePane) == MetadataEditorOptions.DisableStructurePane
-					&& splitContainerInner.Panel1Collapsed == false)
-				{
-				    StructureTreeVisible = false;
+        {
+            get { return _metadataEditorOptions; } 
+            set
+            {
+                if ((value & MetadataEditorOptions.DisableStructurePane) == MetadataEditorOptions.DisableStructurePane
+                    && splitContainerInner.Panel1Collapsed == false)
+                {
+                    StructureTreeVisible = false;
 
-				}
-				else if ((value & MetadataEditorOptions.DisableStructurePane) == 0
-					&& splitContainerInner.Panel1Collapsed)
-				{
-				    StructureTreeVisible = true;
-				}
-			    
+                }
+                else if ((value & MetadataEditorOptions.DisableStructurePane) == 0
+                    && splitContainerInner.Panel1Collapsed)
+                {
+                    StructureTreeVisible = true;
+                }
+                
                 _metadataEditorOptions = value;
-			}
-		}
+            }
+        }
 
-		public MetadataEditorControl()
-		{
-			InitializeComponent();
+        public MetadataEditorControl()
+        {
+            InitializeComponent();
 
-		    _controller = new MetadataEditorController(this);
+            _controller = new MetadataEditorController(this);
 
             HideVirtualObjects = false;
 
-		    _messageControl = new InformationMessageControl
-		    {
-		        Anchor = (AnchorStyles.Top | AnchorStyles.Left),
-		        BackColor = SystemColors.Control
-		    };
+            _messageControl = new InformationMessageControl
+            {
+                Anchor = (AnchorStyles.Top | AnchorStyles.Left),
+                BackColor = SystemColors.Control
+            };
 
-		    Controls.Add(_messageControl);
+            Controls.Add(_messageControl);
 
-		    _messageControl.FixIssueEvent += MessageControl_FixIssueEvent;
+            _messageControl.FixIssueEvent += MessageControl_FixIssueEvent;
             _messageControl.Closing += MessageControl_Closing;
 
-		    propertiesBar.InformationMessageHost = this;
+            propertiesBar.InformationMessageHost = this;
 
             treeDatabaseSchema.Options.DefaultExpandMetadataType |= MetadataType.Root;
             treeStructure.Options.DefaultExpandMetadataType |= MetadataType.Root;
@@ -214,39 +214,39 @@ namespace MetadataEditorDemo.Common
             treeStructure.Options.DefaultExpandFolderNodes = true;
 
             SubscribeLocalizableStrings();
-		    CreateAndBindCommands();
+            CreateAndBindCommands();
         }
 
         private void MessageControl_Closing(object sender, EventArgs eventArgs)
-	    {
+        {
             _controller.SetCurrentError(null);
 
-	        var element = _messageControl.Owner as ISupportFocusOnError;
+            var element = _messageControl.Owner as ISupportFocusOnError;
             element?.Revert();
         }
 
-	    private void SubscribeLocalizableStrings()
+        private void SubscribeLocalizableStrings()
         {
             _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.ShowHideMetadataStructureTreeToolTip.Subscribe(x =>toolTip1.SetToolTip(splitContainerOuter, x)));
             _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.DatabaseSchemaCaption.Subscribe(x => label1.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.MetadataStructureCaption.Subscribe(x => label2.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.PropertiesBarCaption.Subscribe(x => lblHeader.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.MetadataStructureCaption.Subscribe(x => label2.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.PropertiesBarCaption.Subscribe(x => lblHeader.Text = x));
 
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByServer.Subscribe(x => cbGroupByServer.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByDatabase.Subscribe(x => cbGroupByDatabase.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupBySchema.Subscribe(x => cbGroupBySchema.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByTypes.Subscribe(x => cbGroupByTypes.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GenerateObjects.Subscribe(x => cbGenerateObjects.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.StructureWillBeCleared.Subscribe(x => lbWarningFillStructure.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.Common.Proceed.Subscribe(x => btnGenerateStructure.Text = x));
-	        _subscriptions.Add(ActiveQueryBuilder.Core.Localization.Common.Cancel.Subscribe(x => btnCancelGenerate.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByServer.Subscribe(x => cbGroupByServer.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByDatabase.Subscribe(x => cbGroupByDatabase.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupBySchema.Subscribe(x => cbGroupBySchema.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GroupByTypes.Subscribe(x => cbGroupByTypes.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.GenerateObjects.Subscribe(x => cbGenerateObjects.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.StructureWillBeCleared.Subscribe(x => lbWarningFillStructure.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.Common.Proceed.Subscribe(x => btnGenerateStructure.Text = x));
+            _subscriptions.Add(ActiveQueryBuilder.Core.Localization.Common.Cancel.Subscribe(x => btnCancelGenerate.Text = x));
             _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.Sort.Subscribe(x => tsmiSortContainer.Text = x));
             _subscriptions.Add(ActiveQueryBuilder.Core.Localization.MetadataEditor.Sort.Subscribe(x => tsmiSortStructure.Text = x));
         }
 
         private void CreateAndBindCommands()
-	    {
-	        _fillStructurePopupOpenCommand = new Command(miFillFromSchema_Click);
+        {
+            _fillStructurePopupOpenCommand = new Command(miFillFromSchema_Click);
 
             _subscriptions.Add(CommandBinder.Bind(miFillFromSchema, _fillStructurePopupOpenCommand, ActiveQueryBuilder.View.WinForms.Commands.MetadataEditor.FillStructure, x => miFillFromSchema.Enabled = x));
 
@@ -299,26 +299,26 @@ namespace MetadataEditorDemo.Common
             _subscriptions.Add(ActiveQueryBuilder.View.WinForms.Images.Common.Add.Subscribe(x => tsddbAdd.Image = x));
         }
 
-	    public void RefreshContainerTree()
-	    {
+        public void RefreshContainerTree()
+        {
             treeDatabaseSchema.MetadataStructure.Refresh();
-	    }
+        }
 
         public void ShowInformationMessage(object sender, PropertyErrorDescription description)
-	    {
+        {
             _controller.SetCurrentError(description);
 
             if (description == null || !description.IsError)
-	        {
+            {
                 _messageControl.Hide();
-	            return;
-	        }
+                return;
+            }
 
             _messageControl.Owner = sender;
-	        _messageControl.Show(description);
-	        _messageControl.Left = (ClientSize.Width - _messageControl.Width) / 2;
-	        _messageControl.BringToFront();            
-	    }
+            _messageControl.Show(description);
+            _messageControl.Left = (ClientSize.Width - _messageControl.Width) / 2;
+            _messageControl.BringToFront();            
+        }
 
         private void MessageControl_FixIssueEvent(object sender, EventArgs eventArgs)
         {
@@ -369,9 +369,9 @@ namespace MetadataEditorDemo.Common
             _subscriptions.Add(Disposable.Create(() => Resize -= OnResize));
         }
 
-	    private void OnResize(object sender, EventArgs eventArgs)
-	    {
-	        _messageControl.Left = (ClientSize.Width - _messageControl.Width) / 2;
+        private void OnResize(object sender, EventArgs eventArgs)
+        {
+            _messageControl.Left = (ClientSize.Width - _messageControl.Width) / 2;
         }
 
         protected override void Dispose(bool disposing)
@@ -385,76 +385,76 @@ namespace MetadataEditorDemo.Common
             base.Dispose(disposing);
         }
 
-	    private void MenuStructureTree_Opening(object sender, CancelEventArgs cancelEventArgs)
-	    {
-	        var focusedItem = treeStructure.FocusedItem;
-	        tsmiSortStructure.Visible = focusedItem?.Parent != null;
+        private void MenuStructureTree_Opening(object sender, CancelEventArgs cancelEventArgs)
+        {
+            var focusedItem = treeStructure.FocusedItem;
+            tsmiSortStructure.Visible = focusedItem?.Parent != null;
 
             _controller.UpdateStructureCommands();
         }
 
-	    public void StopLoading()
-		{
-			_controller.StopLoading();
-		}
+        public void StopLoading()
+        {
+            _controller.StopLoading();
+        }
 
-	    public bool ConfirmItemDeletion()
-	    {
-	        return MessageBox.Show(
-	                   Helpers.Localizer.GetString("strDeleteItemConfirmation",
-	                       LocalizableConstantsUI.strDeleteItemConfirmation),
-	                   Helpers.Localizer.GetString("strConfirmation", LocalizableConstantsUI.strConfirmation),
-	                   MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes;
+        public bool ConfirmItemDeletion()
+        {
+            return MessageBox.Show(
+                       Helpers.Localizer.GetString("strDeleteItemConfirmation",
+                           LocalizableConstantsUI.strDeleteItemConfirmation),
+                       Helpers.Localizer.GetString("strConfirmation", LocalizableConstantsUI.strConfirmation),
+                       MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes;
 
-	    }
+        }
 
         private void tsbMetadataDelete_Click()
-	    {
-	        if (ConfirmItemDeletion())
-	            _controller.DeleteSelectedContainerItems();
-		}
+        {
+            if (ConfirmItemDeletion())
+                _controller.DeleteSelectedContainerItems();
+        }
 
         private void treeDatabaseSchema_KeyDown(object sender, KeyEventArgs e)
-		{
+        {
             if (ContainerViewReadOnly) return;
             
             switch (e.KeyCode)
-			{
-				case Keys.Delete:
-					tsbMetadataDelete_Click();
-					break;
-				case Keys.Insert:
-					_controller.InsertDefaultContainerItem();
-					break;
-			}
-		}
-
-		void treeDatabaseSchema_GotFocus(object sender, EventArgs e)
-		{
-            _controller.OnContainerItemChanged();
-		}
-
-		void treeDatabaseSchema_DragOver(object sender, DragEventArgs e)
-		{
-			e.Effect = DragDropEffects.None;
-		}
-
-		private void treeStructure_KeyDown(object sender, KeyEventArgs e)
-		{
-			switch (e.KeyCode)
-			{
-				case Keys.Delete:
-				    _controller.DeleteSelectedStructureItems();
+            {
+                case Keys.Delete:
+                    tsbMetadataDelete_Click();
                     break;
-				case Keys.Insert:
+                case Keys.Insert:
+                    _controller.InsertDefaultContainerItem();
+                    break;
+            }
+        }
+
+        void treeDatabaseSchema_GotFocus(object sender, EventArgs e)
+        {
+            _controller.OnContainerItemChanged();
+        }
+
+        void treeDatabaseSchema_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+        }
+
+        private void treeStructure_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    _controller.DeleteSelectedStructureItems();
+                    break;
+                case Keys.Insert:
                     _controller.AddStructureItemToFocused();
                     break;
-			}
-		}
+            }
+        }
 
-		void treeStructure_GotFocus(object sender, EventArgs e)
-		{
-		    _controller.OnStructureItemChanged();
+        void treeStructure_GotFocus(object sender, EventArgs e)
+        {
+            _controller.OnStructureItemChanged();
         }
 
         public void ShowContainerLoadForm()
@@ -462,17 +462,17 @@ namespace MetadataEditorDemo.Common
             _controller.ShowContainerLoadForm();
         }
 
-	    private void miFillFromSchema_Click()
-	    {
+        private void miFillFromSchema_Click()
+        {
             var stripHost = new ToolStripControlHost(popupFillStructure);
             _fillDropDown = new ToolStripDropDown();
             stripHost.Margin = new Padding(0);
-	        _fillDropDown.Padding = new Padding(0);
-	        _fillDropDown.Items.Add(stripHost);
-	        var showPoint = toolStrip4.PointToScreen(miFillFromSchema.Bounds.Location);
-	        showPoint.Y += miFillFromSchema.Bounds.Height;
+            _fillDropDown.Padding = new Padding(0);
+            _fillDropDown.Items.Add(stripHost);
+            var showPoint = toolStrip4.PointToScreen(miFillFromSchema.Bounds.Location);
+            showPoint.Y += miFillFromSchema.Bounds.Height;
 
-	        lbWarningFillStructure.Visible = !_controller.IsStructureEmpty(treeStructure.MetadataStructure);
+            lbWarningFillStructure.Visible = !_controller.IsStructureEmpty(treeStructure.MetadataStructure);
 
             _fillDropDown.Show(showPoint);
         }
@@ -488,10 +488,10 @@ namespace MetadataEditorDemo.Common
             _fillDropDown?.Close();
         }
 
-	    public List<string> ValidateBeforeApply()
-	    {
-	        return _controller.ValidateBeforeApply();
-	    }
+        public List<string> ValidateBeforeApply()
+        {
+            return _controller.ValidateBeforeApply();
+        }
 
         private void tsddbAdd_DropDownOpening(object sender, EventArgs e)
         {

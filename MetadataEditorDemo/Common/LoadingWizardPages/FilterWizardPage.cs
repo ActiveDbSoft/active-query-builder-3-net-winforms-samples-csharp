@@ -1,7 +1,7 @@
 //*******************************************************************//
 //       Active Query Builder Component Suite                        //
 //                                                                   //
-//       Copyright © 2006-2021 Active Database Software              //
+//       Copyright © 2006-2022 Active Database Software              //
 //       ALL RIGHTS RESERVED                                         //
 //                                                                   //
 //       CONSULT THE LICENSE AGREEMENT FOR INFORMATION ON            //
@@ -15,10 +15,10 @@ using ActiveQueryBuilder.Core;
 
 namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
-	[ToolboxItem(false)]
-	internal partial class FilterWizardPage : UserControl
-	{
-	    private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
+    [ToolboxItem(false)]
+    internal partial class FilterWizardPage : UserControl
+    {
+        private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
 
         public bool LoadFileds
         {
@@ -31,17 +31,17 @@ namespace MetadataEditorDemo.Common.LoadingWizardPages
         public bool ShowServer { get; set; }
         public bool ShowDatabase { get; set; }
         public bool ShowSchema { get; set; }
-	    public bool ShowPackage { get; set; }
+        public bool ShowPackage { get; set; }
 
         public List<string> DatabaseList { get; set; }
         public List<string> SchemaList { get; set; }
 
         public FilterWizardPage()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
             Load += FilterWizardPage_Load;
-		}
+        }
         
         protected override void Dispose(bool disposing)
         {

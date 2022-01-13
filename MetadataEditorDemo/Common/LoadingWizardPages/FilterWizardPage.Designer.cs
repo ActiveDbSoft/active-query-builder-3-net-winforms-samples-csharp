@@ -1,20 +1,20 @@
 namespace MetadataEditorDemo.Common.LoadingWizardPages
 {
-	partial class FilterWizardPage
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class FilterWizardPage
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilterWizardPage));
             this.label1 = new System.Windows.Forms.Label();
@@ -117,13 +117,13 @@ namespace MetadataEditorDemo.Common.LoadingWizardPages
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lblLoadToStart;
-		private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblLoadToStart;
+        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.CheckBox cbLoadFields;
         private System.Windows.Forms.Button btnAdvanced;
         private System.Windows.Forms.Label lbInfo;

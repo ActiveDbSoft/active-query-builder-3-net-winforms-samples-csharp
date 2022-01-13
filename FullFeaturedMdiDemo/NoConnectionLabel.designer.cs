@@ -1,4 +1,4 @@
-﻿namespace FullFeaturedMdiDemo
+namespace FullFeaturedMdiDemo
 {
     partial class NoConnectionLabel
     {

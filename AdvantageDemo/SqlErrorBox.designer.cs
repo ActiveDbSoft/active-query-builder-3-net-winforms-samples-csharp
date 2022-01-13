@@ -1,4 +1,4 @@
-﻿namespace AdvantageDemo
+namespace AdvantageDemo
 {
     partial class SqlErrorBox
     {

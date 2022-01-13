@@ -1,33 +1,33 @@
 namespace SybaseDemo
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess linkPainterAccess2 = new ActiveQueryBuilder.View.WinForms.QueryView.LinkPainterAccess();
@@ -394,34 +394,34 @@ namespace SybaseDemo
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPageSQL;
-		private System.Windows.Forms.TabPage tabPageData;
-		private System.Windows.Forms.SplitContainer splitContainer1;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem connectMetadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem refreshMetadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem editMetadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem clearMetadataToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripMenuItem saveToXMLToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem loadFromXMLToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-		private System.Windows.Forms.OpenFileDialog openMetadataFileDialog;
-		private System.Windows.Forms.SaveFileDialog saveMetadataFileDialog;
-		private System.Windows.Forms.ImageList imageList16;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageSQL;
+        private System.Windows.Forms.TabPage tabPageData;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem connectMetadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshMetadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editMetadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearMetadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem saveToXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFromXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openMetadataFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveMetadataFileDialog;
+        private System.Windows.Forms.ImageList imageList16;
         private System.Windows.Forms.ImageList imageList32;
-		private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
-		private ActiveQueryBuilder.Core.SybaseSyntaxProvider sybaseSyntaxProvider1;
-		private ActiveQueryBuilder.Core.SybaseMetadataProvider sybaseMetadataProvider1;
-		private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
+        private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
+        private ActiveQueryBuilder.Core.SybaseSyntaxProvider sybaseSyntaxProvider1;
+        private ActiveQueryBuilder.Core.SybaseMetadataProvider sybaseMetadataProvider1;
+        private System.Windows.Forms.ToolStripMenuItem queryStatisticsMenuItem;
         private GeneralAssembly.Common.SqlErrorBox errorBox1;
     }
 }

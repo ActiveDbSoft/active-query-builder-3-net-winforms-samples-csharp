@@ -2,34 +2,34 @@ using ActiveQueryBuilder.View;
 
 namespace QueryModificationDemo
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
@@ -321,31 +321,31 @@ namespace QueryModificationDemo
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.TextBox tbSQL;
-		private System.Windows.Forms.Button btnApply;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Button btnQueryCustomersOrders;
-		private System.Windows.Forms.Button btnQueryOrders;
-		private System.Windows.Forms.Button btnQueryCustomers;
-		private System.Windows.Forms.TextBox tbOrderDate;
-		private System.Windows.Forms.CheckBox cbOrderDate;
-		private System.Windows.Forms.CheckBox cbOrders;
-		private System.Windows.Forms.TextBox tbCompanyName;
-		private System.Windows.Forms.CheckBox cbCompanyName;
-		private System.Windows.Forms.CheckBox cbCustomers;
-		private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox tbSQL;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnQueryCustomersOrders;
+        private System.Windows.Forms.Button btnQueryOrders;
+        private System.Windows.Forms.Button btnQueryCustomers;
+        private System.Windows.Forms.TextBox tbOrderDate;
+        private System.Windows.Forms.CheckBox cbOrderDate;
+        private System.Windows.Forms.CheckBox cbOrders;
+        private System.Windows.Forms.TextBox tbCompanyName;
+        private System.Windows.Forms.CheckBox cbCompanyName;
+        private System.Windows.Forms.CheckBox cbCustomers;
+        private System.Windows.Forms.Label label2;
         private ActiveQueryBuilder.Core.GenericSyntaxProvider genericSyntaxProvider1;
         private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder1;
 
-	}
+    }
 }
 

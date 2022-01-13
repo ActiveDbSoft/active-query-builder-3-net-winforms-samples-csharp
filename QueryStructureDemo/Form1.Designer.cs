@@ -1,33 +1,33 @@
 namespace QueryStructureDemo
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.imageList16 = new System.Windows.Forms.ImageList(this.components);
@@ -502,43 +502,43 @@ namespace QueryStructureDemo
             this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ImageList imageList16;
-		private System.Windows.Forms.ImageList imageList32;
-		private System.Windows.Forms.SplitContainer splitContainer1;
-		private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder;
-		private System.Windows.Forms.TabControl pageMisc;
-		private System.Windows.Forms.TabPage pageSQL;
-		private System.Windows.Forms.TextBox tbSQL;
-		private System.Windows.Forms.TabPage pageStatistics;
-		private System.Windows.Forms.TextBox tbStatistics;
-		private System.Windows.Forms.Panel pnlSampleQueries;
-		private System.Windows.Forms.Button btnSampleSelectFromWhere;
-		private System.Windows.Forms.Label lblSampleQueries;
-		private System.Windows.Forms.Button btnSampleSelect;
-		private System.Windows.Forms.Button btnSampleSelectFromJoinSubqueries;
-		private System.Windows.Forms.Button btnSampleSelectFromJoin;
-		private System.Windows.Forms.Button btnSampleUnions;
-		private System.Windows.Forms.TabPage pageSubQueries;
-		private System.Windows.Forms.TabPage pageSubQueryStructure;
-		private System.Windows.Forms.TabPage pageUnionSubQuery;
-		private System.Windows.Forms.TabPage tabPage6;
-		private System.Windows.Forms.TextBox tbSubQueries;
-		private System.Windows.Forms.TextBox tbSubQueryStructure;
-		private System.Windows.Forms.TabControl tabctrlSubQueryStructureTabsheet;
-		private System.Windows.Forms.TabPage pageSelectedExpressions;
-		private System.Windows.Forms.TabPage pageDataSources;
-		private System.Windows.Forms.TabPage pageLinks;
-		private System.Windows.Forms.TabPage pageWhere;
-		private System.Windows.Forms.TextBox tbSelectedExpressions;
-		private System.Windows.Forms.TextBox tbDataSources;
-		private System.Windows.Forms.TextBox tbLinks;
-		private System.Windows.Forms.TextBox tbWhere;
-		private System.Windows.Forms.Button btnShowUnlinkedDatasourcesButton;
-		private System.Windows.Forms.Label lblShowUnlinkedDatasourcesLegend;
-	}
+        private System.Windows.Forms.ImageList imageList16;
+        private System.Windows.Forms.ImageList imageList32;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private ActiveQueryBuilder.View.WinForms.QueryBuilder queryBuilder;
+        private System.Windows.Forms.TabControl pageMisc;
+        private System.Windows.Forms.TabPage pageSQL;
+        private System.Windows.Forms.TextBox tbSQL;
+        private System.Windows.Forms.TabPage pageStatistics;
+        private System.Windows.Forms.TextBox tbStatistics;
+        private System.Windows.Forms.Panel pnlSampleQueries;
+        private System.Windows.Forms.Button btnSampleSelectFromWhere;
+        private System.Windows.Forms.Label lblSampleQueries;
+        private System.Windows.Forms.Button btnSampleSelect;
+        private System.Windows.Forms.Button btnSampleSelectFromJoinSubqueries;
+        private System.Windows.Forms.Button btnSampleSelectFromJoin;
+        private System.Windows.Forms.Button btnSampleUnions;
+        private System.Windows.Forms.TabPage pageSubQueries;
+        private System.Windows.Forms.TabPage pageSubQueryStructure;
+        private System.Windows.Forms.TabPage pageUnionSubQuery;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TextBox tbSubQueries;
+        private System.Windows.Forms.TextBox tbSubQueryStructure;
+        private System.Windows.Forms.TabControl tabctrlSubQueryStructureTabsheet;
+        private System.Windows.Forms.TabPage pageSelectedExpressions;
+        private System.Windows.Forms.TabPage pageDataSources;
+        private System.Windows.Forms.TabPage pageLinks;
+        private System.Windows.Forms.TabPage pageWhere;
+        private System.Windows.Forms.TextBox tbSelectedExpressions;
+        private System.Windows.Forms.TextBox tbDataSources;
+        private System.Windows.Forms.TextBox tbLinks;
+        private System.Windows.Forms.TextBox tbWhere;
+        private System.Windows.Forms.Button btnShowUnlinkedDatasourcesButton;
+        private System.Windows.Forms.Label lblShowUnlinkedDatasourcesLegend;
+    }
 }
 

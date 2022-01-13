@@ -1,4 +1,4 @@
-﻿namespace FormattingOptionsDemo
+namespace FormattingOptionsDemo
 {
     partial class SubQueryTab
     {

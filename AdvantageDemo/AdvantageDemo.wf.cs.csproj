@@ -6,7 +6,6 @@
     <Description>Active Query Builder 3 Advantage Demo</Description>
     <RootNamespace>AdvantageDemo</RootNamespace>
 
-    <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
 
@@ -26,6 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.wf.cs.csproj" />
+    <ProjectReference Include="..\GeneralAssembly\GeneralAssembly.wf.cs.csproj" />
   </ItemGroup>
 </Project>

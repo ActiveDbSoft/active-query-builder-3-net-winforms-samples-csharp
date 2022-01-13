@@ -1,20 +1,20 @@
-﻿namespace MetadataEditorDemo.Common
+namespace MetadataEditorDemo.Common
 {
-	internal partial class MetadataFilterControl
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    internal partial class MetadataFilterControl
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbInclude = new System.Windows.Forms.ListBox();
@@ -249,10 +249,10 @@
             this.toolbarExclude.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
-		private System.Windows.Forms.SplitContainer splitContainer1;
+        #endregion
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label lblInclude;
         private System.Windows.Forms.Label lblExclude;
         private System.Windows.Forms.Panel panel2;

@@ -1,4 +1,4 @@
-﻿namespace GeneralAssembly.Common
+namespace GeneralAssembly.Common
 {
     partial class SqlErrorBox
     {

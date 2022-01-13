@@ -1,4 +1,4 @@
-﻿namespace MetadataEditorDemo.CollapsingControls {
+namespace MetadataEditorDemo.CollapsingControls {
     partial class CollapsingControl {
         /// <summary> 
         /// Required designer variable.
