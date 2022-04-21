@@ -34,6 +34,8 @@ namespace DB2demo
         
         private void connectMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             // Connect to DB2 database
 
             // show the connection form

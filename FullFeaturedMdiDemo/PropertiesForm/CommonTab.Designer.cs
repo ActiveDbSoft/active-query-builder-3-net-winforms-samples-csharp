@@ -131,11 +131,11 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label3.Location = new System.Drawing.Point(426, 16);
+            this.label3.Location = new System.Drawing.Point(614, 16);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(195, 26);
+            this.label3.Size = new System.Drawing.Size(7, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Layout of items in SELECT, ORDER BY\r\nand GROUP BY lists.\r\n";
+            this.label3.Text = "\t\t\t\r\n";
             // 
             // radButNewLineAfterComma
             // 

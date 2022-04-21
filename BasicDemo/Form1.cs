@@ -156,6 +156,8 @@ namespace BasicDemo
 
         public void ResetQueryBuilder()
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             queryBuilder1.ClearMetadata();
             queryBuilder1.MetadataProvider = null;
             queryBuilder1.SyntaxProvider = null;
@@ -368,6 +370,8 @@ namespace BasicDemo
 
         private void ConnectTo_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             var cf = new ConnectionForm() { Owner = this };
 
             if (cf.ShowDialog() != DialogResult.OK) return;

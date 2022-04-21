@@ -58,6 +58,8 @@ namespace AdvantageDemo
         
         private void connectMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder.QueryView.HideInformationMessage();
+
             // Connect to Advantage database
 
             // show the connection form

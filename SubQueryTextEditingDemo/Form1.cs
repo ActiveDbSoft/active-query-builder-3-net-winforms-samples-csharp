@@ -483,6 +483,8 @@ namespace SubQueryTextEditingDemo
 
         private void menuItemConnectTo_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             using (var connectionForm = new ConnectionForm())
             {
                 if (connectionForm.ShowDialog() != DialogResult.OK) return;

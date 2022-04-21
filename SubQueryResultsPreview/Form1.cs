@@ -306,6 +306,8 @@ namespace SubQueryResultsPreview
 
         private void connectToToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder.QueryView.HideInformationMessage();
+
             var cf = new ConnectionForm() { Owner = this };
 
             if (cf.ShowDialog() != DialogResult.OK) return;

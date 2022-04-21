@@ -171,7 +171,8 @@ namespace BasicDemo
         }
 
         private void menuItem5_Click(object sender, EventArgs e)
-        {            
+        {           
+            queryBuilder1.QueryView.HideInformationMessage();
             using (var connectionForm = new ConnectionForm())
             {
                 if (connectionForm.ShowDialog() != DialogResult.OK) return;

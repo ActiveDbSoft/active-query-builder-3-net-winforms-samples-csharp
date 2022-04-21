@@ -30,6 +30,8 @@ namespace VistaDB5demo
         
         private void connectMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             // Connect to VistaDB database
 
             // show the connection form

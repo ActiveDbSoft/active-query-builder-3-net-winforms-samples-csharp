@@ -450,6 +450,8 @@ namespace FullFeaturedDemo
 
         private bool Connect()
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             using (ConnectionForm cf = new ConnectionForm())
             {
                 if (cf.ShowDialog() == DialogResult.OK)

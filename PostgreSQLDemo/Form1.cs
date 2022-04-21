@@ -31,6 +31,8 @@ namespace PostgreSQLDemo
         
         private void connectMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             // Connect to PostgreSQL database
 
             // show the connection form

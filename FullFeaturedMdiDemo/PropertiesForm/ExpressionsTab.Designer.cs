@@ -227,6 +227,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // chBxBranchConditionExprFromNewLines
             // 
             this.chBxBranchConditionExprFromNewLines.AutoSize = true;
+            this.chBxBranchConditionExprFromNewLines.ForeColor = System.Drawing.Color.DarkOrchid;
             this.chBxBranchConditionExprFromNewLines.Location = new System.Drawing.Point(9, 42);
             this.chBxBranchConditionExprFromNewLines.Name = "chBxBranchConditionExprFromNewLines";
             this.chBxBranchConditionExprFromNewLines.Size = new System.Drawing.Size(234, 17);

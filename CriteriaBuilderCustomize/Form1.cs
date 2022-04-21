@@ -77,6 +77,8 @@ namespace CriteriaBuilderCustomize
 
         private void connectToToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             var cf = new ConnectionForm { Owner = this };
 
             if (cf.ShowDialog() != DialogResult.OK) return;

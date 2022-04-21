@@ -30,6 +30,8 @@ namespace FirebirdDemo
         
         private void connectMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            queryBuilder1.QueryView.HideInformationMessage();
+
             // Connect to Firebird database
 
             // show the connection form
