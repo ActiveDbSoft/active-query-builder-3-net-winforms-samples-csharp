@@ -74,7 +74,6 @@ namespace SeparatedComponents
             // mssqlSyntaxProvider1
             // 
             this.mssqlSyntaxProvider1.DetectServerVersion = true;
-            this.mssqlSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // openFileDialog
             // 

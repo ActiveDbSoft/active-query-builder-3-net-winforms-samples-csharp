@@ -54,10 +54,6 @@ namespace FormattingOptionsDemo
             metadataStructure2.XML = resources.GetString("metadataStructure2.XML");
             this.sqlContext1.UserQueriesStructure = metadataStructure2;
             // 
-            // mssqlSyntaxProvider1
-            // 
-            this.mssqlSyntaxProvider1.OnCalcExpressionType = null;
-            // 
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(912, 6);

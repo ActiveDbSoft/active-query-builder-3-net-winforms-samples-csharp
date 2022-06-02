@@ -270,7 +270,6 @@ namespace QueryModificationDemo
             // genericSyntaxProvider1
             // 
             this.genericSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.genericSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // queryBuilder1
             // 

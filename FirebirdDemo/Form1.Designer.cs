@@ -194,10 +194,6 @@ namespace FirebirdDemo
             // 
             this.firebirdMetadataProvider1.Connection = null;
             // 
-            // firebirdSyntaxProvider1
-            // 
-            this.firebirdSyntaxProvider1.OnCalcExpressionType = null;
-            // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;

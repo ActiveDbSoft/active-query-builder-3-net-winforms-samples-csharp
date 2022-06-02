@@ -193,7 +193,6 @@ namespace MySqlDemo
             // 
             // mySQLSyntaxProvider1
             // 
-            this.mySQLSyntaxProvider1.OnCalcExpressionType = null;
             this.mySQLSyntaxProvider1.ServerVersion = "5.02";
             this.mySQLSyntaxProvider1.ServerVersionInt = 50200;
             // 

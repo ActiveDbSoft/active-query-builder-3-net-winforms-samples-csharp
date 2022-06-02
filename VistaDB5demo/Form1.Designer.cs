@@ -194,7 +194,6 @@ namespace VistaDB5demo
             // vistaDbSyntaxProvider1
             // 
             this.vistaDbSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.vistaDbSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // textBox1
             // 

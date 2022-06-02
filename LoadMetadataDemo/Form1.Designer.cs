@@ -228,7 +228,6 @@ namespace LoadMetadataDemo
             // 
             this.genericSyntaxProvider1.DetectServerVersion = false;
             this.genericSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.genericSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // textBox1
             // 

@@ -195,7 +195,6 @@ namespace PostgreSQLDemo
             // 
             this.postgreSQLSyntaxProvider1.ComparisonOperators = ((System.Collections.Generic.List<string>)(resources.GetObject("postgreSQLSyntaxProvider1.ComparisonOperators")));
             this.postgreSQLSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.SensitiveLowerCase;
-            this.postgreSQLSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // textBox1
             // 

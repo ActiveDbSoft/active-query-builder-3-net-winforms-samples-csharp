@@ -191,10 +191,6 @@ namespace AdvantageDemo
             // 
             this.advantageMetadataProvider1.Connection = null;
             // 
-            // advantageSyntaxProvider1
-            // 
-            this.advantageSyntaxProvider1.OnCalcExpressionType = null;
-            // 
             // errorBox1
             // 
             this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));

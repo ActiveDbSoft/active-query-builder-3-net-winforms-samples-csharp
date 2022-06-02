@@ -95,7 +95,6 @@ namespace BasicDemo
             // 
             this.genericSyntaxProvider1.DetectServerVersion = false;
             this.genericSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.genericSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // openFileDialog
             // 
@@ -108,7 +107,6 @@ namespace BasicDemo
             // mssqlSyntaxProvider1
             // 
             this.mssqlSyntaxProvider1.DetectServerVersion = true;
-            this.mssqlSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // mssqlMetadataProvider1
             // 
@@ -131,14 +129,12 @@ namespace BasicDemo
             // oracleSyntaxProvider1
             // 
             this.oracleSyntaxProvider1.DetectServerVersion = true;
-            this.oracleSyntaxProvider1.OnCalcExpressionType = null;
             this.oracleSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.OracleServerVersion.Oracle18;
             // 
             // msaccessSyntaxProvider1
             // 
             this.msaccessSyntaxProvider1.DetectServerVersion = false;
             this.msaccessSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.msaccessSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // mainMenu1
             // 

@@ -167,7 +167,6 @@ namespace ConsolidatedMetadataContainer
             // syntaxProviderSql2003
             // 
             this.syntaxProviderSql2003.DetectServerVersion = false;
-            this.syntaxProviderSql2003.OnCalcExpressionType = null;
             // 
             // textSql
             // 

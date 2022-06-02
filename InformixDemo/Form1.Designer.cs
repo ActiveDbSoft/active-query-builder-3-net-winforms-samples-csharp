@@ -197,7 +197,6 @@ namespace InformixDemo
             // informixSyntaxProvider1
             // 
             this.informixSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.informixSyntaxProvider1.OnCalcExpressionType = null;
             this.informixSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.InformixVersion.DS10;
             // 
             // textBox1

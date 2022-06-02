@@ -194,7 +194,6 @@ namespace SybaseDemo
             // sybaseSyntaxProvider1
             // 
             this.sybaseSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            this.sybaseSyntaxProvider1.OnCalcExpressionType = null;
             // 
             // textBox1
             // 

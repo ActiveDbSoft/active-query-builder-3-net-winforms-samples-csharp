@@ -194,10 +194,6 @@ namespace DB2demo
             // 
             this.DB2MetadataProvider1.Connection = null;
             // 
-            // DB2SyntaxProvider1
-            // 
-            this.DB2SyntaxProvider1.OnCalcExpressionType = null;
-            // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
