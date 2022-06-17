@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -41,7 +42,6 @@ namespace FullFeaturedMdiDemo.PropertiesForm
         private void RegisterPropertyPage(Control link, ObjectProperties propertiesObject)
         {
             var propertiesContainer = PropertiesFactory.GetPropertiesContainer(propertiesObject);
-
             // create property page control
             var propertyPage = new PropertiesBar
             {
@@ -54,7 +54,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             };
 
             // set properties to property page
-            var propertiesControl = (IPropertiesControl)propertyPage;
+            var propertiesControl = (IPropertiesControl) propertyPage;
             propertiesControl.SetProperties(propertiesContainer);
 
             // register link -> propertyPage mapping
@@ -64,41 +64,42 @@ namespace FullFeaturedMdiDemo.PropertiesForm
         public QueryPropertiesForm(ChildForm childForm, DatabaseSchemaView dbView)
         {
             InitializeComponent();
+            SuspendLayout();
             LocalizeGroups();
             _childForm = childForm;
             _dbView = dbView;
 
             _linkToPage1.Add(linkSqlGeneration, new SqlGenerationPage(childForm.SqlGenerationOptions, childForm.SqlFormattingOptions)); 
-
+            
             // create and register property pages ==================================
             // BehaviorOptions page
-            RegisterPropertyPage(linkBehaviorOptions, new ObjectProperties(childForm.BehaviorOptions));
+            linkBehaviorOptions.Tag = new ObjectProperties(childForm.BehaviorOptions);
             // DatabaseSchemaViewOptions page
-            RegisterPropertyPage(linkDatabaseSchemaView, new ObjectProperties(dbView.Options));
+            linkDatabaseSchemaView.Tag = new ObjectProperties(dbView.Options);
             // DesignPaneOptions page
-            RegisterPropertyPage(linkDesignPane, new ObjectProperties(childForm.DesignPaneOptions));
+            linkDesignPane.Tag = new ObjectProperties(childForm.DesignPaneOptions);
             // VisualOptions page
-            RegisterPropertyPage(linkVisualOptions, new ObjectProperties(childForm.VisualOptions));
+            linkVisualOptions.Tag = new ObjectProperties(childForm.VisualOptions);
             // AddObjectDialogOptions page
-            RegisterPropertyPage(linkAddObjectDialog, new ObjectProperties(childForm.AddObjectDialogOptions));
+            linkAddObjectDialog.Tag = new ObjectProperties(childForm.AddObjectDialogOptions);
             // DataSourceOptions page
-            RegisterPropertyPage(linkDatasourceOptions, new ObjectProperties(childForm.DataSourceOptions));
+            linkDatasourceOptions.Tag = new ObjectProperties(childForm.DataSourceOptions);
             // QueryColumnListOptions page
-            RegisterPropertyPage(linkQueryColumnList, new ObjectProperties(childForm.QueryColumnListOptions));
+            linkQueryColumnList.Tag = new ObjectProperties(childForm.QueryColumnListOptions);
             // QueryNavBarOptions
-            RegisterPropertyPage(linkQueryNavBar, new ObjectProperties(childForm.QueryNavBarOptions));
+            linkQueryNavBar.Tag = new ObjectProperties(childForm.QueryNavBarOptions);
             // UserInterfaceOptions
-            RegisterPropertyPage(linkQueryView, new ObjectProperties(childForm.UserInterfaceOptions));
-
-            RegisterPropertyPage(lbExpressionEditor, new ObjectProperties(childForm.ExpressionEditorOptions));
+            linkQueryView.Tag = new ObjectProperties(childForm.UserInterfaceOptions);
+            // ExpressionEditor page
+            lbExpressionEditor.Tag = new ObjectProperties(childForm.ExpressionEditorOptions);
 
             _textEditorOptions.Assign(childForm.TextEditorOptions);
             _textEditorOptions.Updated += TextEditorOptionsOnUpdated;
-            RegisterPropertyPage(lbTextEditor, new ObjectProperties(_textEditorOptions));
+            lbTextEditor.Tag = new ObjectProperties(_textEditorOptions);
 
             _textEditorSqlOptions.Assign(childForm.TextEditorSqlOptions);
             _textEditorSqlOptions.Updated += TextEditorOptionsOnUpdated;
-            RegisterPropertyPage(lbTextEditorSql, new ObjectProperties(_textEditorSqlOptions));
+            lbTextEditorSql.Tag = new ObjectProperties(_textEditorSqlOptions);
 
             childForm.MetadataStructureOptions.Updated += MetadataStructureOptionsOnUpdated;
 
@@ -126,6 +127,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             // Activate the first page on tab2
             SideMenu2_LinkClicked(linkMain,
                 new LinkLabelLinkClickedEventArgs(linkMain.Links[0], MouseButtons.Left));
+            ResumeLayout(false);
         }
 
         private void LocalizeGroups()
@@ -170,6 +172,11 @@ namespace FullFeaturedMdiDemo.PropertiesForm
             _currentSelectedLink1 = (LinkLabel) sender;
             _currentSelectedLink1.LinkColor = Color.Blue;
 
+            if (!_linkToPage1.Keys.Contains(_currentSelectedLink1))
+            {
+                RegisterPropertyPage(_currentSelectedLink1, (ObjectProperties) _currentSelectedLink1.Tag);
+            }
+
             SwitchPage1(_linkToPage1[_currentSelectedLink1]);
         }
 
@@ -180,7 +187,7 @@ namespace FullFeaturedMdiDemo.PropertiesForm
 
             _currentSelectedLink2 = (LinkLabel)sender;
             _currentSelectedLink2.LinkColor = Color.Blue;
-
+            
             SwitchPage2(_linkToPage2[_currentSelectedLink2]);
         }
 

@@ -72,11 +72,6 @@ namespace FullFeaturedMdiDemo
 
             TryToLoadOptions();
 
-#if NETFRAMEWORK
-            toolStrip1.ImageScalingSize = new Size(ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Width),
-                ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Height));
-#endif
-
             // DEMO WARNING
 
             if (BuildInfo.GetEdition() == BuildInfo.Edition.Trial)
@@ -100,14 +95,20 @@ namespace FullFeaturedMdiDemo
                     UseCompatibleTextRendering = true
                 };
 
-                var buttonClose = new PictureBox { Image = Properties.Resources.cancel, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
+                var iconClose = Properties.Resources.cancel;
+
+                ScaleBitmapLogicalToDevice(ref iconClose);
+
+                var buttonClose = new PictureBox { Image = iconClose, SizeMode = PictureBoxSizeMode.AutoSize, Cursor = Cursors.Hand };
                 buttonClose.Click += delegate { Controls.Remove(trialNoticePanel); };
 
                 trialNoticePanel.Controls.Add(buttonClose);
 
                 trialNoticePanel.Resize += delegate
                 {
-                    buttonClose.Location = new Point(trialNoticePanel.Width - buttonClose.Width - 10, trialNoticePanel.Height / 2 - buttonClose.Height / 2);
+                    buttonClose.Location =
+                        new Point(trialNoticePanel.Width - buttonClose.Width - LogicalToDeviceUnits(10),
+                            trialNoticePanel.Height / 2 - buttonClose.Height / 2);
                 };
 
                 trialNoticePanel.Controls.Add(label);
@@ -898,9 +899,7 @@ namespace FullFeaturedMdiDemo
             if (childForm == null) return;
 
             var propWindow = new QueryPropertiesForm(childForm, DBView);
-            
             propWindow.ShowDialog();
-
             var options = childForm.GetOptions();            
             _options = options;
 

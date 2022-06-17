@@ -299,11 +299,6 @@ namespace FullFeaturedMdiDemo
             rtbQueryText.ExpressionContext = QView.ActiveUnionSubQuery;
             TextBoxCurrentSubQuerySql.ExpressionContext = QView.ActiveUnionSubQuery;
             QueryNavBarOptions.Updated += QueryNavBarOptions_Updated;
-
-#if NETFRAMEWORK
-            toolStrip1.ImageScalingSize = new Size(ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Width),
-                ScreenHelpers.ScaleByCurrentDPI(toolStrip1.ImageScalingSize.Height));
-#endif
         }
 
         private void QueryNavBarOptions_Updated(object sender, EventArgs e)
@@ -1119,7 +1114,8 @@ Do you want to load database structure from cache?";
                 string sql = CBuilder.SQL;
                 richTextBox1.Text = sql;
 
-                resultGrid1.FillDataGrid(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions));
+                if (CBuilder.QueryTransformer.ResultAST != null)
+                    resultGrid1.FillDataGrid(CBuilder.QueryTransformer.ResultAST.GetSQL(SqlGenerationOptions));
             }
             catch
             {
