@@ -16,7 +16,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
@@ -27,7 +26,6 @@ using ActiveQueryBuilder.View.QueryView;
 using ActiveQueryBuilder.View.WinForms.ExpressionEditor;
 using ActiveQueryBuilder.View.WinForms.QueryView;
 using FullFeaturedMdiDemo.Common;
-using FullFeaturedMdiDemo.Reports;
 using GeneralAssembly;
 using GeneralAssembly.Dailogs;
 using GeneralAssembly.Forms.QueryInformationForms;
@@ -260,15 +258,15 @@ namespace FullFeaturedMdiDemo
             _queryTransformerTop10 = new QueryTransformer();
             Debug.Assert(sqlContext != null);
             SqlSourceType = SourceType.New;
-            
+
             _sqlContext = sqlContext;
             _connectionInfo = connectionInfo;
             SqlQuery = new SQLQuery(_sqlContext);
             SqlQuery.QueryRoot.AllowSleepMode = true;
-            
+
             SqlQuery.SleepModeChanged += SqlQuery_SleepModeChanged;
             SqlQuery.QueryAwake += SqlQuery_QueryAwake;
-            _timerForFastResult = new Timer(TimerForFastResult_Elapsed);            
+            _timerForFastResult = new Timer(TimerForFastResult_Elapsed);
 
             CBuilder.QueryTransformer = new QueryTransformer
             {
@@ -283,16 +281,16 @@ namespace FullFeaturedMdiDemo
             resultGrid1.SqlQuery = SqlQuery;
             resultGrid2.SqlQuery = SqlQuery;
             resultGrid1.QueryTransformer = CBuilder.QueryTransformer;
-            
+
             QView.Query = SqlQuery;
             NavBar.QueryView = QView;
             NavBar.Query = SqlQuery;
 
-            RepairImageLists();            
+            RepairImageLists();
             toolStripStatusLabel1.Text = "Query builder state: " + ((SqlQuery.SleepMode) ? "Inactive" : "Active");
 
             Application.Idle += Application_Idle;
-            
+
             SqlQuery.SQLUpdated += query_SQLUpdated;
             QueryView.ActiveUnionSubQueryChanged += QueryViewOnActiveUnionSubQueryChanged;
 
@@ -388,7 +386,7 @@ namespace FullFeaturedMdiDemo
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            
+
             Dispose();
         }
 
@@ -401,7 +399,7 @@ namespace FullFeaturedMdiDemo
 
             if(mdiClient == null) return;
 
-            Bounds = mdiClient.ClientRectangle;            
+            Bounds = mdiClient.ClientRectangle;
 
             if (_sqlContext.MetadataProvider != null)
             {
@@ -989,8 +987,8 @@ Do you want to load database structure from cache?";
                 {
                     supportsDerivedTable = _sqlContext.SyntaxProvider.IsSupportSubQueryDerivedTables();
                 }
-                supportsUnion = NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery 
-                    ? _sqlContext.SyntaxProvider.IsSupportSubQueryUnions() 
+                supportsUnion = NavBar.ActiveUnionSubQuery.QueryRoot.IsSubQuery
+                    ? _sqlContext.SyntaxProvider.IsSupportSubQueryUnions()
                     : _sqlContext.SyntaxProvider.IsSupportUnions();
             }
 
@@ -1131,7 +1129,7 @@ Do you want to load database structure from cache?";
         private void tsbSaveInFile_Click(object sender, EventArgs e)
         {
             SaveInFile();
-        }        
+        }
 
         private void tsbSaveNewUserQuery_Click(object sender, EventArgs e)
         {
@@ -1241,7 +1239,7 @@ Do you want to load database structure from cache?";
             if (tabControl2.SelectedTab != tabPageFastResult) return;
 
             try
-            {                
+            {
                 _queryTransformerTop10.Query =
                     new SQLQuery(QueryView.ActiveUnionSubQuery.ParentSubQuery.SQLContext) { SQL = QueryView.ActiveUnionSubQuery.ParentSubQuery.GetSqlForDataPreview() };
 
@@ -1286,7 +1284,7 @@ Do you want to load database structure from cache?";
             }
         }
 
-       
+
 
         private void errorBox1_RevertValidText(object sender, EventArgs e)
         {
@@ -1329,10 +1327,13 @@ Do you want to load database structure from cache?";
             if (dataTable == null)
                 throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
 
-            var reportWindow =
-                new FastReportForm(dataTable) { Owner = this };
-
+#if ENABLE_FASTREPORT_SUPPORT
+            var reportWindow = new Reports.FastReportForm(dataTable) { Owner = this };
             reportWindow.ShowDialog();
+#else
+            MessageBox.Show("To test the integration with FastReport, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableFastReportSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
+                            "You may also need to activate the trial version of FastReport.NET on the Fast Reports website.", "FastReport support", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
         }
 
         private void CreateStimulsoftReport(DataTable dataTable)
@@ -1341,7 +1342,7 @@ Do you want to load database structure from cache?";
                 throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
 
 #if ENABLE_REPORTSNET_SUPPORT
-            var reportWindow = new StimulsoftExtension.StimulsoftForm(dataTable) { Owner = this };
+            var reportWindow = new Reports.StimulsoftForm(dataTable) { Owner = this };
             reportWindow.ShowDialog();
 #else
             MessageBox.Show("To test the integration with Stimulsoft Reports.NET, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableReportsNetSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
@@ -1354,7 +1355,7 @@ Do you want to load database structure from cache?";
             if (dataTable == null)
                 throw new ArgumentException(@"Argument cannot be null or empty.", "DataTable");
 #if ENABLE_ACTIVEREPORTS_SUPPORT
-            GrapeCityExtension.ActiveReportsForm reportForm = new GrapeCityExtension.ActiveReportsForm(dataTable);
+            var reportForm = new Reports.ActiveReportsForm(dataTable);
             reportForm.ShowDialog(this);
 #else
             MessageBox.Show("To test the integration with GrapeCity ActiveReports, please open the \"Directory.Build.props\" file in the demo projects installation directory (usually \"%USERPROFILE%\\Documents\\Active Query Builder x.x .NET Examples\") with a text editor and set the \"EnableActiveReportsSupport\" flag to true. Then, open the Active Query Builder Demos solution with your IDE, compile and run the Full-featured MDI demo." + Environment.NewLine + Environment.NewLine +
