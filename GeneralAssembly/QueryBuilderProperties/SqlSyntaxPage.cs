@@ -82,6 +82,7 @@ namespace GeneralAssembly.QueryBuilderProperties
             comboSqlDialect.Items.Add("Sybase SQL Anywhere");
             comboSqlDialect.Items.Add("Teradata");
             comboSqlDialect.Items.Add("VistaDB");
+            comboSqlDialect.Items.Add("Pervasive");
             comboSqlDialect.Items.Add("Generic");
 
             if (queryBuilder.SyntaxProvider is SQL92SyntaxProvider)
@@ -274,6 +275,10 @@ namespace GeneralAssembly.QueryBuilderProperties
             else if (queryBuilder.SyntaxProvider is VistaDBSyntaxProvider)
             {
                 comboSqlDialect.SelectedItem = "VistaDB";
+            }
+            else if (queryBuilder.SyntaxProvider is PervasiveSyntaxProvider)
+            {
+                comboSqlDialect.SelectedItem = "Pervasive";
             }
 
             if (queryBuilder.SyntaxProvider is GenericSyntaxProvider)
@@ -473,6 +478,9 @@ namespace GeneralAssembly.QueryBuilderProperties
                     break;
                 case "VistaDB":
                     _syntaxProvider = new VistaDBSyntaxProvider();
+                    break;
+                case "Pervasive":
+                    _syntaxProvider = new PervasiveSyntaxProvider();
                     break;
                 case "Generic":
                     _syntaxProvider = new GenericSyntaxProvider();

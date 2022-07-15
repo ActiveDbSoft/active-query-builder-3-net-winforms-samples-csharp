@@ -80,9 +80,9 @@ namespace BasicDemo
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLFormattingOptions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.queryBuilder1.SQLGenerationOptions)).BeginInit();
             this.SuspendLayout();
-            //
+            // 
             // tabControl1
-            //
+            // 
             this.tabControl1.Controls.Add(this.tabPageSQL);
             this.tabControl1.Controls.Add(this.tabPageData);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -92,9 +92,9 @@ namespace BasicDemo
             this.tabControl1.Size = new System.Drawing.Size(885, 131);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
-            //
+            // 
             // tabPageSQL
-            //
+            // 
             this.tabPageSQL.Controls.Add(this.errorBox1);
             this.tabPageSQL.Controls.Add(this.textBox1);
             this.tabPageSQL.Location = new System.Drawing.Point(4, 22);
@@ -104,9 +104,9 @@ namespace BasicDemo
             this.tabPageSQL.TabIndex = 0;
             this.tabPageSQL.Text = "SQL";
             this.tabPageSQL.UseVisualStyleBackColor = true;
-            //
+            // 
             // errorBox1
-            //
+            // 
             this.errorBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.errorBox1.AutoSize = true;
             this.errorBox1.BackColor = System.Drawing.Color.LightPink;
@@ -123,13 +123,14 @@ namespace BasicDemo
             this.errorBox1.SyntaxProviderChanged += new System.EventHandler(this.errorBox1_SyntaxProviderChanged);
             this.errorBox1.GoToErrorPosition += new System.EventHandler(this.errorBox1_GoToErrorPositionEvent);
             this.errorBox1.RevertValidText += new System.EventHandler(this.errorBox1_RevertValidTextEvent);
-            //
+            // 
             // textBox1
-            //
+            // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.HideSelection = false;
             this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.MaxLength = 65536;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -137,9 +138,9 @@ namespace BasicDemo
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
-            //
+            // 
             // tabPageData
-            //
+            // 
             this.tabPageData.Controls.Add(this.dataGridView1);
             this.tabPageData.Location = new System.Drawing.Point(4, 22);
             this.tabPageData.Name = "tabPageData";
@@ -148,9 +149,9 @@ namespace BasicDemo
             this.tabPageData.TabIndex = 1;
             this.tabPageData.Text = "Data";
             this.tabPageData.UseVisualStyleBackColor = true;
-            //
+            // 
             // dataGridView1
-            //
+            // 
             this.dataGridView1.AutoSize = true;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.IsVisiblePaginationPanel = true;
@@ -161,9 +162,9 @@ namespace BasicDemo
             this.dataGridView1.Size = new System.Drawing.Size(871, 99);
             this.dataGridView1.SqlQuery = null;
             this.dataGridView1.TabIndex = 0;
-            //
+            // 
             // labelSleepMode
-            //
+            // 
             this.labelSleepMode.AutoEllipsis = true;
             this.labelSleepMode.BackColor = System.Drawing.Color.Bisque;
             this.labelSleepMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -178,36 +179,36 @@ namespace BasicDemo
     "SELECT statement or start building a query visually to turn this mode off.";
             this.labelSleepMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelSleepMode.Visible = false;
-            //
+            // 
             // genericSyntaxProvider1
-            //
+            // 
             this.genericSyntaxProvider1.DetectServerVersion = false;
             this.genericSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            //
+            // 
             // openFileDialog
-            //
+            // 
             this.openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-            //
+            // 
             // saveFileDialog
-            //
+            // 
             this.saveFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-            //
+            // 
             // mssqlSyntaxProvider1
-            //
+            // 
             this.mssqlSyntaxProvider1.DetectServerVersion = true;
-            //
+            // 
             // oracleSyntaxProvider1
-            //
+            // 
             this.oracleSyntaxProvider1.DetectServerVersion = true;
             this.oracleSyntaxProvider1.ServerVersion = ActiveQueryBuilder.Core.OracleServerVersion.Oracle18;
-            //
+            // 
             // msaccessSyntaxProvider1
-            //
+            // 
             this.msaccessSyntaxProvider1.DetectServerVersion = false;
             this.msaccessSyntaxProvider1.IdentCaseSens = ActiveQueryBuilder.Core.IdentCaseSensitivity.Insensitive;
-            //
+            // 
             // mainMenu1
-            //
+            // 
             this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItem1,
             this.menuItem3,
@@ -219,9 +220,9 @@ namespace BasicDemo
             this.mainMenu1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
             this.mainMenu1.Size = new System.Drawing.Size(885, 24);
             this.mainMenu1.TabIndex = 5;
-            //
+            // 
             // menuItem1
-            //
+            // 
             this.menuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItem5,
             this.menuItem2,
@@ -229,28 +230,28 @@ namespace BasicDemo
             this.menuItem1.Name = "menuItem1";
             this.menuItem1.Size = new System.Drawing.Size(64, 22);
             this.menuItem1.Text = "Connect";
-            //
+            // 
             // menuItem5
-            //
+            // 
             this.menuItem5.Name = "menuItem5";
             this.menuItem5.Size = new System.Drawing.Size(279, 22);
             this.menuItem5.Text = "Connect to...";
             this.menuItem5.Click += new System.EventHandler(this.ConnectTo_Click);
-            //
+            // 
             // menuItem2
-            //
+            // 
             this.menuItem2.Name = "menuItem2";
             this.menuItem2.Size = new System.Drawing.Size(276, 6);
-            //
+            // 
             // fillProgrammaticallyMenuItem
-            //
+            // 
             this.fillProgrammaticallyMenuItem.Name = "fillProgrammaticallyMenuItem";
             this.fillProgrammaticallyMenuItem.Size = new System.Drawing.Size(279, 22);
             this.fillProgrammaticallyMenuItem.Text = "Fill the query builder programmatically";
             this.fillProgrammaticallyMenuItem.Click += new System.EventHandler(this.fillProgrammaticallyMenuItem_Click);
-            //
+            // 
             // menuItem3
-            //
+            // 
             this.menuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshMetadataMenuItem,
             this.editMetadataMenuItem,
@@ -261,70 +262,70 @@ namespace BasicDemo
             this.menuItem3.Name = "menuItem3";
             this.menuItem3.Size = new System.Drawing.Size(69, 22);
             this.menuItem3.Text = "Metadata";
-            //
+            // 
             // refreshMetadataMenuItem
-            //
+            // 
             this.refreshMetadataMenuItem.Name = "refreshMetadataMenuItem";
             this.refreshMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
             this.refreshMetadataMenuItem.Text = "Refresh Metadata";
             this.refreshMetadataMenuItem.Click += new System.EventHandler(this.refreshMetadataMenuItem_Click);
-            //
+            // 
             // editMetadataMenuItem
-            //
+            // 
             this.editMetadataMenuItem.Name = "editMetadataMenuItem";
             this.editMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
             this.editMetadataMenuItem.Text = "Edit Metadata...";
             this.editMetadataMenuItem.Click += new System.EventHandler(this.editMetadataMenuItem_Click);
-            //
+            // 
             // clearMetadataMenuItem
-            //
+            // 
             this.clearMetadataMenuItem.Name = "clearMetadataMenuItem";
             this.clearMetadataMenuItem.Size = new System.Drawing.Size(218, 22);
             this.clearMetadataMenuItem.Text = "Clear Metadata";
             this.clearMetadataMenuItem.Click += new System.EventHandler(this.clearMetadataMenuItem_Click);
-            //
+            // 
             // menuItem4
-            //
+            // 
             this.menuItem4.Name = "menuItem4";
             this.menuItem4.Size = new System.Drawing.Size(215, 6);
-            //
+            // 
             // loadMetadataFromXMLMenuItem
-            //
+            // 
             this.loadMetadataFromXMLMenuItem.Name = "loadMetadataFromXMLMenuItem";
             this.loadMetadataFromXMLMenuItem.Size = new System.Drawing.Size(218, 22);
             this.loadMetadataFromXMLMenuItem.Text = "Load Metadata from XML...";
             this.loadMetadataFromXMLMenuItem.Click += new System.EventHandler(this.loadMetadataFromXMLMenuItem_Click);
-            //
+            // 
             // saveMetadataToXMLMenuItem
-            //
+            // 
             this.saveMetadataToXMLMenuItem.Name = "saveMetadataToXMLMenuItem";
             this.saveMetadataToXMLMenuItem.Size = new System.Drawing.Size(218, 22);
             this.saveMetadataToXMLMenuItem.Text = "Save Metadata to XML...";
             this.saveMetadataToXMLMenuItem.Click += new System.EventHandler(this.saveMetadataToXMLMenuItem_Click);
-            //
+            // 
             // queryStatisticsMenuItem
-            //
+            // 
             this.queryStatisticsMenuItem.Name = "queryStatisticsMenuItem";
             this.queryStatisticsMenuItem.Size = new System.Drawing.Size(109, 22);
             this.queryStatisticsMenuItem.Text = "Query Statistics...";
             this.queryStatisticsMenuItem.Click += new System.EventHandler(this.queryStatisticsMenuItem_Click);
-            //
+            // 
             // propertiesMenuItem
-            //
+            // 
             this.propertiesMenuItem.Name = "propertiesMenuItem";
             this.propertiesMenuItem.Size = new System.Drawing.Size(81, 22);
             this.propertiesMenuItem.Text = "Properties...";
             this.propertiesMenuItem.Click += new System.EventHandler(this.propertiesMenuItem_Click);
-            //
+            // 
             // aboutMenuItem
-            //
+            // 
             this.aboutMenuItem.Name = "aboutMenuItem";
             this.aboutMenuItem.Size = new System.Drawing.Size(61, 22);
             this.aboutMenuItem.Text = "About...";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-            //
+            // 
             // panel1
-            //
+            // 
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -337,9 +338,9 @@ namespace BasicDemo
             this.panel1.Size = new System.Drawing.Size(885, 37);
             this.panel1.TabIndex = 3;
             this.panel1.Visible = false;
-            //
+            // 
             // linkLabel1
-            //
+            // 
             this.linkLabel1.AutoEllipsis = true;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -350,29 +351,29 @@ namespace BasicDemo
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.Text = resources.GetString("linkLabel1.Text");
             this.linkLabel1.UseCompatibleTextRendering = true;
-            //
+            // 
             // splitContainer2
-            //
+            // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 61);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            //
+            // 
             // splitContainer2.Panel1
-            //
+            // 
             this.splitContainer2.Panel1.Controls.Add(this.queryBuilder1);
             this.splitContainer2.Panel1.Controls.Add(this.labelSleepMode);
-            //
+            // 
             // splitContainer2.Panel2
-            //
+            // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer2.Size = new System.Drawing.Size(885, 408);
             this.splitContainer2.SplitterDistance = 274;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 4;
-            //
+            // 
             // queryBuilder1
-            //
+            // 
             this.queryBuilder1.AddObjectDialogOptions.Location = new System.Drawing.Point(0, 0);
             this.queryBuilder1.AddObjectDialogOptions.Size = new System.Drawing.Size(400, 400);
             this.queryBuilder1.AddObjectDialogOptions.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -454,9 +455,9 @@ namespace BasicDemo
             this.queryBuilder1.QueryNavBarOptions.SubQueryPopupBackColor = System.Drawing.Color.Empty;
             this.queryBuilder1.QueryNavBarOptions.TextHoverColor = System.Drawing.Color.Empty;
             this.queryBuilder1.Size = new System.Drawing.Size(885, 240);
-            //
-            //
-            //
+            // 
+            // 
+            // 
             this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.queryBuilder1.SQLFormattingOptions.CTESubQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
@@ -475,9 +476,9 @@ namespace BasicDemo
             this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.FromClauseFormat.JoinConditionFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.HavingFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
             this.queryBuilder1.SQLFormattingOptions.MainQueryFormat.WhereFormat.NewLineBefore = ActiveQueryBuilder.Core.SQLBuilderConditionFormatNewLine.None;
-            //
-            //
-            //
+            // 
+            // 
+            // 
             this.queryBuilder1.SQLGenerationOptions.ExpandVirtualFields = true;
             this.queryBuilder1.SQLGenerationOptions.ExpandVirtualObjects = true;
             this.queryBuilder1.SQLGenerationOptions.UseAltNames = false;
@@ -497,9 +498,9 @@ namespace BasicDemo
             this.queryBuilder1.SleepModeChanged += new System.EventHandler(this.queryBuilder1_SleepModeChanged);
             this.queryBuilder1.QueryAwake += new ActiveQueryBuilder.Core.QueryAwakeEventHandler(this.queryBuilder1_QueryAwake);
             this.queryBuilder1.SQLUpdated += new System.EventHandler(this.queryBuilder_SQLUpdated);
-            //
+            // 
             // Form1
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 469);

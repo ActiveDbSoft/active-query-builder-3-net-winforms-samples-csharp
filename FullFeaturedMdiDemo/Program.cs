@@ -35,7 +35,7 @@ namespace FullFeaturedMdiDemo
             Application.ThreadException += Thread_UnhandledException;
 
             var i = ControlFactory.Instance; // force call static constructor of control factory
-            
+
             //if new version, import upgrade from previous version
             if (Settings.CallUpgrade)
             {
@@ -62,7 +62,7 @@ namespace FullFeaturedMdiDemo
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
 
-            Connections.SaveData();            
+            Connections.SaveData();
 
             Program.Settings.Connections = Connections;
             Program.Settings.XmlFiles = XmlFiles;
