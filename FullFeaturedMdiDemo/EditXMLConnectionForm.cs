@@ -9,6 +9,7 @@
 //*******************************************************************//
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ActiveQueryBuilder.Core;
 using ActiveQueryBuilder.Core.PropertiesEditors;
@@ -47,14 +48,15 @@ namespace FullFeaturedMdiDemo
             foreach (Type syntax in Helpers.SyntaxProviderList)
             {
                 var instance = Activator.CreateInstance(syntax) as BaseSyntaxProvider;
+
+                if(instance == null)
+                    continue;
+
                 cbSyntax.Items.Add(instance.Description);
             }
         }
 
-        private void tbXmlPath_TextChanged(object sender, EventArgs e)
-        {
-            _connection.XMLPath = tbXmlPath.Text;
-        }
+        private void tbXmlPath_TextChanged(object sender, EventArgs e) => _connection.XMLPath = tbXmlPath.Text;
 
         private void btnOpenDialog_Click(object sender, EventArgs e)
         {
@@ -66,6 +68,8 @@ namespace FullFeaturedMdiDemo
 
         private void cbSyntax_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClientSize = new Size(ClientSize.Width, mainTable.Height + Padding.Top + Padding.Bottom);
+
             var syntaxType = GetSelectedSyntaxType();
             if (_connection.ConnectionDescriptor.SyntaxProvider.GetType() == syntaxType)
             {
@@ -75,6 +79,13 @@ namespace FullFeaturedMdiDemo
             _connection.ConnectionDescriptor.SyntaxProvider = CreateSyntaxProvider(syntaxType);
             _connection.SyntaxProviderName = syntaxType.ToString();
             RecreateSyntaxFrame();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            ClientSize = new Size(ClientSize.Width, mainTable.Height + Padding.Top + Padding.Bottom);
+
+            base.OnLoad(e);
         }
 
         private Type GetSelectedSyntaxType()
@@ -102,7 +113,6 @@ namespace FullFeaturedMdiDemo
             (pbSyntax as IPropertiesControl).SetProperties(container);
             
             pbSyntax.Height = pbSyntax.Controls[0].Bottom + 5;
-            Height = pnlTop.Height + pbSyntax.Height + pnlFilePath.Height + 90;
         }
 
         private void ClearProperties(ObjectProperties properties)
