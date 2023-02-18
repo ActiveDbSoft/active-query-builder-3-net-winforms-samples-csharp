@@ -7,12 +7,10 @@
     <RootNamespace>FullFeaturedMdiDemo</RootNamespace>
 
     <OutputType>WinExe</OutputType>
-
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <!-- sample databases -->
+	<!-- sample databases -->
   <ItemGroup>
     <None Include="Nwind.mdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -54,6 +52,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
     <PackageReference Include="NPOI" Version="2.5.5" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
 
   <!-- FastReport -->
