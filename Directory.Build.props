@@ -4,11 +4,18 @@
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
 
-  <!-- common props -->
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   
+  <!-- default TargetFrameworks -->
+  <PropertyGroup>
+    <DefaultDemosNetFramework>net48</DefaultDemosNetFramework>
+    <DefaultDemosNetCore>netcoreapp3.1</DefaultDemosNetCore>
+    <TargetFrameworks>$(DefaultDemosNetFramework);$(DefaultDemosNetCore)</TargetFrameworks>
+  </PropertyGroup>
+
+  <!-- common props -->
   <PropertyGroup>
     <AssetsPath>$(MSBuildThisFileDirectory)assets\</AssetsPath>
 
@@ -44,6 +51,11 @@
   <!-- use nuget ActiveQueryBuilder references instead of ProjectReference -->
   <PropertyGroup>
     <UseNugetAqbReferences>true</UseNugetAqbReferences>
+  </PropertyGroup>
+
+  <!-- enable FastReport support in Demos -->
+  <PropertyGroup>
+    <EnableFastReportSupport>false</EnableFastReportSupport>
   </PropertyGroup>
 
   <!-- enable GrapeCity's ActiveReports support in Demos -->
