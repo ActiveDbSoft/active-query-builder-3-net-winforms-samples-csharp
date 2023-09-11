@@ -77,6 +77,7 @@ namespace GeneralAssembly.QueryBuilderProperties
             comboSqlDialect.Items.Add("Oracle 18c");
             comboSqlDialect.Items.Add("Oracle 19c");
             comboSqlDialect.Items.Add("PostgreSQL");
+            comboSqlDialect.Items.Add("Snowflake");
             comboSqlDialect.Items.Add("SQLite");
             comboSqlDialect.Items.Add("Sybase ASE");
             comboSqlDialect.Items.Add("Sybase SQL Anywhere");
@@ -248,6 +249,10 @@ namespace GeneralAssembly.QueryBuilderProperties
             else if (queryBuilder.SyntaxProvider is PostgreSQLSyntaxProvider)
             {
                 comboSqlDialect.SelectedItem = "PostgreSQL";
+            }
+            else if (queryBuilder.SyntaxProvider is SnowflakeSyntaxProvider)
+            {
+                comboSqlDialect.SelectedItem = "Snowflake";
             }
             else if (queryBuilder.SyntaxProvider is SQLiteSyntaxProvider)
             {
@@ -461,6 +466,9 @@ namespace GeneralAssembly.QueryBuilderProperties
                     break;
                 case "PostgreSQL":
                     _syntaxProvider = new PostgreSQLSyntaxProvider();
+                    break;
+                case "Snowflake":
+                    _syntaxProvider = new SnowflakeSyntaxProvider();
                     break;
                 case "SQLite":
                     _syntaxProvider = new SQLiteSyntaxProvider();
