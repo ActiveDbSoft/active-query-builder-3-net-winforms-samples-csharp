@@ -108,6 +108,7 @@ namespace BasicDemo
             if (MessageBox.Show("Clear Metadata Container?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 queryBuilder1.ClearMetadata();
+                queryBuilder1.Language = "ru";
             }
         }
 
